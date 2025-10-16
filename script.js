@@ -1,6 +1,6 @@
 // --- 1. LANGUAGE/TRANSLATION DATA ---
 const arabicTexts = {
-    title: "لوحاتنا", // **تم التعديل: لوحاتنا**
+    title: "لوحاتنا", 
     addToCart: "أضف إلى العربة",
     added: "تمت الإضافة!",
     yourCart: "عربتك",
@@ -106,19 +106,19 @@ const footerLinksArabic = {
 const productsEnglish = [
     { id: 1, name: "Abstract Landscape", price: 129.99, description: "A vibrant abstract painting of a mountain landscape. Printed on museum-quality canvas.", image: "images/1.png", gallery: ["images/1b.png", "images/1c.png"] },
     { id: 2, name: "Geometric Sunset", price: 199.99, description: "Modern art featuring sharp geometric shapes and a warm sunset color palette.", image: "images/2.png", gallery: ["images/2b.png"] },
-    { id: 3, name: "Minimalist Portrait", price: 39.99, description: "A simple line-art portrait, perfect for minimalist decor. Framed in natural oak.", image: "images/3.png", gallery: [] },
-    { id: 4, name: "Ocean Wave", price: 89.99, description: "Detailed oil painting capturing the movement and power of a crashing ocean wave.", image: "images/4.png", gallery: [] },
-    { id: 5, name: "City Skyline", price: 24.99, description: "A striking black and white photography print of a famous city skyline at night.", image: "images/5.png", gallery: [] },
-    { id: 6, name: "Nature Sketch", price: 59.99, description: "Hand-drawn pencil sketch of forest ferns and foliage. Excellent texture.", image: "images/6.png", gallery: [] }
+    { id: 3, name: "Minimalist Portrait", price: 39.99, description: "A simple line-art portrait, perfect for minimalist decor. Framed in natural oak.", image: "images/3.png", gallery: ["images/3b.png"] },
+    { id: 4, name: "Ocean Wave", price: 89.99, description: "Detailed oil painting capturing the movement and power of a crashing ocean wave.", image: "images/4.png", gallery: ["images/4b.png"] },
+    { id: 5, name: "City Skyline", price: 24.99, description: "A striking black and white photography print of a famous city skyline at night.", image: "images/5.png", gallery: ["images/5b.png"] },
+    { id: 6, name: "Nature Sketch", price: 59.99, description: "Hand-drawn pencil sketch of forest ferns and foliage. Excellent texture.", image: "images/6.png", gallery: ["images/6b.png"] }
 ];
 
 const productsArabic = [
     { id: 1, name: "منظر طبيعي تجريدي", price: 129.99, description: "لوحة تجريدية نابضة بالحياة لمنظر جبلي. مطبوعة على قماش بجودة المتاحف.", image: "images/1.png", gallery: ["images/1b.png", "images/1c.png"] },
     { id: 2, name: "غروب هندسي", price: 199.99, description: "فن حديث يتميز بأشكال هندسية حادة ولوحة ألوان دافئة لغروب الشمس.", image: "images/2.png", gallery: ["images/2b.png"] },
-    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط. مؤطرة بخشب البلوط الطبيعي.", image: "images/3.png", gallery: [] },
-    { id: 4, name: "موجة المحيط", price: 89.99, description: "لوحة زيتية مفصلة تجسد حركة وقوة موجة محيط متلاطمة.", image: "images/4.png", gallery: [] },
-    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة شهيرة ليلاً.", image: "images/5.png", gallery: [] },
-    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة. نسيج ممتاز.", image: "images/6.png", gallery: [] }
+    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط. مؤطرة بخشب البلوط الطبيعي.", image: "images/3.png", gallery: ["images/3b.png"] },
+    { id: 4, name: "موجة المحيط", price: 89.99, description: "لوحة زيتية مفصلة تجسد حركة وقوة موجة محيط متلاطمة.", image: "images/4.png", gallery: ["images/4b.png"] },
+    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة شهيرة ليلاً.", image: "images/5.png", gallery: ["images/5b.png"] },
+    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة. نسيج ممتاز.", image: "images/6.png", gallery: ["images/6b.png"] }
 ];
 
 // --- 3. GLOBAL STATE & DOM ELEMENTS ---
@@ -150,7 +150,7 @@ function initStore() {
     loadCartFromStorage();
     loadFavoritesFromStorage();
     updateCartUI();
-    updateFavoritesUI();
+    updateFavoritesUI(); 
     
     // إخفاء العدادات عند التحميل إذا كانت فارغة
     if (favorites.length === 0) favoritesCount.style.display = 'none';
@@ -174,6 +174,23 @@ function initStore() {
     const productDetailModal = document.getElementById('productDetailModal');
     const closeDetail = document.getElementById('closeDetail');
     const detailAddToCartBtn = document.getElementById('detailAddToCartBtn');
+    
+    // --- تفعيل أزرار التنقل الجديدة ---
+    const scrollPrev = document.getElementById('scrollPrev');
+    const scrollNext = document.getElementById('scrollNext');
+    const productsGrid = document.getElementById('productsContainer');
+    const scrollStep = 600; 
+
+    if (scrollNext && scrollPrev) {
+        scrollNext.addEventListener('click', () => {
+            productsGrid.scrollBy({ left: scrollStep, behavior: 'smooth' });
+        });
+
+        scrollPrev.addEventListener('click', () => {
+            productsGrid.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+        });
+    }
+    // ------------------------------------
     
     closeDetail.addEventListener('click', () => productDetailModal.classList.remove('active'));
     productDetailModal.addEventListener('click', (e) => {
@@ -211,12 +228,6 @@ function initStore() {
     
     // تهيئة روابط التذييل عند التحميل
     renderFooterLinks();
-    
-    // **تشغيل أزرار التمرير** ✨
-    initCarouselControls();
-    initSearch();
-    initFloatingCart();
-
 }
 
 // دالة جديدة لرسم روابط التذييل حسب اللغة
@@ -377,12 +388,9 @@ function showProductDetails(productId) {
     const detailImage = document.getElementById('detailImage');
     const detailName = document.getElementById('detailName');
     const detailPrice = document.getElementById('detailPrice');
-    
-    // العناصر النصية الجديدة
-    const detailDescriptionFull = document.getElementById('detailDescriptionFull');
-    const detailDescriptionShort = document.getElementById('detailDescriptionShort');
-    const detailDescriptionHeader = document.getElementById('detailDescriptionHeader');
-    
+    const detailDescription = document.getElementById('detailDescription'); // ID الوصف الكامل
+    const detailDescriptionShort = document.getElementById('detailDescriptionShort'); // ID الوصف القصير
+    const detailDescriptionHeader = document.getElementById('detailDescriptionHeader'); // ID عنوان الوصف
     const detailAddToCartBtn = document.getElementById('detailAddToCartBtn');
     const thumbnailGallery = document.getElementById('thumbnailGallery');
 
@@ -403,7 +411,7 @@ function showProductDetails(productId) {
     const fullDescriptionSource = currentLang === 'ar' ? productsArabic.find(p => p.id === productId) : productsEnglish.find(p => p.id === productId);
     
     detailDescriptionShort.textContent = fullDescriptionSource.description.split('. ')[0] + '.'; 
-    detailDescriptionFull.textContent = fullDescriptionSource.description; 
+    detailDescription.textContent = fullDescriptionSource.description; 
     detailDescriptionHeader.textContent = descriptionHeader;
     
     detailAddToCartBtn.innerHTML = `<i class="fas fa-plus"></i> ${buttonText}`;
@@ -503,7 +511,7 @@ function updateCartUI() {
     let total = 0;
     
     cart.forEach(item => {
-const productForDisplay = products.find(p => p.id === item.id);
+        const productForDisplay = products.find(p => p.id === item.id);
         const itemName = productForDisplay ? productForDisplay.name : item.name;
 
         const itemTotal = item.price * item.quantity;
@@ -673,215 +681,10 @@ function toggleLanguage() {
         if (logoImage) logoImage.src = 'icons/turfa_logo_en.png';
         
         products = productsEnglish;
-        
     }
     
     renderProducts();
     updateCartUI();
-
 }
 
-// --- 10. CAROUSEL SCROLL CONTROLS ---
-function initCarouselControls() {
-    const scrollPrev = document.getElementById('scrollPrev');
-    const scrollNext = document.getElementById('scrollNext');
-    const productsGrid = document.getElementById('productsContainer');
-    
-    if (!scrollPrev || !scrollNext || !productsGrid) return;
-    
-    // الضغط على السهم اليسار (السابق)
-    scrollPrev.addEventListener('click', () => {
-        const scrollAmount = productsGrid.offsetWidth * 0.8; // تمرير 80% من عرض الشاشة
-        productsGrid.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-    
-    // الضغط على السهم اليمين (التالي)
-    scrollNext.addEventListener('click', () => {
-        const scrollAmount = productsGrid.offsetWidth * 0.8;
-        productsGrid.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-    
-    // إخفاء/إظهار الأسهم حسب موقع التمرير
-    function updateArrowsVisibility() {
-        const maxScroll = productsGrid.scrollWidth - productsGrid.clientWidth;
-        
-        // إخفاء السهم الأيسر إذا كنا في البداية
-        if (productsGrid.scrollLeft <= 10) {
-            scrollPrev.style.opacity = '0.3';
-            scrollPrev.style.pointerEvents = 'none';
-        } else {
-            scrollPrev.style.opacity = '1';
-            scrollPrev.style.pointerEvents = 'auto';
-        }
-        
-        // إخفاء السهم الأيمن إذا كنا في النهاية
-        if (productsGrid.scrollLeft >= maxScroll - 10) {
-            scrollNext.style.opacity = '0.3';
-            scrollNext.style.pointerEvents = 'none';
-        } else {
-            scrollNext.style.opacity = '1';
-            scrollNext.style.pointerEvents = 'auto';
-        }
-    }
-    
-    // تحديث الأسهم عند التمرير
-    productsGrid.addEventListener('scroll', updateArrowsVisibility);
-    
-    // تحديث الأسهم عند تحميل الصفحة
-    updateArrowsVisibility();
-}
-// --- 11. SEARCH FUNCTIONALITY ---
-function initSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.querySelector('.search-btn');
-    
-    if (!searchInput || !searchBtn) return;
-    
-    // تحديث placeholder حسب اللغة
-    function updateSearchPlaceholder() {
-        searchInput.placeholder = currentLang === 'ar' 
-            ? 'ابحث عن منتجك من هنا' 
-            : 'Search your product from here';
-    }
-    
-    // وظيفة البحث
-    function performSearch() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        
-        if (searchTerm === '') {
-            renderProducts(); // عرض كل المنتجات
-            return;
-        }
-        
-        // تصفية المنتجات
-        const filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm)
-        );
-        
-        // عرض النتائج
-        const productsContainer = document.getElementById('productsContainer');
-        productsContainer.innerHTML = '';
-        
-        if (filteredProducts.length === 0) {
-            const noResultsText = currentLang === 'ar' 
-                ? 'لم يتم العثور على نتائج' 
-                : 'No results found';
-            const tryAgainText = currentLang === 'ar'
-                ? 'حاول البحث بكلمات مختلفة'
-                : 'Try searching with different keywords';
-                
-            productsContainer.innerHTML = `
-                <div style="text-align: center; min-width: 100%; padding: 4rem 0;">
-                    <i class="fas fa-search" style="font-size: 3rem; color: var(--light-gray); margin-bottom: 1rem;"></i>
-                    <h2 style="color: var(--primary);">${noResultsText}</h2>
-                    <p style="color: #777; margin-top: 10px;">${tryAgainText}</p>
-                </div>
-            `;
-            return;
-        }
-        
-        // عرض المنتجات المفلترة
-        filteredProducts.forEach(product => {
-            const isFav = favorites.includes(product.id);
-            const buttonText = currentLang === 'ar' ? arabicTexts.addToCart : 'Add to Cart';
-            const favIconClass = isFav ? 'fas fa-heart' : 'far fa-heart';
-            
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            productCard.innerHTML = `
-                <div class="product-image">
-                    <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">${product.name}</h3>
-                    <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${product.id}" title="${currentLang === 'ar' ? 'أضف للمفضلة' : 'Add to Favorites'}">
-                        <i class="${favIconClass}"></i> 
-                    </button>
-                    <p class="product-description">${product.description.split('. ')[0] + '.'}</p>
-                    <div class="product-price">د.أ ${product.price.toFixed(2)}</div>
-                    <button class="add-to-cart" data-id="${product.id}">
-                        <i class="fas fa-plus"></i> ${buttonText}
-                    </button>
-                </div>
-            `;
-            productsContainer.appendChild(productCard);
-            
-            productCard.querySelector('.add-to-cart').addEventListener('click', (e) => {
-                e.stopPropagation(); 
-                addToCart(product.id);
-            });
-        });
-    }
-    
-    // الضغط على زر البحث
-    searchBtn.addEventListener('click', performSearch);
-    
-    // الضغط على Enter
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-    
-    // البحث التلقائي أثناء الكتابة (اختياري)
-    searchInput.addEventListener('input', () => {
-        if (searchInput.value.trim() === '') {
-            renderProducts(); // إعادة عرض كل المنتجات
-        }
-    });
-    
-    updateSearchPlaceholder();
-    
-    // تحديث الـ placeholder عند تغيير اللغة
-    window.updateSearchPlaceholder = updateSearchPlaceholder;
-}
-
-function updateFloatingCart() {
-    const floatingCart = document.getElementById('floatingCart');
-    const floatingItemCount = document.getElementById('floatingItemCount');
-    const floatingItemText = document.getElementById('floatingItemText');
-    const floatingTotalPrice = document.getElementById('floatingTotalPrice');
-    
-    if (!floatingCart) return;
-    
-    const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    
-    // تحديث النصوص
-    floatingItemCount.textContent = totalCount;
-    
-    // تحديث النص حسب اللغة والعدد
-    if (currentLang === 'ar') {
-        floatingItemText.textContent = totalCount === 1 ? 'منتج' : 'منتجات';
-        floatingTotalPrice.textContent = `${totalPrice.toFixed(2)} د.أ`;
-    } else {
-        floatingItemText.textContent = totalCount === 1 ? 'Item' : 'Items';
-        floatingTotalPrice.textContent = `JD${totalPrice.toFixed(2)}`;
-    }
-    
-    // إظهار أو إخفاء الصندوق
-    if (totalCount > 0) {
-        floatingCart.classList.add('active');
-    } else {
-        floatingCart.classList.remove('active');
-    }
-}
-
-// إضافة حدث النقر على الصندوق العائم
-function initFloatingCart() {
-    const floatingCart = document.getElementById('floatingCart');
-    
-    if (!floatingCart) return;
-    
-    floatingCart.addEventListener('click', () => {
-        cartModal.classList.add('active');
-    });
-}
 document.addEventListener('DOMContentLoaded', initStore);
