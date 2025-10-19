@@ -867,33 +867,50 @@ function resetCarouselScrolls() {
     });
 }
 
-// --- 9. LANGUAGE TOGGLE ---
 function toggleLanguage() {
+    const logoImage = document.getElementById('logoImage'); // نحصل على عنصر اللوغو
+
+    // المنطق الأساسي للتبديل
     if (currentLang === 'en') {
         currentLang = 'ar';
         document.documentElement.setAttribute('dir', 'rtl');
+        if (logoImage) logoImage.src = 'icons/turfa_logo_ar.png'; // <-- يتم تغيير اللوغو إلى العربي هنا
+
         document.getElementById('langToggle').textContent = arabicTexts.langButton;
         document.querySelector('footer p:first-child').innerHTML = arabicTexts.footerCopyright;
+        
         const banner = document.querySelector('.banner h2');
         if (banner) banner.textContent = arabicTexts.banner;
+        
         products = allProductsArabic; 
+        
     } else {
         currentLang = 'en';
         document.documentElement.setAttribute('dir', 'ltr');
+        if (logoImage) logoImage.src = 'icons/turfa_logo_en.png'; // <-- يتم تغيير اللوغو إلى الإنجليزي هنا
+
         document.getElementById('langToggle').textContent = 'العربية';
         document.querySelector('footer p:first-child').innerHTML = '&copy; 2025 Turfa Store. All rights reserved.';
+        
         const banner = document.querySelector('.banner h2');
         if (banner) banner.textContent = '✨ NEW ARRIVALS! SHOP NOW! ✨';
+        
         products = allProductsEnglish;
     }
 
+    // إعادة رسم الواجهة بعد التبديل
     renderFooterLinks();
     renderPaintings(); 
     renderCups();      
+    
+    // الإصلاح: استدعاء إعادة التمرير بعد اكتمال إعادة الرسم لضبط RTL
     resetCarouselScrolls(); 
+
     updateCartUI();
     updateFloatingCart(); 
     if (window.updateSearchPlaceholder) window.updateSearchPlaceholder();
+    
+    // استدعاء وظائف تحديث الكاروسيل المخزنة لتحديث الأسهم
     window.carouselUpdateFunctions.forEach(func => func());
 }
 
