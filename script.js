@@ -294,7 +294,7 @@ function renderProductCards(container, productList) {
         
         productCard.innerHTML = `
             <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="product-info">
                 <h3 class="product-title">${product.name}</h3>
@@ -1001,3 +1001,4 @@ function initFloatingCart() {
 
 // --- 11. STARTUP ---
 document.addEventListener('DOMContentLoaded', initStore);
+
