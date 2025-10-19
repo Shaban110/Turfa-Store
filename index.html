@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turfa Store</title>
+    <title>متجر الترفة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css"> 
 </head>
@@ -11,26 +11,24 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <img id="logoImage" src="icons/turfa_logo_en.png" alt="Turfa Store">
+                <img id="logoImage" src="icons/turfa_logo_en.png" alt="متجر الترفة">
             </div>
             
-            <!-- شريط البحث الجديد -->
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search your product from here" class="search-input">
+                <input type="text" id="searchInput" placeholder="ابحث عن منتجك من هنا" class="search-input">
                 <button class="search-btn">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
             
             <div class="nav-icons">
-                <!-- رقم الواتساب -->
                 <a href="https://wa.me/+962788489914" class="whatsapp-contact" target="_blank">
                     <i class="fab fa-whatsapp"></i>
                     <span>+962 78 848 9914</span>
                 </a>
                 
                 <button id="langToggle" style="background: none; border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-right: 5px; font-weight: bold;">
-                    العربية
+                    English
                 </button>
                 <div class="cart-icon" id="favoritesIcon"> 
                     <i class="far fa-heart"></i>
@@ -46,38 +44,47 @@
     
     <main>
         <div class="banner">
-            <h2>✨ NEW ARRIVALS! SHOP NOW! ✨</h2>
+            <h2>✨ أحدث اللوحات الفنية! تسوق الآن! ✨</h2>
         </div>
-        <h1 class="section-title">Our Paintings</h1>
         
+        <h1 class="section-title" id="paintingsTitle">لوحاتنا</h1>
         <div class="carousel-wrapper">
-            
             <button class="carousel-control prev" id="scrollPrev">
                 <i class="fas fa-chevron-left"></i>
             </button>
             
-            <div class="products-grid" id="productsContainer">
-                </div>
+            <div class="products-grid" id="productsContainer"></div>
 
             <button class="carousel-control next" id="scrollNext">
                 <i class="fas fa-chevron-right"></i>
             </button>
+        </div>
 
+        <h1 class="section-title" id="cupsTitle" style="margin-top: 4rem;">كاساتنا</h1>
+        <div class="carousel-wrapper">
+            <button class="carousel-control prev" id="scrollPrevCups">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="products-grid" id="cupsContainer"></div>
+
+            <button class="carousel-control next" id="scrollNextCups">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </main>
     
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
             <div class="cart-header">
-                <h2>Your Cart</h2>
+                <h2>عربتك</h2>
                 <button class="close-cart" id="closeCart">&times;</button>
             </div>
-            <div class="cart-items" id="cartItems">
-                </div>
+            <div class="cart-items" id="cartItems"></div>
             <div class="cart-footer">
-                <div class="total-price">Total: <span id="totalPrice">د.أ 0.00</span></div>
+                <div class="total-price">الإجمالي: <span id="totalPrice">د.أ 0.00</span></div>
                 <button class="checkout-btn" id="checkoutBtn">
-                    <i class="fab fa-whatsapp"></i> Proceed to Checkout
+                    <i class="fab fa-whatsapp"></i> متابعة الشراء عبر واتساب
                 </button>
             </div>
         </div>
@@ -86,13 +93,12 @@
     <div class="cart-modal" id="favoritesModal">
         <div class="cart-content">
             <div class="cart-header">
-                <h2 id="favoritesTitle">Your Favorites</h2>
+                <h2 id="favoritesTitle">منتجاتك المفضلة</h2>
                 <button class="close-cart" id="closeFavorites">&times;</button>
             </div>
-            <div class="cart-items" id="favoritesItems">
-                </div>
+            <div class="cart-items" id="favoritesItems"></div>
             <div class="cart-footer" style="justify-content: center;">
-                <p id="favoritesFooterText" style="color: #888; margin: 0;">Click on the Add to Cart button or remove the product from favorites.</p>
+                <p id="favoritesFooterText" style="color: #888; margin: 0;">انقر على زر الإضافة للعربة أو إزالة المنتج من المفضلة.</p>
             </div>
         </div>
     </div>
@@ -100,19 +106,16 @@
     <div class="cart-modal" id="productDetailModal">
         <div class="cart-content" style="max-width: 600px; height: 90%; margin: 20px auto; overflow: hidden;">
             <div class="cart-header">
-                <h2 id="detailTitle">Product Details</h2>
+                <h2 id="detailTitle">تفاصيل المنتج</h2>
                 <button class="close-cart" id="closeDetail">&times;</button>
             </div>
             <div id="detailContentScroll" style="flex-grow: 1; overflow-y: auto;">
-                
                 <div class="detail-container" style="padding: 2rem;">
-                    
                     <div id="detailImageContainer" style="height: 350px; width: 100%; margin-bottom: 20px;">
                         <img id="detailImage" src="" alt="Product Image" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
                     
-                    <div id="thumbnailGallery" style="display: flex; gap: 10px; margin-top: 15px; overflow-x: auto; padding-bottom: 10px; flex-shrink: 0;">
-                        </div>
+                    <div id="thumbnailGallery" style="display: flex; gap: 10px; margin-top: 15px; overflow-x: auto; padding-bottom: 10px; flex-shrink: 0;"></div>
 
                     <h1 id="detailName" style="color: var(--primary); margin-top: 10px; margin-bottom: 5px; font-size: 2rem;"></h1>
                     
@@ -121,20 +124,15 @@
                     <div class="detail-price-row" style="margin-bottom: 25px; display: block; padding: 0;">
                         <span id="detailPrice" style="font-weight: 700; color: var(--secondary); font-size: 2rem; display: block; margin-bottom: 15px;"></span>
                         
-                        <button id="detailAddToCartBtn" class="add-to-cart" data-id="" style="width: 100%; padding: 1rem;">
-                            <i class="fas fa-plus"></i> Add to Cart
-                        </button>
                     </div>
 
                     <h3 id="detailDescriptionHeader" style="color: var(--text); margin-top: 10px; margin-bottom: 5px; border-top: 1px solid var(--border); padding-top: 15px;">الوصف الكامل:</h3>
                     <p id="detailDescriptionFull" style="color: #555; font-size: 0.95rem; line-height: 1.6;"></p>
-
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Floating Cart Widget -->
     <div class="floating-cart-widget" id="floatingCart">
         <div class="floating-cart-content">
             <div class="floating-cart-icon">
@@ -142,16 +140,15 @@
             </div>
             <div class="floating-cart-info">
                 <div class="floating-cart-items">
-                    <span id="floatingItemCount">0</span> <span id="floatingItemText">Item</span>
+                    <span id="floatingItemCount">0</span> <span id="floatingItemText">منتج</span>
                 </div>
-                <div class="floating-cart-price" id="floatingTotalPrice">JD0.00</div>
+                <div class="floating-cart-price" id="floatingTotalPrice">د.أ 0.00</div>
             </div>
         </div>
     </div>
     
     <footer class="footer-main">
         <div class="footer-container">
-            
             <div class="footer-col">
                 <h3>تواصل معنا</h3>
                 <ul>
@@ -172,10 +169,6 @@
                         <a href="#"><i class="fab fa-tiktok"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-pinterest"></i></a>
-                    </div>
-                    <div class="app-links">
-                        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_AR.svg/1024px-Google_Play_Store_badge_AR.svg.png" alt="Google Play" style="width: 100px;"></a>
-                        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge_AR_RGB_blk.svg/1024px-Download_on_the_App_Store_Badge_AR_RGB_blk.svg.png" alt="App Store" style="width: 100px;"></a>
                     </div>
                 </div>
             </div>
@@ -218,11 +211,10 @@
                     <li><i class="fas fa-chevron-right"></i><a href="#">منتجات رمضانية</a></li>
                 </ul>
             </div>
-
         </div>
 
         <div class="footer-bottom">
-            <p id="footerCopyright">&copy; 2025 Turfa Store. All rights reserved.</p>
+            <p id="footerCopyright">&copy; 2025 متجر الترفة. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
 
