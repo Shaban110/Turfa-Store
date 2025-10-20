@@ -27,9 +27,24 @@
                     <span>+962 78 848 9914</span>
                 </a>
                 
-                <button id="langToggle" style="background: none; border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-right: 5px; font-weight: bold;">
-                    English
-                </button>
+               <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="darkmode-toggle">
+        <input type="checkbox" id="darkmode-toggle" />
+        <div class="slider round">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </div>
+    </label>
+</div>
+                <div class="language-switch-wrapper">
+    <label class="language-switch" for="lang-toggle">
+        <input type="checkbox" id="lang-toggle" />
+        <div class="lang-slider">
+            <span class="lang-text lang-ar">AR</span>
+            <span class="lang-text lang-en">EN</span>
+        </div>
+    </label>
+</div>
                 <div class="cart-icon" id="favoritesIcon"> 
                     <i class="far fa-heart"></i>
                     <span class="cart-count" id="favoritesCount">0</span>
@@ -43,8 +58,8 @@
     </header>
     
     <main>
-        <div class="banner">
-            <h2>✨ أحدث اللوحات الفنية! تسوق الآن! ✨</h2>
+        <div class="banner banner-animated">
+            <h2>أضف لمسة من الفخامة لمنزلك. تسوق أحدث أعمالنا.</h2>
         </div>
         
         <h1 class="section-title" id="paintingsTitle">لوحاتنا</h1>
@@ -69,6 +84,19 @@
             <div class="products-grid" id="cupsContainer"></div>
 
             <button class="carousel-control next" id="scrollNextCups">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <h1 class="section-title" id="giftsTitle" style="margin-top: 4rem;">هدايا منوعة</h1>
+        <div class="carousel-wrapper">
+            <button class="carousel-control prev" id="scrollPrevGifts">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="products-grid" id="giftsContainer"></div>
+
+            <button class="carousel-control next" id="scrollNextGifts">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
@@ -221,4 +249,3 @@
     <script src="script.js"></script> 
 </body>
 </html>
-
