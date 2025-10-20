@@ -17,6 +17,7 @@
     --footer-text: #ccc;
     --footer-link: #ffffff;
     --footer-icon-hover: #00b5ad; 
+    --card-bg: #ffffff; /* <-- أضف هذا المتغير */
 }
 
 body {
@@ -291,7 +292,7 @@ main {
     height: auto;
     scroll-snap-align: start; 
 
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
@@ -424,7 +425,7 @@ main {
 }
 
 .cart-content {
-    background: white;
+    background: var(--card-bg);
     width: 90%;
     max-width: 500px;
     border-radius: 16px;
@@ -993,4 +994,318 @@ main {
     .size-options-container {
         grid-template-columns: repeat(2, 1fr); /* بوكسين في الجوال */
     }
+}
+/* --- أنيميشن فرشاة الدهان للبانر --- */
+.banner-animated {
+    position: relative;
+    background-color: transparent; /* نجعل الخلفية الأساسية شفافة */
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* هذا العنصر هو الذي ينشئ الطبقة البرتقالية المتحركة */
+.banner-animated::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary); /* اللون البرتقالي المحدد في بداية ملفك */
+    z-index: -1;
+    
+    /* إعدادات الأنيميشن */
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: paint-reveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* تعريف الحركة: تكبير الطبقة البرتقالية من عرض 0% إلى 100% */
+@keyframes paint-reveal {
+    from {
+        transform-origin: left;
+        transform: scaleX(0);
+    }
+    to {
+        transform-origin: left;
+        transform: scaleX(1);
+    }
+}
+
+/* تعديل الحركة لتعمل بشكل صحيح في اللغة العربية (من اليمين لليسار) */
+[dir="rtl"] .banner-animated::before {
+    transform-origin: right;
+}
+
+[dir="rtl"] @keyframes paint-reveal {
+    from {
+        transform-origin: right;
+        transform: scaleX(0);
+    }
+    to {
+        transform-origin: right;
+        transform: scaleX(1);
+    }
+}
+
+/* تأكد من أن النص يظهر فوق كل شيء */
+.banner-animated h2 {
+    position: relative;
+    z-index: 2;
+}
+/* --- تعديلات نافذة المفضلة --- */
+
+/* تنسيق الصورة المصغرة للمنتج داخل النافذة */
+.modal-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-inline-end: 15px; /* مسافة بين الصورة والنص */
+    flex-shrink: 0;
+    cursor: pointer; /* <-- أضف هذا السطر */
+}
+
+/* جعل اسم المنتج قابلاً للنقر مع تغيير لونه عند التمرير */
+#favoritesModal .item-name {
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+#favoritesModal .item-name:hover {
+    color: var(--secondary); /* اللون البرتقالي المميز للمتجر */
+}
+/* --- تلوين أيقونة القلب عند إضافتها للمفضلة --- */
+.favorite-btn.active .fa-heart {
+    color: #e23d28; /* لون أحمر جذاب */
+}
+/* =================================== */
+/* --- الوضع الداكن (Dark Mode) --- */
+/* =================================== */
+
+html[data-theme='dark'] {
+    --background: #121212;
+    --text: #e0e0e0;
+    --card-bg: #1e1e1e;
+    --light-gray: #2a2a2a;
+    --border: #333;
+    --primary-light: #004d32;
+}
+
+/* تعديلات إضافية لتحسين الشكل في الوضع الداكن */
+html[data-theme='dark'] .product-card {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme='dark'] .product-title {
+    color: #f5f5f5;
+}
+
+html[data-theme='dark'] .product-description {
+    color: #a0a0a0;
+}
+
+html[data-theme='dark'] #detailImageContainer {
+    background: #2a2a2a;
+}
+/* --- تنسيق زر الوضع الداكن (مع أيقونات) --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-inline-end: 15px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* الأيقونات نفسها */
+.slider i {
+    font-size: 14px;
+    z-index: 1;
+    transition: opacity 0.4s, color 0.4s;
+    padding: 0 5px;
+}
+
+/* --- التعديل هنا --- */
+.slider .fa-sun {
+    opacity: 1;
+    color: var(--secondary); /* اجعل لون الشمس برتقالياً */
+}
+
+.slider .fa-moon {
+    opacity: 0;
+    color: #fff; /* أبقِ لون القمر أبيضاً */
+}
+/* --- نهاية التعديل --- */
+
+
+input:checked + .slider {
+    background-color: var(--primary);
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+input:checked + .slider .fa-sun {
+    opacity: 0;
+}
+
+input:checked + .slider .fa-moon {
+    opacity: 1;
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+/* =================================== */
+/* --- تحسينات الوضع الداكن للنصوص --- */
+/* =================================== */
+
+/* تغيير لون عنوان القسم "لوحاتنا" ليصبح فاتحاً */
+html[data-theme='dark'] .section-title {
+    color: #f0f0f0;
+}
+
+/* تغيير لون الخط السفلي لعنوان القسم ليطابقه */
+html[data-theme='dark'] .section-title::after {
+    background-color: #f0f0f0;
+}
+
+/* تغيير لون سعر المنتج ليصبح فاتحاً */
+html[data-theme='dark'] .product-price {
+    color: #f0f0f0;
+}
+
+/* تحسين لون وصف المنتج في الوضع الداكن */
+html[data-theme='dark'] .product-description {
+    color: #a0a0a0;
+}
+
+/* تحسين لون الإجمالي في نافذة العربة */
+html[data-theme='dark'] .total-price {
+    color: #f0f0f0;
+}
+/* =================================== */
+/* --- تنسيق زر تبديل اللغة الجديد --- */
+/* =================================== */
+.language-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-inline-end: 15px;
+}
+
+.language-switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.language-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.lang-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 34px;
+    transition: .4s;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lang-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 32px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 26px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+
+.lang-text {
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+    transition: color 0.4s;
+}
+/* --- التعديل الصحيح لألوان النص --- */
+.lang-text {
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+    transition: color 0.4s;
+}
+
+/* الحالة الافتراضية (العربية مفعلة - الزر غير محدد) */
+input:not(:checked) + .lang-slider .lang-ar {
+    color: #ffffff; /* داكن */
+}
+input:not(:checked) + .lang-slider .lang-en {
+    color: #ffffff; /* فاتح */
+}
+
+/* عند تفعيل الإنجليزية (الزر محدد) */
+input:checked + .lang-slider .lang-ar {
+    color: #fff; /* فاتح */
+}
+input:checked + .lang-slider .lang-en {
+    color: #333; /* داكن */
+}
+/* --- نهاية التعديل الصحيح --- */
+input:checked + .lang-slider:before {
+    transform: translateX(33px);
 }
