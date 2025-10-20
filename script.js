@@ -4,37 +4,75 @@
 const arabicTexts = {
     title: "لوحاتنا",
     cupsTitle: "كاساتنا",
+    giftsTitle: "هدايا منوعة",
+    searchPlaceholder: "ابحث عن منتجك من هنا",
     addToCart: "أضف إلى العربة",
     added: "تمت الإضافة!",
     yourCart: "عربتك",
-    close: "إغلاق",
     total: "الإجمالي:",
     checkout: "متابعة الشراء عبر واتساب",
     emptyCart: "عربتك فارغة",
     emptyCartSub: "أضف بعض المنتجات إلى عربتك",
-    selectSize: "اختر الحجم:", 
+    selectSize: "اختر الحجم:",
     sizeOptions: [
         { name: "صغير 40×40سم", priceDiff: 0 },
         { name: "متوسط 50×70سم", priceDiff: 15.00 },
         { name: "كبير 80×120سم", priceDiff: 30.00 },     
     ],
-    footerCopyright: "&copy; 2025 متجر الترفة. جميع الحقوق محفوظة.",
+    footerCopyright: "&copy; 2025 متجر طُرفة. جميع الحقوق محفوظة.",
     footerContact: "تواصل معنا",
-    footerSocial: "تابعنا على منصات التواصل الاجتماعي",
+    footerSocial: "تابعنا",
     footerAbout: "عن الموقع",
     footerCategories: "الفئات",
     footerCollections: "مجموعات",
-    banner: "✨ أحدث اللوحات الفنية! تسوق الآن! ✨",
-    whatsappGreeting: "مرحباً متجر الترفة! أود طلب الآتي:\n\n",
+    whatsappGreeting: "مرحباً متجر طُرفة! أود طلب الآتي:\n\n",
     whatsappTotal: "\nالإجمالي:",
     whatsappThanks: "\n\نشكراً لك!",
-    langButton: "English",
     yourFavorites: "منتجاتك المفضلة",
     emptyFavorites: "قائمة المفضلة فارغة",
     emptyFavoritesSub: "أضف منتجات تعجبك لحفظها هنا",
-    favoritesFooter: "انقر على زر الإضافة للعربة أو إزالة المنتج من المفضلة.",
+    favoritesFooter: "انقر على المنتج لعرض التفاصيل أو الزر لإضافته للعربة.",
     detailTitle: "تفاصيل المنتج", 
     detailFullDescription: "الوصف الكامل:", 
+    floatingItem: "منتج",
+    floatingItems: "منتجات"
+};
+
+const englishTexts = {
+    title: "Our Paintings",
+    cupsTitle: "Our Cups",
+    giftsTitle: "Miscellaneous Gifts",
+    searchPlaceholder: "Search for your product here",
+    addToCart: "Add to Cart",
+    added: "Added!",
+    yourCart: "Your Cart",
+    total: "Total:",
+    checkout: "Checkout via WhatsApp",
+    emptyCart: "Your cart is empty",
+    emptyCartSub: "Add some products to your cart",
+    selectSize: "Select Size:",
+    sizeOptions: [
+        { name: "Small 40x40cm", priceDiff: 0 },
+        { name: "Medium 50x70cm", priceDiff: 15.00 },
+        { name: "Large 80x120cm", priceDiff: 30.00 },     
+    ],
+    footerCopyright: "&copy; 2025 Turfa Store. All rights reserved.",
+    footerContact: "Contact Us",
+    footerSocial: "Follow Us",
+    footerAbout: "About",
+    footerCategories: "Categories",
+    footerCollections: "Collections",
+    whatsappGreeting: "Hello Turfa Store! I would like to order the following:\n\n",
+    whatsappTotal: "\nTotal:",
+    whatsappThanks: "\n\nThank you!",
+    yourFavorites: "Your Favorites",
+    emptyFavorites: "Your favorites list is empty",
+    emptyFavoritesSub: "Add products you like to save them here",
+    favoritesFooter: "Click a product for details or the button to add it to your cart.",
+    detailTitle: "Product Details", 
+    detailFullDescription: "Full Description:",
+    floatingItem: "item",
+    floatingItems: "items"
 };
 
 const footerLinksEnglish = {
@@ -42,33 +80,9 @@ const footerLinksEnglish = {
         { text: "+962 7 9700 5992", icon: "fas fa-phone", link: "tel:+962797005992" },
         { text: "info@turfastore.com", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
     ],
-    about: [
-        { text: "About Turfa Souq", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Create Your Shop", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Contact Us", icon: "fas fa-chevron-right", link: "#" },
-        { text: "FAQs (Jordan)", icon: "fas fa-chevron-right", link: "#" },
-        { text: "FAQs (Sellers)", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Privacy Policy", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Return Policy", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Shipping", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Commission", icon: "fas fa-chevron-right", link: "#" }
-    ],
-    categories: [
-        { text: "Gifts", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Beauty & Personal Care", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Accessories & Jewelry", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Home Decor", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Stationery", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Apparel", icon: "fas fa-chevron-right", link: "#" }
-    ],
-    collections: [
-        { text: "Shop Handmade Gifts", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Men's Handmade Gifts", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Women's Unique Handmade Gifts", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Valentine's Day Gifts", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Mother's Day Gifts", icon: "fas fa-chevron-right", link: "#" },
-        { text: "Ramadan Products", icon: "fas fa-chevron-right", link: "#" }
-    ]
+    about: [ { text: "About Us", link: "#" }, { text: "Contact", link: "#" }, { text: "Privacy Policy", link: "#" } ],
+    categories: [ { text: "Gifts", link: "#" }, { text: "Home Decor", link: "#" }, { text: "Apparel", link: "#" } ],
+    collections: [ { text: "Handmade Gifts", link: "#" }, { text: "Valentine's Day", link: "#" }, { text: "Ramadan", link: "#" } ]
 };
 
 const footerLinksArabic = {
@@ -76,33 +90,9 @@ const footerLinksArabic = {
         { text: "+962 7 8848 9914", icon: "fas fa-phone", link: "tel:+962788489914" },
         { text: "info@turfa.com", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
     ],
-    about: [
-        { text: "حول سوق ترفة", icon: "fas fa-chevron-right", link: "#" },
-        { text: "أنشئ متجرك الخاص", icon: "fas fa-chevron-right", link: "#" },
-        { text: "تواصل معنا", icon: "fas fa-chevron-right", link: "#" },
-        { text: "الأسئلة الأكثر شيوعاً (للأردن)", icon: "fas fa-chevron-right", link: "#" },
-        { text: "الأسئلة الأكثر شيوعاً (للبائعين)", icon: "fas fa-chevron-right", link: "#" },
-        { text: "الخصوصية", icon: "fas fa-chevron-right", link: "#" },
-        { text: "سياسة الترجيح والاستبدال", icon: "fas fa-chevron-right", link: "#" },
-        { text: "الشحن", icon: "fas fa-chevron-right", link: "#" },
-        { text: "العمولة", icon: "fas fa-chevron-right", link: "#" }
-    ],
-    categories: [
-        { text: "هدايا", icon: "fas fa-chevron-right", link: "#" },
-        { text: "الجمال والعناية الشخصية", icon: "fas fa-chevron-right", link: "#" },
-        { text: "اكسسوارات ومجوهرات", icon: "fas fa-chevron-right", link: "#" },
-        { text: "زينة وديكور المنزل", icon: "fas fa-chevron-right", link: "#" },
-        { text: "أدوات مكتبية", icon: "fas fa-chevron-right", link: "#" },
-        { text: "الملابس", icon: "fas fa-chevron-right", link: "#" }
-    ],
-    collections: [
-        { text: "تسوق الهدايا المصنوعة يدوياً", icon: "fas fa-chevron-right", link: "#" },
-        { text: "هدايا رجالية مصنوعة يدوياً", icon: "fas fa-chevron-right", link: "#" },
-        { text: "هدايا مميزة مصنوعة يدوياً للإناث", icon: "fas fa-chevron-right", link: "#" },
-        { text: "هدايا عيد الحب", icon: "fas fa-chevron-right", link: "#" },
-        { text: "هدايا عيد الأم", icon: "fas fa-chevron-right", link: "#" },
-        { text: "منتجات رمضانية", icon: "fas fa-chevron-right", link: "#" }
-    ]
+    about: [ { text: "من نحن", link: "#" }, { text: "تواصل معنا", link: "#" }, { text: "سياسة الخصوصية", link: "#" } ],
+    categories: [ { text: "هدايا", link: "#" }, { text: "ديكور منزلي", link: "#" }, { text: "ملابس", link: "#" } ],
+    collections: [ { text: "هدايا يدوية", link: "#" }, { text: "هدايا عيد الحب", link: "#" }, { text: "منتجات رمضانية", link: "#" } ]
 };
 
 // =================================================================
@@ -118,53 +108,55 @@ const paintingsEnglish = [
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 39.99, description: "تُجسد هذه اللوحة الفنية توليفة متوازنة بين الحداثة والتراث.", image: "images/1.png", category: "painting", hasSizes: true },
-    { id: 2, name: "لوحة الحمدلله", price: 39.99, description: "فن حديث يتميز بأشكال هندسية حادة ولوحة ألوان دافئة.", image: "images/2.png", category: "painting", hasSizes: true },
-    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط.", image: "images/3.png", category: "painting", hasSizes: true },
+    { id: 1, name: "لوحة يا شام", price: 39.99, description: "تُجسد هذه اللوحة الفنية توليفة متوازنة بين الحداثة والتراث، مقدمة قطعة ديكورية محورية تجمع بين فن الخط العربي المعاصر وعمق الرمزية الثقافية لمدينة دمشق.", image: "images/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "لوحة الحمدلله", price: 39.99, description: "فن حديث يتميز بأشكال هندسية حادة ولوحة ألوان دافئة لغروب الشمس.", image: "images/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط. مؤطرة بخشب البلوط الطبيعي.", image: "images/3.png", category: "painting", hasSizes: true },
     { id: 4, name: "موجة المحيط", price: 59.99, description: "لوحة زيتية مفصلة تجسد حركة وقوة موجة محيط متلاطمة.", image: "images/4.png", category: "painting", hasSizes: true },
-    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة.", image: "images/5.png", category: "painting", hasSizes: true },
-    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة.", image: "images/6.png", category: "painting", hasSizes: true }
+    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة شهيرة ليلاً.", image: "images/5.png", category: "painting", hasSizes: true },
+    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة. نسيج ممتاز.", image: "images/6.png", category: "painting", hasSizes: true }
 ];
 
 const cupsEnglish = [
-    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, description: "Handmade ceramic coffee mug with unique glaze finish.", image: "images/cup1.png", category: "cup", hasSizes: false },
-    { id: 102, name: "Travel Tumbler", price: 24.99, description: "Stainless steel insulated travel tumbler.", image: "images/cup2.png", category: "cup", hasSizes: false },
-    { id: 103, name: "Glass Tea Cup Set", price: 34.99, description: "Elegant glass tea cup set of 4.", image: "images/cup3.png", category: "cup", hasSizes: false },
-    { id: 104, name: "Artistic Espresso Cup", price: 12.99, description: "Small artistic espresso cup with hand-painted design.", image: "images/cup4.png", category: "cup", hasSizes: false },
-    { id: 105, name: "Color Changing Mug", price: 19.99, description: "Magic color-changing mug that reveals design when hot.", image: "images/cup5.png", category: "cup", hasSizes: false },
-    { id: 106, name: "Bamboo Eco Cup", price: 18.99, description: "Eco-friendly bamboo fiber cup with silicone lid.", image: "images/cup6.png", category: "cup", hasSizes: false }
+    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, description: "Handmade ceramic coffee mug with unique glaze finish. Dishwasher safe.", image: "images/cup1.png", category: "cup", hasSizes: false },
+    { id: 102, name: "Travel Tumbler", price: 24.99, description: "Stainless steel insulated travel tumbler. Keeps drinks hot for 6 hours.", image: "images/cup2.png", category: "cup", hasSizes: false },
+    { id: 103, name: "Glass Tea Cup Set", price: 34.99, description: "Elegant glass tea cup set of 4. Perfect for serving traditional tea.", image: "images/cup3.png", category: "cup", hasSizes: false },
+    { id: 104, name: "Artistic Espresso Cup", price: 12.99, description: "Small artistic espresso cup with hand-painted design. Italian style.", image: "images/cup4.png", category: "cup", hasSizes: false },
+    { id: 105, name: "Color Changing Mug", price: 19.99, description: "Magic color-changing mug that reveals design when hot liquid is added.", image: "images/cup5.png", category: "cup", hasSizes: false },
+    { id: 106, name: "Bamboo Eco Cup", price: 18.99, description: "Eco-friendly bamboo fiber cup with silicone lid. Reusable and sustainable.", image: "images/cup6.png", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, description: "كوب قهوة من السيراميك مصنوع يدوياً بطلاء زجاجي فريد.", image: "images/cup1.png", category: "cup", hasSizes: false },
-    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول.", image: "images/cup2.png", category: "cup", hasSizes: false },
-    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, description: "طقم أنيق من 4 أكواب شاي زجاجية.", image: "images/cup3.png", category: "cup", hasSizes: false },
-    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, description: "فنجان إسبريسو صغير فني بتصميم مرسوم يدوياً.", image: "images/cup4.png", category: "cup", hasSizes: false },
-    { id: 105, name: "كوب متغير اللون", price: 19.99, description: "كوب سحري يتغير لونه عند إضافة سائل ساخن.", image: "images/cup5.png", category: "cup", hasSizes: false },
-    { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, description: "كوب صديق للبيئة من ألياف الخيزران مع غطاء سيليكون.", image: "images/cup6.png", category: "cup", hasSizes: false }
+    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, description: "كوب قهوة من السيراميك مصنوع يدوياً بطلاء زجاجي فريد. آمن لغسالة الصحون.", image: "images/cup1.png", category: "cup", hasSizes: false },
+    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup2.png", category: "cup", hasSizes: false },
+    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, description: "طقم أنيق من 4 أكواب شاي زجاجية. مثالي لتقديم الشاي التقليدي.", image: "images/cup3.png", category: "cup", hasSizes: false },
+    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, description: "فنجان إسبريسو صغير فني بتصميم مرسوم يدوياً. على الطراز الإيطالي.", image: "images/cup4.png", category: "cup", hasSizes: false },
+    { id: 105, name: "كوب متغير اللون", price: 19.99, description: "كوب سحري يتغير لونه ويكشف عن التصميم عند إضافة سائل ساخن.", image: "images/cup5.png", category: "cup", hasSizes: false },
+    { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, description: "كوب صديق للبيئة من ألياف الخيزران مع غطاء سيليكون. قابل لإعادة الاستخدام ومستدام.", image: "images/cup6.png", category: "cup", hasSizes: false }
 ];
 
 const giftsEnglish = [
     { id: 201, name: "Wooden Keychain", price: 7.99, description: "Custom engraved keychain made from olive wood.", image: "images/gift1.png", category: "gift", hasSizes: false },
     { id: 202, name: "Leather Bookmark", price: 12.50, description: "Elegant bookmark made from genuine leather.", image: "images/gift2.png", category: "gift", hasSizes: false },
     { id: 203, name: "Scented Candle", price: 15.00, description: "Relaxing lavender-scented candle.", image: "images/gift3.png", category: "gift", hasSizes: false },
+    { id: 204, name: "Personalized Photo Mug", price: 14.99, description: "Customize this mug with your favorite photo. A perfect personal gift.", image: "images/gift4.png", category: "gift", hasSizes: false },
 ];
 
 const giftsArabic = [
     { id: 201, name: "ميدالية مفاتيح خشبية", price: 7.99, description: "ميدالية مفاتيح مصنوعة من خشب الزيتون مع حفر حسب الطلب.", image: "images/gift1.png", category: "gift", hasSizes: false },
     { id: 202, name: "فاصل كتب جلدي", price: 12.50, description: "فاصل كتب أنيق مصنوع من الجلد الطبيعي.", image: "images/gift2.png", category: "gift", hasSizes: false },
     { id: 203, name: "شمعة معطرة", price: 15.00, description: "شمعة معطرة برائحة اللافندر تساعد على الاسترخاء.", image: "images/gift3.png", category: "gift", hasSizes: false },
+    { id: 204, name: "كوب بصورة شخصية", price: 14.99, description: "خصص هذا الكوب بصورتك المفضلة. هدية شخصية مثالية.", image: "images/gift4.png", category: "gift", hasSizes: false },
 ];
 
 let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...giftsEnglish];
 let allProductsArabic = [...paintingsArabic, ...cupsArabic, ...giftsArabic];
-
 
 // =================================================================
 // --- 3. GLOBAL STATE & DOM ELEMENTS ---
 // =================================================================
 let currentLang = 'ar'; 
 let products = allProductsArabic;
+let texts = arabicTexts;
 let cart = [];
 let favorites = []; 
 
@@ -184,9 +176,6 @@ const favoritesCount = document.getElementById('favoritesCount');
 const closeFavorites = document.getElementById('closeFavorites');
 const favoritesItems = document.getElementById('favoritesItems');
 
-window.carouselUpdateFunctions = [];
-
-
 // =================================================================
 // --- 4. HELPER FUNCTIONS ---
 // =================================================================
@@ -199,96 +188,123 @@ function checkImageExists(url) {
     });
 }
 
-
 // =================================================================
-// --- 5. RENDER, SEARCH, and DISPLAY FUNCTIONS ---
+// --- 5. RENDER & DISPLAY FUNCTIONS ---
 // =================================================================
-
 function renderProductCards(container, productList) {
     if (!container) return;
     container.innerHTML = ''; 
 
     if (productList.length === 0) {
-        container.innerHTML = `<div style="text-align: center; min-width: 100%; padding: 2rem 0;"><p style="color: #555;">${currentLang === 'ar' ? 'لا توجد نتائج تطابق بحثك.' : 'No products match your search.'}</p></div>`;
+        container.innerHTML = `<p style="text-align: center; width: 100%; color: #777;">${texts.emptySearch || 'No products match your search.'}</p>`;
         return;
     }
 
     productList.forEach(product => {
         const isFav = favorites.includes(product.id);
-        const buttonText = currentLang === 'ar' ? arabicTexts.addToCart : 'Add to Cart';
         const favIconClass = isFav ? 'fas fa-heart' : 'far fa-heart';
+        
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
-        const hasSizesAttr = product.hasSizes ? 'true' : 'false';
-        productCard.innerHTML = `<div class="product-image"><img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain;"></div><div class="product-info"><h3 class="product-title">${product.name}</h3><button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${product.id}" title="${currentLang === 'ar' ? 'أضف للمفضلة' : 'Add to Favorites'}"><i class="${favIconClass}"></i></button><p class="product-description">${product.description.split('. ')[0] + '.'}</p><div class="product-price">د.أ ${product.price.toFixed(2)}</div><button class="add-to-cart" data-id="${product.id}" data-has-sizes="${hasSizesAttr}"><i class="fas fa-plus"></i> ${buttonText}</button></div>`;
+        
+        productCard.innerHTML = `
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.name}" loading="lazy">
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${product.id}" title="${texts.addToFavorites || 'Add to Favorites'}">
+                    <i class="${favIconClass}"></i> 
+                </button>
+                <p class="product-description">${product.description.split('. ')[0] + '.'}</p>
+                <div class="product-price">د.أ ${product.price.toFixed(2)}</div>
+                <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}">
+                    <i class="fas fa-plus"></i> ${texts.addToCart}
+                </button>
+            </div>
+        `;
         container.appendChild(productCard);
+        
         productCard.querySelector('.add-to-cart').addEventListener('click', (e) => {
             e.stopPropagation(); 
-            if (!product.hasSizes) {
-                addToCart(product.id);
-            }
-            if (product.hasSizes) {
+            const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
+            if (hasSizes) {
                 showProductDetails(product.id);
+            } else {
+                addToCart(product.id);
             }
         });
     });
 }
 
+function renderAllSections() {
+    renderProductSection(productsContainer, 'painting', texts.title, 'paintingsTitle');
+    renderProductSection(cupsContainer, 'cup', texts.cupsTitle, 'cupsTitle');
+    renderProductSection(giftsContainer, 'gift', texts.giftsTitle, 'giftsTitle');
+}
+
 function renderProductSection(container, category, title, titleId) {
     const titleElement = document.getElementById(titleId);
-    if (titleElement) {
-        titleElement.textContent = title;
-    }
+    if (titleElement) titleElement.textContent = title;
+    
     const categoryProducts = products.filter(p => p.category === category);
     renderProductCards(container, categoryProducts);
 }
 
-function renderPaintings() {
-    renderProductSection(productsContainer, 'painting', currentLang === 'ar' ? 'لوحاتنا' : 'Our Paintings', 'paintingsTitle');
-}
-
-function renderCups() {
-    renderProductSection(cupsContainer, 'cup', currentLang === 'ar' ? arabicTexts.cupsTitle : 'Our Cups', 'cupsTitle');
-}
-
-function renderGifts() {
-    renderProductSection(giftsContainer, 'gift', currentLang === 'ar' ? 'هدايا منوعة' : 'Miscellaneous Gifts', 'giftsTitle');
-}
-
 function renderFavoritesModal() {
-    const favoritesProducts = favorites.map(id => products.find(p => p.id === id)).filter(p => p);
-    const favoritesTitle = document.getElementById('favoritesTitle');
-    const favoritesItems = document.getElementById('favoritesItems');
-    const footerTextElement = document.getElementById('favoritesFooterText');
-    favoritesTitle.textContent = currentLang === 'ar' ? arabicTexts.yourFavorites : 'Your Favorites';
+    const favoritesProducts = favorites.map(id => allProductsArabic.find(p => p.id === id) || allProductsEnglish.find(p => p.id === id)).filter(p => p);
+    
+    document.getElementById('favoritesTitle').textContent = texts.yourFavorites;
+    
     if (favoritesProducts.length === 0) {
-        favoritesItems.innerHTML = `<div class="empty-cart"><i class="far fa-heart"></i><h3>${currentLang === 'ar' ? arabicTexts.emptyFavorites : 'Your favorites list is empty'}</h3><p>${currentLang === 'ar' ? arabicTexts.emptyFavoritesSub : 'Add products you like to save them here'}</p></div>`;
-        footerTextElement.style.display = 'none';
+        favoritesItems.innerHTML = `<div class="empty-cart"><i class="far fa-heart"></i><h3>${texts.emptyFavorites}</h3><p>${texts.emptyFavoritesSub}</p></div>`;
+        document.getElementById('favoritesFooterText').style.display = 'none';
         return;
     }
+    
     favoritesItems.innerHTML = '';
-    footerTextElement.style.display = 'block';
-    footerTextElement.textContent = currentLang === 'ar' ? arabicTexts.favoritesFooter : 'Click on the Add to Cart button or remove the product from favorites.';
+    document.getElementById('favoritesFooterText').style.display = 'block';
+    document.getElementById('favoritesFooterText').textContent = texts.favoritesFooter;
+
     favoritesProducts.forEach(product => {
-        const buttonText = currentLang === 'ar' ? arabicTexts.addToCart : 'Add to Cart';
+        // Find the product in the currently selected language for display
+        const displayProduct = products.find(p => p.id === product.id) || product;
+        
         const favItem = document.createElement('div');
         favItem.className = 'cart-item';
-        favItem.innerHTML = `<img src="${product.image}" alt="${product.name}" class="modal-item-img"><div class="item-details" style="flex: 2;"><div class="item-name">${product.name}</div><div class="item-price">د.أ ${product.price.toFixed(2)}</div></div><button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes}" style="width: auto; padding: 0.5rem 1rem;"><i class="fas fa-shopping-cart"></i> ${buttonText}</button><button class="remove-item remove-fav-btn" data-id="${product.id}" style="font-size: 1.5rem;"><i class="fas fa-trash-alt"></i></button>`;
+        favItem.innerHTML = `
+            <img src="${displayProduct.image}" alt="${displayProduct.name}" class="modal-item-img">
+            <div class="item-details" style="flex: 2;">
+                <div class="item-name">${displayProduct.name}</div>
+                <div class="item-price">د.أ ${displayProduct.price.toFixed(2)}</div>
+            </div>
+            <button class="add-to-cart" data-id="${displayProduct.id}" data-has-sizes="${displayProduct.hasSizes}" style="width: auto; padding: 0.5rem 1rem;">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="remove-item remove-fav-btn" data-id="${displayProduct.id}" style="font-size: 1.5rem;">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        `;
         favoritesItems.appendChild(favItem);
+        
         const openDetails = () => {
             showProductDetails(product.id);
             favoritesModal.classList.remove('active');
         };
+
         favItem.querySelector('.item-name').addEventListener('click', openDetails);
         favItem.querySelector('.modal-item-img').addEventListener('click', openDetails);
+        
         favItem.querySelector('.add-to-cart').addEventListener('click', (e) => {
-            if (e.currentTarget.dataset.hasSizes === 'true') {
-                showProductDetails(product.id);
+            const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
+            if (hasSizes) {
+                 showProductDetails(product.id);
             } else {
-                addToCart(product.id);
+                 addToCart(product.id);
             }
             favoritesModal.classList.remove('active'); 
         });
+
         favItem.querySelector('.remove-fav-btn').addEventListener('click', () => {
             toggleFavorite(product.id);
             renderFavoritesModal(); 
@@ -299,20 +315,22 @@ function renderFavoritesModal() {
 async function showProductDetails(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
+
     const dynamicGallery = [];
     const lastDotIndex = product.image.lastIndexOf('.');
     const baseImagePath = product.image.substring(0, lastDotIndex);
     const extension = product.image.substring(lastDotIndex);
+
     for (let i = 98; i <= 122; i++) {
         const char = String.fromCharCode(i);
         const imageUrl = `${baseImagePath}${char}${extension}`;
-        const exists = await checkImageExists(imageUrl);
-        if (exists) {
+        if (await checkImageExists(imageUrl)) {
             dynamicGallery.push(imageUrl);
         } else {
             break; 
         }
     }
+
     const detailTitle = document.getElementById('detailTitle');
     const detailImage = document.getElementById('detailImage');
     const detailName = document.getElementById('detailName');
@@ -321,165 +339,177 @@ async function showProductDetails(productId) {
     const detailDescriptionHeader = document.getElementById('detailDescriptionHeader');
     const thumbnailGallery = document.getElementById('thumbnailGallery');
     const detailPriceRow = document.querySelector('.detail-price-row');
-    const titleText = currentLang === 'ar' ? arabicTexts.detailTitle : 'Product Details';
-    const buttonText = currentLang === 'ar' ? arabicTexts.addToCart : 'Add to Cart';
-    const descriptionHeader = currentLang === 'ar' ? arabicTexts.detailFullDescription : 'Full Description:';
-    const sizingData = currentLang === 'ar' ? arabicTexts.sizeOptions : [];
+    
+    const sizingData = texts.sizeOptions;
+
     let sizeOptionsHTML = '';
     if (product.hasSizes) {
-        sizeOptionsHTML = `<div class="product-size-select"><label>${currentLang === 'ar' ? arabicTexts.selectSize : 'Select Size:'}</label><div class="size-options-container">${sizingData.map((size, index) => { const priceDisplay = index === 0 ? (currentLang === 'ar' ? 'السعر الأساسي' : 'Base Price') : `+ د.أ ${size.priceDiff.toFixed(2)}`; const sizeNameOnly = size.name.split('(')[0].trim(); return `<div class="size-option-box" data-index="${index}" data-pricediff="${size.priceDiff}"><span>${sizeNameOnly}</span><span class="size-price-diff">${priceDisplay}</span></div>`; }).join('')}</div></div>`;
+        sizeOptionsHTML = `
+            <div class="product-size-select">
+                <label>${texts.selectSize}</label>
+                <div class="size-options-container">
+                    ${sizingData.map((size, index) => {
+                        const priceDisplay = index === 0 ? (currentLang === 'ar' ? 'السعر الأساسي' : 'Base Price') : `+ د.أ ${size.priceDiff.toFixed(2)}`;
+                        const sizeNameOnly = size.name.split(/[\(]/)[0].trim();
+                        return `<div class="size-option-box" data-index="${index}" data-pricediff="${size.priceDiff}"><span>${sizeNameOnly}</span><span class="size-price-diff">${priceDisplay}</span></div>`;
+                    }).join('')}
+                </div>
+            </div>`;
     }
-    detailPriceRow.innerHTML = `${sizeOptionsHTML}<span id="detailPrice" style="font-weight: 700; color: var(--secondary); font-size: 2rem; display: block; margin-bottom: 15px;">د.أ ${product.price.toFixed(2)}</span><button id="detailAddToCartBtnClone" class="add-to-cart" data-id="${product.id}" data-base-price="${product.price}" data-has-sizes="${product.hasSizes}" style="width: 100%; padding: 1rem;"><i class="fas fa-plus"></i> ${buttonText}</button>`;
-    const updatedDetailPrice = document.getElementById('detailPrice');
-    const finalAddToCartBtn = document.getElementById('detailAddToCartBtnClone');
-    const sizeBoxes = detailPriceRow.querySelectorAll('.size-option-box');
-    detailTitle.textContent = titleText;
+    
+    detailPriceRow.innerHTML = `
+        ${sizeOptionsHTML}
+        <span id="detailPrice" style="font-weight: 700; color: var(--secondary); font-size: 2rem; display: block; margin-bottom: 15px;">د.أ ${product.price.toFixed(2)}</span>
+        <button id="detailAddToCartBtnClone" class="add-to-cart" data-id="${product.id}" data-base-price="${product.price}" data-has-sizes="${product.hasSizes}" style="width: 100%; padding: 1rem;">
+            <i class="fas fa-plus"></i> ${texts.addToCart}
+        </button>`;
+    
+    detailTitle.textContent = texts.detailTitle;
     detailImage.src = product.image;
-    detailImage.alt = product.name;
     detailName.textContent = product.name;
-    updatedDetailPrice.textContent = `د.أ ${product.price.toFixed(2)}`;
     detailDescriptionShort.textContent = product.description.split('. ')[0] + '.'; 
     detailDescriptionFull.textContent = product.description; 
-    detailDescriptionHeader.textContent = descriptionHeader;
+    detailDescriptionHeader.textContent = texts.detailFullDescription;
+    
     if (product.hasSizes) {
+        const updatedDetailPrice = document.getElementById('detailPrice');
+        const finalAddToCartBtn = document.getElementById('detailAddToCartBtnClone');
+        const sizeBoxes = detailPriceRow.querySelectorAll('.size-option-box');
+        
         sizeBoxes.forEach(box => {
             box.addEventListener('click', () => {
                 const selectedIndex = box.dataset.index;
                 const priceDiff = parseFloat(box.dataset.pricediff);
                 const newPrice = product.price + priceDiff;
+                
                 sizeBoxes.forEach(b => b.classList.remove('active'));
                 box.classList.add('active');
+                
                 updatedDetailPrice.textContent = `د.أ ${newPrice.toFixed(2)}`;
                 finalAddToCartBtn.dataset.selectedSizeIndex = selectedIndex; 
                 finalAddToCartBtn.dataset.selectedPrice = newPrice.toFixed(2); 
             });
         });
+
         if (sizeBoxes.length > 0) {
-            sizeBoxes[0].classList.add('active');
-            finalAddToCartBtn.dataset.selectedSizeIndex = '0';
-            finalAddToCartBtn.dataset.selectedPrice = product.price;
+            sizeBoxes[0].click();
         }
     }
-    finalAddToCartBtn.addEventListener('click', (e) => {
-        try {
-            const productId = parseInt(e.currentTarget.dataset.id);
-            const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
-            const basePrice = parseFloat(e.currentTarget.dataset.basePrice);
-            let sizeIndex = null;
-            let finalPrice = basePrice;
-            if (hasSizes) {
-                sizeIndex = e.currentTarget.dataset.selectedSizeIndex || '0';
-                const selectedPrice = parseFloat(e.currentTarget.dataset.selectedPrice);
-                if (!isNaN(selectedPrice)) {
-                    finalPrice = selectedPrice;
-                }
-            }
-            if (isNaN(finalPrice)) {
-                console.error('Price is not a valid number. Aborting.');
-                return; 
-            }
-            addToCart(productId, sizeIndex, finalPrice);
-        } finally {
-            document.getElementById('productDetailModal').classList.remove('active');
+
+    document.getElementById('detailAddToCartBtnClone').addEventListener('click', (e) => {
+        const productId = parseInt(e.currentTarget.dataset.id);
+        const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
+        let sizeIndex = null;
+        let finalPrice = parseFloat(e.currentTarget.dataset.basePrice);
+
+        if (hasSizes) {
+            sizeIndex = e.currentTarget.dataset.selectedSizeIndex || '0';
+            finalPrice = parseFloat(e.currentTarget.dataset.selectedPrice) || finalPrice;
         }
+        addToCart(productId, sizeIndex, finalPrice);
+        document.getElementById('productDetailModal').classList.remove('active');
     });
+    
     const allImages = [product.image, ...dynamicGallery];
-    thumbnailGallery.innerHTML = ''; 
-    allImages.forEach(src => {
-        const thumb = document.createElement('img');
-        thumb.src = src;
-        thumb.className = 'thumbnail';
+    thumbnailGallery.innerHTML = allImages.map(src => `<img src="${src}" class="thumbnail">`).join('');
+    
+    thumbnailGallery.querySelectorAll('.thumbnail').forEach(thumb => {
         thumb.addEventListener('click', () => {
-            detailImage.src = src;
+            detailImage.src = thumb.src;
             document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
             thumb.classList.add('active');
         });
-        thumbnailGallery.appendChild(thumb);
     });
-    if (thumbnailGallery.firstChild) {
-        thumbnailGallery.firstChild.classList.add('active');
-    }
+    
+    if (thumbnailGallery.firstChild) thumbnailGallery.firstChild.classList.add('active');
+
     document.getElementById('productDetailModal').classList.add('active');
 }
 
-
 // =================================================================
-// --- 6. CORE LOGIC (Cart, Favorites, Language) ---
+// --- 6. CORE LOGIC (Cart, Favorites, Language, Theme) ---
 // =================================================================
-
 function addToCart(productId, selectedSizeIndex = null, finalPrice = null) {
     const product = products.find(p => p.id === productId); 
     if (!product) return;
+    
     const price = finalPrice !== null ? finalPrice : product.price;
     const cartItemId = selectedSizeIndex !== null ? `${productId}-${selectedSizeIndex}` : productId.toString();
+    
     let sizeName = '';
     if (selectedSizeIndex !== null && product.hasSizes) {
-        const sizingData = currentLang === 'ar' ? arabicTexts.sizeOptions : [];
-        sizeName = sizingData[parseInt(selectedSizeIndex)] ? sizingData[parseInt(selectedSizeIndex)].name : '';
+        sizeName = texts.sizeOptions[parseInt(selectedSizeIndex)]?.name || '';
     }
+
     const existingItem = cart.find(item => item.id === cartItemId);
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity++;
     } else {
-        cart.push({ id: cartItemId, productId: product.id, name: product.name, price: price, quantity: 1, sizeName: sizeName });
+        cart.push({ id: cartItemId, productId: product.id, name: product.name, price: price, quantity: 1, sizeName });
     }
+    
     saveCartToStorage();
     updateCartUI();
     updateFloatingCart();
-    const btn = document.querySelector(`.add-to-cart[data-id="${productId}"]`);
-    if (btn) {
+    
+    const allBtns = document.querySelectorAll(`.add-to-cart[data-id="${productId}"]`);
+    allBtns.forEach(btn => {
         const originalText = btn.innerHTML;
-        btn.innerHTML = `<i class="fas fa-check"></i> ${currentLang === 'ar' ? arabicTexts.added : 'Added!'}`;
+        btn.innerHTML = `<i class="fas fa-check"></i> ${texts.added}`;
         btn.style.backgroundColor = '#28a745';
         setTimeout(() => {
             btn.innerHTML = originalText;
             btn.style.backgroundColor = '';
         }, 1500);
-    }
+    });
 }
 
 function updateCartUI() {
-    const cartCount = document.getElementById('cartCount');
-    const totalPrice = document.getElementById('totalPrice');
-    const cartItems = document.getElementById('cartItems');
     const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
     cartCount.textContent = totalCount;
-    if (totalCount > 0) {
-        cartCount.style.display = 'flex'; 
-    } else {
-        cartCount.style.display = 'none';
-    }
-    const yourCartText = currentLang === 'ar' ? arabicTexts.yourCart : 'Your Cart';
-    if(cartModal.querySelector('.cart-header h2')) {
-        cartModal.querySelector('.cart-header h2').textContent = yourCartText;
-    }
+    cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
+    
+    cartModal.querySelector('.cart-header h2').textContent = texts.yourCart;
+
     if (cart.length === 0) {
-        cartItems.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-cart"></i><h3>${currentLang === 'ar' ? arabicTexts.emptyCart : 'Your cart is empty'}</h3><p>${currentLang === 'ar' ? arabicTexts.emptyCartSub : 'Add some products to your cart'}</p></div>`;
+        cartItems.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-cart"></i><h3>${texts.emptyCart}</h3><p>${texts.emptyCartSub}</p></div>`;
         totalPrice.textContent = 'د.أ 0.00';
         return;
     }
+    
     cartItems.innerHTML = '';
     let total = 0;
+    
     cart.forEach(item => {
-        const productForDisplay = products.find(p => p.id === item.productId) || item;
-        const itemName = productForDisplay.name;
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
+        total += item.price * item.quantity;
         const sizeDisplay = item.sizeName ? `<div style="font-size: 0.85rem; color: #777;">(${item.sizeName})</div>` : '';
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        cartItem.innerHTML = `<div class="item-details"><div class="item-name">${itemName} ${sizeDisplay}</div><div class="item-price">د.أ ${item.price.toFixed(2)}</div></div><div class="item-quantity"><button class="quantity-btn minus" data-id="${item.id}">-</button><span>${item.quantity}</span><button class="quantity-btn plus" data-id="${item.id}">+</button></div><button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>`;
+        cartItem.innerHTML = `
+            <div class="item-details">
+                <div class="item-name">${item.name} ${sizeDisplay}</div>
+                <div class="item-price">د.أ ${item.price.toFixed(2)}</div>
+            </div>
+            <div class="item-quantity">
+                <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-btn plus" data-id="${item.id}">+</button>
+            </div>
+            <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>`;
         cartItems.appendChild(cartItem);
-        cartItem.querySelector('.minus').addEventListener('click', () => updateQuantity(item.id, -1));
-        cartItem.querySelector('.plus').addEventListener('click', () => updateQuantity(item.id, 1));
-        cartItem.querySelector('.remove-item').addEventListener('click', () => removeFromCart(item.id));
     });
+    
     totalPrice.textContent = `د.أ ${total.toFixed(2)}`;
+
+    cartItems.querySelectorAll('.minus').forEach(btn => btn.addEventListener('click', (e) => updateQuantity(e.currentTarget.dataset.id, -1)));
+    cartItems.querySelectorAll('.plus').forEach(btn => btn.addEventListener('click', (e) => updateQuantity(e.currentTarget.dataset.id, 1)));
+    cartItems.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => removeFromCart(e.currentTarget.dataset.id)));
 }
 
 function updateQuantity(cartItemId, change) {
     const item = cart.find(item => item.id === cartItemId);
     if (!item) return;
+    
     item.quantity += change;
     if (item.quantity <= 0) {
         removeFromCart(cartItemId);
@@ -497,51 +527,16 @@ function removeFromCart(cartItemId) {
     updateFloatingCart();
 }
 
-function saveCartToStorage() {
-    localStorage.setItem('turfaCart', JSON.stringify(cart));
-}
-
-function loadCartFromStorage() {
-    const savedCart = localStorage.getItem('turfaCart');
-    if (savedCart) {
-        try {
-            const parsedCart = JSON.parse(savedCart);
-            if (Array.isArray(parsedCart)) cart = parsedCart;
-        } catch (error) {
-            console.error("Could not load cart from storage:", error);
-            cart = [];
-        }
-    }
-}
-
-function loadFavoritesFromStorage() {
-    const savedFavorites = localStorage.getItem('turfaFavorites');
-    if (savedFavorites) {
-        try {
-            const parsedFavorites = JSON.parse(savedFavorites);
-            if (Array.isArray(parsedFavorites)) favorites = parsedFavorites;
-        } catch (error) {
-            console.error("Could not load favorites from storage:", error);
-            favorites = [];
-        }
-    }
-}
-
 function proceedToCheckout() {
     if (cart.length === 0) return;
-    let message = `${currentLang === 'ar' ? arabicTexts.whatsappGreeting : 'Hello Turfa Store! I would like to order:'}\n\n`;
+    let message = `${texts.whatsappGreeting}\n`;
     cart.forEach(item => {
-        const productForOrder = allProductsEnglish.find(p => p.id === item.productId) || item; 
         const sizeDetail = item.sizeName ? ` (${item.sizeName})` : '';
-        message += `- ${productForOrder.name}${sizeDetail} (x${item.quantity}) - JD ${(item.price * item.quantity).toFixed(2)}\n`;
+        message += `- ${item.name}${sizeDetail} (x${item.quantity}) - JD ${(item.price * item.quantity).toFixed(2)}\n`;
     });
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    message += `${currentLang === 'ar' ? arabicTexts.whatsappTotal : '\nTotal:'} JD ${total.toFixed(2)}${currentLang === 'ar' ? arabicTexts.whatsappThanks : '\n\nThank you!'}`;
+    message += `${texts.whatsappTotal} JD ${total.toFixed(2)}${texts.whatsappThanks}`;
     window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
-}
-
-function saveFavoritesToStorage() {
-    localStorage.setItem('turfaFavorites', JSON.stringify(favorites));
 }
 
 function toggleFavorite(productId) {
@@ -553,190 +548,148 @@ function toggleFavorite(productId) {
     }
     saveFavoritesToStorage();
     updateFavoritesUI();
-    renderPaintings();
-    renderCups();
-    renderGifts();
+    renderAllSections();
 }
 
 function updateFavoritesUI() {
     favoritesCount.textContent = favorites.length;
-    if (favorites.length > 0) {
-        favoritesIcon.querySelector('i').className = 'fas fa-heart';
-        favoritesCount.style.display = 'flex';
-    } else {
-        favoritesIcon.querySelector('i').className = 'far fa-heart';
-        favoritesCount.style.display = 'none';
-    }
+    favoritesIcon.querySelector('i').className = favorites.length > 0 ? 'fas fa-heart' : 'far fa-heart';
+    favoritesCount.style.display = favorites.length > 0 ? 'flex' : 'none';
 }
 
 function renderFooterLinks() {
     const linksData = currentLang === 'ar' ? footerLinksArabic : footerLinksEnglish;
-    const renderList = (colId, data) => {
-        const ul = document.querySelector(`.footer-col:nth-child(${colId}) ul`);
+    const renderList = (col, data) => {
+        const ul = col.querySelector('ul');
         if (!ul) return;
-        ul.innerHTML = '';
-        data.forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `<i class="${item.icon}"></i><a href="${item.link}">${item.text}</a>`;
-            ul.appendChild(li);
-        });
+        ul.innerHTML = data.map(item => `<li><i class="${item.icon || 'fas fa-chevron-left'}"></i><a href="${item.link}">${item.text}</a></li>`).join('');
     };
-    document.querySelector('.footer-col:nth-child(1) h3').textContent = currentLang === 'ar' ? arabicTexts.footerContact : 'Contact Us';
-    document.querySelector('.footer-col:nth-child(2) h3').textContent = currentLang === 'ar' ? arabicTexts.footerAbout : 'About Website';
-    document.querySelector('.footer-col:nth-child(3) h3').textContent = currentLang === 'ar' ? arabicTexts.footerCategories : 'Categories';
-    document.querySelector('.footer-col:nth-child(4) h3').textContent = currentLang === 'ar' ? arabicTexts.footerCollections : 'Collections';
-    document.querySelector('#footerCopyright').innerHTML = currentLang === 'ar' ? arabicTexts.footerCopyright : '&copy; 2025 Turfa Store. All rights reserved.';
-    renderList(2, linksData.about);
-    renderList(3, linksData.categories);
-    renderList(4, linksData.collections);
+    
+    const firstColHeaders = document.querySelectorAll('.footer-col:nth-child(1) h3');
+    if (firstColHeaders.length > 1) {
+        firstColHeaders[0].textContent = texts.footerContact;
+        firstColHeaders[1].textContent = texts.footerSocial;
+    }
+    document.querySelector('.footer-col:nth-child(2) h3').textContent = texts.footerAbout;
+    document.querySelector('.footer-col:nth-child(3) h3').textContent = texts.footerCategories;
+    document.querySelector('.footer-col:nth-child(4) h3').textContent = texts.footerCollections;
+    document.querySelector('#footerCopyright').innerHTML = texts.footerCopyright;
+
+    renderList(document.querySelector('.footer-col:nth-child(1)'), linksData.contact);
+    renderList(document.querySelector('.footer-col:nth-child(2)'), linksData.about);
+    renderList(document.querySelector('.footer-col:nth-child(3)'), linksData.categories);
+    renderList(document.querySelector('.footer-col:nth-child(4)'), linksData.collections);
 }
 
 function toggleLanguage() {
-    const logoImage = document.getElementById('logoImage');
-    const langToggleCheckbox = document.getElementById('lang-toggle');
-    if (langToggleCheckbox.checked) {
-        currentLang = 'en';
-        document.documentElement.setAttribute('dir', 'ltr');
-        if (logoImage) logoImage.src = 'icons/turfa_logo_en.png';
-        products = allProductsEnglish;
-    } else {
-        currentLang = 'ar';
-        document.documentElement.setAttribute('dir', 'rtl');
-        if (logoImage) logoImage.src = 'icons/turfa_logo_ar.png';
-        products = allProductsArabic;
-    }
+    const isEnglish = document.getElementById('lang-toggle').checked;
+    currentLang = isEnglish ? 'en' : 'ar';
+    texts = isEnglish ? englishTexts : arabicTexts;
+    products = isEnglish ? allProductsEnglish : allProductsArabic;
+    
+    document.documentElement.setAttribute('dir', isEnglish ? 'ltr' : 'rtl');
+    document.getElementById('logoImage').src = isEnglish ? 'icons/turfa_logo_en.png' : 'icons/turfa_logo_ar.png';
+    
+    document.getElementById('searchInput').placeholder = texts.searchPlaceholder;
+    checkoutBtn.innerHTML = `<i class="fab fa-whatsapp"></i> ${texts.checkout}`;
+
+    renderAllSections();
     renderFooterLinks();
-    renderPaintings(); 
-    renderCups();
-    renderGifts();
-    resetCarouselScrolls(); 
     updateCartUI();
-    updateFloatingCart(); 
-    if (window.updateSearchPlaceholder) window.updateSearchPlaceholder();
-    window.carouselUpdateFunctions.forEach(func => func());
+    updateFloatingCart();
+    resetCarouselScrolls(); 
 }
-
-
-// =================================================================
-// --- 7. INITIALIZATION & UI SETUP ---
-// =================================================================
 
 function initThemeToggle() {
     const themeToggle = document.getElementById('darkmode-toggle');
     const savedTheme = localStorage.getItem('theme') || 'light';
+    
     document.documentElement.setAttribute('data-theme', savedTheme);
-    if (savedTheme === 'dark') {
-        themeToggle.checked = true;
-    }
+    themeToggle.checked = savedTheme === 'dark';
+
     themeToggle.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }
+        const newTheme = e.target.checked ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
     });
 }
 
+// --- LOCAL STORAGE FUNCTIONS ---
+const saveToStorage = (key, data) => localStorage.setItem(key, JSON.stringify(data));
+const loadFromStorage = (key, defaultValue) => {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : defaultValue;
+};
+const saveCartToStorage = () => saveToStorage('turfaCart', cart);
+const saveFavoritesToStorage = () => saveToStorage('turfaFavorites', favorites);
+
+// =================================================================
+// --- 7. INITIALIZATION & UI SETUP ---
+// =================================================================
 function initSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.querySelector('.search-btn');
-    const paintingsTitle = document.getElementById('paintingsTitle');
-    const cupsTitle = document.getElementById('cupsTitle');
-    const giftsTitle = document.getElementById('giftsTitle');
-    const allGrids = document.querySelectorAll('.products-grid');
+
     const performSearch = () => {
         const searchTerm = searchInput.value.toLowerCase().trim();
-        const titles = [paintingsTitle, cupsTitle, giftsTitle];
-        if (searchTerm === '') {
-            titles.forEach(title => { if(title) title.style.display = 'block'; });
-            allGrids.forEach(grid => {
-                grid.style.flexWrap = 'nowrap';
-                grid.style.overflowX = 'auto';
-            });
-            document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = '');
-            renderPaintings();
-            renderCups();
-            renderGifts();
-            initCarouselControls();
-            resetCarouselScrolls();
+        document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = searchTerm ? 'none' : '');
+        document.querySelectorAll('.products-grid').forEach(grid => {
+            grid.style.flexWrap = searchTerm ? 'wrap' : 'nowrap';
+            grid.style.overflowX = searchTerm ? 'visible' : 'auto';
+        });
+
+        if (!searchTerm) {
+            renderAllSections();
             return;
         }
-        const filteredProducts = products.filter(p => p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm));
-        const filteredPaintings = filteredProducts.filter(p => p.category === 'painting');
-        const filteredCups = filteredProducts.filter(p => p.category === 'cup');
-        const filteredGifts = filteredProducts.filter(p => p.category === 'gift');
-        titles.forEach(title => { if(title) title.style.display = 'none'; });
-        document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = 'none');
-        allGrids.forEach(grid => {
-            grid.style.flexWrap = 'wrap';
-            grid.style.overflowX = 'visible';
-        });
-        renderProductCards(productsContainer, filteredPaintings);
-        renderProductCards(cupsContainer, filteredCups);
-        renderProductCards(giftsContainer, filteredGifts);
+
+        const filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm));
+        renderProductCards(productsContainer, filtered.filter(p => p.category === 'painting'));
+        renderProductCards(cupsContainer, filtered.filter(p => p.category === 'cup'));
+        renderProductCards(giftsContainer, filtered.filter(p => p.category === 'gift'));
     };
+
     searchInput.addEventListener('input', performSearch);
     searchBtn.addEventListener('click', performSearch);
-    window.updateSearchPlaceholder = () => {
-        searchInput.placeholder = currentLang === 'ar' ? 'ابحث عن منتجك من هنا' : 'Search for your product here';
-    };
-    window.updateSearchPlaceholder();
 }
 
 function initCarouselControls() {
-    window.carouselUpdateFunctions = []; 
+    const initSectionCarousel = (containerId, prevBtnId, nextBtnId) => {
+        const container = document.getElementById(containerId);
+        const scroll = (direction) => {
+            const scrollAmount = container.offsetWidth * 0.8;
+            const isRTL = document.documentElement.dir === 'rtl';
+            const finalScroll = (direction === 'prev' ? -1 : 1) * (isRTL ? -1 : 1) * scrollAmount;
+            container.scrollBy({ left: finalScroll, behavior: 'smooth' });
+        };
+        document.getElementById(prevBtnId).addEventListener('click', () => scroll('prev'));
+        document.getElementById(nextBtnId).addEventListener('click', () => scroll('next'));
+    };
     initSectionCarousel('productsContainer', 'scrollPrev', 'scrollNext');
     initSectionCarousel('cupsContainer', 'scrollPrevCups', 'scrollNextCups');
     initSectionCarousel('giftsContainer', 'scrollPrevGifts', 'scrollNextGifts');
 }
 
-function initSectionCarousel(containerId, prevBtnId, nextBtnId) {
-    const scrollPrev = document.getElementById(prevBtnId);
-    const scrollNext = document.getElementById(nextBtnId);
-    const container = document.getElementById(containerId);
-    if (!scrollPrev || !scrollNext || !container) return;
-    const scroll = (direction) => {
-        const scrollAmount = container.offsetWidth * 0.8;
-        const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
-        const finalScroll = (direction === 'prev') ? (isRTL ? scrollAmount : -scrollAmount) : (isRTL ? -scrollAmount : scrollAmount);
-        container.scrollBy({ left: finalScroll, behavior: 'smooth' });
-    };
-    scrollPrev.addEventListener('click', () => scroll('prev'));
-    scrollNext.addEventListener('click', () => scroll('next'));
-}
-
 function initFloatingCart() {
     const floatingCart = document.getElementById('floatingCart');
-    if (!floatingCart) return;
     floatingCart.addEventListener('click', () => cartModal.classList.add('active'));
+
     window.updateFloatingCart = () => {
         const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
-        const totalPriceValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         if (totalCount > 0) {
             document.getElementById('floatingItemCount').textContent = totalCount;
-            document.getElementById('floatingItemText').textContent = totalCount === 1 ? (currentLang === 'ar' ? 'منتج' : 'item') : (currentLang === 'ar' ? 'منتجات' : 'items');
-            document.getElementById('floatingTotalPrice').textContent = `د.أ ${totalPriceValue.toFixed(2)}`;
+            document.getElementById('floatingItemText').textContent = totalCount === 1 ? texts.floatingItem : texts.floatingItems;
+            document.getElementById('floatingTotalPrice').textContent = `د.أ ${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}`;
             floatingCart.classList.add('active');
         } else {
             floatingCart.classList.remove('active');
         }
     };
-    updateFloatingCart();
 }
 
 function resetCarouselScrolls() {
-    const containers = [productsContainer, cupsContainer, giftsContainer];
-    containers.forEach(container => {
-        if (container) {
-            const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
-            if (isRTL) {
-                container.scrollLeft = container.scrollWidth; 
-            } else {
-                container.scrollLeft = 0;
-            }
-        }
+    document.querySelectorAll('.products-grid').forEach(container => {
+        container.scrollLeft = document.documentElement.dir === 'rtl' ? container.scrollWidth : 0;
     });
 }
 
@@ -748,62 +701,47 @@ function handleProductClick(e) {
     }
     const productCard = e.target.closest('.product-card');
     if (productCard && !e.target.closest('.add-to-cart')) {
-        showProductDetails(parseInt(productCard.querySelector('.add-to-cart').dataset.id));
+        const id = productCard.querySelector('.add-to-cart')?.dataset.id;
+        if (id) showProductDetails(parseInt(id));
     }
 }
 
 function initStore() {
-    const langToggleCheckbox = document.getElementById('lang-toggle');
-    if (currentLang === 'en') {
-        langToggleCheckbox.checked = true;
-    }
     initThemeToggle();
-    const logoImage = document.getElementById('logoImage');
-    if (currentLang === 'ar') {
-        if (logoImage) logoImage.src = 'icons/turfa_logo_ar.png';
-    } else {
-        if (logoImage) logoImage.src = 'icons/turfa_logo_en.png';
-    }
-    renderPaintings();
-    renderCups();
-    renderGifts();
-    loadCartFromStorage();
-    loadFavoritesFromStorage();
+    
+    cart = loadFromStorage('turfaCart', []);
+    favorites = loadFromStorage('turfaFavorites', []);
+
+    renderAllSections();
     updateCartUI();
     updateFavoritesUI();
-    if (favorites.length === 0) favoritesCount.style.display = 'none';
-    if (cart.length === 0) cartCount.style.display = 'none';
-    cartIcon.addEventListener('click', () => cartModal.classList.add('active'));
-    closeCart.addEventListener('click', () => cartModal.classList.remove('active'));
-    cartModal.addEventListener('click', (e) => {
-        if (e.target === cartModal) {
-            cartModal.classList.remove('active');
-        }
-    });
-    favoritesIcon.addEventListener('click', () => {
-        favoritesModal.classList.add('active');
-        renderFavoritesModal(); 
-    });
-    closeFavorites.addEventListener('click', () => favoritesModal.classList.remove('active'));
-    favoritesModal.addEventListener('click', (e) => {
-        if (e.target === favoritesModal) {
-            favoritesModal.classList.remove('active');
-        }
-    });
-    const productDetailModal = document.getElementById('productDetailModal');
-    const closeDetail = document.getElementById('closeDetail');
-    closeDetail.addEventListener('click', () => productDetailModal.classList.remove('active'));
-    productDetailModal.addEventListener('click', (e) => {
-        if (e.target === productDetailModal) {
-            productDetailModal.classList.remove('active');
-        }
-    });
-    const langToggle = document.getElementById('lang-toggle');
-    langToggle.addEventListener('change', toggleLanguage);
-    productsContainer.addEventListener('click', handleProductClick);
-    cupsContainer.addEventListener('click', handleProductClick);
-    giftsContainer.addEventListener('click', handleProductClick);
+    
+    // Modals
+    const setupModal = (modalId, openBtnId, closeBtnId) => {
+        const modal = document.getElementById(modalId);
+        const openBtn = document.getElementById(openBtnId);
+        const closeBtn = document.getElementById(closeBtnId);
+        if (openBtn) openBtn.addEventListener('click', () => {
+            if(modalId === 'favoritesModal') renderFavoritesModal();
+            modal.classList.add('active');
+        });
+        if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        if (modal) modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+    };
+    setupModal('cartModal', 'cartIcon', 'closeCart');
+    setupModal('favoritesModal', 'favoritesIcon', 'closeFavorites');
+    setupModal('productDetailModal', null, 'closeDetail');
+
+    // Event Listeners
+    document.getElementById('lang-toggle').addEventListener('change', toggleLanguage);
     checkoutBtn.addEventListener('click', proceedToCheckout);
+    [productsContainer, cupsContainer, giftsContainer].forEach(container => {
+        container.addEventListener('click', handleProductClick);
+    });
+
+    // Final Setup
     renderFooterLinks();
     initCarouselControls();
     initSearch(); 
