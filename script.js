@@ -1,4 +1,6 @@
-// --- 1. LANGUAGE/TRANSLATION DATA ---
+// =================================================================
+// --- 1. LANGUAGE & TRANSLATION DATA ---
+// =================================================================
 const arabicTexts = {
     title: "لوحاتنا",
     cupsTitle: "كاساتنا",
@@ -10,24 +12,19 @@ const arabicTexts = {
     checkout: "متابعة الشراء عبر واتساب",
     emptyCart: "عربتك فارغة",
     emptyCartSub: "أضف بعض المنتجات إلى عربتك",
-    
-    // الأبعاد والفروقات السعرية للأحجام (الافتراضي هو السعر الأصلي للمنتج)
     selectSize: "اختر الحجم:", 
     sizeOptions: [
         { name: "صغير 40×40سم", priceDiff: 0 },
         { name: "متوسط 50×70سم", priceDiff: 15.00 },
         { name: "كبير 80×120سم", priceDiff: 30.00 },     
     ],
-    
     footerCopyright: "&copy; 2025 متجر الترفة. جميع الحقوق محفوظة.",
     footerContact: "تواصل معنا",
     footerSocial: "تابعنا على منصات التواصل الاجتماعي",
     footerAbout: "عن الموقع",
     footerCategories: "الفئات",
     footerCollections: "مجموعات",
-    
     banner: "✨ أحدث اللوحات الفنية! تسوق الآن! ✨",
-    logo: "متجر الترفة", 
     whatsappGreeting: "مرحباً متجر الترفة! أود طلب الآتي:\n\n",
     whatsappTotal: "\nالإجمالي:",
     whatsappThanks: "\n\نشكراً لك!",
@@ -40,7 +37,6 @@ const arabicTexts = {
     detailFullDescription: "الوصف الكامل:", 
 };
 
-// English Footer Links
 const footerLinksEnglish = {
     contact: [
         { text: "+962 7 9700 5992", icon: "fas fa-phone", link: "tel:+962797005992" },
@@ -75,7 +71,6 @@ const footerLinksEnglish = {
     ]
 };
 
-// Arabic Footer Links 
 const footerLinksArabic = {
     contact: [
         { text: "+962 7 8848 9914", icon: "fas fa-phone", link: "tel:+962788489914" },
@@ -110,44 +105,50 @@ const footerLinksArabic = {
     ]
 };
 
+// =================================================================
 // --- 2. PRODUCT DATA ---
+// (Note: `gallery` property has been removed as it's now dynamic)
+// =================================================================
 const paintingsEnglish = [
-    { id: 1, name: "Abstract Landscape", price: 39.99, description: "A vibrant abstract painting of a mountain landscape. Printed on museum-quality canvas.", image: "images/1.png", gallery: ["images/1b.png", "images/1c.png"], category: "painting", hasSizes: true },
-    { id: 2, name: "Geometric Sunset", price: 39.99, description: "Modern art featuring sharp geometric shapes and a warm sunset color palette.", image: "images/2.png", gallery: ["images/2b.png"], category: "painting", hasSizes: true },
-    { id: 3, name: "Minimalist Portrait", price: 39.99, description: "A simple line-art portrait, perfect for minimalist decor. Framed in natural oak.", image: "images/3.png", gallery: [], category: "painting", hasSizes: true },
-    { id: 4, name: "Ocean Wave", price: 59.99, description: "Detailed oil painting capturing the movement and power of a crashing ocean wave.", image: "images/4.png", gallery: [], category: "painting", hasSizes: true },
-    { id: 5, name: "City Skyline", price: 24.99, description: "A striking black and white photography print of a famous city skyline at night.", image: "images/5.png", gallery: [], category: "painting", hasSizes: true },
-    { id: 6, name: "Nature Sketch", price: 59.99, description: "Hand-drawn pencil sketch of forest ferns and foliage. Excellent texture.", image: "images/6.png", gallery: [], category: "painting", hasSizes: true }
+    { id: 1, name: "Abstract Landscape", price: 39.99, description: "A vibrant abstract painting of a mountain landscape. Printed on museum-quality canvas.", image: "images/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "Geometric Sunset", price: 39.99, description: "Modern art featuring sharp geometric shapes and a warm sunset color palette.", image: "images/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "Minimalist Portrait", price: 39.99, description: "A simple line-art portrait, perfect for minimalist decor. Framed in natural oak.", image: "images/3.png", category: "painting", hasSizes: true },
+    { id: 4, name: "Ocean Wave", price: 59.99, description: "Detailed oil painting capturing the movement and power of a crashing ocean wave.", image: "images/4.png", category: "painting", hasSizes: true },
+    { id: 5, name: "City Skyline", price: 24.99, description: "A striking black and white photography print of a famous city skyline at night.", image: "images/5.png", category: "painting", hasSizes: true },
+    { id: 6, name: "Nature Sketch", price: 59.99, description: "Hand-drawn pencil sketch of forest ferns and foliage. Excellent texture.", image: "images/6.png", category: "painting", hasSizes: true }
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 39.99, description: "تُجسد هذه اللوحة الفنية توليفة متوازنة بين الحداثة والتراث.", image: "images/1.png", gallery: ["images/1b.png", "images/1c.png"], category: "painting", hasSizes: true },
-    { id: 2, name: "لوحة الحمدلله", price: 39.99, description: "فن حديث يتميز بأشكال هندسية حادة ولوحة ألوان دافئة.", image: "images/2.png", gallery: ["images/2b.png"], category: "painting", hasSizes: true },
-    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط.", image: "images/3.png", gallery: [], category: "painting", hasSizes: true },
-    { id: 4, name: "موجة المحيط", price: 59.99, description: "لوحة زيتية مفصلة تجسد حركة وقوة موجة محيط متلاطمة.", image: "images/4.png", gallery: [], category: "painting", hasSizes: true },
-    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة.", image: "images/5.png", gallery: [], category: "painting", hasSizes: true },
-    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة.", image: "images/6.png", gallery: [], category: "painting", hasSizes: true }
+    { id: 1, name: "لوحة يا شام", price: 39.99, description: "تُجسد هذه اللوحة الفنية توليفة متوازنة بين الحداثة والتراث، مقدمة قطعة ديكورية محورية تجمع بين فن الخط العربي المعاصر وعمق الرمزية الثقافية لمدينة دمشق (الشام)، على الأرجح من خلال استلهام أبيات للشاعر نزار قباني.", image: "images/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "لوحة الحمدلله", price: 39.99, description: "فن حديث يتميز بأشكال هندسية حادة ولوحة ألوان دافئة لغروب الشمس.", image: "images/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط. مؤطرة بخشب البلوط الطبيعي.", image: "images/3.png", category: "painting", hasSizes: true },
+    { id: 4, name: "موجة المحيط", price: 59.99, description: "لوحة زيتية مفصلة تجسد حركة وقوة موجة محيط متلاطمة.", image: "images/4.png", category: "painting", hasSizes: true },
+    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة شهيرة ليلاً.", image: "images/5.png", category: "painting", hasSizes: true },
+    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة. نسيج ممتاز.", image: "images/6.png", category: "painting", hasSizes: true }
 ];
 
 const cupsEnglish = [
-    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, description: "Handmade ceramic coffee mug with unique glaze finish.", image: "images/cup1.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 102, name: "Travel Tumbler", price: 24.99, description: "Stainless steel insulated travel tumbler. Keeps drinks hot.", image: "images/cup2.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 103, name: "Glass Tea Cup Set", price: 34.99, description: "Elegant glass tea cup set of 4. Perfect for serving tea.", image: "images/cup3.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 104, name: "Artistic Espresso Cup", price: 12.99, description: "Small artistic espresso cup with hand-painted design.", image: "images/cup4.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 105, name: "Color Changing Mug", price: 19.99, description: "Magic color-changing mug that reveals design when hot.", image: "images/cup5.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 106, name: "Bamboo Eco Cup", price: 18.99, description: "Eco-friendly bamboo fiber cup with silicone lid.", image: "images/cup6.png", gallery: [], category: "cup", hasSizes: false }
+    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, description: "Handmade ceramic coffee mug with unique glaze finish. Dishwasher safe.", image: "images/cup1.png", category: "cup", hasSizes: false },
+    { id: 102, name: "Travel Tumbler", price: 24.99, description: "Stainless steel insulated travel tumbler. Keeps drinks hot for 6 hours.", image: "images/cup2.png", category: "cup", hasSizes: false },
+    { id: 103, name: "Glass Tea Cup Set", price: 34.99, description: "Elegant glass tea cup set of 4. Perfect for serving traditional tea.", image: "images/cup3.png", category: "cup", hasSizes: false },
+    { id: 104, name: "Artistic Espresso Cup", price: 12.99, description: "Small artistic espresso cup with hand-painted design. Italian style.", image: "images/cup4.png", category: "cup", hasSizes: false },
+    { id: 105, name: "Color Changing Mug", price: 19.99, description: "Magic color-changing mug that reveals design when hot liquid is added.", image: "images/cup5.png", category: "cup", hasSizes: false },
+    { id: 106, name: "Bamboo Eco Cup", price: 18.99, description: "Eco-friendly bamboo fiber cup with silicone lid. Reusable and sustainable.", image: "images/cup6.png", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, description: "كوب قهوة من السيراميك مصنوع يدوياً بطلاء زجاجي فريد.", image: "images/cup1.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة.", image: "images/cup2.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, description: "طقم أنيق من 4 أكواب شاي زجاجية. مثالي لتقديم الشاي.", image: "images/cup3.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, description: "فنجان إسبريسو صغير فني بتصميم مرسوم يدوياً.", image: "images/cup4.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 105, name: "كوب متغير اللون", price: 19.99, description: "كوب سحري يتغير لونه ويكشف التصميم عند إضافة سائل ساخن.", image: "images/cup5.png", gallery: [], category: "cup", hasSizes: false },
-    { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, description: "كوب صديق للبيئة من ألياف الخيزران مع غطاء سيليكون.", image: "images/cup6.png", gallery: [], category: "cup", hasSizes: false }
+    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, description: "كوب قهوة من السيراميك مصنوع يدوياً بطلاء زجاجي فريد. آمن لغسالة الصحون.", image: "images/cup1.png", category: "cup", hasSizes: false },
+    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup2.png", category: "cup", hasSizes: false },
+    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, description: "طقم أنيق من 4 أكواب شاي زجاجية. مثالي لتقديم الشاي التقليدي.", image: "images/cup3.png", category: "cup", hasSizes: false },
+    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, description: "فنجان إسبريسو صغير فني بتصميم مرسوم يدوياً. على الطراز الإيطالي.", image: "images/cup4.png", category: "cup", hasSizes: false },
+    { id: 105, name: "كوب متغير اللون", price: 19.99, description: "كوب سحري يتغير لونه ويكشف عن التصميم عند إضافة سائل ساخن.", image: "images/cup5.png", category: "cup", hasSizes: false },
+    { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, description: "كوب صديق للبيئة من ألياف الخيزران مع غطاء سيليكون. قابل لإعادة الاستخدام ومستدام.", image: "images/cup6.png", category: "cup", hasSizes: false }
 ];
 
+
+// =================================================================
 // --- 3. GLOBAL STATE & DOM ELEMENTS ---
+// =================================================================
 let currentLang = 'ar'; 
 let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish];
 let allProductsArabic = [...paintingsArabic, ...cupsArabic];
@@ -172,102 +173,35 @@ const favoritesItems = document.getElementById('favoritesItems');
 
 window.carouselUpdateFunctions = [];
 
-// --- 5. INITIALIZATION ---
-function initStore() {
-    renderPaintings();
-    renderCups();
-    loadCartFromStorage();
-    loadFavoritesFromStorage();
-    updateCartUI();
-    updateFavoritesUI();
-    
-    if (favorites.length === 0) favoritesCount.style.display = 'none';
-    if (cart.length === 0) cartCount.style.display = 'none';
 
-    cartIcon.addEventListener('click', () => cartModal.classList.add('active'));
-    closeCart.addEventListener('click', () => cartModal.classList.remove('active'));
-    checkoutBtn.addEventListener('click', proceedToCheckout);
-
-    favoritesIcon.addEventListener('click', () => {
-        favoritesModal.classList.add('active');
-        renderFavoritesModal(); 
+// =================================================================
+// --- 4. HELPER FUNCTIONS ---
+// =================================================================
+/**
+ * Checks if an image exists at the given URL.
+ * @param {string} url The URL of the image to check.
+ * @returns {Promise<boolean>} True if the image exists, false otherwise.
+ */
+function checkImageExists(url) {
+    return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
     });
-    closeFavorites.addEventListener('click', () => favoritesModal.classList.remove('active'));
-    favoritesModal.addEventListener('click', (e) => {
-        if (e.target === favoritesModal) favoritesModal.classList.remove('active');
-    });
-
-    const productDetailModal = document.getElementById('productDetailModal');
-    const closeDetail = document.getElementById('closeDetail');
-    
-    closeDetail.addEventListener('click', () => productDetailModal.classList.remove('active'));
-    productDetailModal.addEventListener('click', (e) => {
-        if (e.target === productDetailModal) productDetailModal.classList.remove('active');
-    });
-
-    cartModal.addEventListener('click', (e) => {
-        if (e.target === cartModal) cartModal.classList.remove('active');
-    });
-
-    const langToggle = document.getElementById('langToggle');
-    langToggle.addEventListener('click', toggleLanguage);
-    
-    productsContainer.addEventListener('click', handleProductClick);
-    cupsContainer.addEventListener('click', handleProductClick);
-    
-    renderFooterLinks();
-    initCarouselControls();
-    initSearch(); // Initializes search functionality
-    initFloatingCart();
-    
-    resetCarouselScrolls(); 
 }
 
-function handleProductClick(e) {
-    if (e.target.closest('.favorite-btn')) {
-        const productId = parseInt(e.target.closest('.favorite-btn').dataset.id);
-        toggleFavorite(productId);
-    }
-    const productCard = e.target.closest('.product-card');
-    if (productCard && !e.target.closest('.add-to-cart') && !e.target.closest('.favorite-btn')) {
-        const productId = parseInt(productCard.querySelector('.add-to-cart').dataset.id); 
-        showProductDetails(productId);
-    }
-    
-    if (e.target.closest('.add-to-cart') && e.target.closest('.add-to-cart').dataset.hasSizes === 'false') {
-         const productId = parseInt(e.target.closest('.add-to-cart').dataset.id);
-         addToCart(productId);
-    }
-}
 
-function renderFooterLinks() {
-    const linksData = currentLang === 'ar' ? footerLinksArabic : footerLinksEnglish;
-    
-    const renderList = (colId, data) => {
-        const ul = document.querySelector(`.footer-col:nth-child(${colId}) ul`);
-        if (!ul) return;
-        ul.innerHTML = '';
-        data.forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `<i class="${item.icon}"></i><a href="${item.link}">${item.text}</a>`;
-            ul.appendChild(li);
-        });
-    };
+// =================================================================
+// --- 5. RENDER, SEARCH, and DISPLAY FUNCTIONS ---
+// =================================================================
 
-    document.querySelector('.footer-col:nth-child(1) h3').textContent = currentLang === 'ar' ? arabicTexts.footerContact : 'Contact Us';
-    document.querySelector('.footer-col:nth-child(2) h3').textContent = currentLang === 'ar' ? arabicTexts.footerAbout : 'About Website';
-    document.querySelector('.footer-col:nth-child(3) h3').textContent = currentLang === 'ar' ? arabicTexts.footerCategories : 'Categories';
-    document.querySelector('.footer-col:nth-child(4) h3').textContent = currentLang === 'ar' ? arabicTexts.footerCollections : 'Collections';
-    document.querySelector('#footerCopyright').innerHTML = currentLang === 'ar' ? arabicTexts.footerCopyright : '&copy; 2025 Turfa Store. All rights reserved.';
-    
-    renderList(2, linksData.about);
-    renderList(3, linksData.categories);
-    renderList(4, linksData.collections);
-}
-
-// --- 6. RENDER & SEARCH FUNCTIONS ---
-
-// Helper function to render product cards
+/**
+ * Renders a list of product cards into a specified container.
+ * This is a central function used by both the main display and search results.
+ * @param {HTMLElement} container The container to render cards into.
+ * @param {Array} productList The array of products to display.
+ */
 function renderProductCards(container, productList) {
     if (!container) return;
     container.innerHTML = ''; 
@@ -294,7 +228,7 @@ function renderProductCards(container, productList) {
         
         productCard.innerHTML = `
             <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div class="product-info">
                 <h3 class="product-title">${product.name}</h3>
@@ -322,7 +256,9 @@ function renderProductCards(container, productList) {
     });
 }
 
-// Modified original function
+/**
+ * Renders a full product section (title + cards) for a specific category.
+ */
 function renderProductSection(container, category, title, titleId) {
     const titleElement = document.getElementById(titleId);
     if (titleElement) {
@@ -332,66 +268,6 @@ function renderProductSection(container, category, title, titleId) {
     const categoryProducts = products.filter(p => p.category === category);
     renderProductCards(container, categoryProducts);
 }
-
-// Main search function
-function initSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.querySelector('.search-btn');
-    const paintingsTitle = document.getElementById('paintingsTitle');
-    const cupsTitle = document.getElementById('cupsTitle');
-    const allGrids = document.querySelectorAll('.products-grid');
-
-    const performSearch = () => {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-
-        if (searchTerm === '') {
-            if (paintingsTitle) paintingsTitle.style.display = 'block';
-            if (cupsTitle) cupsTitle.style.display = 'block';
-            
-            allGrids.forEach(grid => {
-                grid.style.flexWrap = 'nowrap';
-                grid.style.overflowX = 'auto';
-            });
-            document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = 'flex');
-
-            renderPaintings();
-            renderCups();
-            initCarouselControls();
-            resetCarouselScrolls();
-            return;
-        }
-
-        const filteredProducts = products.filter(product =>
-            product.name.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm)
-        );
-
-        const filteredPaintings = filteredProducts.filter(p => p.category === 'painting');
-        const filteredCups = filteredProducts.filter(p => p.category === 'cup');
-
-        if (paintingsTitle) paintingsTitle.style.display = 'none';
-        if (cupsTitle) cupsTitle.style.display = 'none';
-        document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = 'none');
-
-        allGrids.forEach(grid => {
-            grid.style.flexWrap = 'wrap';
-            grid.style.overflowX = 'visible';
-        });
-
-        renderProductCards(productsContainer, filteredPaintings);
-        renderProductCards(cupsContainer, filteredCups);
-    };
-
-    searchInput.addEventListener('input', performSearch);
-    searchBtn.addEventListener('click', performSearch);
-
-    window.updateSearchPlaceholder = () => {
-        const placeholderText = currentLang === 'ar' ? 'ابحث عن منتجك من هنا' : 'Search for your product here';
-        searchInput.placeholder = placeholderText;
-    };
-    window.updateSearchPlaceholder();
-}
-
 
 function renderPaintings() {
     renderProductSection(productsContainer, 'painting', 
@@ -470,9 +346,32 @@ function renderFavoritesModal() {
     });
 }
 
-function showProductDetails(productId) {
+/**
+ * Main function for the product details modal.
+ * Features a DYNAMIC gallery that automatically finds images like '1b.png', '1c.png', etc.
+ * @param {number} productId The ID of the product to show.
+ */
+async function showProductDetails(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
+
+    // --- DYNAMIC GALLERY BUILDER ---
+    const dynamicGallery = [];
+    const lastDotIndex = product.image.lastIndexOf('.');
+    const baseImagePath = product.image.substring(0, lastDotIndex);
+    const extension = product.image.substring(lastDotIndex);
+
+    for (let i = 98; i <= 122; i++) { // ASCII codes for 'b' through 'z'
+        const char = String.fromCharCode(i);
+        const imageUrl = `${baseImagePath}${char}${extension}`;
+        const exists = await checkImageExists(imageUrl);
+        if (exists) {
+            dynamicGallery.push(imageUrl);
+        } else {
+            break; // Stop if the next sequential image is not found
+        }
+    }
+    // --- END DYNAMIC GALLERY ---
 
     const detailTitle = document.getElementById('detailTitle');
     const detailImage = document.getElementById('detailImage');
@@ -573,7 +472,6 @@ function showProductDetails(productId) {
         }
     }
 
-    // Modal Add-to-Cart button with guaranteed close
     finalAddToCartBtn.addEventListener('click', (e) => {
         try {
             const productId = parseInt(e.currentTarget.dataset.id);
@@ -604,7 +502,7 @@ function showProductDetails(productId) {
         }
     });
     
-    const allImages = [product.image, ...(product.gallery || [])];
+    const allImages = [product.image, ...dynamicGallery];
     thumbnailGallery.innerHTML = ''; 
 
     allImages.forEach(src => {
@@ -628,7 +526,11 @@ function showProductDetails(productId) {
     document.getElementById('productDetailModal').classList.add('active');
 }
 
-// --- 7. CART FUNCTIONS ---
+
+// =================================================================
+// --- 6. CORE LOGIC (Cart, Favorites, Language) ---
+// =================================================================
+
 function addToCart(productId, selectedSizeIndex = null, finalPrice = null) {
     const product = products.find(p => p.id === productId); 
     if (!product) return;
@@ -778,7 +680,36 @@ function saveCartToStorage() {
 
 function loadCartFromStorage() {
     const savedCart = localStorage.getItem('turfaCart');
-    if (savedCart) cart = JSON.parse(savedCart);
+    if (savedCart) {
+        try {
+            const parsedCart = JSON.parse(savedCart);
+            if (Array.isArray(parsedCart)) {
+                cart = parsedCart;
+            } else {
+                cart = [];
+            }
+        } catch (error) {
+            console.error("Could not load cart from storage:", error);
+            cart = [];
+        }
+    }
+}
+
+function loadFavoritesFromStorage() {
+    const savedFavorites = localStorage.getItem('turfaFavorites');
+    if (savedFavorites) {
+        try {
+            const parsedFavorites = JSON.parse(savedFavorites);
+            if (Array.isArray(parsedFavorites)) {
+                favorites = parsedFavorites;
+            } else {
+                favorites = [];
+            }
+        } catch (error) {
+            console.error("Could not load favorites from storage:", error);
+            favorites = [];
+        }
+    }
 }
 
 function proceedToCheckout() {
@@ -810,14 +741,8 @@ function proceedToCheckout() {
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
 }
 
-// --- 8. FAVORITES FUNCTIONS ---
 function saveFavoritesToStorage() {
     localStorage.setItem('turfaFavorites', JSON.stringify(favorites));
-}
-
-function loadFavoritesFromStorage() {
-    const savedFavorites = localStorage.getItem('turfaFavorites');
-    if (savedFavorites) favorites = JSON.parse(savedFavorites);
 }
 
 function toggleFavorite(productId) {
@@ -848,73 +773,127 @@ function updateFavoritesUI() {
     }
 }
 
-function resetCarouselScrolls() {
-    const productsContainer = document.getElementById('productsContainer');
-    const cupsContainer = document.getElementById('cupsContainer');
+function renderFooterLinks() {
+    const linksData = currentLang === 'ar' ? footerLinksArabic : footerLinksEnglish;
     
-    const containers = [productsContainer, cupsContainer];
+    const renderList = (colId, data) => {
+        const ul = document.querySelector(`.footer-col:nth-child(${colId}) ul`);
+        if (!ul) return;
+        ul.innerHTML = '';
+        data.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<i class="${item.icon}"></i><a href="${item.link}">${item.text}</a>`;
+            ul.appendChild(li);
+        });
+    };
+
+    document.querySelector('.footer-col:nth-child(1) h3').textContent = currentLang === 'ar' ? arabicTexts.footerContact : 'Contact Us';
+    document.querySelector('.footer-col:nth-child(2) h3').textContent = currentLang === 'ar' ? arabicTexts.footerAbout : 'About Website';
+    document.querySelector('.footer-col:nth-child(3) h3').textContent = currentLang === 'ar' ? arabicTexts.footerCategories : 'Categories';
+    document.querySelector('.footer-col:nth-child(4) h3').textContent = currentLang === 'ar' ? arabicTexts.footerCollections : 'Collections';
+    document.querySelector('#footerCopyright').innerHTML = currentLang === 'ar' ? arabicTexts.footerCopyright : '&copy; 2025 Turfa Store. All rights reserved.';
     
-    containers.forEach(container => {
-        if (container) {
-            const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
-            if (isRTL) {
-                container.scrollLeft = container.scrollWidth; 
-                setTimeout(() => { container.scrollLeft = container.scrollWidth; }, 10);
-            } else {
-                container.scrollLeft = 0;
-            }
-        }
-    });
+    renderList(2, linksData.about);
+    renderList(3, linksData.categories);
+    renderList(4, linksData.collections);
 }
 
 function toggleLanguage() {
-    const logoImage = document.getElementById('logoImage'); // نحصل على عنصر اللوغو
+    const logoImage = document.getElementById('logoImage');
 
-    // المنطق الأساسي للتبديل
     if (currentLang === 'en') {
         currentLang = 'ar';
         document.documentElement.setAttribute('dir', 'rtl');
-        if (logoImage) logoImage.src = 'icons/turfa_logo_ar.png'; // <-- يتم تغيير اللوغو إلى العربي هنا
-
+        if (logoImage) logoImage.src = 'icons/turfa_logo_ar.png';
         document.getElementById('langToggle').textContent = arabicTexts.langButton;
         document.querySelector('footer p:first-child').innerHTML = arabicTexts.footerCopyright;
-        
         const banner = document.querySelector('.banner h2');
         if (banner) banner.textContent = arabicTexts.banner;
-        
         products = allProductsArabic; 
-        
     } else {
         currentLang = 'en';
         document.documentElement.setAttribute('dir', 'ltr');
-        if (logoImage) logoImage.src = 'icons/turfa_logo_en.png'; // <-- يتم تغيير اللوغو إلى الإنجليزي هنا
-
+        if (logoImage) logoImage.src = 'icons/turfa_logo_en.png';
         document.getElementById('langToggle').textContent = 'العربية';
         document.querySelector('footer p:first-child').innerHTML = '&copy; 2025 Turfa Store. All rights reserved.';
-        
         const banner = document.querySelector('.banner h2');
         if (banner) banner.textContent = '✨ NEW ARRIVALS! SHOP NOW! ✨';
-        
         products = allProductsEnglish;
     }
 
-    // إعادة رسم الواجهة بعد التبديل
     renderFooterLinks();
     renderPaintings(); 
     renderCups();      
-    
-    // الإصلاح: استدعاء إعادة التمرير بعد اكتمال إعادة الرسم لضبط RTL
     resetCarouselScrolls(); 
-
     updateCartUI();
     updateFloatingCart(); 
     if (window.updateSearchPlaceholder) window.updateSearchPlaceholder();
-    
-    // استدعاء وظائف تحديث الكاروسيل المخزنة لتحديث الأسهم
     window.carouselUpdateFunctions.forEach(func => func());
 }
 
-// --- 10. CAROUSEL & WIDGETS ---
+
+// =================================================================
+// --- 7. INITIALIZATION & UI SETUP ---
+// =================================================================
+
+function initSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.querySelector('.search-btn');
+    const paintingsTitle = document.getElementById('paintingsTitle');
+    const cupsTitle = document.getElementById('cupsTitle');
+    const allGrids = document.querySelectorAll('.products-grid');
+
+    const performSearch = () => {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        if (searchTerm === '') {
+            if (paintingsTitle) paintingsTitle.style.display = 'block';
+            if (cupsTitle) cupsTitle.style.display = 'block';
+            
+            allGrids.forEach(grid => {
+                grid.style.flexWrap = 'nowrap';
+                grid.style.overflowX = 'auto';
+            });
+            document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = '');
+
+            renderPaintings();
+            renderCups();
+            initCarouselControls();
+            resetCarouselScrolls();
+            return;
+        }
+
+        const filteredProducts = products.filter(product =>
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.description.toLowerCase().includes(searchTerm)
+        );
+
+        const filteredPaintings = filteredProducts.filter(p => p.category === 'painting');
+        const filteredCups = filteredProducts.filter(p => p.category === 'cup');
+
+        if (paintingsTitle) paintingsTitle.style.display = 'none';
+        if (cupsTitle) cupsTitle.style.display = 'none';
+        document.querySelectorAll('.carousel-control').forEach(btn => btn.style.display = 'none');
+
+        allGrids.forEach(grid => {
+            grid.style.flexWrap = 'wrap';
+            grid.style.overflowX = 'visible';
+        });
+
+        renderProductCards(productsContainer, filteredPaintings);
+        renderProductCards(cupsContainer, filteredCups);
+    };
+
+    searchInput.addEventListener('input', performSearch);
+    searchBtn.addEventListener('click', performSearch);
+
+    window.updateSearchPlaceholder = () => {
+        const placeholderText = currentLang === 'ar' ? 'ابحث عن منتجك من هنا' : 'Search for your product here';
+        searchInput.placeholder = placeholderText;
+    };
+    window.updateSearchPlaceholder();
+}
+
 function initCarouselControls() {
     window.carouselUpdateFunctions = []; 
     initSectionCarousel('productsContainer', 'scrollPrev', 'scrollNext');
@@ -978,7 +957,6 @@ function initFloatingCart() {
         cartModal.classList.add('active');
     });
 
-    // Make updateFloatingCart a global function
     window.updateFloatingCart = () => {
         const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
         const totalPriceValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -994,11 +972,104 @@ function initFloatingCart() {
             floatingCart.classList.remove('active');
         }
     };
-
-    // Initial call
     updateFloatingCart();
 }
 
-// --- 11. STARTUP ---
-document.addEventListener('DOMContentLoaded', initStore);
+function resetCarouselScrolls() {
+    const productsContainer = document.getElementById('productsContainer');
+    const cupsContainer = document.getElementById('cupsContainer');
+    
+    const containers = [productsContainer, cupsContainer];
+    
+    containers.forEach(container => {
+        if (container) {
+            const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+            if (isRTL) {
+                container.scrollLeft = container.scrollWidth; 
+                setTimeout(() => { container.scrollLeft = container.scrollWidth; }, 10);
+            } else {
+                container.scrollLeft = 0;
+            }
+        }
+    });
+}
 
+function handleProductClick(e) {
+    if (e.target.closest('.favorite-btn')) {
+        const productId = parseInt(e.target.closest('.favorite-btn').dataset.id);
+        toggleFavorite(productId);
+    }
+    const productCard = e.target.closest('.product-card');
+    if (productCard && !e.target.closest('.add-to-cart') && !e.target.closest('.favorite-btn')) {
+        const productId = parseInt(productCard.querySelector('.add-to-cart').dataset.id); 
+        showProductDetails(productId);
+    }
+    
+    if (e.target.closest('.add-to-cart') && e.target.closest('.add-to-cart').dataset.hasSizes === 'false') {
+         const productId = parseInt(e.target.closest('.add-to-cart').dataset.id);
+         addToCart(productId);
+    }
+}
+
+/**
+ * Initializes the entire store on page load.
+ */
+function initStore() {
+    // Set initial logo based on default language
+    const logoImage = document.getElementById('logoImage');
+    if (currentLang === 'ar') {
+        if (logoImage) logoImage.src = 'icons/turfa_logo_ar.png';
+    } else {
+        if (logoImage) logoImage.src = 'icons/turfa_logo_en.png';
+    }
+
+    renderPaintings();
+    renderCups();
+    loadCartFromStorage();
+    loadFavoritesFromStorage();
+    updateCartUI();
+    updateFavoritesUI();
+    
+    if (favorites.length === 0) favoritesCount.style.display = 'none';
+    if (cart.length === 0) cartCount.style.display = 'none';
+
+    cartIcon.addEventListener('click', () => cartModal.classList.add('active'));
+    closeCart.addEventListener('click', () => cartModal.classList.remove('active'));
+    checkoutBtn.addEventListener('click', proceedToCheckout);
+
+    favoritesIcon.addEventListener('click', () => {
+        favoritesModal.classList.add('active');
+        renderFavoritesModal(); 
+    });
+    closeFavorites.addEventListener('click', () => favoritesModal.classList.remove('active'));
+    favoritesModal.addEventListener('click', (e) => {
+        if (e.target === favoritesModal) favoritesModal.classList.remove('active');
+    });
+
+    const productDetailModal = document.getElementById('productDetailModal');
+    const closeDetail = document.getElementById('closeDetail');
+    
+    closeDetail.addEventListener('click', () => productDetailModal.classList.remove('active'));
+    productDetailModal.addEventListener('click', (e) => {
+        if (e.target === productDetailModal) productDetailModal.classList.remove('active');
+    });
+
+    cartModal.addEventListener('click', (e) => {
+        if (e.target === cartModal) cartModal.classList.remove('active');
+    });
+
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('click', toggleLanguage);
+    
+    productsContainer.addEventListener('click', handleProductClick);
+    cupsContainer.addEventListener('click', handleProductClick);
+    
+    renderFooterLinks();
+    initCarouselControls();
+    initSearch(); 
+    initFloatingCart();
+    resetCarouselScrolls();
+}
+
+// Start the application
+document.addEventListener('DOMContentLoaded', initStore);
