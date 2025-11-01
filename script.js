@@ -2,8 +2,8 @@
 // --- 1. LANGUAGE & TRANSLATION DATA ---
 // =================================================================
 const arabicTexts = {
-    title: "لوحاتنا",
-    cupsTitle: "كاساتنا",
+    title: "لوحات",
+    cupsTitle: "كاسات",
     giftsTitle: "هدايا منوعة",
     searchPlaceholder: "ابحث عن منتجك من هنا",
     addToCart: "أضف إلى العربة",
@@ -39,8 +39,8 @@ const arabicTexts = {
 };
 
 const englishTexts = {
-    title: "Our Paintings",
-    cupsTitle: "Our Cups",
+    title: " Paintings",
+    cupsTitle: " Cups",
     giftsTitle: "Miscellaneous Gifts",
     searchPlaceholder: "Search for your product here",
     addToCart: "Add to Cart",
@@ -99,53 +99,52 @@ const footerLinksArabic = {
 // --- 2. PRODUCT DATA ---
 // =================================================================
 const paintingsEnglish = [
-    { id: 1, name: "Abstract Landscape", price: 39.99, description: "A vibrant abstract painting of a mountain landscape. Printed on museum-quality canvas.", image: "images/1.png", category: "painting", hasSizes: true },
-    { id: 2, name: "Geometric Sunset", price: 39.99, description: "Modern art featuring sharp geometric shapes and a warm sunset color palette.", image: "images/2.png", category: "painting", hasSizes: true },
-    { id: 3, name: "Minimalist Portrait", price: 39.99, description: "A simple line-art portrait, perfect for minimalist decor. Framed in natural oak.", image: "images/3.png", category: "painting", hasSizes: true },
-    { id: 4, name: "Ocean Wave", price: 59.99, description: "Detailed oil painting capturing the movement and power of a crashing ocean wave.", image: "images/4.png", category: "painting", hasSizes: true },
-    { id: 5, name: "City Skyline", price: 24.99, description: "A striking black and white photography print of a famous city skyline at night.", image: "images/5.png", category: "painting", hasSizes: true },
-    { id: 6, name: "Nature Sketch", price: 59.99, description: "Hand-drawn pencil sketch of forest ferns and foliage. Excellent texture.", image: "images/6.png", category: "painting", hasSizes: true }
+    { id: 1, name: "Abstract Landscape", price: 39.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "Geometric Sunset", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/plates/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "Minimalist Portrait", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/3.png", category: "painting", hasSizes: true },
+    { id: 4, name: "Ocean Wave", price: 59.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/4.png", category: "painting", hasSizes: true },
+    { id: 5, name: "City Skyline", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/5.png", category: "painting", hasSizes: true },
+    { id: 6, name: "Nature Sketch", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/6.png", category: "painting", hasSizes: true }
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 39.99, description: "تُجسد هذه اللوحة الفنية توليفة متوازنة بين الحداثة والتراث، مقدمة قطعة ديكورية محورية تجمع بين فن الخط العربي المعاصر وعمق الرمزية الثقافية لمدينة دمشق.", image: "images/1.png", category: "painting", hasSizes: true },
-    { id: 2, name: "لوحة الحمدلله", price: 39.99, description: "فن حديث يتميز بأشكال هندسية حادة ولوحة ألوان دافئة لغروب الشمس.", image: "images/2.png", category: "painting", hasSizes: true },
-    { id: 3, name: "بورتريه بسيط", price: 39.99, description: "صورة بسيطة مرسومة بخط واحد، مثالية للديكور البسيط. مؤطرة بخشب البلوط الطبيعي.", image: "images/3.png", category: "painting", hasSizes: true },
-    { id: 4, name: "موجة المحيط", price: 59.99, description: "لوحة زيتية مفصلة تجسد حركة وقوة موجة محيط متلاطمة.", image: "images/4.png", category: "painting", hasSizes: true },
-    { id: 5, name: "أفق المدينة", price: 24.99, description: "صورة فوتوغرافية مذهلة باللونين الأبيض والأسود لأفق مدينة شهيرة ليلاً.", image: "images/5.png", category: "painting", hasSizes: true },
-    { id: 6, name: "رسم طبيعي", price: 59.99, description: "رسم يدوي بالقلم الرصاص لسراخس وأوراق الشجر في الغابة. نسيج ممتاز.", image: "images/6.png", category: "painting", hasSizes: true }
+    { id: 1, name: "لوحة يا شام", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "لوحة الحمدلله", price: 39.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "بورتريه بسيط", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/3.png", category: "painting", hasSizes: true },
+    { id: 4, name: "موجة المحيط", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/4.png", category: "painting", hasSizes: true },
+    { id: 5, name: "أفق المدينة", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/5.png", category: "painting", hasSizes: true },
+    { id: 6, name: "رسم طبيعي", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/6.png", category: "painting", hasSizes: true }
 ];
 
 const cupsEnglish = [
-    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, description: "Handmade ceramic coffee mug with unique glaze finish. Dishwasher safe.", image: "images/cup1.png", category: "cup", hasSizes: false },
-    { id: 102, name: "Travel Tumbler", price: 24.99, description: "Stainless steel insulated travel tumbler. Keeps drinks hot for 6 hours.", image: "images/cup2.png", category: "cup", hasSizes: false },
-    { id: 103, name: "Glass Tea Cup Set", price: 34.99, description: "Elegant glass tea cup set of 4. Perfect for serving traditional tea.", image: "images/cup3.png", category: "cup", hasSizes: false },
-    { id: 104, name: "Artistic Espresso Cup", price: 12.99, description: "Small artistic espresso cup with hand-painted design. Italian style.", image: "images/cup4.png", category: "cup", hasSizes: false },
-    { id: 105, name: "Color Changing Mug", price: 19.99, description: "Magic color-changing mug that reveals design when hot liquid is added.", image: "images/cup5.png", category: "cup", hasSizes: false },
-    { id: 106, name: "Bamboo Eco Cup", price: 18.99, description: "Eco-friendly bamboo fiber cup with silicone lid. Reusable and sustainable.", image: "images/cup6.png", category: "cup", hasSizes: false }
+    { id: 101, name: "Ceramic Coffee Mug", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup1.png", category: "cup", hasSizes: false },
+    { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup2.png", category: "cup", hasSizes: false },
+    { id: 103, name: "Glass Tea Cup Set", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup3.png", category: "cup", hasSizes: false },
+    { id: 104, name: "Artistic Espresso Cup", price: 12.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup4.png", category: "cup", hasSizes: false },
+    { id: 105, name: "Color Changing Mug", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup5.png", category: "cup", hasSizes: false },
+    { id: 106, name: "Bamboo Eco Cup", price: 18.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup6.png", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, description: "كوب قهوة من السيراميك مصنوع يدوياً بطلاء زجاجي فريد. آمن لغسالة الصحون.", image: "images/cup1.png", category: "cup", hasSizes: false },
-    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup2.png", category: "cup", hasSizes: false },
-    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, description: "طقم أنيق من 4 أكواب شاي زجاجية. مثالي لتقديم الشاي التقليدي.", image: "images/cup3.png", category: "cup", hasSizes: false },
-    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, description: "فنجان إسبريسو صغير فني بتصميم مرسوم يدوياً. على الطراز الإيطالي.", image: "images/cup4.png", category: "cup", hasSizes: false },
-    { id: 105, name: "كوب متغير اللون", price: 19.99, description: "كوب سحري يتغير لونه ويكشف عن التصميم عند إضافة سائل ساخن.", image: "images/cup5.png", category: "cup", hasSizes: false },
-    { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, description: "كوب صديق للبيئة من ألياف الخيزران مع غطاء سيليكون. قابل لإعادة الاستخدام ومستدام.", image: "images/cup6.png", category: "cup", hasSizes: false }
+    { id: 101, name: "كوب قهوة سيراميك", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/cups/cup1.png", category: "cup", hasSizes: false },    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cups/cup2.png", category: "cup", hasSizes: false },
+    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup3.png", category: "cup", hasSizes: false },
+    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup4.png", category: "cup", hasSizes: false },
+    { id: 105, name: "كوب متغير اللون", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup5.png", category: "cup", hasSizes: false },
+    { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cups/cup6.png", category: "cup", hasSizes: false }
 ];
 
 const giftsEnglish = [
-    { id: 201, name: "Wooden Keychain", price: 7.99, description: "Custom engraved keychain made from olive wood.", image: "images/gift1.png", category: "gift", hasSizes: false },
-    { id: 202, name: "Leather Bookmark", price: 12.50, description: "Elegant bookmark made from genuine leather.", image: "images/gift2.png", category: "gift", hasSizes: false },
-    { id: 203, name: "Scented Candle", price: 15.00, description: "Relaxing lavender-scented candle.", image: "images/gift3.png", category: "gift", hasSizes: false },
-    { id: 204, name: "Personalized Photo Mug", price: 14.99, description: "Customize this mug with your favorite photo. A perfect personal gift.", image: "images/gift4.png", category: "gift", hasSizes: false },
+    { id: 201, name: "Wooden Keychain", price: 7.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift1.png", category: "gift", hasSizes: false },
+    { id: 202, name: "Leather Bookmark", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift2.png", category: "gift", hasSizes: false },
+    { id: 203, name: "Scented Candle", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift3.png", category: "gift", hasSizes: false },
+    { id: 204, name: "Personalized Photo Mug", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift4.png", category: "gift", hasSizes: false },
 ];
 
 const giftsArabic = [
-    { id: 201, name: "ميدالية مفاتيح خشبية", price: 7.99, description: "ميدالية مفاتيح مصنوعة من خشب الزيتون مع حفر حسب الطلب.", image: "images/gift1.png", category: "gift", hasSizes: false },
-    { id: 202, name: "فاصل كتب جلدي", price: 12.50, description: "فاصل كتب أنيق مصنوع من الجلد الطبيعي.", image: "images/gift2.png", category: "gift", hasSizes: false },
-    { id: 203, name: "شمعة معطرة", price: 15.00, description: "شمعة معطرة برائحة اللافندر تساعد على الاسترخاء.", image: "images/gift3.png", category: "gift", hasSizes: false },
-    { id: 204, name: "كوب بصورة شخصية", price: 14.99, description: "خصص هذا الكوب بصورتك المفضلة. هدية شخصية مثالية.", image: "images/gift4.png", category: "gift", hasSizes: false },
+    { id: 201, name: "ميدالية مفاتيح خشبية", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift1.png", category: "gift", hasSizes: false },
+    { id: 202, name: "فاصل كتب جلدي", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift2.png", category: "gift", hasSizes: false },
+    { id: 203, name: "شمعة معطرة", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift3.png", category: "gift", hasSizes: false },
+    { id: 204, name: "كوب بصورة شخصية", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift4.png", category: "gift", hasSizes: false },
 ];
 
 let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...giftsEnglish];
@@ -216,8 +215,10 @@ function renderProductCards(container, productList) {
                 <button class="favorite-btn ${isFav ? 'active' : ''}" data-id="${product.id}" title="${texts.addToFavorites || 'Add to Favorites'}">
                     <i class="${favIconClass}"></i> 
                 </button>
-                <p class="product-description">${product.description.split('. ')[0] + '.'}</p>
-                <div class="product-price">د.أ ${product.price.toFixed(2)}</div>
+<p class="product-description">${
+  product.shortDesc ||
+  (product.description ? (product.description.split(/(?<=\.)\s+/)[0]) : '')
+}</p>                <div class="product-price">د.أ ${product.price.toFixed(2)}</div>
                 <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}">
                     <i class="fas fa-plus"></i> ${texts.addToCart}
                 </button>
@@ -367,8 +368,15 @@ async function showProductDetails(productId) {
     detailTitle.textContent = texts.detailTitle;
     detailImage.src = product.image;
     detailName.textContent = product.name;
-    detailDescriptionShort.textContent = product.description.split('. ')[0] + '.'; 
-    detailDescriptionFull.textContent = product.description; 
+
+const firstSentence = (txt) => txt ? (txt.split(/(?<=\.)\s+/)[0]) : '';
+
+detailDescriptionShort.textContent =
+  product.shortDesc || firstSentence(product.description) || '';
+
+detailDescriptionFull.textContent =
+  product.fullDesc || product.description || '';
+
     detailDescriptionHeader.textContent = texts.detailFullDescription;
     
     if (product.hasSizes) {
@@ -445,7 +453,7 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null) {
     if (existingItem) {
         existingItem.quantity++;
     } else {
-        cart.push({ id: cartItemId, productId: product.id, name: product.name, price: price, quantity: 1, sizeName });
+cart.push({ id: cartItemId, productId: product.id, name: product.name, price: price, quantity: 1, sizeName, image: product.image });
     }
     
     saveCartToStorage();
@@ -485,7 +493,9 @@ function updateCartUI() {
         const sizeDisplay = item.sizeName ? `<div style="font-size: 0.85rem; color: #777;">(${item.sizeName})</div>` : '';
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
+        
+cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="modal-item-img">
             <div class="item-details">
                 <div class="item-name">${item.name} ${sizeDisplay}</div>
                 <div class="item-price">د.أ ${item.price.toFixed(2)}</div>
@@ -500,6 +510,29 @@ function updateCartUI() {
     });
     
     totalPrice.textContent = `د.أ ${total.toFixed(2)}`;
+if (cart.length > 0) {
+    const clearAllBtn = document.createElement('button');
+    clearAllBtn.textContent = '🗑️ حذف الكل';
+    clearAllBtn.className = 'clear-all-btn';
+    clearAllBtn.style.cssText = `
+        background-color: #b22222;
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        display: block;
+        margin: 1rem auto;
+        transition: background 0.3s;
+    `;
+    clearAllBtn.addEventListener('mouseover', () => clearAllBtn.style.backgroundColor = '#d33');
+    clearAllBtn.addEventListener('mouseout', () => clearAllBtn.style.backgroundColor = '#b22222');
+    clearAllBtn.addEventListener('click', clearCart);
+
+    // أضفه بعد قائمة العناصر
+    cartItems.appendChild(clearAllBtn);
+}
 
     cartItems.querySelectorAll('.minus').forEach(btn => btn.addEventListener('click', (e) => updateQuantity(e.currentTarget.dataset.id, -1)));
     cartItems.querySelectorAll('.plus').forEach(btn => btn.addEventListener('click', (e) => updateQuantity(e.currentTarget.dataset.id, 1)));
@@ -522,6 +555,12 @@ function updateQuantity(cartItemId, change) {
 
 function removeFromCart(cartItemId) {
     cart = cart.filter(item => item.id !== cartItemId);
+    saveCartToStorage();
+    updateCartUI();
+    updateFloatingCart();
+}
+function clearCart() {
+    cart = [];
     saveCartToStorage();
     updateCartUI();
     updateFloatingCart();
@@ -643,7 +682,12 @@ function initSearch() {
             return;
         }
 
-        const filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm));
+const filtered = products.filter(p => {
+  const n = (p.name || '').toLowerCase();
+  const sd = (p.shortDesc || p.description || '').toLowerCase();
+  const fd = (p.fullDesc  || p.description || '').toLowerCase();
+  return n.includes(searchTerm) || sd.includes(searchTerm) || fd.includes(searchTerm);
+});
         renderProductCards(productsContainer, filtered.filter(p => p.category === 'painting'));
         renderProductCards(cupsContainer, filtered.filter(p => p.category === 'cup'));
         renderProductCards(giftsContainer, filtered.filter(p => p.category === 'gift'));
@@ -750,3 +794,30 @@ function initStore() {
 }
 
 document.addEventListener('DOMContentLoaded', initStore);
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) تشغيل تأثير الدخول
+  const heroInner = document.querySelector('.hero-inner');
+  if (heroInner) heroInner.classList.add('enter');
+
+  // 2) Tilt خفيف حسب حركة الماوس داخل البوكس
+  const MAX_TILT = 4; // درجات الميل القصوى
+  if (heroInner) {
+    heroInner.classList.add('hover-tilt');
+    heroInner.addEventListener('mousemove', (e) => {
+      const r = heroInner.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = (e.clientX - cx) / (r.width / 2);
+      const dy = (e.clientY - cy) / (r.height / 2);
+      const rotX = (-dy * MAX_TILT).toFixed(2);
+      const rotY = ( dx * MAX_TILT).toFixed(2);
+      heroInner.style.transform = `translateY(-8px) scale(1.01) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    });
+    heroInner.addEventListener('mouseleave', () => {
+      heroInner.classList.add('leave');
+      heroInner.style.transform = `translateY(-2px) scale(1.005) rotateX(0deg) rotateY(0deg)`;
+      setTimeout(() => heroInner.classList.remove('leave'), 300);
+    });
+  }
+});
