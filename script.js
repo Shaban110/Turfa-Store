@@ -35,7 +35,13 @@ const arabicTexts = {
     detailTitle: "تفاصيل المنتج", 
     detailFullDescription: "الوصف الكامل:", 
     floatingItem: "منتج",
-    floatingItems: "منتجات"
+    floatingItems: "منتجات",
+    // 🟢 إضافة نصوص الآلة الكاتبة
+    typewriterStrings: [
+        "للفن اليدوي أصالته.",
+        "للتصميم العربي رونقه.",
+        "نصنع قطعاً تليق بجمال ذوقك."
+    ]
 };
 
 const englishTexts = {
@@ -72,27 +78,41 @@ const englishTexts = {
     detailTitle: "Product Details", 
     detailFullDescription: "Full Description:",
     floatingItem: "item",
-    floatingItems: "items"
+    floatingItems: "items",
+    // 🟢 إضافة نصوص الآلة الكاتبة
+    typewriterStrings: [
+        "Handmade art has its originality.",
+        "Arabic design has its splendor.",
+        "We make pieces worthy of your home."
+    ]
 };
 
 const footerLinksEnglish = {
     contact: [
-        { text: "+962 7 9700 5992", icon: "fas fa-phone", link: "tel:+962797005992" },
-        { text: "info@turfastore.com", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
+        { text: "+962 7 8848 9914", icon: "fas fa-phone", link: "tel:+962788489914" },
+        { text: "info@turfa.art", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
     ],
     about: [ { text: "About Us", link: "#" }, { text: "Contact", link: "#" }, { text: "Privacy Policy", link: "#" } ],
-    categories: [ { text: "Gifts", link: "#" }, { text: "Home Decor", link: "#" }, { text: "Apparel", link: "#" } ],
+categories: [
+    { text: "Paintings", link: "#paintingsTitle" },
+    { text: "Cups", link: "#cupsTitle" },
+    { text: "Miscellaneous Gifts", link: "#giftsTitle" }
+],
     collections: [ { text: "Handmade Gifts", link: "#" }, { text: "Valentine's Day", link: "#" }, { text: "Ramadan", link: "#" } ]
 };
 
 const footerLinksArabic = {
     contact: [
         { text: "+962 7 8848 9914", icon: "fas fa-phone", link: "tel:+962788489914" },
-        { text: "info@turfa.com", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
+        { text: "info@turfa.art", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
     ],
     about: [ { text: "من نحن", link: "#" }, { text: "تواصل معنا", link: "#" }, { text: "سياسة الخصوصية", link: "#" } ],
-    categories: [ { text: "هدايا", link: "#" }, { text: "ديكور منزلي", link: "#" }, { text: "ملابس", link: "#" } ],
-    collections: [ { text: "هدايا يدوية", link: "#" }, { text: "هدايا عيد الحب", link: "#" }, { text: "منتجات رمضانية", link: "#" } ]
+categories: [
+    { text: "لوحات", link: "#paintingsTitle" },
+    { text: "كاسات", link: "#cupsTitle" },
+    { text: "هدايا منوعة", link: "#giftsTitle" }
+],
+    collections: [ { text: "قريبا مدح الرسول", link: "#" },  { text: " قريبا منتجات رمضانية", link: "#" } ,{ text: "قريبا هدايا عيد الحب", link: "#" }]
 };
 
 // =================================================================
@@ -116,6 +136,7 @@ const paintingsArabic = [
     { id: 6, name: "رسم طبيعي", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/6.png", category: "painting", hasSizes: true }
 ];
 
+// ============ 🟢 التعديل هنا (مسار الأكواب) 🟢 ============
 const cupsEnglish = [
     { id: 101, name: "Ceramic Coffee Mug", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup1.png", category: "cup", hasSizes: false },
     { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup2.png", category: "cup", hasSizes: false },
@@ -126,13 +147,14 @@ const cupsEnglish = [
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/cups/cup1.png", category: "cup", hasSizes: false },  
+    { id: 101, name: "كوب قهوة سيراميك", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/cup/cup1.png", category: "cup", hasSizes: false },
     { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup/cup2.png", category: "cup", hasSizes: false },
     { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup3.png", category: "cup", hasSizes: false },
     { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup4.png", category: "cup", hasSizes: false },
     { id: 105, name: "كوب متغير اللون", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup5.png", category: "cup", hasSizes: false },
     { id: 106, name: "كوب بامبو صديق للبيئة", price: 18.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup6.png", category: "cup", hasSizes: false }
 ];
+// ========================================================
 
 const giftsEnglish = [
     { id: 201, name: "Wooden Keychain", price: 7.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/gift1.png", category: "gift", hasSizes: false },
@@ -159,6 +181,7 @@ let products = allProductsArabic;
 let texts = arabicTexts;
 let cart = [];
 let favorites = []; 
+let typewriter; // 🟢 متغير لحفظ الآلة الكاتبة
 
 const productsContainer = document.getElementById('productsContainer');
 const cupsContainer = document.getElementById('cupsContainer');
@@ -175,6 +198,7 @@ const favoritesModal = document.getElementById('favoritesModal');
 const favoritesCount = document.getElementById('favoritesCount');
 const closeFavorites = document.getElementById('closeFavorites');
 const favoritesItems = document.getElementById('favoritesItems');
+const scrollToTopBtn = document.getElementById('scrollToTopBtn'); // 🟢 سهم الصعود
 
 // =================================================================
 // --- 4. HELPER FUNCTIONS ---
@@ -312,6 +336,29 @@ function renderFavoritesModal() {
             renderFavoritesModal(); 
         });
     });
+    
+    // ============ 🟢 التعديل هنا (زر حذف الكل للمفضلة) 🟢 ============
+    if (favoritesProducts.length > 0) {
+        const clearAllBtn = document.createElement('button');
+        clearAllBtn.textContent = '🗑️ حذف الكل';
+        clearAllBtn.className = 'clear-all-btn';
+        // (استخدام نفس التنسيق من سلة المشتريات)
+        clearAllBtn.style.cssText = ` 
+            background-color: #b22222; color: #fff; border: none;
+            padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer;
+            font-weight: bold; display: block; margin: 1rem auto;
+            transition: background 0.3s;
+        `;
+        clearAllBtn.addEventListener('mouseover', () => clearAllBtn.style.backgroundColor = '#d33');
+        clearAllBtn.addEventListener('mouseout', () => clearAllBtn.style.backgroundColor = '#b22222');
+        
+        // ربط الزر بالدالة التي أنشأناها
+        clearAllBtn.addEventListener('click', clearFavorites);
+
+        // إضافة الزر إلى قائمة المفضلة
+        favoritesItems.appendChild(clearAllBtn);
+    }
+    // ========================================================
 }
 
 async function showProductDetails(productId) {
@@ -454,7 +501,8 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null) {
     if (existingItem) {
         existingItem.quantity++;
     } else {
-cart.push({ id: cartItemId, productId: product.id, name: product.name, price: price, quantity: 1, sizeName, image: product.image });
+        // 🟢 إصلاح السلة: إضافة الصورة هنا
+        cart.push({ id: cartItemId, productId: product.id, name: product.name, price: price, quantity: 1, sizeName, image: product.image });
     }
     
     saveCartToStorage();
@@ -495,7 +543,8 @@ function updateCartUI() {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         
-cartItem.innerHTML = `
+        // 🟢 إصلاح السلة: إضافة <img> هنا
+        cartItem.innerHTML = `
             <img src="${item.image}" alt="${item.name}" class="modal-item-img">
             <div class="item-details">
                 <div class="item-name">${item.name} ${sizeDisplay}</div>
@@ -566,6 +615,16 @@ function clearCart() {
     updateCartUI();
     updateFloatingCart();
 }
+
+// ============ 🟢 التعديل هنا (دالة حذف المفضلة) 🟢 ============
+function clearFavorites() {
+    favorites = [];
+    saveFavoritesToStorage();
+    updateFavoritesUI();
+    renderFavoritesModal();
+    renderAllSections(); // لتحديث القلوب على بطاقات المنتجات
+}
+// ========================================================
 
 function proceedToCheckout() {
     if (cart.length === 0) return;
@@ -638,6 +697,10 @@ function toggleLanguage() {
     updateCartUI();
     updateFloatingCart();
     resetCarouselScrolls(); 
+    
+    // 🟢 إعادة تشغيل الآلة الكاتبة باللغة الجديدة
+    if (typewriter) typewriter.stop();
+    initTypewriter();
 }
 
 function initThemeToggle() {
@@ -732,6 +795,29 @@ function initFloatingCart() {
     };
 }
 
+// 🟢 دالة سهم الصعود للأعلى
+function initScrollToTop() {
+    if (!scrollToTopBtn) return;
+
+    // إظهار وإخفاء الزر بناءً على النزول
+    window.addEventListener('scroll', () => {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            scrollToTopBtn.classList.add('active');
+        } else {
+            scrollToTopBtn.classList.remove('active');
+        }
+    });
+
+    // الصعود للأعلى عند الضغط
+    scrollToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // منع التحديث الفوري للرابط
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // صعود ناعم
+        });
+    });
+}
+
 function resetCarouselScrolls() {
     document.querySelectorAll('.products-grid').forEach(container => {
         container.scrollLeft = document.documentElement.dir === 'rtl' ? container.scrollWidth : 0;
@@ -748,6 +834,16 @@ function handleProductClick(e) {
     if (productCard && !e.target.closest('.add-to-cart')) {
         const id = productCard.querySelector('.add-to-cart')?.dataset.id;
         if (id) showProductDetails(parseInt(id));
+    }
+}
+
+// 🟢 دالة تشغيل الآلة الكاتبة
+function initTypewriter() {
+    const targetElement = document.getElementById('typewriter-text');
+    if (targetElement) {
+        // نستخدم النصوص من كائن texts الحالي (الذي يتم تبديله مع اللغة)
+        typewriter = new Typewriter(targetElement, texts.typewriterStrings);
+        typewriter.start();
     }
 }
 
@@ -791,7 +887,13 @@ function initStore() {
     initCarouselControls();
     initSearch(); 
     initFloatingCart();
+    initScrollToTop(); // 🟢 تشغيل سهم الصعود
     resetCarouselScrolls();
+    
+    // ============ 🟢 التعديل هنا 🟢 ============
+    // تشغيل الآلة الكاتبة عند بدء المتجر
+    initTypewriter();
+    // ===========================================
 }
 
 document.addEventListener('DOMContentLoaded', initStore);
@@ -824,4 +926,64 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// ============ 🟢 الكود الجديد المضاف 🟢 ============
+// كلاس الآلة الكاتبة الذي يدير كل شيء
+class Typewriter {
+    constructor(element, words) {
+        this.element = element;
+        this.words = words;
+        this.txt = '';
+        this.wordIndex = 0;
+        this.isDeleting = false;
+        this.loopNum = 0;
+        this.typingSpeed = 120; // سرعة الكتابة
+        this.deletingSpeed = 60; // سرعة الحذف
+        this.pauseDelay = 1800; // مدة التوقف بعد اكتمال الكلمة
+        this.timeoutId = null;
+    }
 
+    tick() {
+        const i = this.loopNum % this.words.length;
+        const fullTxt = this.words[i];
+
+        if (this.isDeleting) {
+            // --- وضع الحذف ---
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+            this.typingSpeed = this.deletingSpeed;
+        } else {
+            // --- وضع الكتابة ---
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+            this.typingSpeed = 120;
+        }
+
+        // عرض النص (مع الحفاظ على المؤشر من CSS)
+        this.element.innerHTML = `<span class="wrap">${this.txt}</span>`;
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            // اكتملت الكلمة، انتظر قبل الحذف
+            this.isDeleting = true;
+            this.typingSpeed = this.pauseDelay;
+        } else if (this.isDeleting && this.txt === '') {
+            // اكتمل الحذف، انتقل للكلمة التالية
+            this.isDeleting = false;
+            this.loopNum++;
+            this.typingSpeed = 500; // توقف قصير قبل بدء الكلمة الجديدة
+        }
+
+        this.timeoutId = setTimeout(() => this.tick(), this.typingSpeed);
+    }
+
+    start() {
+        if (!this.timeoutId) {
+            this.tick();
+        }
+    }
+
+    stop() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+    }
+}
+// ========================================================
