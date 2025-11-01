@@ -589,7 +589,7 @@ main {
 }
 
 .checkout-btn {
-    background: var(--secondary);
+    background: #05240e;
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
@@ -603,7 +603,7 @@ main {
 }
 
 .checkout-btn:hover {
-    background: #b83216;
+    background: #0dc143;
 }
 
 .empty-cart {
