@@ -16,8 +16,8 @@ const arabicTexts = {
     selectSize: "اختر الحجم:",
     sizeOptions: [
         { name: "صغير 40×40سم", priceDiff: 0 },
-        { name: "متوسط 50×70سم", priceDiff: 15.00 },
-        { name: "كبير 80×120سم", priceDiff: 30.00 },     
+        { name: "متوسط 50×70سم", priceDiff: 20.00 },
+        { name: "كبير 80×120سم", priceDiff: 40.00 },     
     ],
     footerCopyright: "&copy; 2025 متجر طُرفة. جميع الحقوق محفوظة.",
     footerContact: "تواصل معنا",
@@ -59,8 +59,8 @@ const englishTexts = {
     selectSize: "Select Size:",
     sizeOptions: [
         { name: "Small 40x40cm", priceDiff: 0 },
-        { name: "Medium 50x70cm", priceDiff: 15.00 },
-        { name: "Large 80x120cm", priceDiff: 30.00 },     
+        { name: "Medium 50x70cm", priceDiff: 20.00 },
+        { name: "Large 80x120cm", priceDiff: 40.00 },     
     ],
     footerCopyright: "&copy; 2025 Turfa Store. All rights reserved.",
     footerContact: "Contact Us",
@@ -119,21 +119,17 @@ categories: [
 // --- 2. PRODUCT DATA ---
 // =================================================================
 const paintingsEnglish = [
-    { id: 1, name: "Abstract Landscape", price: 39.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/1.png", category: "painting", hasSizes: true },
-    { id: 2, name: "Geometric Sunset", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/plates/2.png", category: "painting", hasSizes: true },
-    { id: 3, name: "Minimalist Portrait", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/3.png", category: "painting", hasSizes: true },
-    { id: 4, name: "Ocean Wave", price: 59.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/4.png", category: "painting", hasSizes: true },
-    { id: 5, name: "City Skyline", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/5.png", category: "painting", hasSizes: true },
-    { id: 6, name: "Nature Sketch", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/6.png", category: "painting", hasSizes: true }
+    { id: 1, name: "Ya Sham", price: 39.99,shortDesc: "Damascus in my heart, a piece of art on my wall",fullDesc: "A piece of art crafted with 3 layers of passion to be a lasting reminder of the most beautiful bonds. A serene décor piece with a pink touch, fit for your home and designed to delight your heart", image: "images/plates/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "Alhamdulillah", price: 39.99, shortDesc: "A beautiful plaque, to remind you of gratitude at all times.",fullDesc: "A spiritual art piece crafted with 3D layered technology, designed to illuminate your walls with the remembrance of God and tranquility. A design that merges the grandeur of calligraphy with the depth of ornamentation, serving as a daily reminder of the beauty of gratitude",image: "images/plates/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "Ayatul Kursi", price: 39.99, shortDesc: "The greatest verse, in an artistic design that immortalizes its beauty.",fullDesc: "A décor piece carrying the greatest verse in the Qur'an, crafted with striking layered (3D) technology to bring tranquility and reverence to your space. A unique design blending the grandeur of calligraphy with the warmth of wood, to keep your home under God's protection.", image: "images/plates/3.png", category: "painting", hasSizes: true },
+    { id: 4, name: "...", price: 59.99,shortDesc: "...",fullDesc: "...", image: "images/plates/4.png", category: "painting", hasSizes: true }
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/1.png", category: "painting", hasSizes: true },
-    { id: 2, name: "لوحة الحمدلله", price: 39.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/2.png", category: "painting", hasSizes: true },
-    { id: 3, name: "بورتريه بسيط", price: 39.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/3.png", category: "painting", hasSizes: true },
-    { id: 4, name: "موجة المحيط", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/4.png", category: "painting", hasSizes: true },
-    { id: 5, name: "أفق المدينة", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/5.png", category: "painting", hasSizes: true },
-    { id: 6, name: "رسم طبيعي", price: 59.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/plates/6.png", category: "painting", hasSizes: true }
+    { id: 1, name: "لوحة يا شام", price: 29.99, shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.", image: "images/plates/1.png", category: "painting", hasSizes: true },
+    { id: 2, name: "لوحة الحمد لله", price: 39.99,shortDesc: "لوحة، تذكرك بجمال الامتنان في كل حين.",fullDesc: "قطعة فنية روحانية صُنعت بتقنية الطبقات الثلاثية الأبعاد، لتضيء جدران بيتك بذكر الله والسكينة. تصميم يجمع عظمة الخط مع عمق الزخرفة، لتكون تذكيراً يومياً بجمال الامتنان.", image: "images/plates/2.png", category: "painting", hasSizes: true },
+    { id: 3, name: "لوحة آية الكرسي", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.",fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3.png", category: "painting", hasSizes: true },
+    { id: 4, name: "...", price: 0.00, shortDesc: "...",fullDesc: "...", image: "images/plates/4.png", category: "painting", hasSizes: true }
 ];
 
 // ============ 🟢 التعديل هنا (مسار الأكواب) 🟢 ============
