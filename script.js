@@ -36,6 +36,10 @@ const arabicTexts = {
     detailFullDescription: "الوصف الكامل:", 
     floatingItem: "منتج",
     floatingItems: "منتجات",
+    promoTitle: "عرض الجمعة السوداء (Black Friday)",
+    promoMessage: "بمناسبة الجمعة السوداء، يسُر متجرنا أن يقدم لك خصمًا خاصًا بقيمة 50% على جميع المنتجات لفترة محدودة!",
+    promoButton: "تسوق الآن واستفد من الخصم",
+    // ... (بقية النصوص) ...
     // 🟢 إضافة نصوص الآلة الكاتبة
     typewriterStrings: [
         "للفن اليدوي أصالته.",
@@ -79,12 +83,16 @@ const englishTexts = {
     detailFullDescription: "Full Description:",
     floatingItem: "item",
     floatingItems: "items",
+    promoTitle: "Black Friday Sale",
+    promoMessage: "Celebrate Black Friday! Get a massive 50% discount on ALL products store-wide for a limited time!",
+    promoButton: "Shop Now & Claim Your Discount",
     // 🟢 إضافة نصوص الآلة الكاتبة
     typewriterStrings: [
         "Handmade art has its originality.",
         "Arabic design has its splendor.",
         "We make pieces worthy of your home."
     ]
+    
 };
 
 const footerLinksEnglish = {
@@ -355,6 +363,96 @@ function renderFavoritesModal() {
         favoritesItems.appendChild(clearAllBtn);
     }
     // ========================================================
+}
+
+// =================================================================
+// --- 8. PROMO MODAL LOGIC (New Section) ---
+// =================================================================
+
+function updateCountdown(endTime) {
+    const timerElement = document.getElementById('promoCountdown');
+    if (!timerElement) return;
+
+    // مسح الـ interval السابق قبل بدء الجديد
+    const existingInterval = timerElement.dataset.intervalId;
+    if (existingInterval) {
+        clearInterval(parseInt(existingInterval));
+    }
+
+    const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = endTime - now;
+        
+        if (distance < 0) {
+            clearInterval(interval);
+            timerElement.innerHTML = `<p style="color: var(--secondary); font-size: 1.3rem; font-weight: 600;">انتهى العرض!</p>`;
+            document.getElementById('promoTitle').textContent = (currentLang === 'ar' ? 'انتهى العرض' : 'Sale Ended');
+            document.getElementById('closePromoBtn').style.display = 'none';
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const lang = currentLang === 'ar';
+
+timerElement.innerHTML = `
+            <div class="countdown-timer">
+                <div><span>${seconds}</span><small>${lang ? 'ثواني' : 'Secs'}</small></div>
+                <div><span>${minutes}</span><small>${lang ? 'دقائق' : 'Mins'}</small></div>
+                <div><span>${hours}</span><small>${lang ? 'ساعات' : 'Hours'}</small></div>
+                <div><span>${days}</span><small>${lang ? 'أيام' : 'Days'}</small></div>
+            </div>
+        `;
+    }, 1000);
+
+    // تخزين الـ interval ID
+    timerElement.dataset.intervalId = interval;
+}
+
+function showPromoModal() {
+    // 🟢 تم إزالة التحقق من sessionStorage لتظهر النافذة مع كل تحديث.
+
+    const modal = document.getElementById('promoModal');
+    const title = document.getElementById('promoTitle');
+    const content = document.getElementById('promoContent');
+    const closeBtn = document.getElementById('closePromo');
+    const shopNowBtn = document.getElementById('closePromoBtn');
+
+    const promoTexts = currentLang === 'ar' ? arabicTexts : englishTexts;
+    
+    // 🟢🟢🟢 تم تعديل التاريخ المستهدف إلى نهاية 28 نوفمبر 2025 🟢🟢🟢
+    // التاريخ المستهدف: نهاية يوم 28 نوفمبر 2025 (الساعة 23:59:59)
+    // ملاحظة: شهر نوفمبر هو الشهر العاشر (10) في JavaScript (الأشهر تبدأ من 0)
+    const targetDate = new Date(2025, 10, 28, 23, 59, 59).getTime(); 
+
+    title.textContent = promoTexts.promoTitle;
+    content.innerHTML = `
+        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.8rem;">خصم 50% على كل شيء!</h3>
+        <p>${promoTexts.promoMessage}</p>
+        <div id="promoCountdown" style="text-align: center; margin-bottom: 20px;"></div>
+    `;
+    shopNowBtn.textContent = promoTexts.promoButton;
+    shopNowBtn.style.display = 'block';
+
+    // منطق إغلاق النافذة (بدون تخزين الجلسة)
+    const closeModal = () => {
+        modal.classList.remove('active');
+        // ❌ تم حذف تخزين المشاهدة من الجلسة
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    shopNowBtn.addEventListener('click', closeModal);
+
+    // 🟢 تشغيل العداد التنازلي بالتاريخ الجديد
+    updateCountdown(targetDate);
+
+    // إظهار النافذة بعد ثواني قليلة
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 800); 
 }
 
 async function showProductDetails(productId) {
@@ -863,6 +961,7 @@ function initStore() {
             modal.classList.add('active');
         });
         if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        // هذا السطر يغلق النافذة عند النقر على الخلفية الشفافة (أي خارج محتوى النافذة)
         if (modal) modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.classList.remove('active');
         });
@@ -870,6 +969,18 @@ function initStore() {
     setupModal('cartModal', 'cartIcon', 'closeCart');
     setupModal('favoritesModal', 'favoritesIcon', 'closeFavorites');
     setupModal('productDetailModal', null, 'closeDetail');
+    
+    // 🟢🟢🟢 إضافة سلوك إغلاق النافذة المنبثقة للعروض عند النقر خارجها 🟢🟢🟢
+    const promoModal = document.getElementById('promoModal');
+    if (promoModal) {
+        promoModal.addEventListener('click', (e) => {
+            // إغلاق النافذة فقط إذا كان النقر على عنصر الخلفية (أي خارج الـ .cart-content)
+            if (e.target === promoModal) {
+                promoModal.classList.remove('active');
+            }
+        });
+    }
+    // 🟢🟢🟢 نهاية إضافة السلوك 🟢🟢🟢
 
     // Event Listeners
     document.getElementById('lang-toggle').addEventListener('change', toggleLanguage);
@@ -883,13 +994,12 @@ function initStore() {
     initCarouselControls();
     initSearch(); 
     initFloatingCart();
-    initScrollToTop(); // 🟢 تشغيل سهم الصعود
+    initScrollToTop(); 
     resetCarouselScrolls();
     
-    // ============ 🟢 التعديل هنا 🟢 ============
     // تشغيل الآلة الكاتبة عند بدء المتجر
     initTypewriter();
-    // ===========================================
+    showPromoModal();
 }
 
 document.addEventListener('DOMContentLoaded', initStore);
@@ -934,7 +1044,8 @@ class Typewriter {
         this.loopNum = 0;
         this.typingSpeed = 120; // سرعة الكتابة
         this.deletingSpeed = 60; // سرعة الحذف
-        this.pauseDelay = 1800; // مدة التوقف بعد اكتمال الكلمة
+    // تم تخفيض زمن التوقف لتفادي مشكلة العداد
+    this.pauseDelay = 1000; // مدة التوقف بعد اكتمال الكلمة 
         this.timeoutId = null;
     }
 
