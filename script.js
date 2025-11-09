@@ -1,4 +1,8 @@
 // =================================================================
+// --- 0. GLOBAL CONFIGURATION (NEW) ---
+// =================================================================
+const GLOBAL_DISCOUNT_PERCENT = 0.500; // 50% خصم (50/100)
+// =================================================================
 // --- 1. LANGUAGE & TRANSLATION DATA ---
 // =================================================================
 const arabicTexts = {
@@ -16,8 +20,8 @@ const arabicTexts = {
     selectSize: "اختر الحجم:",
     sizeOptions: [
         { name: "صغير 40×40سم", priceDiff: 0 },
-        { name: "متوسط 50×70سم", priceDiff: 20.00 },
-        { name: "كبير 80×120سم", priceDiff: 40.00 },     
+        { name: "متوسط 50×70سم", priceDiff: 19.99 },
+        { name: "كبير 80×120سم", priceDiff: 39.99 },     
     ],
     footerCopyright: "&copy; 2025 متجر طُرفة. جميع الحقوق محفوظة.",
     footerContact: "تواصل معنا",
@@ -62,9 +66,9 @@ const englishTexts = {
     emptyCartSub: "Add some products to your cart",
     selectSize: "Select Size:",
     sizeOptions: [
-        { name: "Small 40x40cm", priceDiff: 0 },
-        { name: "Medium 50x70cm", priceDiff: 20.00 },
-        { name: "Large 80x120cm", priceDiff: 40.00 },     
+        { name: "Small 40x40cm", priceDiff: 0.00 },
+        { name: "Medium 50x70cm", priceDiff: 19.99 },
+        { name: "Large 80x120cm", priceDiff: 39.99 },     
     ],
     footerCopyright: "&copy; 2025 Turfa Store. All rights reserved.",
     footerContact: "Contact Us",
@@ -232,6 +236,9 @@ function renderProductCards(container, productList) {
         const isFav = favorites.includes(product.id);
         const favIconClass = isFav ? 'fas fa-heart' : 'far fa-heart';
         
+        const originalPrice = product.price;
+        const discountedPrice = originalPrice * (1 - GLOBAL_DISCOUNT_PERCENT); // 🟢 تطبيق الخصم
+
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
         
@@ -247,8 +254,13 @@ function renderProductCards(container, productList) {
 <p class="product-description">${
   product.shortDesc ||
   (product.description ? (product.description.split(/(?<=\.)\s+/)[0]) : '')
-}</p>                <div class="product-price">د.أ ${product.price.toFixed(2)}</div>
-                <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}">
+}</p>                
+                <div class="product-price" style="display: flex; flex-direction: column; align-items: flex-start; margin: 0.8rem 0 1.2rem;">
+                    <span style="font-size: 0.9rem; color: #888; text-decoration: line-through;">د.أ ${originalPrice.toFixed(2)}</span>
+                    <span style="font-size: 1.6rem; font-weight: 700; color: var(--secondary);">د.أ ${discountedPrice.toFixed(2)}</span>
+                </div>
+                
+                <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}" data-discounted-price="${discountedPrice.toFixed(2)}">
                     <i class="fas fa-plus"></i> ${texts.addToCart}
                 </button>
             </div>
@@ -306,7 +318,7 @@ function renderFavoritesModal() {
             <img src="${displayProduct.image}" alt="${displayProduct.name}" class="modal-item-img">
             <div class="item-details" style="flex: 2;">
                 <div class="item-name">${displayProduct.name}</div>
-                <div class="item-price">د.أ ${displayProduct.price.toFixed(2)}</div>
+                <div class="item-price">د.أ ${(displayProduct.price * (1 - GLOBAL_DISCOUNT_PERCENT)).toFixed(2)}</div>
             </div>
             <button class="add-to-cart" data-id="${displayProduct.id}" data-has-sizes="${displayProduct.hasSizes}" style="width: auto; padding: 0.5rem 1rem;">
                 <i class="fas fa-shopping-cart"></i>
@@ -326,7 +338,7 @@ function renderFavoritesModal() {
         favItem.querySelector('.modal-item-img').addEventListener('click', openDetails);
         
         favItem.querySelector('.add-to-cart').addEventListener('click', (e) => {
-            const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
+            const hasSizes = e.currentTarget.dataset.has-sizes === 'true';
             if (hasSizes) {
                  showProductDetails(product.id);
             } else {
@@ -429,9 +441,12 @@ function showPromoModal() {
     const targetDate = new Date(2025, 10, 28, 23, 59, 59).getTime(); 
 
     title.textContent = promoTexts.promoTitle;
+    
+    const discountText = `${(GLOBAL_DISCOUNT_PERCENT * 100).toFixed(0)}%`; // 🟢 لتحديد نسبة الخصم ديناميكياً
+    
     content.innerHTML = `
-        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.8rem;">خصم 50% على كل شيء!</h3>
-        <p>${promoTexts.promoMessage}</p>
+        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.8rem;">خصم ${discountText} على كل شيء!</h3>
+        <p>${promoTexts.promoMessage.replace('50%', discountText)}</p>
         <div id="promoCountdown" style="text-align: center; margin-bottom: 20px;"></div>
     `;
     shopNowBtn.textContent = promoTexts.promoButton;
@@ -500,10 +515,20 @@ async function showProductDetails(productId) {
             </div>`;
     }
     
+    const initialOriginalPrice = product.price;
+    const initialDiscountedPrice = initialOriginalPrice * (1 - GLOBAL_DISCOUNT_PERCENT);
+    
     detailPriceRow.innerHTML = `
         ${sizeOptionsHTML}
-        <span id="detailPrice" style="font-weight: 700; color: var(--secondary); font-size: 2rem; display: block; margin-bottom: 15px;">د.أ ${product.price.toFixed(2)}</span>
-        <button id="detailAddToCartBtnClone" class="add-to-cart" data-id="${product.id}" data-base-price="${product.price}" data-has-sizes="${product.hasSizes}" style="width: 100%; padding: 1rem;">
+        <span id="detailPrice" style="font-weight: 700; color: var(--secondary); font-size: 2rem; display: block; margin-bottom: 15px;">
+             ${product.hasSizes ? '' : 
+             `
+             <span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">د.أ ${initialOriginalPrice.toFixed(2)}</span>
+             <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">د.أ ${initialDiscountedPrice.toFixed(2)}</span>
+             `
+             }
+        </span>
+        <button id="detailAddToCartBtnClone" class="add-to-cart" data-id="${product.id}" data-base-price="${initialOriginalPrice}" data-has-sizes="${product.hasSizes}" data-selected-price="${initialDiscountedPrice.toFixed(2)}" style="width: 100%; padding: 1rem;">
             <i class="fas fa-plus"></i> ${texts.addToCart}
         </button>`;
     
@@ -530,14 +555,21 @@ detailDescriptionFull.textContent =
             box.addEventListener('click', () => {
                 const selectedIndex = box.dataset.index;
                 const priceDiff = parseFloat(box.dataset.pricediff);
-                const newPrice = product.price + priceDiff;
+                const originalNewPrice = product.price + priceDiff;
+                
+                // 🟢 تطبيق الخصم هنا
+                const discountedNewPrice = originalNewPrice * (1 - GLOBAL_DISCOUNT_PERCENT);
                 
                 sizeBoxes.forEach(b => b.classList.remove('active'));
                 box.classList.add('active');
                 
-                updatedDetailPrice.textContent = `د.أ ${newPrice.toFixed(2)}`;
+                updatedDetailPrice.innerHTML = `
+                    <span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">د.أ ${originalNewPrice.toFixed(2)}</span>
+                    <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">د.أ ${discountedNewPrice.toFixed(2)}</span>
+                `;
+                
                 finalAddToCartBtn.dataset.selectedSizeIndex = selectedIndex; 
-                finalAddToCartBtn.dataset.selectedPrice = newPrice.toFixed(2); 
+                finalAddToCartBtn.dataset.selectedPrice = discountedNewPrice.toFixed(2); // حفظ السعر المخفض للإضافة للسلة
             });
         });
 
@@ -550,12 +582,16 @@ detailDescriptionFull.textContent =
         const productId = parseInt(e.currentTarget.dataset.id);
         const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
         let sizeIndex = null;
-        let finalPrice = parseFloat(e.currentTarget.dataset.basePrice);
+        let finalPrice = parseFloat(e.currentTarget.dataset.selectedPrice); // استخدام السعر المخفض المخزن
 
         if (hasSizes) {
             sizeIndex = e.currentTarget.dataset.selectedSizeIndex || '0';
-            finalPrice = parseFloat(e.currentTarget.dataset.selectedPrice) || finalPrice;
+            // finalPrice تم تعريفه وحساب الخصم عليه مسبقاً في منطق الـ sizeBoxes
+        } else {
+             // للمنتجات بدون أحجام، يجب التأكد من تطبيق الخصم هنا أيضاً
+             finalPrice = product.price * (1 - GLOBAL_DISCOUNT_PERCENT);
         }
+        
         addToCart(productId, sizeIndex, finalPrice);
         document.getElementById('productDetailModal').classList.remove('active');
     });
@@ -583,7 +619,20 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null) {
     const product = products.find(p => p.id === productId); 
     if (!product) return;
     
-    const price = finalPrice !== null ? finalPrice : product.price;
+    // 🟢 تطبيق الخصم على السعر (إذا لم يتم تمريره كـ finalPrice)
+    let basePrice = finalPrice !== null ? finalPrice : product.price;
+    // إذا كان finalPrice قد تم حسابه في showProductDetails وتم تمريره، فسيتم استخدامه مباشرة.
+    // إذا لم يكن كذلك (إضافة سريعة)، سيتم حساب الخصم هنا.
+    let price;
+    if (finalPrice !== null) {
+        price = finalPrice;
+    } else {
+        // إذا كان finalPrice null (إضافة سريعة بدون تفاصيل حجم)
+        price = product.price * (1 - GLOBAL_DISCOUNT_PERCENT);
+    }
+    price = parseFloat(price.toFixed(2));
+
+
     const cartItemId = selectedSizeIndex !== null ? `${productId}-${selectedSizeIndex}` : productId.toString();
     
     let sizeName = '';
@@ -795,6 +844,9 @@ function toggleLanguage() {
     // 🟢 إعادة تشغيل الآلة الكاتبة باللغة الجديدة
     if (typewriter) typewriter.stop();
     initTypewriter();
+    
+    // 🟢 تحديث نافذة العروض باللغة الجديدة
+    showPromoModal();
 }
 
 function initThemeToggle() {
@@ -1032,7 +1084,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// ============ 🟢 الكود الجديد المضاف 🟢 ============
+// ============ 🟢 الكود الجديد المضاف (Typewriter) 🟢 ============
 // كلاس الآلة الكاتبة الذي يدير كل شيء
 class Typewriter {
     constructor(element, words) {
