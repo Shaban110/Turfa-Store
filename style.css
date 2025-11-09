@@ -50,9 +50,16 @@ header {
 }
 
 .logo img {
-    height: 50px; 
-    max-width: 180px;
+    /* 🟢 زيادة ارتفاع الصورة الأساسية قليلاً لتظهر الأيقونة والنص بوضوح */
+    height: 55px; 
+    /* 🟢 التأكد من أن الحد الأقصى للعرض يسمح بعرض اللوغو كاملًا */
+    max-width: 250px; 
+    
+    /* 🟢 استخدام object-fit: contain يضمن أن اللوغو يظهر كاملاً دون قص */
     object-fit: contain;
+    
+    /* 🟢 لضمان سلاسة التحميل */
+    vertical-align: middle; 
 }
 
 .search-container {
@@ -1517,4 +1524,85 @@ html[data-theme='dark'] .hero-inner p{color:#eaeaea; opacity:.9}
     direction: ltr;
     unicode-bidi: bidi-override;
     display: inline-block;
+}
+/* --- Black Friday Promo Modal Enhancements --- */
+
+#promoModal .cart-content {
+    background: var(--background);
+    border: 3px solid var(--secondary); /* حدود سميكة بلون العرض */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+#promoModal .cart-header {
+    background: var(--primary); /* أو نستخدم لون داكن خالص مثل #000 */
+    border-bottom: 2px solid var(--secondary);
+    padding: 1rem 1.5rem;
+}
+
+#promoTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#promoContent h3 {
+    color: var(--secondary);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#promoContent p {
+    color: var(--text);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+#closePromoBtn {
+    background-color: var(--secondary) !important; /* لون الخصم */
+    transition: all 0.3s ease;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+#closePromoBtn:hover {
+    background-color: #b83216 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Countdown Timer Styles --- */
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.countdown-timer > div {
+    background: var(--primary);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    min-width: 70px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.countdown-timer span {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #ffd700; /* لون ذهبي للوقت */
+}
+
+.countdown-timer small {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    font-weight: 500;
+    opacity: 0.9;
 }
