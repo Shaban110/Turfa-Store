@@ -1,0 +1,28 @@
+# ============================================
+# robots.txt - متجر طُرفة
+# ============================================
+
+# السماح لكل محركات البحث بفهرسة كل الصفحات
+User-agent: *
+Allow: /
+
+# منع فهرسة المجلدات الإدارية والمؤقتة (لو موجودة)
+Disallow: /admin/
+Disallow: /tmp/
+Disallow: /private/
+Disallow: /*.json$
+
+# السماح الصريح بفهرسة الصور والـ CSS و JS (مهم للسيو الحديث)
+Allow: /images/
+Allow: /icons/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+
+# مكان ملف الـ Sitemap (عدّل الدومين بعد ما تشتريه)
+Sitemap: https://www.turfa.jo/sitemap.xml
+
+# Crawl delay (ثانيتين بين كل طلب) - لتقليل الضغط على السيرفر
+Crawl-delay: 2

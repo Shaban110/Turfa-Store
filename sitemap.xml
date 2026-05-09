@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+    <!-- الصفحة الرئيسية -->
+    <url>
+        <loc>https://www.turfa.jo/</loc>
+        <lastmod>2026-05-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://www.turfa.jo/icons/og-image.png</image:loc>
+            <image:title>متجر طُرفة - فن عربي وهدايا أصيلة</image:title>
+            <image:caption>لوحات بخط عربي ثلاثية الأبعاد، كاسات، طباعات 3D، وهدايا مخصصة</image:caption>
+        </image:image>
+    </url>
+
+    <!-- قسم اللوحات -->
+    <url>
+        <loc>https://www.turfa.jo/#paintingsTitle</loc>
+        <lastmod>2026-05-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- قسم الكاسات -->
+    <url>
+        <loc>https://www.turfa.jo/#cupsTitle</loc>
+        <lastmod>2026-05-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- قسم الطباعات 3D -->
+    <url>
+        <loc>https://www.turfa.jo/#prints3dTitle</loc>
+        <lastmod>2026-05-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- قسم البراويز -->
+    <url>
+        <loc>https://www.turfa.jo/#framesTitle</loc>
+        <lastmod>2026-05-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- قسم العروض -->
+    <url>
+        <loc>https://www.turfa.jo/#offersTitle</loc>
+        <lastmod>2026-05-09</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.95</priority>
+    </url>
+
+</urlset>

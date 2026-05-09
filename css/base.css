@@ -1,0 +1,1566 @@
+/* =================================================================
+   🎨 base.css - الأساسيات والمكونات الرئيسية
+   -----------------------------------------------------------------
+   • Reset + CSS Variables (:root)
+   • Header + Search + Nav icons + Cart icons
+   • Banner + Section titles + Carousels
+   • Products grid + Product cards + Add to cart
+   • Cart Modal (السلة الأساسية)
+   • Variants + Product details
+   ================================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary: #002617;
+    --primary-light: #003a24;
+    --background: #fffeff;
+    --text: #212529;
+    --secondary: #d43b1a;
+    --light-gray: #f0f0f0;
+    --border: #e0e0e0;
+    --footer-bg: #212529; 
+    --footer-text: #ccc;
+    --footer-link: #ffffff;
+    --footer-icon-hover: #00b5ad; 
+    --card-bg: #ffffff;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    /* 🟢 إشارة بصرية إن اللوغو قابل للضغط */
+    cursor: pointer;
+    /* 🟢 padding بسيط بدون border-radius لئلا يقطع شكل اللوغو المستطيل */
+    padding: 2px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logo img {
+    /* 🟢 زيادة ارتفاع الصورة الأساسية قليلاً لتظهر الأيقونة والنص بوضوح */
+    height: 55px; 
+    /* 🟢 التأكد من أن الحد الأقصى للعرض يسمح بعرض اللوغو كاملًا */
+    max-width: 250px; 
+    
+    /* 🟢 استخدام object-fit: contain يضمن أن اللوغو يظهر كاملاً دون قص */
+    object-fit: contain;
+    
+    /* 🟢 لضمان سلاسة التحميل */
+    vertical-align: middle;
+
+    /* 🟢 transition سلس بـ easing مرن (bounce خفيف جداً) */
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center center;
+    will-change: transform;
+}
+
+/* 🟢 تأثير الـ hover: تكبير ناعم بس - بدون توهج أو فلاتر */
+.logo:hover img {
+    transform: scale(1.06);
+}
+
+/* 🟢 تأثير الضغط: انكماش بسيط لإعطاء feedback */
+.logo:active img {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+}
+
+/* 🟢 احترام تفضيلات المستخدم لتقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    .logo img {
+        transition: none;
+    }
+    .logo:hover img {
+        transform: none;
+    }
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 600px;
+    margin: 0 2rem;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 3.5rem 0.75rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    background: var(--secondary);
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+    position: absolute;
+}
+
+.search-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #b83216 0%, var(--secondary) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.search-btn i {
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.search-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(212, 59, 26, 0.4);
+}
+
+.search-btn:hover::before {
+    opacity: 1;
+}
+
+.search-btn:hover i {
+    transform: rotate(90deg) scale(1.1);
+}
+
+.search-btn:active {
+    transform: scale(0.95);
+}
+
+.whatsapp-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.whatsapp-contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.15) 0%, rgba(37, 211, 102, 0.05) 100%);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 0;
+}
+
+[dir="ltr"] .whatsapp-contact::before {
+    transform-origin: left;
+}
+
+.whatsapp-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+}
+
+.whatsapp-contact:hover::before {
+    transform: scaleX(1);
+}
+
+.whatsapp-contact i {
+    font-size: 1.6rem;
+    color: #25D366;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.whatsapp-contact:hover i {
+    transform: rotate(-12deg) scale(1.15);
+    filter: drop-shadow(0 4px 8px rgba(37, 211, 102, 0.5));
+}
+
+.whatsapp-contact span {
+    font-size: 0.95rem;
+    direction: ltr;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.whatsapp-contact:hover span {
+    color: #25D366;
+}
+
+[dir="rtl"] .search-input {
+    padding: 0.75rem 1rem 0.75rem 3.5rem;
+}
+
+[dir="rtl"] .search-btn {
+    right: auto;
+    left: 5px;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.8rem;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: white;
+}
+
+/* دائرة خلفية تظهر بنعومة عند الـ hover */
+.cart-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(0);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 0;
+}
+
+.cart-icon i {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* السلة: ترتفع وتميل قليلاً عند الـ hover */
+#cartIcon:hover {
+    transform: translateY(-3px);
+}
+
+#cartIcon:hover::before {
+    transform: scale(1);
+}
+
+#cartIcon:hover i {
+    transform: rotate(-8deg) scale(1.15);
+    filter: drop-shadow(0 4px 8px rgba(212, 59, 26, 0.4));
+}
+
+/* المفضلة: تنبض بإيقاع قلب عند الـ hover */
+#favoritesIcon:hover {
+    transform: translateY(-3px);
+}
+
+#favoritesIcon:hover::before {
+    transform: scale(1);
+    background: rgba(212, 59, 26, 0.18);
+}
+
+#favoritesIcon:hover i {
+    color: #ff4d6d;
+    animation: heartBeat 0.9s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(255, 77, 109, 0.5));
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    25%      { transform: scale(1.25); }
+    50%      { transform: scale(1.1); }
+    75%      { transform: scale(1.2); }
+}
+
+/* العداد الصغير: ينبض عند hover الأيقونة */
+.cart-icon:hover .cart-count {
+    animation: countBounce 0.5s ease;
+}
+
+@keyframes countBounce {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    /* 🟢 inset-inline-end يضع العنصر على الجانب الموافق لاتجاه القراءة (يمين في LTR، يسار في RTL) */
+    inset-inline-end: -6px;
+    /* لإلغاء أي توريث قديم من right/left قد يخلّ بالموقع */
+    right: auto;
+    left: auto;
+    background-color: var(--secondary);
+    color: white;
+    border-radius: 50%;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: bold;
+    line-height: 1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--primary);
+    z-index: 2;
+    pointer-events: none;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+@keyframes subtlePulse {
+    0% { 
+        transform: scale(1); 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    50% { 
+        transform: scale(1.005); 
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    }
+    100% { 
+        transform: scale(1); 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.banner {
+    background-color: var(--secondary);
+    color: white;
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    animation: subtlePulse 3s infinite ease-in-out; 
+}
+
+.banner h2 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary);
+    font-size: 2.2rem;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--primary) 30%,
+        #d4af37 50%,
+        var(--primary) 70%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    margin: 0.5rem auto;
+    border-radius: 2px;
+    animation: titleGlow 4s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+.carousel-wrapper {
+    position: relative;
+    padding: 0 70px;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 38, 23, 0.85);
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 50; 
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-control i {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.carousel-control:hover {
+    background-color: #002617;
+    border-color: #d4af37;
+    color: #d4af37;
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.35);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control.prev:hover i {
+    transform: translateX(-3px);
+}
+
+.carousel-control.next:hover i {
+    transform: translateX(3px);
+}
+
+.carousel-control:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+.products-grid {
+    display: flex;
+    overflow-x: auto; 
+    gap: 20px;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory; 
+    
+    padding-left: 0; 
+    padding-right: 0; 
+    
+    margin-left: 0; 
+    margin-right: 0;
+    width: 100%;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+
+.products-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.product-card {
+    min-width: calc((100% - 60px) / 4);
+    max-width: calc((100% - 60px) / 4);
+    height: auto;
+    scroll-snap-align: start; 
+
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    transition: 
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+    border: 1px solid var(--border);
+    cursor: pointer; 
+    position: relative;
+}
+
+/* لمعة ذهبية تمر فوق الكرت عند الـ hover */
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(212, 175, 55, 0.15) 50%,
+        transparent 100%
+    );
+    transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.product-card:hover::before {
+    left: 130%;
+}
+
+.product-card:hover {
+    transform: translateY(-10px) scale(1.015);
+    box-shadow: 
+        0 18px 35px rgba(0, 38, 23, 0.18),
+        0 0 0 1px rgba(212, 175, 55, 0.3);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* تكبير الصورة عند الـ hover */
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.08);
+}
+
+.product-image {
+    height: 200px;
+    width: 100%;
+    background: var(--light-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px; 
+}
+
+.product-info {
+    padding: 1.5rem;
+    position: relative; 
+    min-height: 190px; 
+}
+
+.product-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    max-height: 2.6rem; 
+    overflow: hidden;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: #ccc; 
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 8px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+}
+
+:not([dir="rtl"]) .favorite-btn {
+    right: 15px;
+    left: auto;
+}
+
+[dir="rtl"] .favorite-btn {
+    left: 15px;
+    right: auto;
+}
+
+.favorite-btn:hover {
+    color: #ff4d6d;
+    background: #fff;
+    transform: scale(1.15);
+    box-shadow: 0 6px 18px rgba(255, 77, 109, 0.35);
+}
+
+.favorite-btn:active {
+    transform: scale(0.92);
+}
+
+.favorite-btn.active .fa-heart {
+    color: #e23d28;
+    animation: favHeartPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes favHeartPop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+.product-price {
+    /* 🟢 تم إزالة تنسيق الحجم واللون الافتراضي ليعتمد على التنسيق المدمج في JS */
+    margin: 0.8rem 0;
+    /* 🟢 إضافة هذا لمنع تعارضات */
+    line-height: 1.2; 
+}
+
+.product-description {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    min-height: 40px; 
+    max-height: 40px;
+    overflow: hidden; 
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate; /* 🟢 يخلي النص دائماً فوق التعبئة */
+}
+
+/* تعبئة ذهبية تتمدد من النص */
+.add-to-cart::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d97a 100%);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+    z-index: -1; /* 🟢 خلف النص دائماً */
+}
+
+.add-to-cart:hover::before {
+    width: 350px;
+    height: 350px;
+}
+
+.add-to-cart i {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.add-to-cart:hover {
+    color: #002617; /* 🟢 النص يتحول أخضر داكن (على الذهبي) */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+}
+
+.add-to-cart:hover i {
+    transform: rotate(-90deg) scale(1.2);
+}
+
+.add-to-cart:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.cart-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cart-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-content {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+    overflow: hidden;
+    transform: translateY(40px) scale(0.95);
+    opacity: 0;
+    transition: 
+        transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.4s ease;
+    border: 1px solid var(--border);
+    max-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-modal.active .cart-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.cart-header {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.close-cart:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.close-cart:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.detail-scroll-content {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    padding: 0; 
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: column; 
+    padding: 2rem;
+}
+
+#detailImageContainer {
+    height: 350px; 
+    width: 100%;
+    background: var(--light-gray);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#detailImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+}
+
+#thumbnailGallery {
+    display: flex;
+    gap: 10px; 
+    margin-top: 15px;
+    overflow-x: auto; 
+    padding-bottom: 10px; 
+    flex-shrink: 0;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s, border 0.3s;
+    border: 2px solid transparent;
+    flex-shrink: 0; 
+}
+
+.thumbnail.active {
+    opacity: 1;
+    border-color: var(--secondary); 
+}
+
+.detail-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.item-price {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.remove-item {
+    color: var(--secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.cart-footer {
+    padding: 1.5rem;
+    background: var(--background);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+}
+
+.total-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.checkout-btn {
+    background: linear-gradient(135deg, #002617 0%, #003a24 100%);
+    color: white;
+    border: 2px solid #002617;
+    padding: 0.9rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 38, 23, 0.25);
+}
+
+.checkout-btn i {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkout-btn:hover {
+    background: linear-gradient(135deg, #003a24 0%, #004a2e 100%);
+    border-color: #d4af37;
+    color: #d4af37;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(212, 175, 55, 0.35);
+}
+
+.checkout-btn:hover i {
+    transform: scale(1.25) rotate(-12deg);
+    color: #25D366;
+}
+
+.checkout-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+}
+
+.empty-cart i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--light-gray);
+}
+
+.floating-cart-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, var(--secondary) 0%, #b83216 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 
+        0 8px 25px rgba(212, 59, 26, 0.4),
+        0 0 0 0 rgba(212, 59, 26, 0.5);
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: none;
+    animation: floatingPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes floatingPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 8px 25px rgba(212, 59, 26, 0.4),
+            0 0 0 0 rgba(212, 59, 26, 0.5);
+    }
+    50% { 
+        box-shadow: 
+            0 8px 25px rgba(212, 59, 26, 0.4),
+            0 0 0 12px rgba(212, 59, 26, 0);
+    }
+}
+
+.floating-cart-widget.active {
+    display: block;
+    animation: 
+        slideInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+        floatingPulse 2.5s ease-in-out 0.5s infinite;
+}
+
+.floating-cart-widget:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 
+        0 14px 32px rgba(212, 59, 26, 0.55),
+        0 0 0 0 rgba(212, 59, 26, 0);
+    animation: none;
+}
+
+.floating-cart-widget:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.floating-cart-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.floating-cart-icon {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.floating-cart-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.floating-cart-items {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.floating-cart-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+[dir="rtl"] .floating-cart-widget {
+    right: auto;
+    left: 30px;
+}
+
+.footer-main {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 3rem 2rem 1rem;
+    margin-top: 3rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    padding-bottom: 2rem;
+}
+
+.footer-col h3 {
+    color: var(--footer-link);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-col ul li a {
+    color: var(--footer-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: inline-block;
+    position: relative;
+}
+
+.footer-col ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #d4af37;
+    transition: width 0.35s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #d4af37;
+    transform: translateX(4px);
+}
+
+[dir="rtl"] .footer-col ul li a:hover {
+    transform: translateX(-4px);
+}
+
+.footer-col ul li a:hover::after {
+    width: 100%;
+}
+
+.footer-col i {
+    margin-inline-end: 10px; 
+    color: var(--footer-text);
+    min-width: 18px;
+    transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover ~ i,
+.footer-col ul li:hover i {
+    color: #d4af37;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+    color: var(--footer-text);
+    margin: 0 8px 10px 0;
+    font-size: 1.1rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.social-icons a:hover {
+    color: #d4af37;
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #d4af37;
+    transform: translateY(-4px) rotate(-8deg);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.app-links img {
+    width: 120px;
+    height: auto;
+    margin-top: 10px;
+    margin-inline-end: 10px;
+    border-radius: 6px;
+}
+
+.product-size-select {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-size-select label {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.size-options-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.size-option-box {
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 55px; 
+}
+
+.size-option-box:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 0 5px rgba(212, 59, 26, 0.3);
+}
+
+.size-option-box.active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.size-option-box .size-price-diff {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.size-select-dropdown {
+    display: none !important; 
+}
+
+/* =================================================================
+   🟢 VARIANTS — الخيارات النصية (مثل ماريو/لويجي)
+   ================================================================= */
+.product-variant-select {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-variant-select label {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.product-variant-select label::before {
+    content: "✦";
+    color: #c9a84c;
+    font-size: 0.9rem;
+}
+
+.variant-options-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+}
+
+.variant-option-box {
+    position: relative;
+    text-align: center;
+    padding: 0.8rem 0.6rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background-color 0.25s ease;
+    font-family: inherit;
+    background-color: var(--background);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    min-height: 60px;
+    overflow: hidden;
+}
+
+/* خط ذهبي يظهر من أسفل عند الـ hover */
+.variant-option-box::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+    transition: width 0.3s ease;
+}
+
+.variant-option-box:hover {
+    border-color: #c9a84c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.2);
+}
+
+.variant-option-box:hover::after {
+    width: 80%;
+}
+
+.variant-option-box.active {
+    border-color: #c9a84c;
+    background: linear-gradient(135deg, #c9a84c 0%, #e8c878 100%);
+    color: #002617;
+    box-shadow: 0 6px 18px rgba(201, 168, 76, 0.4);
+    transform: translateY(-2px);
+}
+
+.variant-option-box.active::after {
+    width: 100%;
+    background: rgba(0, 38, 23, 0.4);
+}
+
+.variant-option-box .variant-name {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.variant-option-box .variant-price-diff {
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0.85;
+    direction: ltr;
+}
+
+.variant-option-box.active .variant-price-diff {
+    opacity: 1;
+    color: #002617;
+}
+
+/* --- الوضع الداكن --- */
+html[data-theme='dark'] .variant-option-box {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+html[data-theme='dark'] .variant-option-box:hover {
+    border-color: #e8c878;
+    box-shadow: 0 4px 14px rgba(232, 200, 120, 0.3);
+}
+
+html[data-theme='dark'] .variant-option-box.active {
+    background: linear-gradient(135deg, #e8c878 0%, #f4d97a 100%);
+    border-color: #e8c878;
+    color: #1a1a1a;
+    box-shadow: 0 6px 20px rgba(232, 200, 120, 0.45);
+}
+
+/* --- موبايل --- */
+@media (max-width: 480px) {
+    .variant-options-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .variant-option-box .variant-name {
+        font-size: 0.95rem;
+    }
+}
+
+/* احترام تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    .variant-option-box,
+    .variant-option-box::after {
+        transition: none !important;
+    }
+    .variant-option-box:hover,
+    .variant-option-box.active {
+        transform: none !important;
+    }
+}
+
+/* 🟢 تأثير fade سلس عند تبديل وصف الـ variant */
+#detailDescriptionShort,
+#detailDescriptionFull {
+    transition: opacity 0.18s ease;
+}
+
+.banner-animated {
+    position: relative;
+    background-color: transparent;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.banner-animated::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary);
+    z-index: -1;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: paint-reveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes paint-reveal {
+    from {
+        transform-origin: left;
+        transform: scaleX(0);
+    }
+    to {
+        transform-origin: left;
+        transform: scaleX(1);
+    }
+}
+
+[dir="rtl"] .banner-animated::before {
+    transform-origin: right;
+}
+.banner-animated h2 {
+    position: relative;
+    z-index: 2;
+}
+
+.modal-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-inline-end: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+#favoritesModal .item-name {
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+#favoritesModal .item-name:hover {
+    color: var(--secondary);
+}
+
+html[data-theme='dark'] {
+    --background: #121212;
+    --text: #e0e0e0;
+    --card-bg: #1e1e1e;
+    --light-gray: #2a2a2a;
+    --border: #333;
+    --primary-light: #004d32;
+}
+
+html[data-theme='dark'] .product-card {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 🟢 زر "أضف إلى العربة" في الوضع الداكن - تصميم ذهبي أنيق ولافت */
+html[data-theme='dark'] .add-to-cart {
+    background: linear-gradient(135deg, #c9a84c 0%, #e8c878 100%);
+    color: #002617;
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.25);
+    border: 1px solid rgba(232, 200, 120, 0.3);
+}
+
+/* تعبئة الـ hover تصير أفتح ولامعة بدل ذهبي على ذهبي */
+html[data-theme='dark'] .add-to-cart::before {
+    background: linear-gradient(135deg, #f4d97a 0%, #ffe9a8 100%);
+}
+
+html[data-theme='dark'] .add-to-cart:hover {
+    color: #002617;
+    box-shadow: 0 8px 24px rgba(232, 200, 120, 0.5);
+}
+
+/* 🟢 زر القلب في الوضع الداكن */
+html[data-theme='dark'] .favorite-btn {
+    background: rgba(40, 40, 40, 0.85);
+    color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme='dark'] .favorite-btn:hover {
+    background: rgba(60, 60, 60, 0.95);
+    color: #ff4d6d;
+    box-shadow: 0 6px 18px rgba(255, 77, 109, 0.4);
+    border-color: rgba(255, 77, 109, 0.5);
+}
+
+html[data-theme='dark'] .favorite-btn.active .fa-heart {
+    color: #ff5d6d;
+}
+
+html[data-theme='dark'] .product-title {
+    color: #f5f5f5;
+}
+
+html[data-theme='dark'] .product-description {
+    color: #a0a0a0;
+}
+
+html[data-theme='dark'] #detailImageContainer {
+    background: #ffffff;
+}
+
+html[data-theme='dark'] .section-title {
+    color: #f0f0f0;
+}
+
+html[data-theme='dark'] .section-title::after {
+    background-color: #f0f0f0;
+}
+
+html[data-theme='dark'] .product-price {
+    color: #f0f0f0;
+}
+
+html[data-theme='dark'] .product-description {
+    color: #a0a0a0;
+}
+
+html[data-theme='dark'] .total-price {
+    color: #f0f0f0;
+}
