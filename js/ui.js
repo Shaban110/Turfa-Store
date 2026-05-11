@@ -80,6 +80,7 @@ function renderAllSections() {
     renderProductSection(cupsContainer, 'cup', texts.cupsTitle, 'cupsTitle');
     renderProductSection(prints3dContainer, 'print3d', texts.prints3dTitle, 'prints3dTitle');
     renderProductSection(framesContainer, 'frame', texts.framesTitle, 'framesTitle');
+    renderProductSection(giftsContainer, 'gift', texts.giftsTitle, 'giftsTitle');
 }
 
 // 🟢 دالة ترندر قسم العروض (حالياً تعرض كل المنتجات لأن كلها عليها خصم،
@@ -332,6 +333,35 @@ function renderFooterLinks() {
     renderList(document.querySelector('.footer-col:nth-child(2)'), linksData.about);
     renderList(document.querySelector('.footer-col:nth-child(3)'), linksData.categories);
     renderList(document.querySelector('.footer-col:nth-child(4)'), linksData.collections);
+
+    // 🟢 إضافة smooth scroll لكل الروابط الداخلية في الفوتر (اللي تبدأ بـ #)
+    document.querySelectorAll('footer a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            // نتجاهل # الفاضي
+            if (!href || href === '#') return;
+            const targetEl = document.getElementById(href.substring(1));
+            if (!targetEl) return;
+
+            e.preventDefault();
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+
+            window.scrollTo({
+                top: targetY,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // 🟢 تحديث نصوص قسم الفنانين
+    const artistTitle = document.getElementById('artistCtaTitle');
+    const artistDesc = document.getElementById('artistCtaDesc');
+    const artistBtn = document.getElementById('artistCtaBtnText');
+    if (artistTitle) artistTitle.textContent = texts.artistCtaTitle;
+    if (artistDesc) artistDesc.textContent = texts.artistCtaDesc;
+    if (artistBtn) artistBtn.textContent = texts.artistCtaBtn;
 }
 
 function toggleLanguage() {
@@ -344,7 +374,13 @@ function toggleLanguage() {
     document.getElementById('logoImage').src = isEnglish ? 'icons/turfa_logo_en.png' : 'icons/turfa_logo_ar.png';
     
     document.getElementById('searchInput').placeholder = texts.searchPlaceholder;
-    checkoutBtn.innerHTML = `<i class="fab fa-whatsapp"></i> ${texts.checkout}`;
+    checkoutBtn.innerHTML = `<i class="fab fa-whatsapp"></i> <span id="checkoutBtnText">${texts.checkout}</span>`;
+
+    // 🟢 تحديث نص زر الاستفسار
+    const inquiryBtn = document.getElementById('inquiryBtn');
+    if (inquiryBtn) {
+        inquiryBtn.innerHTML = `<i class="fas fa-comment-dots"></i> <span id="inquiryBtnText">${texts.inquiry}</span>`;
+    }
     
     // 🟢 تحديث نص الهيرو
     const heroSubtitle = document.getElementById('heroSubtitle');
@@ -412,6 +448,7 @@ const filtered = products.filter(p => {
         renderProductCards(cupsContainer, filtered.filter(p => p.category === 'cup'));
         renderProductCards(prints3dContainer, filtered.filter(p => p.category === 'print3d'));
         renderProductCards(framesContainer, filtered.filter(p => p.category === 'frame'));
+        renderProductCards(giftsContainer, filtered.filter(p => p.category === 'gift'));
     };
 
     searchInput.addEventListener('input', performSearch);
@@ -528,6 +565,7 @@ function initCarouselControls() {
     initSectionCarousel('cupsContainer', 'scrollPrevCups', 'scrollNextCups');
     initSectionCarousel('prints3dContainer', 'scrollPrevPrints3d', 'scrollNextPrints3d');
     initSectionCarousel('framesContainer', 'scrollPrevFrames', 'scrollNextFrames');
+    initSectionCarousel('giftsContainer', 'scrollPrevGifts', 'scrollNextGifts');
 }
 
 function initFloatingCart() {
@@ -540,9 +578,21 @@ function initFloatingCart() {
             document.getElementById('floatingItemCount').textContent = totalCount;
             document.getElementById('floatingItemText').textContent = totalCount === 1 ? texts.floatingItem : texts.floatingItems;
             document.getElementById('floatingTotalPrice').textContent = `د.أ ${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}`;
+
+            // 🟢 لو السلة كانت مخفية، نضيف entering animation مرة وحدة
+            const wasHidden = !floatingCart.classList.contains('active');
             floatingCart.classList.add('active');
+
+            if (wasHidden) {
+                floatingCart.classList.add('entering');
+                // نشيل الكلاس بعد ما الأنيميشن يخلص (500ms + buffer)
+                setTimeout(() => {
+                    floatingCart.classList.remove('entering');
+                }, 600);
+            }
         } else {
             floatingCart.classList.remove('active');
+            floatingCart.classList.remove('entering');
         }
     };
 }
@@ -644,7 +694,7 @@ function initCategoryTabs() {
     });
     
     // مراقبة الأقسام لتحديد البطاقة النشطة تلقائياً عند السكرول
-    const sectionIds = ['paintingsTitle', 'cupsTitle', 'prints3dTitle', 'framesTitle'];
+    const sectionIds = ['paintingsTitle', 'cupsTitle', 'prints3dTitle', 'framesTitle', 'giftsTitle'];
     const sections = sectionIds
         .map(id => document.getElementById(id))
         .filter(Boolean);

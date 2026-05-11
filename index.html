@@ -102,7 +102,6 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="interactive.css">
 </head>
 <body>
 
@@ -174,7 +173,7 @@
 
   <!-- 🟢 بطاقات فئات المنتجات -->
   <nav class="category-cards" aria-label="فئات المنتجات">
-    <button class="category-card" data-target="paintingsTitle" style="--cat-bg: url('images/plates/1.png');">
+    <button class="category-card" data-target="paintingsTitle" style="--cat-bg: url('../images/plates/1/1.webp');">
       <span class="category-card-overlay" aria-hidden="true"></span>
       <span class="category-card-content">
         <span class="category-card-icon"><i class="fas fa-image"></i></span>
@@ -183,7 +182,7 @@
       </span>
     </button>
     
-    <button class="category-card" data-target="cupsTitle" style="--cat-bg: url('images/cup/cup1.png');">
+    <button class="category-card" data-target="cupsTitle" style="--cat-bg: url('../images/cup/1/1.webp');">
       <span class="category-card-overlay" aria-hidden="true"></span>
       <span class="category-card-content">
         <span class="category-card-icon"><i class="fas fa-mug-hot"></i></span>
@@ -192,7 +191,7 @@
       </span>
     </button>
 
-    <button class="category-card" data-target="prints3dTitle" style="--cat-bg: url('images/3d/1.png');">
+    <button class="category-card" data-target="prints3dTitle" style="--cat-bg: url('../images/3d/1/1.webp');">
       <span class="category-card-overlay" aria-hidden="true"></span>
       <span class="category-card-content">
         <span class="category-card-icon"><i class="fas fa-cube"></i></span>
@@ -201,12 +200,21 @@
       </span>
     </button>
     
-    <button class="category-card" data-target="framesTitle" style="--cat-bg: url('images/Frame/gift1.png');">
+    <button class="category-card" data-target="framesTitle" style="--cat-bg: url('../images/Frame/1/1.webp');">
       <span class="category-card-overlay" aria-hidden="true"></span>
       <span class="category-card-content">
         <span class="category-card-icon"><i class="fas fa-image"></i></span>
         <span class="category-card-title" data-ar="براويز" data-en="Frames">براويز</span>
         <span class="category-card-count" data-ar="تصفح البراويز" data-en="Browse Frames">تصفح البراويز</span>
+      </span>
+    </button>
+
+    <button class="category-card" data-target="giftsTitle" style="--cat-bg: url('../images/gifts/1/1.webp');">
+      <span class="category-card-overlay" aria-hidden="true"></span>
+      <span class="category-card-content">
+        <span class="category-card-icon"><i class="fas fa-gift"></i></span>
+        <span class="category-card-title" data-ar="هدايا منوعة" data-en="Mixed Gifts">هدايا منوعة</span>
+        <span class="category-card-count" data-ar="تصفح الهدايا" data-en="Browse Gifts">تصفح الهدايا</span>
       </span>
     </button>
   </nav>
@@ -266,6 +274,17 @@
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
+
+        <h1 class="section-title" id="giftsTitle" style="margin-top: 4rem;">هدايا منوعة</h1>
+        <div class="carousel-wrapper">
+            <button class="carousel-control prev" id="scrollPrevGifts">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="products-grid" id="giftsContainer"></div>
+            <button class="carousel-control next" id="scrollNextGifts">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </main>
     
     <div class="cart-modal" id="cartModal">
@@ -277,9 +296,14 @@
             <div class="cart-items" id="cartItems"></div>
             <div class="cart-footer">
                 <div class="total-price">الإجمالي: <span id="totalPrice">د.أ 0.00</span></div>
-                <button class="checkout-btn" id="checkoutBtn">
-                    <i class="fab fa-whatsapp"></i> متابعة الشراء عبر واتساب
-                </button>
+                <div class="cart-footer-buttons">
+                    <button class="inquiry-btn" id="inquiryBtn">
+                        <i class="fas fa-comment-dots"></i> <span id="inquiryBtnText">استفسار</span>
+                    </button>
+                    <button class="checkout-btn" id="checkoutBtn">
+                        <i class="fab fa-whatsapp"></i> <span id="checkoutBtnText">متابعة الشراء عبر واتساب</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -311,6 +335,93 @@
         </div>
     </div>
 </div>
+
+    <!-- 🟢 موديل تقديم طلب الفنان (Artist Application) -->
+    <div class="cart-modal artist-form-modal" id="artistFormModal">
+        <div class="cart-content artist-form-content">
+            <div class="cart-header artist-form-header">
+                <div class="artist-form-header-text">
+                    <h2 id="artistFormTitle">انضم لمتجر طُرفة</h2>
+                    <p id="artistFormSubtitle">اعرض منتجاتك اليدوية على منصتنا</p>
+                </div>
+                <button class="close-cart" id="closeArtistForm">&times;</button>
+            </div>
+
+            <div class="artist-form-body">
+                <!-- شريط استفسار -->
+                <div class="artist-inquiry-banner">
+                    <div class="artist-inquiry-text">
+                        <i class="fas fa-circle-question"></i>
+                        <span id="artistInquiryText">عندك أسئلة قبل التسجيل؟</span>
+                    </div>
+                    <button class="artist-inquiry-btn" id="artistInquiryBtn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span id="artistInquiryBtnText">استفسر</span>
+                    </button>
+                </div>
+
+                <!-- الحقول -->
+                <div class="artist-form-fields">
+                    <div class="checkout-form-field">
+                        <label for="artistName">
+                            <span id="artistNameLabel">الاسم الكامل</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="artistName" autocomplete="name" />
+                    </div>
+
+                    <div class="checkout-form-field">
+                        <label for="artistPhone">
+                            <span id="artistPhoneLabel">رقم الهاتف</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <input type="tel" id="artistPhone" autocomplete="tel" placeholder="07XXXXXXXX" />
+                    </div>
+
+                    <div class="checkout-form-field full-width">
+                        <label for="artistProductType">
+                            <span id="artistProductTypeLabel">نوع المنتجات</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <select id="artistProductType">
+                            <option value="" id="artistProductTypePlaceholder">اختر نوع المنتجات</option>
+                        </select>
+                    </div>
+
+                    <div class="checkout-form-field full-width">
+                        <label for="artistDescription">
+                            <span id="artistDescriptionLabel">وصف منتجاتك</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <textarea id="artistDescription" rows="3" placeholder="اكتب وصفاً مختصراً عن منتجاتك، خبرتك، والأسعار التقريبية..." maxlength="500"></textarea>
+                    </div>
+
+                    <div class="checkout-form-field full-width">
+                        <label for="artistInstagram">
+                            <span id="artistInstagramLabel">رابط الإنستغرام (اختياري)</span>
+                        </label>
+                        <input type="text" id="artistInstagram" placeholder="@username أو instagram.com/username" />
+                    </div>
+
+                    <!-- ملاحظة الصور -->
+                    <div class="artist-photos-note">
+                        <i class="fas fa-camera"></i>
+                        <span id="artistPhotosNote">ستتمكن من إرسال صور منتجاتك مباشرة في محادثة الواتساب بعد إرسال الطلب</span>
+                    </div>
+
+                    <p class="checkout-form-hint" id="artistFormHint">* الحقول المعلّمة إجبارية</p>
+                    <p class="checkout-form-error" id="artistFormErrorMsg"></p>
+                </div>
+            </div>
+
+            <div class="cart-footer artist-form-footer">
+                <button class="checkout-form-cancel" id="artistFormCancelBtn">رجوع</button>
+                <button class="checkout-btn artist-form-submit" id="artistFormSubmitBtn">
+                    <i class="fab fa-whatsapp"></i> <span id="artistFormSubmitText">إرسال طلب الانضمام</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- 🟢 موديل نموذج الطلب (قبل واتساب) -->
     <div class="cart-modal checkout-form-modal" id="checkoutFormModal">
@@ -345,6 +456,27 @@
                     </div>
                 </div>
 
+                <!-- 🟢 شريط معلومات التوصيل + Toggle -->
+                <div class="checkout-shipping-banner">
+                    <div class="checkout-shipping-icon">
+                        <i class="fas fa-truck-fast"></i>
+                    </div>
+                    <div class="checkout-shipping-text">
+                        <strong id="checkoutShippingBannerTitle">خدمة توصيل بدينارين فقط</strong>
+                        <span id="checkoutShippingBannerSub">لجميع محافظات المملكة الأردنية الهاشمية</span>
+                    </div>
+                    <label class="checkout-shipping-toggle" for="checkoutShippingToggle">
+                        <input type="checkbox" id="checkoutShippingToggle" />
+                        <span class="checkout-shipping-toggle-slider"></span>
+                    </label>
+                </div>
+
+                <!-- 🟢 رسالة استلام شخصي (تظهر لو التوصيل غير مفعّل) -->
+                <div class="checkout-pickup-notice" id="checkoutPickupNotice">
+                    <i class="fas fa-store"></i>
+                    <span id="checkoutPickupText">استلام شخصي - سيتم التنسيق على المكان عبر واتساب</span>
+                </div>
+
                 <!-- الحقول -->
                 <div class="checkout-form-fields">
                     <div class="checkout-form-field">
@@ -363,7 +495,8 @@
                         <input type="tel" id="checkoutPhone" autocomplete="tel" placeholder="07XXXXXXXX" />
                     </div>
 
-                    <div class="checkout-form-field">
+                    <!-- 🟢 حقول التوصيل (تختفي لو الاستلام شخصي) -->
+                    <div class="checkout-form-field checkout-shipping-field">
                         <label for="checkoutCity">
                             <span id="checkoutCityLabel">المدينة</span>
                             <span class="required-star">*</span>
@@ -373,7 +506,7 @@
                         </select>
                     </div>
 
-                    <div class="checkout-form-field full-width">
+                    <div class="checkout-form-field full-width checkout-shipping-field">
                         <label for="checkoutAddress">
                             <span id="checkoutAddressLabel">العنوان التفصيلي</span>
                             <span class="required-star">*</span>
@@ -399,13 +532,6 @@
                                 <span class="checkout-payment-card">
                                     <i class="fas fa-mobile-alt"></i>
                                     <span class="checkout-payment-name" id="checkoutPaymentCliQ">CliQ</span>
-                                </span>
-                            </label>
-                            <label class="checkout-payment-option">
-                                <input type="radio" name="checkoutPayment" value="bank" />
-                                <span class="checkout-payment-card">
-                                    <i class="fas fa-university"></i>
-                                    <span class="checkout-payment-name" id="checkoutPaymentBank">تحويل بنكي</span>
                                 </span>
                             </label>
                         </div>
@@ -633,6 +759,24 @@
                 <ul></ul>
             </div>
         </div>
+
+        <!-- 🟢 قسم دعوة الفنانين -->
+        <div class="artist-cta-section">
+            <div class="artist-cta-content">
+                <div class="artist-cta-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="artist-cta-text">
+                    <h3 id="artistCtaTitle">اعرض منتجاتك في متجرنا</h3>
+                    <p id="artistCtaDesc">هل تصنع أعمالاً يدوية مميزة؟ اعرض منتجاتك في متجر طُرفة وانضم لمنصتنا.</p>
+                </div>
+                <button class="artist-cta-btn" id="openArtistFormBtn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span id="artistCtaBtnText">قدّم طلبك</span>
+                </button>
+            </div>
+        </div>
+
         <div class="footer-bottom">
             <p id="footerCopyright"></p>
         </div>
@@ -649,6 +793,5 @@
     <script src="js/modals.js"></script>
     <!-- 4. main.js: نقطة البداية والتشغيل (لازم يكون آخر شي) -->
     <script src="js/main.js"></script>
-    <script src="interactive.js" defer></script>
 </body>
 </html>

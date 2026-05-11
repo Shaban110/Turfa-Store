@@ -642,9 +642,9 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
 /* ============ 🟢 بطاقات فئات المنتجات ============ */
 .category-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  max-width: 1200px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  max-width: 1320px;
   margin: 0 auto 3rem;
   padding: 0 1rem;
   position: relative;
@@ -653,7 +653,7 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
 
 .category-card {
   position: relative;
-  height: 170px;
+  height: 155px;
   border: 2px solid transparent;
   border-radius: 16px;
   cursor: pointer;
@@ -835,10 +835,17 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
   transform: translateY(-2px) scale(0.99);
 }
 
-/* تابلت: بطاقتين بكل صف */
+/* شاشة وسط: 4 بطاقات بصف (الخامسة تنزل تحت) */
+@media (max-width: 1200px) {
+  .category-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* تابلت: 3 بطاقات بصف */
 @media (max-width: 900px) {
   .category-cards {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -3515,5 +3522,430 @@ html[data-theme='dark'] .wedding-date-actions {
     .wedding-date-col-label {
         font-size: 0.65rem;
         padding: 2px 8px;
+    }
+}
+/* =================================================================
+   🟢 قسم دعوة الفنانين (Artist CTA) في الفوتر
+   ================================================================= */
+.artist-cta-section {
+    background: linear-gradient(135deg, rgba(212, 59, 26, 0.08), rgba(212, 175, 55, 0.05));
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 28px 24px;
+    margin-top: 30px;
+}
+
+.artist-cta-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.artist-cta-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary), #b53116);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.6rem;
+    box-shadow: 0 6px 16px rgba(212, 59, 26, 0.35);
+}
+
+.artist-cta-text {
+    flex: 1;
+    min-width: 200px;
+}
+
+.artist-cta-text h3 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+    color: var(--footer-link, #fff);
+    font-weight: 700;
+}
+
+.artist-cta-text p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--footer-text, #ccc);
+    line-height: 1.6;
+}
+
+.artist-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 26px;
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: inherit;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    flex-shrink: 0;
+}
+
+.artist-cta-btn i {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.artist-cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5);
+    background: linear-gradient(135deg, #e6c34a, #d4af37);
+}
+
+.artist-cta-btn:hover i {
+    transform: translateX(-4px) rotate(-15deg);
+}
+
+[dir="ltr"] .artist-cta-btn:hover i {
+    transform: translateX(4px) rotate(15deg);
+}
+
+.artist-cta-btn:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+    .artist-cta-section {
+        padding: 22px 16px;
+    }
+
+    .artist-cta-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .artist-cta-text h3 {
+        font-size: 1.1rem;
+    }
+
+    .artist-cta-text p {
+        font-size: 0.88rem;
+    }
+}
+
+/* =================================================================
+   🟢 موديل تقديم الفنان (Artist Form Modal)
+   ================================================================= */
+.artist-form-content {
+    max-width: 580px;
+    width: 95%;
+    height: auto;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.artist-form-header {
+    background: linear-gradient(135deg, #d4af37, #b8941f);
+    color: #fff;
+    align-items: center !important;
+    padding: 1.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: auto;
+    flex-shrink: 0;
+}
+
+.artist-form-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.artist-form-header-text {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.artist-form-header-text h2 {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1.3;
+}
+
+.artist-form-header-text p {
+    margin: 0;
+    font-size: 0.88rem;
+    opacity: 0.95;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.artist-form-header .close-cart {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.artist-form-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem;
+}
+
+/* 🟢 شريط استفسار قبل التسجيل */
+.artist-inquiry-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.08), rgba(37, 211, 102, 0.04));
+    border: 1.5px solid rgba(37, 211, 102, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.artist-inquiry-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #128c7e;
+    font-size: 0.92rem;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+}
+
+.artist-inquiry-text i {
+    font-size: 1.2rem;
+    color: #25d366;
+    flex-shrink: 0;
+}
+
+.artist-inquiry-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(37, 211, 102, 0.25);
+    flex-shrink: 0;
+}
+
+.artist-inquiry-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.artist-inquiry-btn:active {
+    transform: translateY(0);
+}
+
+body.dark-mode .artist-inquiry-banner {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(37, 211, 102, 0.06));
+    border-color: rgba(37, 211, 102, 0.4);
+}
+
+body.dark-mode .artist-inquiry-text {
+    color: #4ade80;
+}
+
+@media (max-width: 480px) {
+    .artist-inquiry-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .artist-inquiry-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* بطاقة معلومات الشراكة */
+.artist-info-card {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff5d6 100%);
+    border: 1.5px solid #f5d76e;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.artist-info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.artist-info-row i {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--secondary), #b53116);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.artist-info-row strong {
+    display: block;
+    color: #6b4f00;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.artist-info-row span {
+    color: #8b6914;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+/* الحقول */
+.artist-form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.artist-form-fields .checkout-form-field input,
+.artist-form-fields .checkout-form-field select,
+.artist-form-fields .checkout-form-field textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.artist-form-fields .checkout-form-field input:focus,
+.artist-form-fields .checkout-form-field select:focus,
+.artist-form-fields .checkout-form-field textarea:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.artist-form-fields .checkout-form-field.error input,
+.artist-form-fields .checkout-form-field.error select,
+.artist-form-fields .checkout-form-field.error textarea {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(212, 59, 26, 0.1);
+}
+
+/* ملاحظة الصور */
+.artist-photos-note {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(37, 211, 102, 0.08);
+    border: 1px solid rgba(37, 211, 102, 0.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    color: #128c7e;
+    line-height: 1.5;
+}
+
+.artist-photos-note i {
+    color: #25d366;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* الفوتر */
+.artist-form-footer {
+    display: flex;
+    gap: 10px;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.artist-form-submit {
+    flex: 1;
+}
+
+/* Dark mode */
+body.dark-mode .artist-info-card {
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.15), rgba(245, 215, 110, 0.08));
+    border-color: rgba(245, 215, 110, 0.4);
+}
+
+body.dark-mode .artist-info-row strong {
+    color: #f5d76e;
+}
+
+body.dark-mode .artist-info-row span {
+    color: rgba(245, 215, 110, 0.8);
+}
+
+body.dark-mode .artist-form-fields .checkout-form-field input,
+body.dark-mode .artist-form-fields .checkout-form-field select,
+body.dark-mode .artist-form-fields .checkout-form-field textarea {
+    background: rgba(255, 255, 255, 0.04);
+    color: #f0f0f0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .artist-form-content {
+        max-width: 100%;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .artist-form-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .artist-form-header-text h2 {
+        font-size: 1.2rem;
+    }
+
+    .artist-info-row strong {
+        font-size: 0.88rem;
+    }
+
+    .artist-info-row span {
+        font-size: 0.78rem;
     }
 }

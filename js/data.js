@@ -21,6 +21,7 @@ const arabicTexts = {
     cupsTitle: "كاسات",
     prints3dTitle: "طباعات ثلاثية الأبعاد",
     framesTitle: "براويز",
+    giftsTitle: "هدايا منوعة",
     offersTitle: "العروض",
     heroSubtitle: "لوحات بخط عربي وهدايا مصممة بعناية",
     searchPlaceholder: "ابحث عن منتجك من هنا",
@@ -29,6 +30,9 @@ const arabicTexts = {
     yourCart: "عربتك",
     total: "الإجمالي:",
     checkout: "متابعة الشراء عبر واتساب",
+    inquiry: "استفسار",
+    inquiryFull: "استفسار عبر واتساب",
+    inquiryMessage: "مرحباً متجر طُرفة 👋\nأنا تصفّحت موقعكم وعندي كم استفسار، ممكن تساعدوني؟\n\n",
     emptyCart: "عربتك فارغة",
     emptyCartSub: "أضف بعض المنتجات إلى عربتك",
     selectSize: "اختر الحجم:",
@@ -109,28 +113,90 @@ const arabicTexts = {
     checkoutPaymentLabel: "طريقة الدفع",
     checkoutPaymentCOD: "الدفع عند الاستلام",
     checkoutPaymentCliQ: "CliQ",
-    checkoutPaymentBank: "تحويل بنكي",
     checkoutNotesLabel: "ملاحظات (اختياري)",
     checkoutFormHint: "* الحقول المعلّمة إجبارية",
     checkoutFormCancel: "رجوع",
     checkoutFormSubmit: "إرسال الطلب عبر واتساب",
     checkoutFormErrorRequired: "الرجاء تعبئة الحقول الإجبارية",
     checkoutFormErrorPhone: "الرجاء إدخال رقم هاتف صحيح",
-    // قائمة المدن مع رسوم التوصيل (بالدينار الأردني)
+    // 🟢 رسوم التوصيل الموحدة (د.أ 2 لكل المملكة)
+    shippingFee: 2.00,
+    checkoutShippingBannerTitle: "خدمة توصيل بدينارين فقط",
+    checkoutShippingBannerSub: "لجميع محافظات المملكة الأردنية الهاشمية",
+    checkoutPickupText: "استلام شخصي - سيتم التنسيق على المكان عبر واتساب",
+    waPickupLabel: "طريقة الاستلام",
+    waPickupValue: "استلام شخصي (يتم التنسيق على المكان عبر واتساب)",
+    waShippingValue: "توصيل للعنوان",
+    // 🟢 نصوص قسم الفنانين
+    artistCtaTitle: "اعرض منتجاتك في متجرنا",
+    artistCtaDesc: "هل تصنع أعمالاً يدوية مميزة؟ اعرض منتجاتك في متجر طُرفة وانضم لمنصتنا.",
+    artistCtaBtn: "قدّم طلبك",
+    // نصوص موديل التقديم
+    artistFormTitle: "انضم لمتجر طُرفة",
+    artistFormSubtitle: "اعرض منتجاتك اليدوية على منصتنا",
+    artistInquiryText: "عندك أسئلة قبل التسجيل؟",
+    artistInquiryBtn: "استفسر",
+    artistInquiryMessage: "مرحباً متجر طُرفة 👋\nأنا مهتم بعرض منتجاتي اليدوية في متجركم، بس عندي كم استفسار قبل ما أقدم طلب الانضمام:\n\n",
+    artistCommissionTitle: "شراكة مربحة",
+    artistCommissionDesc: "عمولة 15% فقط على كل عملية بيع تتم عبر متجرنا",
+    artistShippingTitle: "نتولى التوصيل والتسويق",
+    artistShippingDesc: "إنت تركّز على الإبداع، ونحن نهتم بالباقي",
+    artistShowcaseTitle: "عرض احترافي",
+    artistShowcaseDesc: "منتجاتك تظهر بجودة وتصميم مميز",
+    artistNameLabel: "الاسم الكامل",
+    artistPhoneLabel: "رقم الهاتف",
+    artistPhonePlaceholder: "07XXXXXXXX",
+    artistProductTypeLabel: "نوع المنتجات",
+    artistProductTypePlaceholder: "اختر نوع المنتجات",
+    artistDescriptionLabel: "وصف منتجاتك",
+    artistDescriptionPlaceholder: "اكتب وصفاً مختصراً عن منتجاتك، خبرتك، والأسعار التقريبية...",
+    artistInstagramLabel: "رابط الإنستغرام (اختياري)",
+    artistInstagramPlaceholder: "@username أو instagram.com/username",
+    artistPhotosNote: "ستتمكن من إرسال صور منتجاتك مباشرة في محادثة الواتساب بعد إرسال الطلب",
+    artistFormHint: "* الحقول المعلّمة إجبارية",
+    artistFormCancel: "رجوع",
+    artistFormSubmit: "إرسال طلب الانضمام",
+    artistFormErrorRequired: "الرجاء تعبئة الحقول الإجبارية",
+    artistFormErrorPhone: "الرجاء إدخال رقم هاتف صحيح",
+    // أنواع المنتجات
+    artistProductTypes: [
+        "لوحات وفنون جدارية",
+        "إكسسوارات يدوية",
+        "أعمال خشبية",
+        "فخار وسيراميك",
+        "حياكة وتطريز",
+        "أعمال جلدية",
+        "زجاج ورزائن (Resin)",
+        "صابون وعطور طبيعية",
+        "شموع",
+        "مجوهرات يدوية",
+        "ديكور منزلي",
+        "أخرى"
+    ],
+    // نصوص رسالة واتساب الفنان
+    waArtistGreeting: "مرحباً متجر طُرفة 👋\nأرغب بالانضمام لمتجركم وعرض منتجاتي اليدوية:\n\n",
+    waArtistInfoLabel: "معلومات الفنان",
+    waArtistNameLabel: "الاسم",
+    waArtistPhoneLabel: "الهاتف",
+    waArtistProductTypeLabel: "نوع المنتجات",
+    waArtistDescriptionLabel: "وصف المنتجات",
+    waArtistInstagramLabel: "إنستغرام",
+    waArtistClosing: "\n\nسأقوم بإرفاق صور لمنتجاتي في الرسائل التالية. شكراً لكم 🌟",
+    // قائمة المدن - رسوم توصيل موحدة (د.أ 2 لكل المملكة)
     checkoutCities: [
-        { name: "عمّان", fee: 2.00 },
-        { name: "الزرقاء", fee: 2.00 },
-        { name: "الرصيفة", fee: 2.00 },
-        { name: "السلط", fee: 3.00 },
-        { name: "مادبا", fee: 3.00 },
-        { name: "إربد", fee: 3.50 },
-        { name: "جرش", fee: 3.50 },
-        { name: "عجلون", fee: 3.50 },
-        { name: "المفرق", fee: 4.00 },
-        { name: "الكرك", fee: 4.50 },
-        { name: "الطفيلة", fee: 5.00 },
-        { name: "معان", fee: 5.50 },
-        { name: "العقبة", fee: 6.00 }
+        { name: "عمّان" },
+        { name: "الزرقاء" },
+        { name: "الرصيفة" },
+        { name: "السلط" },
+        { name: "مادبا" },
+        { name: "إربد" },
+        { name: "جرش" },
+        { name: "عجلون" },
+        { name: "المفرق" },
+        { name: "الكرك" },
+        { name: "الطفيلة" },
+        { name: "معان" },
+        { name: "العقبة" }
     ],
     // نصوص رسالة واتساب
     waOrderInfoLabel: "معلومات الزبون",
@@ -150,6 +216,7 @@ const englishTexts = {
     cupsTitle: " Cups",
     prints3dTitle: "3D Prints",
     framesTitle: "Frames",
+    giftsTitle: "Mixed Gifts",
     offersTitle: "Special Offers",
     heroSubtitle: "Arabic calligraphy paintings and carefully designed gifts",
     searchPlaceholder: "Search for your product here",
@@ -158,6 +225,9 @@ const englishTexts = {
     yourCart: "Your Cart",
     total: "Total:",
     checkout: "Checkout via WhatsApp",
+    inquiry: "Inquiry",
+    inquiryFull: "Inquiry via WhatsApp",
+    inquiryMessage: "Hi Turfa Store 👋\nI was browsing your website and I have a few questions, could you help me?\n\n",
     emptyCart: "Your cart is empty",
     emptyCartSub: "Add some products to your cart",
     selectSize: "Select Size:",
@@ -237,28 +307,90 @@ const englishTexts = {
     checkoutPaymentLabel: "Payment Method",
     checkoutPaymentCOD: "Cash on Delivery",
     checkoutPaymentCliQ: "CliQ",
-    checkoutPaymentBank: "Bank Transfer",
     checkoutNotesLabel: "Notes (Optional)",
     checkoutFormHint: "* Marked fields are required",
     checkoutFormCancel: "Back",
     checkoutFormSubmit: "Send Order via WhatsApp",
     checkoutFormErrorRequired: "Please fill in the required fields",
     checkoutFormErrorPhone: "Please enter a valid phone number",
+    // 🟢 رسوم التوصيل الموحدة (JD 2 لكل المملكة)
+    shippingFee: 2.00,
+    checkoutShippingBannerTitle: "Flat shipping rate of just JD 2",
+    checkoutShippingBannerSub: "To all governorates across Jordan",
+    checkoutPickupText: "Self-pickup - location will be arranged via WhatsApp",
+    waPickupLabel: "Pickup Method",
+    waPickupValue: "Self-pickup (location to be arranged via WhatsApp)",
+    waShippingValue: "Delivery to address",
+    // 🟢 نصوص قسم الفنانين
+    artistCtaTitle: "Showcase Your Products In Our Store",
+    artistCtaDesc: "Do you create unique handmade products? Showcase your work at Turfa Store and join our platform.",
+    artistCtaBtn: "Apply Now",
+    // نصوص موديل التقديم
+    artistFormTitle: "Join Turfa Store",
+    artistFormSubtitle: "Showcase your handmade products on our platform",
+    artistInquiryText: "Have questions before signing up?",
+    artistInquiryBtn: "Inquire",
+    artistInquiryMessage: "Hi Turfa Store 👋\nI'm interested in showcasing my handmade products in your store, but I have a few questions before submitting an application:\n\n",
+    artistCommissionTitle: "Profitable Partnership",
+    artistCommissionDesc: "Just 15% commission on every sale made through our store",
+    artistShippingTitle: "We Handle Delivery & Marketing",
+    artistShippingDesc: "You focus on creating, we take care of the rest",
+    artistShowcaseTitle: "Professional Showcase",
+    artistShowcaseDesc: "Your products presented with quality and style",
+    artistNameLabel: "Full Name",
+    artistPhoneLabel: "Phone Number",
+    artistPhonePlaceholder: "07XXXXXXXX",
+    artistProductTypeLabel: "Product Type",
+    artistProductTypePlaceholder: "Select product type",
+    artistDescriptionLabel: "Describe Your Products",
+    artistDescriptionPlaceholder: "Write a brief description about your products, experience, and approximate prices...",
+    artistInstagramLabel: "Instagram (Optional)",
+    artistInstagramPlaceholder: "@username or instagram.com/username",
+    artistPhotosNote: "You'll be able to send photos of your products directly in the WhatsApp conversation after submitting",
+    artistFormHint: "* Marked fields are required",
+    artistFormCancel: "Back",
+    artistFormSubmit: "Send Application",
+    artistFormErrorRequired: "Please fill in the required fields",
+    artistFormErrorPhone: "Please enter a valid phone number",
+    // أنواع المنتجات
+    artistProductTypes: [
+        "Paintings & Wall Art",
+        "Handmade Accessories",
+        "Wooden Crafts",
+        "Pottery & Ceramics",
+        "Knitting & Embroidery",
+        "Leather Crafts",
+        "Glass & Resin Art",
+        "Natural Soaps & Perfumes",
+        "Candles",
+        "Handmade Jewelry",
+        "Home Decor",
+        "Other"
+    ],
+    // نصوص رسالة واتساب الفنان
+    waArtistGreeting: "Hi Turfa Store 👋\nI'd like to join your platform and showcase my handmade products:\n\n",
+    waArtistInfoLabel: "Artist Information",
+    waArtistNameLabel: "Name",
+    waArtistPhoneLabel: "Phone",
+    waArtistProductTypeLabel: "Product Type",
+    waArtistDescriptionLabel: "Product Description",
+    waArtistInstagramLabel: "Instagram",
+    waArtistClosing: "\n\nI'll send photos of my products in the following messages. Thank you 🌟",
     // قائمة المدن (نفس الترتيب مع الترجمة)
     checkoutCities: [
-        { name: "Amman", fee: 2.00 },
-        { name: "Zarqa", fee: 2.00 },
-        { name: "Russeifa", fee: 2.00 },
-        { name: "Salt", fee: 3.00 },
-        { name: "Madaba", fee: 3.00 },
-        { name: "Irbid", fee: 3.50 },
-        { name: "Jerash", fee: 3.50 },
-        { name: "Ajloun", fee: 3.50 },
-        { name: "Mafraq", fee: 4.00 },
-        { name: "Karak", fee: 4.50 },
-        { name: "Tafilah", fee: 5.00 },
-        { name: "Ma'an", fee: 5.50 },
-        { name: "Aqaba", fee: 6.00 }
+        { name: "Amman" },
+        { name: "Zarqa" },
+        { name: "Russeifa" },
+        { name: "Salt" },
+        { name: "Madaba" },
+        { name: "Irbid" },
+        { name: "Jerash" },
+        { name: "Ajloun" },
+        { name: "Mafraq" },
+        { name: "Karak" },
+        { name: "Tafilah" },
+        { name: "Ma'an" },
+        { name: "Aqaba" }
     ],
     // نصوص رسالة واتساب
     waOrderInfoLabel: "Customer Info",
@@ -284,7 +416,8 @@ categories: [
     { text: "Paintings", link: "#paintingsTitle" },
     { text: "Cups", link: "#cupsTitle" },
     { text: "3D Prints", link: "#prints3dTitle" },
-    { text: "Frames", link: "#framesTitle" }
+    { text: "Frames", link: "#framesTitle" },
+    { text: "Mixed Gifts", link: "#giftsTitle" }
 ],
     collections: [
         { text: "Praise of the Prophet", link: "#coming-praise" },
@@ -302,7 +435,8 @@ categories: [
     { text: "لوحات", link: "#paintingsTitle" },
     { text: "كاسات", link: "#cupsTitle" },
     { text: "طباعات ثلاثية الأبعاد", link: "#prints3dTitle" },
-    { text: "براويز", link: "#framesTitle" }
+    { text: "براويز", link: "#framesTitle" },
+    { text: "هدايا منوعة", link: "#giftsTitle" }
 ],
     collections: [
         { text: "مدح الرسول ﷺ", link: "#coming-praise" },
@@ -581,151 +715,211 @@ const contactContentEnglish = {
 // --- 2. PRODUCT DATA ---
 // =================================================================
 const paintingsEnglish = [
-    { id: 1, name: "Ya Sham", price: 39.99,shortDesc: "Damascus in my heart, a piece of art on my wall",fullDesc: "A piece of art crafted with 3 layers of passion to be a lasting reminder of the most beautiful bonds. A serene décor piece with a pink touch, fit for your home and designed to delight your heart", image: "images/plates/1.png", category: "painting", hasSizes: true,
+    { id: 1, name: "Ya Sham", price: 39.99,shortDesc: "Damascus in my heart, a piece of art on my wall",fullDesc: "A piece of art crafted with 3 layers of passion to be a lasting reminder of the most beautiful bonds. A serene décor piece with a pink touch, fit for your home and designed to delight your heart", image: "images/plates/1/1.webp", category: "painting", hasSizes: true,
       colors: [
-        { name: "Pink",  hex: "#e8a0b0", images: ["images/plates/1.png", "images/plates/1b.png", "images/plates/1c.png"] },
-        { name: "Beige", hex: "#d4b896", images: ["images/plates/1_beige.png", "images/plates/1b_beige.png", "images/plates/1c_beige.png"] },
-        { name: "Blue",  hex: "#7ba7c7", images: ["images/plates/1_blue.png",  "images/plates/1b_blue.png",  "images/plates/1c_blue.png"] },
+        { name: "Pink",  hex: "#e8a0b0", images: ["images/plates/1/1.webp", "images/plates/1/1b.webp", "images/plates/1/1c.webp"] },
+        { name: "Beige", hex: "#d4b896", images: ["images/plates/1/1_beige.webp", "images/plates/1/1b_beige.webp", "images/plates/1/1c_beige.webp"] },
+        { name: "Blue",  hex: "#7ba7c7", images: ["images/plates/1/1_blue.webp",  "images/plates/1/1b_blue.webp",  "images/plates/1/1c_blue.webp"] },
       ]
     },
-    { id: 2, name: "Alhamdulillah", price: 39.99, shortDesc: "A beautiful plaque, to remind you of gratitude at all times.",fullDesc: "A spiritual art piece crafted with 3D layered technology, designed to illuminate your walls with the remembrance of God and tranquility. A design that merges the grandeur of calligraphy with the depth of ornamentation, serving as a daily reminder of the beauty of gratitude",image: "images/plates/2.png", category: "painting", hasSizes: true },
-    { id: 3, name: "Ayatul Kursi", price: 39.99, shortDesc: "The greatest verse, in an artistic design that immortalizes its beauty.",fullDesc: "A décor piece carrying the greatest verse in the Qur'an, crafted with striking layered (3D) technology to bring tranquility and reverence to your space. A unique design blending the grandeur of calligraphy with the warmth of wood, to keep your home under God's protection.", image: "images/plates/3.png", category: "painting", hasSizes: true },
-    { id: 4, name: "...", price: 59.99,shortDesc: "...",fullDesc: "...", image: "images/plates/4.png", category: "painting", hasSizes: true }
+    { id: 2, name: "Alhamdulillah", price: 39.99, shortDesc: "A beautiful plaque, to remind you of gratitude at all times.",fullDesc: "A spiritual art piece crafted with 3D layered technology, designed to illuminate your walls with the remembrance of God and tranquility. A design that merges the grandeur of calligraphy with the depth of ornamentation, serving as a daily reminder of the beauty of gratitude",image: "images/plates/2/2.webp", category: "painting", hasSizes: true },
+    { id: 3, name: "Ayatul Kursi", price: 39.99, shortDesc: "The greatest verse, in an artistic design that immortalizes its beauty.",fullDesc: "A décor piece carrying the greatest verse in the Qur'an, crafted with striking layered (3D) technology to bring tranquility and reverence to your space. A unique design blending the grandeur of calligraphy with the warmth of wood, to keep your home under God's protection.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
+    { id: 4, name: "...", price: 59.99,shortDesc: "...",fullDesc: "...", image: "images/plates/4/4.webp", category: "painting", hasSizes: true }
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 29.99, shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.", image: "images/plates/1.png", category: "painting", hasSizes: true,
+    { id: 1, name: "لوحة يا شام", price: 29.99, shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.", image: "images/plates/1/1.webp", category: "painting", hasSizes: true,
       colors: [
-        { name: "وردي", hex: "#e8a0b0", images: ["images/plates/1.png", "images/plates/1b.png", "images/plates/1c.png"] },
-        { name: "بني",  hex: "#704214", images: ["images/plates/sham_brown/1.png", "images/plates/sham_brown/2.png"] },
-        //{ name: "أزرق", hex: "#7ba7c7", images: ["images/plates/1_blue.png",  "images/plates/1b_blue.png",  "images/plates/1c_blue.png"] },
+        { name: "وردي", hex: "#e8a0b0", images: ["images/plates/1/1.webp", "images/plates/1/1b.webp", "images/plates/1/1c.webp"] },
+        { name: "بني",  hex: "#704214", images: ["images/plates/1/brown/1.webp", "images/plates/1/brown/2.webp"] },
+        //{ name: "أزرق", hex: "#7ba7c7", images: ["images/plates/1/1_blue.webp",  "images/plates/1/1b_blue.webp",  "images/plates/1/1c_blue.webp"] },
       ]
     },
-    { id: 2, name: "لوحة الحمد لله", price: 39.99,shortDesc: "لوحة، تذكرك بجمال الامتنان في كل حين.",fullDesc: "قطعة فنية روحانية صُنعت بتقنية الطبقات الثلاثية الأبعاد، لتضيء جدران بيتك بذكر الله والسكينة. تصميم يجمع عظمة الخط مع عمق الزخرفة، لتكون تذكيراً يومياً بجمال الامتنان.", image: "images/plates/2.png", category: "painting", hasSizes: true ,
+    { id: 2, name: "لوحة الحمد لله", price: 39.99,shortDesc: "لوحة، تذكرك بجمال الامتنان في كل حين.",fullDesc: "قطعة فنية روحانية صُنعت بتقنية الطبقات الثلاثية الأبعاد، لتضيء جدران بيتك بذكر الله والسكينة. تصميم يجمع عظمة الخط مع عمق الزخرفة، لتكون تذكيراً يومياً بجمال الامتنان.", image: "images/plates/2/2.webp", category: "painting", hasSizes: true ,
           colors: [
-    { name: "بيج",   hex: "#d4b896", images: ["images/plates/2.png", "images/plates/2b.png"] },
-    { name: "أسود",  hex: "#2c2c2c", images: ["images/plates/2_black.png", "images/plates/2b_black.png"] },
-    { name: "ذهبي",  hex: "#c9a84c", images: ["images/plates/2_gold.png"] },
+    { name: "بيج",   hex: "#d4b896", images: ["images/plates/2/2.webp", "images/plates/2/2b.webp"] },
+    { name: "أسود",  hex: "#2c2c2c", images: ["images/plates/2/2_black.webp", "images/plates/2/2b_black.webp"] },
+    { name: "ذهبي",  hex: "#c9a84c", images: ["images/plates/2/2_gold.webp"] },
   ]
         
      },
-    { id: 3, name: "لوحة آية الكرسي", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.",fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3.png", category: "painting", hasSizes: true },
-    { id: 4, name: "...", price: 0.00, shortDesc: "...",fullDesc: "...", image: "images/plates/4.png", category: "painting", hasSizes: true },
+    { id: 3, name: "لوحة آية الكرسي", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.",fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
+    { id: 4, name: "...", price: 0.00, shortDesc: "...",fullDesc: "...", image: "images/plates/4/4.webp", category: "painting", hasSizes: true },
 ];
 
 // ============ 🟢 التعديل هنا (مسار الأكواب) 🟢 ============
 const cupsEnglish = [
-    { id: 101, name: "Ceramic Coffee Mug", price: 15.99,shortDesc: "Ceramic Coffee Mug",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup1.png", category: "cup", hasSizes: false },
-    { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup2.png", category: "cup", hasSizes: false },
-    { id: 103, name: "Glass Tea Cup Set", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup3.png", category: "cup", hasSizes: false },
-    { id: 104, name: "Artistic Espresso Cup", price: 12.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup4.png", category: "cup", hasSizes: false },
-    { id: 105, name: "Color Changing Mug", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup5.png", category: "cup", hasSizes: false },
-    { id: 106, name: "Bamboo Eco Cup", price: 18.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup6.png", category: "cup", hasSizes: false }
+    { id: 101, name: "Ceramic Coffee Mug", price: 15.99,shortDesc: "Ceramic Coffee Mug",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
+    { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
+    { id: 103, name: "Glass Tea Cup Set", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
+    { id: 104, name: "Artistic Espresso Cup", price: 12.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
+    { id: 105, name: "Color Changing Mug", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
+    { id: 106, name: "Bamboo Eco Cup", price: 18.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
+    { id: 107, name: "Cup 7", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
+    { id: 108, name: "Cup 8", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
+    { id: 109, name: "Cup 9", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
+    { id: 110, name: "Cup 10", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
+    { id: 111, name: "Cup 11", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
+    { id: 112, name: "Cup 12", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
+    { id: 113, name: "Cup 13", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
+    { id: 114, name: "Cup 14", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
+    { id: 115, name: "Cup 15", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
+    { id: 116, name: "Cup 16", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
+    { id: 117, name: "Cup 17", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/cup/cup1.png", category: "cup", hasSizes: false },
-    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup/cup2.png", category: "cup", hasSizes: false },
-    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup3.png", category: "cup", hasSizes: false },
-    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup4.png", category: "cup", hasSizes: false },
-    { id: 105, name: "كوب متغير اللون", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/cup5.png", category: "cup", hasSizes: false },
-    { id: 106, name: "كوب منزل السنافر", price: 18.99, shortDesc: "ابدأ صباحك بابتسامة مع كوب منزل السنافر الساحر. تفاصيله الدقيقة وألوانه الدافئة تجعله الهدية المثالية لمحبي القطع الفريدة والمميزة",fullDesc: "استمتع بتجربة فريدة مع كوب ل السنافر المصنوع من الخزف عالي الجودة والمزين بتفاصيل ثلاثية الأبعاد تنبض بالحياة. يتميز هذا الكوب بتصميم ساحر يجسد كوخ الفطر الأحمر الريفي مع تفاصيل الباب والنباتات الخضراء، مما يجعله قطعة فنية جذابة تزين مكتبك وتضفي دفئاً وسحراً خاصاً على مشروباتك الساخنة في كل مرة تستخدمه", image: "images/cup/cup6.png", category: "cup", hasSizes: false }
+    { id: 101, name: "كوب قهوة سيراميك", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
+    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
+    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
+    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
+    { id: 105, name: "كوب متغير اللون", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
+    { id: 106, name: "كوب منزل السنافر", price: 18.99, shortDesc: "ابدأ صباحك بابتسامة مع كوب منزل السنافر الساحر. تفاصيله الدقيقة وألوانه الدافئة تجعله الهدية المثالية لمحبي القطع الفريدة والمميزة",fullDesc: "استمتع بتجربة فريدة مع كوب ل السنافر المصنوع من الخزف عالي الجودة والمزين بتفاصيل ثلاثية الأبعاد تنبض بالحياة. يتميز هذا الكوب بتصميم ساحر يجسد كوخ الفطر الأحمر الريفي مع تفاصيل الباب والنباتات الخضراء، مما يجعله قطعة فنية جذابة تزين مكتبك وتضفي دفئاً وسحراً خاصاً على مشروباتك الساخنة في كل مرة تستخدمه", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
+    { id: 107, name: "كوب 7", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
+    { id: 108, name: "كوب 8", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
+    { id: 109, name: "كوب 9", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
+    { id: 110, name: "كوب 10", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
+    { id: 111, name: "كوب 11", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
+    { id: 112, name: "كوب 12", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
+    { id: 113, name: "كوب 13", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
+    { id: 114, name: "كوب 14", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
+    { id: 115, name: "كوب 15", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
+    { id: 116, name: "كوب 16", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
+    { id: 117, name: "كوب 17", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
 ];
 // ========================================================
 
 // ============ 🟢 طباعات ثلاثية الأبعاد 🟢 ============
 const prints3dEnglish = [
-    { id: 301, name: "3D Print", price: 20.00, shortDesc: "Choose your favorite character", fullDesc: "High-quality 3D printed figures of your favorite Mario characters.", image: "images/3d/1.png", category: "print3d", hasSizes: false,
+    { id: 301, name: "3D Print", price: 20.00, shortDesc: "Choose your favorite character", fullDesc: "High-quality 3D printed figures of your favorite Mario characters.", image: "images/3d/1/1.webp", category: "print3d", hasSizes: false,
       variants: [
         {
             name: "Mario",
             priceDiff: 0,
-            images: ["images/3d/mario/1.png", "images/3d/mario/2.png"],
+            images: ["images/3d/1/mario/1.webp", "images/3d/1/mario/1b.webp", "images/3d/1/mario/1c.webp", "images/3d/1/mario/1d.webp"],
             shortDesc: "The original hero with his iconic red cap",
             fullDesc: "Classic Mario figure printed in high-precision 3D. 12cm tall, with detailed cap and mustache, vivid long-lasting colors. The perfect piece for classic gaming fans, ideal for desk and shelf decor."
         },
         {
-            name: "Luigi",
-            priceDiff: 0,
-            images: ["images/3d/luigi/1.png", "images/3d/luigi/2.png"],
-            shortDesc: "The taller brother with his signature green cap",
-            fullDesc: "Luigi figure with his distinctive green look, 3D printed at the same high quality level. The best choice for fans of elegant sidekicks, or to complete your collection alongside Mario."
-        },
-        {
             name: "Wario",
             priceDiff: 5.00,
-            images: ["images/3d/wario/1.png", "images/3d/wario/2.png"],
+            images: ["images/3d/1/wario/1.webp"],
             shortDesc: "The charismatic villain with his yellow cap",
             fullDesc: "Wario figure with more intricate details and a slightly larger size, hence the higher price. A standout character for fans of the mischievous side of the Mario universe, adding a fun and unconventional touch to your decor."
         },
         {
             name: "Yoshi",
             priceDiff: 3.00,
-            images: ["images/3d/luchi/1.png", "images/3d/luchi/2.png"],
+            images: ["images/3d/1/luchi/1.webp", "images/3d/1/luchi/1b.webp"],
             shortDesc: "Special edition with exclusive details",
             fullDesc: "The distinctive Luchi version with intricate details and carefully chosen colors. A limited piece for figure collectors and enthusiasts looking for a unique item not available everywhere."
         }
       ]
     },
-    { id: 302, name: "3D Print 2", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/2.png", category: "print3d", hasSizes: false },
-    { id: 303, name: "3D Print 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3.png", category: "print3d", hasSizes: false },
-    { id: 304, name: "3D Print 4", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4.png", category: "print3d", hasSizes: false },
-    { id: 305, name: "3D Print 5", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4.png", category: "print3d", hasSizes: false },
+    { id: 302, name: "3D Print 2", price: 0.99, shortDesc: "Choose between boy or girl", fullDesc: "High-quality 3D printed figures, available in boy or girl design.", image: "images/3d/2/girl/2.webp", category: "print3d", hasSizes: false,
+      variants: [
+                {
+            name: "Girl",
+            priceDiff: 0,
+            images: ["images/3d/2/girl/2.webp", "images/3d/2/girl/2b.webp"],
+            shortDesc: "Girl design",
+            fullDesc: "High-quality 3D printed girl figure with fine details and durable materials."
+        },
+        {
+            name: "Boy",
+            priceDiff: 0,
+            images: ["images/3d/2/boy/2.webp"],
+            shortDesc: "Boy design",
+            fullDesc: "High-quality 3D printed boy figure with fine details and durable materials."
+        }
+
+      ]
+    },
+    { id: 303, name: "3D Print 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
+    { id: 304, name: "3D Print 4", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
+    { id: 305, name: "3D Print 5", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
 ];
 
 const prints3dArabic = [
-    { id: 301, name: "طباعة ثلاثية الأبعاد", price: 15.99, shortDesc: "اختر شخصيتك المفضلة", fullDesc: "تماثيل عالية الجودة بتقنية الطباعة ثلاثية الأبعاد لشخصيات ماريو المحببة.", image: "images/3d/1.png", category: "print3d", hasSizes: false,
+    { id: 301, name: "طباعة ثلاثية الأبعاد", price: 15.99, shortDesc: "اختر شخصيتك المفضلة", fullDesc: "تماثيل عالية الجودة بتقنية الطباعة ثلاثية الأبعاد لشخصيات ماريو المحببة.", image: "images/3d/1/1.webp", category: "print3d", hasSizes: false,
       variants: [
         {
             name: "ماريو",
             priceDiff: 0,
-            images: ["images/3d/mario/1.png", "images/3d/mario/2.png"],
+            images: ["images/3d/1/mario/1.webp", "images/3d/1/mario/1b.webp", "images/3d/1/mario/1c.webp", "images/3d/1/mario/1d.webp"],
             shortDesc: "البطل الأصلي بقبعته الحمراء الشهيرة",
             fullDesc: "تمثال ماريو الكلاسيكي مطبوع بتقنية ثلاثية الأبعاد عالية الدقة. ارتفاع 12 سم، تفاصيل دقيقة لقبعته وشاربه، ألوان زاهية تدوم طويلاً. القطعة المثالية لعشاق الألعاب الكلاسيكية وتزيين المكتب أو الرفوف."
         },
         {
-            name: "لويجي",
-            priceDiff: 0,
-            images: ["images/3d/luigi/1.png", "images/3d/luigi/2.png"],
-            shortDesc: "الأخ الأطول بقبعته الخضراء المميزة",
-            fullDesc: "تمثال لويجي بطلّته المميزة بالأخضر، مطبوع ثلاثياً بنفس مستوى الجودة العالية. الخيار الأمثل لمن يفضّل الشخصيات الجانبية الأنيقة، أو لإكمال مجموعتك بجانب ماريو."
-        },
-        {
             name: "واريو",
             priceDiff: 0,
-            images: ["images/3d/wario/1.png", "images/3d/wario/2.png"],
+            images: ["images/3d/1/wario/1.webp"],
             shortDesc: "الشرير الكاريزماتي بقبعته الصفراء",
             fullDesc: "تمثال واريو بتفاصيل أكثر تعقيداً وحجم أكبر قليلاً، لذلك السعر أعلى. شخصية مميزة لعشّاق الجانب الشقيّ من عالم ماريو، تضيف طابعاً مرحاً وغير تقليدي على ديكورك."
         },
         {
             name: "يوشي",
             priceDiff: 0,
-            images: ["images/3d/luchi/1.png", "images/3d/luchi/2.png"],
+            images: ["images/3d/1/luchi/1.webp", "images/3d/1/luchi/1b.webp"],
             shortDesc: "إصدار خاص بتفاصيل حصرية",
             fullDesc: "نسخة لوشي المميزة بتفاصيل دقيقة وألوان مدروسة. قطعة محدودة لجامعي التماثيل والمحبين الباحثين عن قطعة فريدة لا تتوفر في كل مكان."
         }
       ]
     },
-    { id: 302, name: "طباعة ثلاثية الأبعاد 2", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/2.png", category: "print3d", hasSizes: false },
-    { id: 303, name: "طباعة ثلاثية الأبعاد 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3.png", category: "print3d", hasSizes: false },
-    { id: 304, name: "طباعة ثلاثية الأبعاد 4", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4.png", category: "print3d", hasSizes: false },
-    { id: 305, name: "طباعة ثلاثية الأبعاد 5", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4.png", category: "print3d", hasSizes: false },
+    { id: 302, name: "طباعة ثلاثية الأبعاد 2", price: 0.99, shortDesc: "اختر بين تصميم ولد أو بنت", fullDesc: "تماثيل ثلاثية الأبعاد عالية الجودة، متوفرة بتصميم ولد أو بنت.", image: "images/3d/2/girl/2.webp", category: "print3d", hasSizes: false,
+      variants: [
+                {
+            name: "بنت",
+            priceDiff: 0,
+            images: ["images/3d/2/girl/2.webp", "images/3d/2/girl/2b.webp"],
+            shortDesc: "تصميم بنت",
+            fullDesc: "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة."
+        },
+        {
+            name: "ولد",
+            priceDiff: 0,
+            images: ["images/3d/2/boy/2.webp"],
+            shortDesc: "تصميم ولد",
+            fullDesc: "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة."
+        }
+
+      ]
+    },
+    { id: 303, name: "طباعة ثلاثية الأبعاد 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
+    { id: 304, name: "طباعة ثلاثية الأبعاد 4", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
+    { id: 305, name: "طباعة ثلاثية الأبعاد 5", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
 ];
 // =====================================================
 
 const framesEnglish = [
-    { id: 201, name: "Wedding Anniversary", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift1.png", category: "frame", hasSizes: false, requiresWeddingForm: true },
-    { id: 202, name: "Leather Bookmark", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift2.png", category: "frame", hasSizes: false },
-    { id: 203, name: "Scented Candle", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift3.png", category: "frame", hasSizes: false },
-    { id: 204, name: "Personalized Photo Mug", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift4.png", category: "frame", hasSizes: false },
+    { id: 201, name: "Wedding Anniversary", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
+    { id: 202, name: "Leather Bookmark", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false },
+    { id: 203, name: "Scented Candle", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/3/3.webp", category: "frame", hasSizes: false },
+    { id: 204, name: "Personalized Photo Mug", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/4/4.webp", category: "frame", hasSizes: false },
 ];
 
 const framesArabic = [
-    { id: 201, name: "عيد الزواج", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift1.png", category: "frame", hasSizes: false, requiresWeddingForm: true },
-    { id: 202, name: "فاصل كتب جلدي", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift2.png", category: "frame", hasSizes: false },
-    { id: 203, name: "شمعة معطرة", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift3.png", category: "frame", hasSizes: false },
-    { id: 204, name: "كوب بصورة شخصية", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/gift4.png", category: "frame", hasSizes: false },
+    { id: 201, name: "عيد الزواج", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
+    { id: 202, name: "فاصل كتب جلدي", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false },
+    { id: 203, name: "شمعة معطرة", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/3/3.webp", category: "frame", hasSizes: false },
+    { id: 204, name: "كوب بصورة شخصية", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/4/4.webp", category: "frame", hasSizes: false },
 ];
 
-let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...prints3dEnglish, ...framesEnglish];
-let allProductsArabic = [...paintingsArabic, ...cupsArabic, ...prints3dArabic, ...framesArabic];
+// 🟢 فئة الهدايا المنوعة - بالإنجليزي
+const giftsEnglish = [
+    { id: 401, name: "Mixed Gift 1", price: 9.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
+    { id: 402, name: "Mixed Gift 2", price: 12.50, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/2/2.webp", category: "gift", hasSizes: false },
+    { id: 403, name: "Mixed Gift 3", price: 15.00, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
+    { id: 404, name: "Mixed Gift 4", price: 18.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false },
+];
+
+// 🟢 فئة الهدايا المنوعة - بالعربي
+const giftsArabic = [
+    { id: 401, name: "هدية منوعة 1", price: 9.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
+    { id: 402, name: "هدية منوعة 2", price: 12.50, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/2/2.webp", category: "gift", hasSizes: false },
+    { id: 403, name: "هدية منوعة 3", price: 15.00, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
+    { id: 404, name: "هدية منوعة 4", price: 18.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false },
+];
+
+let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...prints3dEnglish, ...framesEnglish, ...giftsEnglish];
+let allProductsArabic = [...paintingsArabic, ...cupsArabic, ...prints3dArabic, ...framesArabic, ...giftsArabic];

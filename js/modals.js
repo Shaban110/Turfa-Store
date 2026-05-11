@@ -1015,6 +1015,31 @@ function proceedToCheckout() {
 }
 
 // =================================================================
+// --- 🟢 INQUIRY (الاستفسار عبر واتساب) ---
+// =================================================================
+function proceedToInquiry() {
+    let message = texts.inquiryMessage || "مرحباً متجر طُرفة! عندي استفسار.\n\n";
+
+    // لو السلة فيها منتجات، نضيفها كمرجع
+    if (cart.length > 0) {
+        const currency = currentLang === 'ar' ? 'د.أ' : 'JD';
+        const itemsLabel = currentLang === 'ar' ? 'المنتجات اللي بفكر فيها' : 'Items I\'m considering';
+        const fromCart = currentLang === 'ar' ? '(من سلتي)' : '(from my cart)';
+
+        message += `🛒 *${itemsLabel}* ${fromCart}:\n`;
+        cart.forEach((item, idx) => {
+            const sizeDetail = item.sizeName ? ` (${item.sizeName})` : '';
+            const colorDetail = item.colorName ? ` - ${item.colorName}` : '';
+            message += `${idx + 1}. ${item.name}${sizeDetail}${colorDetail} (×${item.quantity}) — ${currency} ${(item.price * item.quantity).toFixed(2)}\n`;
+        });
+        message += `\n`;
+    }
+
+    // فتح واتساب
+    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// =================================================================
 // --- 🟢 CHECKOUT FORM (نموذج الطلب قبل واتساب) ---
 // =================================================================
 function openCheckoutForm() {
@@ -1050,20 +1075,40 @@ function populateCheckoutForm() {
     document.getElementById('checkoutPaymentLabel').textContent = texts.checkoutPaymentLabel;
     document.getElementById('checkoutPaymentCOD').textContent = texts.checkoutPaymentCOD;
     document.getElementById('checkoutPaymentCliQ').textContent = texts.checkoutPaymentCliQ;
-    document.getElementById('checkoutPaymentBank').textContent = texts.checkoutPaymentBank;
     document.getElementById('checkoutNotesLabel').textContent = texts.checkoutNotesLabel;
     document.getElementById('checkoutFormHint').textContent = texts.checkoutFormHint;
     document.getElementById('checkoutFormCancelBtn').textContent = texts.checkoutFormCancel;
     document.getElementById('checkoutFormSubmitText').textContent = texts.checkoutFormSubmit;
 
-    // ملء قائمة المدن
+    // 🟢 تحديث نصوص شريط التوصيل
+    const shippingTitle = document.getElementById('checkoutShippingBannerTitle');
+    const shippingSub = document.getElementById('checkoutShippingBannerSub');
+    const pickupText = document.getElementById('checkoutPickupText');
+    if (shippingTitle) shippingTitle.textContent = texts.checkoutShippingBannerTitle;
+    if (shippingSub) shippingSub.textContent = texts.checkoutShippingBannerSub;
+    if (pickupText) pickupText.textContent = texts.checkoutPickupText;
+
+    // 🟢 ربط toggle التوصيل
+    const shippingToggle = document.getElementById('checkoutShippingToggle');
+    if (shippingToggle) {
+        // افتراضياً التوصيل مفعّل
+        if (typeof shippingToggle.dataset.initialized === 'undefined') {
+            shippingToggle.checked = true;
+            shippingToggle.dataset.initialized = 'true';
+            shippingToggle.addEventListener('change', toggleShippingMode);
+        }
+        // نطبّق الحالة الحالية
+        toggleShippingMode();
+    }
+
+    // ملء قائمة المدن (بدون أسعار - الرسوم موحدة)
     const citySelect = document.getElementById('checkoutCity');
     const currentCity = citySelect.value;
     citySelect.innerHTML = `<option value="">${texts.checkoutCityPlaceholder}</option>`;
     texts.checkoutCities.forEach((city, idx) => {
         const opt = document.createElement('option');
         opt.value = idx;
-        opt.textContent = `${city.name} — ${currentLang === 'ar' ? 'د.أ' : 'JD'} ${city.fee.toFixed(2)}`;
+        opt.textContent = city.name;
         citySelect.appendChild(opt);
     });
     if (currentCity) citySelect.value = currentCity;
@@ -1071,7 +1116,7 @@ function populateCheckoutForm() {
     // ملء ملخص الطلب
     renderCheckoutSummary();
 
-    // تحديث الإجمالي عند تغيير المدينة
+    // تحديث الإجمالي عند تغيير المدينة (مش ضروري لأن الرسوم ثابتة، بس نخليه للأمان)
     citySelect.onchange = renderCheckoutSummary;
 }
 
@@ -1095,32 +1140,64 @@ function renderCheckoutSummary() {
         itemsContainer.appendChild(div);
     });
 
-    // حساب رسوم التوصيل
-    const cityIdx = document.getElementById('checkoutCity').value;
-    const shippingFee = (cityIdx !== '' && texts.checkoutCities[cityIdx])
-        ? texts.checkoutCities[cityIdx].fee
-        : 0;
+    // 🟢 رسوم التوصيل (بس لو التوصيل مفعّل)
+    const shippingToggle = document.getElementById('checkoutShippingToggle');
+    const shippingEnabled = shippingToggle ? shippingToggle.checked : true;
+    const shippingFee = shippingEnabled ? (texts.shippingFee || 2.00) : 0;
 
     const total = subtotal + shippingFee;
     const currency = currentLang === 'ar' ? 'د.أ' : 'JD';
 
     document.getElementById('checkoutSubtotalValue').textContent = `${currency} ${subtotal.toFixed(2)}`;
-    document.getElementById('checkoutShippingValue').textContent = shippingFee > 0
+    document.getElementById('checkoutShippingValue').textContent = shippingEnabled
         ? `${currency} ${shippingFee.toFixed(2)}`
-        : (currentLang === 'ar' ? 'يحدد بالمدينة' : 'Set by city');
+        : (currentLang === 'ar' ? '— استلام شخصي' : '— Self-pickup');
     document.getElementById('checkoutTotalValue').textContent = `${currency} ${total.toFixed(2)}`;
 }
 
+// 🟢 تبديل وضع التوصيل (مع توصيل / استلام شخصي)
+function toggleShippingMode() {
+    const toggle = document.getElementById('checkoutShippingToggle');
+    const pickupNotice = document.getElementById('checkoutPickupNotice');
+    const shippingFields = document.querySelectorAll('.checkout-shipping-field');
+    const enabled = toggle ? toggle.checked : true;
+
+    if (enabled) {
+        // التوصيل مفعّل
+        if (pickupNotice) pickupNotice.classList.remove('active');
+        shippingFields.forEach(f => f.classList.remove('hidden'));
+    } else {
+        // استلام شخصي
+        if (pickupNotice) pickupNotice.classList.add('active');
+        shippingFields.forEach(f => f.classList.add('hidden'));
+        // مسح أي خطأ سابق على حقول التوصيل
+        shippingFields.forEach(f => f.classList.remove('error'));
+        const errorMsg = document.getElementById('checkoutFormErrorMsg');
+        if (errorMsg) errorMsg.textContent = '';
+    }
+
+    // إعادة حساب الإجمالي
+    renderCheckoutSummary();
+}
+
 function validateCheckoutForm() {
+    // 🟢 شيك إذا التوصيل مفعّل
+    const shippingToggle = document.getElementById('checkoutShippingToggle');
+    const shippingEnabled = shippingToggle ? shippingToggle.checked : true;
+
+    // الحقول الأساسية دائماً إجبارية
     const fields = [
         { id: 'checkoutName', required: true },
-        { id: 'checkoutPhone', required: true, type: 'phone' },
-        { id: 'checkoutCity', required: true },
-        { id: 'checkoutAddress', required: true }
+        { id: 'checkoutPhone', required: true, type: 'phone' }
     ];
 
+    // المدينة والعنوان إجباريين بس لو التوصيل مفعّل
+    if (shippingEnabled) {
+        fields.push({ id: 'checkoutCity', required: true });
+        fields.push({ id: 'checkoutAddress', required: true });
+    }
+
     let firstError = null;
-    let phoneError = false;
 
     fields.forEach(f => {
         const el = document.getElementById(f.id);
@@ -1136,7 +1213,6 @@ function validateCheckoutForm() {
             const cleaned = value.replace(/[\s\-+]/g, '');
             if (!/^\d{9,15}$/.test(cleaned)) {
                 wrapper.classList.add('error');
-                phoneError = true;
                 if (!firstError) firstError = 'phone';
             }
         }
@@ -1162,20 +1238,29 @@ function submitCheckoutForm() {
         return;
     }
 
+    // 🟢 شيك إذا التوصيل مفعّل
+    const shippingToggle = document.getElementById('checkoutShippingToggle');
+    const shippingEnabled = shippingToggle ? shippingToggle.checked : true;
+
     const name = document.getElementById('checkoutName').value.trim();
     const phone = document.getElementById('checkoutPhone').value.trim();
-    const cityIdx = document.getElementById('checkoutCity').value;
-    const cityName = texts.checkoutCities[cityIdx].name;
-    const shippingFee = texts.checkoutCities[cityIdx].fee;
-    const address = document.getElementById('checkoutAddress').value.trim();
     const notes = document.getElementById('checkoutNotes').value.trim();
     const paymentRadio = document.querySelector('input[name="checkoutPayment"]:checked');
     const paymentValue = paymentRadio ? paymentRadio.value : 'cod';
 
+    // 🟢 معلومات التوصيل (بس لو مفعّل)
+    let cityName = '', address = '';
+    let shippingFee = 0;
+    if (shippingEnabled) {
+        const cityIdx = document.getElementById('checkoutCity').value;
+        cityName = texts.checkoutCities[cityIdx].name;
+        address = document.getElementById('checkoutAddress').value.trim();
+        shippingFee = texts.shippingFee || 2.00;
+    }
+
     const paymentLabels = {
         cod: texts.checkoutPaymentCOD,
-        cliq: texts.checkoutPaymentCliQ,
-        bank: texts.checkoutPaymentBank
+        cliq: texts.checkoutPaymentCliQ
     };
 
     // بناء رسالة واتساب
@@ -1187,8 +1272,16 @@ function submitCheckoutForm() {
     message += `👤 *${texts.waOrderInfoLabel}*\n`;
     message += `${texts.waNameLabel}: ${name}\n`;
     message += `${texts.waPhoneLabel}: ${phone}\n`;
-    message += `${texts.waCityLabel}: ${cityName}\n`;
-    message += `${texts.waAddressLabel}: ${address}\n`;
+
+    // 🟢 طريقة الاستلام: توصيل أو استلام شخصي
+    if (shippingEnabled) {
+        message += `${texts.waPickupLabel}: 🚚 ${texts.waShippingValue}\n`;
+        message += `${texts.waCityLabel}: ${cityName}\n`;
+        message += `${texts.waAddressLabel}: ${address}\n`;
+    } else {
+        message += `${texts.waPickupLabel}: 🏪 ${texts.waPickupValue}\n`;
+    }
+
     message += `${texts.waPaymentLabel}: ${paymentLabels[paymentValue]}\n`;
     if (notes) {
         message += `${texts.waNotesLabel}: ${notes}\n`;
@@ -1223,7 +1316,9 @@ function submitCheckoutForm() {
     const total = subtotal + shippingFee;
     message += `━━━━━━━━━━━━━━━\n`;
     message += `${texts.waSubtotalLabel}: ${currency} ${subtotal.toFixed(2)}\n`;
-    message += `${texts.waShippingLabel}: ${currency} ${shippingFee.toFixed(2)}\n`;
+    if (shippingEnabled) {
+        message += `${texts.waShippingLabel}: ${currency} ${shippingFee.toFixed(2)}\n`;
+    }
     message += `*${texts.total} ${currency} ${total.toFixed(2)}*`;
     message += `${texts.whatsappThanks}`;
 
@@ -1414,3 +1509,146 @@ function openContactModal() {
 }
 
 
+
+// =================================================================
+// 🟢 ARTIST APPLICATION FORM (نموذج تقديم الفنانين)
+// =================================================================
+function openArtistForm() {
+    populateArtistForm();
+    document.getElementById('artistFormModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeArtistForm() {
+    document.getElementById('artistFormModal').classList.remove('active');
+    document.body.style.overflow = '';
+    // مسح الأخطاء
+    const errorMsg = document.getElementById('artistFormErrorMsg');
+    if (errorMsg) errorMsg.textContent = '';
+    document.querySelectorAll('#artistFormModal .checkout-form-field.error').forEach(el => el.classList.remove('error'));
+}
+
+function populateArtistForm() {
+    // تحديث النصوص حسب اللغة
+    const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+    const setPlaceholder = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = value;
+    };
+
+    setText('artistFormTitle', texts.artistFormTitle);
+    setText('artistFormSubtitle', texts.artistFormSubtitle);
+    setText('artistInquiryText', texts.artistInquiryText);
+    setText('artistInquiryBtnText', texts.artistInquiryBtn);
+    setText('artistNameLabel', texts.artistNameLabel);
+    setText('artistPhoneLabel', texts.artistPhoneLabel);
+    setText('artistProductTypeLabel', texts.artistProductTypeLabel);
+    setText('artistDescriptionLabel', texts.artistDescriptionLabel);
+    setText('artistInstagramLabel', texts.artistInstagramLabel);
+    setText('artistPhotosNote', texts.artistPhotosNote);
+    setText('artistFormHint', texts.artistFormHint);
+    setText('artistFormCancelBtn', texts.artistFormCancel);
+    setText('artistFormSubmitText', texts.artistFormSubmit);
+
+    setPlaceholder('artistPhone', texts.artistPhonePlaceholder);
+    setPlaceholder('artistDescription', texts.artistDescriptionPlaceholder);
+    setPlaceholder('artistInstagram', texts.artistInstagramPlaceholder);
+
+    // ملء قائمة أنواع المنتجات
+    const typeSelect = document.getElementById('artistProductType');
+    const currentValue = typeSelect.value;
+    typeSelect.innerHTML = `<option value="">${texts.artistProductTypePlaceholder}</option>`;
+    (texts.artistProductTypes || []).forEach((type, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = type;
+        typeSelect.appendChild(opt);
+    });
+    if (currentValue) typeSelect.value = currentValue;
+}
+
+function validateArtistForm() {
+    const fields = [
+        { id: 'artistName', required: true },
+        { id: 'artistPhone', required: true, type: 'phone' },
+        { id: 'artistProductType', required: true },
+        { id: 'artistDescription', required: true }
+    ];
+
+    let firstError = null;
+
+    fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        const wrapper = el.closest('.checkout-form-field');
+        const value = el.value.trim();
+        wrapper.classList.remove('error');
+
+        if (f.required && !value) {
+            wrapper.classList.add('error');
+            if (!firstError) firstError = 'required';
+        } else if (f.type === 'phone' && value) {
+            const cleaned = value.replace(/[\s\-+]/g, '');
+            if (!/^\d{9,15}$/.test(cleaned)) {
+                wrapper.classList.add('error');
+                if (!firstError) firstError = 'phone';
+            }
+        }
+    });
+
+    const errorMsg = document.getElementById('artistFormErrorMsg');
+    if (firstError === 'phone') {
+        errorMsg.textContent = texts.artistFormErrorPhone;
+    } else if (firstError === 'required') {
+        errorMsg.textContent = texts.artistFormErrorRequired;
+    } else {
+        errorMsg.textContent = '';
+    }
+
+    return !firstError;
+}
+
+function submitArtistForm() {
+    if (!validateArtistForm()) {
+        const firstErrorField = document.querySelector('#artistFormModal .checkout-form-field.error input, #artistFormModal .checkout-form-field.error select, #artistFormModal .checkout-form-field.error textarea');
+        if (firstErrorField) firstErrorField.focus();
+        return;
+    }
+
+    const name = document.getElementById('artistName').value.trim();
+    const phone = document.getElementById('artistPhone').value.trim();
+    const typeIdx = document.getElementById('artistProductType').value;
+    const productType = texts.artistProductTypes[typeIdx];
+    const description = document.getElementById('artistDescription').value.trim();
+    const instagram = document.getElementById('artistInstagram').value.trim();
+
+    // بناء رسالة واتساب
+    let message = texts.waArtistGreeting;
+    message += `━━━━━━━━━━━━━━━\n`;
+    message += `🎨 *${texts.waArtistInfoLabel}*\n`;
+    message += `${texts.waArtistNameLabel}: ${name}\n`;
+    message += `${texts.waArtistPhoneLabel}: ${phone}\n`;
+    message += `${texts.waArtistProductTypeLabel}: ${productType}\n`;
+    if (instagram) {
+        message += `${texts.waArtistInstagramLabel}: ${instagram}\n`;
+    }
+    message += `━━━━━━━━━━━━━━━\n`;
+    message += `📝 *${texts.waArtistDescriptionLabel}*\n`;
+    message += `${description}`;
+    message += texts.waArtistClosing;
+
+    // فتح واتساب
+    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+
+    // إغلاق الموديل
+    closeArtistForm();
+}
+
+// 🟢 استفسار قبل التسجيل (من موديل الفنان)
+function artistInquiry() {
+    const message = texts.artistInquiryMessage || "مرحباً متجر طُرفة! عندي استفسار عن الانضمام لمتجركم.\n\n";
+    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+    closeArtistForm();
+}

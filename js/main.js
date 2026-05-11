@@ -26,6 +26,7 @@ const productsContainer = document.getElementById('productsContainer');
 const cupsContainer = document.getElementById('cupsContainer');
 const prints3dContainer = document.getElementById('prints3dContainer');
 const framesContainer = document.getElementById('framesContainer');
+const giftsContainer = document.getElementById('giftsContainer');
 const offersContainer = document.getElementById('offersContainer');
 const cartIcon = document.getElementById('cartIcon');
 const cartModal = document.getElementById('cartModal');
@@ -235,6 +236,42 @@ function initStore() {
     document.getElementById('lang-toggle').addEventListener('change', toggleLanguage);
     checkoutBtn.addEventListener('click', proceedToCheckout);
 
+    // 🟢 ربط زر الاستفسار
+    const inquiryBtn = document.getElementById('inquiryBtn');
+    if (inquiryBtn) inquiryBtn.addEventListener('click', proceedToInquiry);
+
+    // 🟢 ربط أزرار موديل تقديم الفنان
+    const openArtistFormBtn = document.getElementById('openArtistFormBtn');
+    const closeArtistFormBtn = document.getElementById('closeArtistForm');
+    const artistFormCancelBtn = document.getElementById('artistFormCancelBtn');
+    const artistFormSubmitBtn = document.getElementById('artistFormSubmitBtn');
+    const artistInquiryBtn = document.getElementById('artistInquiryBtn');
+    const artistFormModal = document.getElementById('artistFormModal');
+
+    if (openArtistFormBtn) openArtistFormBtn.addEventListener('click', openArtistForm);
+    if (closeArtistFormBtn) closeArtistFormBtn.addEventListener('click', closeArtistForm);
+    if (artistFormCancelBtn) artistFormCancelBtn.addEventListener('click', closeArtistForm);
+    if (artistFormSubmitBtn) artistFormSubmitBtn.addEventListener('click', submitArtistForm);
+    if (artistInquiryBtn) artistInquiryBtn.addEventListener('click', artistInquiry);
+    if (artistFormModal) {
+        artistFormModal.addEventListener('click', (e) => {
+            if (e.target === artistFormModal) closeArtistForm();
+        });
+    }
+    // مسح الخطأ عند الكتابة
+    ['artistName', 'artistPhone', 'artistProductType', 'artistDescription'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            const clearError = () => {
+                el.closest('.checkout-form-field').classList.remove('error');
+                const errorMsg = document.getElementById('artistFormErrorMsg');
+                if (errorMsg) errorMsg.textContent = '';
+            };
+            el.addEventListener('input', clearError);
+            el.addEventListener('change', clearError);
+        }
+    });
+
     // 🟢 Event listeners لنموذج الطلب (Checkout Form)
     const closeCheckoutFormBtn = document.getElementById('closeCheckoutForm');
     const checkoutFormCancelBtn = document.getElementById('checkoutFormCancelBtn');
@@ -264,7 +301,7 @@ function initStore() {
         }
     });
     
-    [productsContainer, cupsContainer, prints3dContainer, framesContainer, offersContainer].forEach(container => {
+    [productsContainer, cupsContainer, prints3dContainer, framesContainer, giftsContainer, offersContainer].forEach(container => {
         if (container) container.addEventListener('click', handleProductClick);
     });
 
@@ -291,4 +328,3 @@ function initStore() {
 }
 
 document.addEventListener('DOMContentLoaded', initStore);
-
