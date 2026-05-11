@@ -19,7 +19,7 @@ const GLOBAL_DISCOUNT_PERCENT = 0.500; // 50% خصم (50/100)
 const arabicTexts = {
     title: "لوحات",
     cupsTitle: "كاسات",
-    prints3dTitle: "طباعات ثلاثية الأبعاد",
+    prints3dTitle: "طباعات 3D",
     framesTitle: "براويز",
     giftsTitle: "هدايا منوعة",
     offersTitle: "العروض",
@@ -434,7 +434,7 @@ const footerLinksArabic = {
 categories: [
     { text: "لوحات", link: "#paintingsTitle" },
     { text: "كاسات", link: "#cupsTitle" },
-    { text: "طباعات ثلاثية الأبعاد", link: "#prints3dTitle" },
+    { text: "طباعات 3D", link: "#prints3dTitle" },
     { text: "براويز", link: "#framesTitle" },
     { text: "هدايا منوعة", link: "#giftsTitle" }
 ],

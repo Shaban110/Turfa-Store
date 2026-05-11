@@ -731,15 +731,18 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
 .category-card-title {
   display: block;
   color: #f4d97a;
-  font-size: 1.35rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.3rem);
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   background: linear-gradient(135deg, #f4d97a 0%, #d4af37 50%, #f4d97a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   transition: transform 0.4s ease;
+  line-height: 1.25;
+  padding: 0 6px;
+  white-space: normal;
 }
 
 .category-card-count {
