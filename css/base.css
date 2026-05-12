@@ -839,9 +839,30 @@ main {
     object-fit: contain; 
 }
 
+/* 🟢 على الموبايل: نخلي الكونتينر بحجم الصورة الفعلي بدون فراغ */
+@media (max-width: 600px) {
+    /* تقليل padding على الكونتينر العام */
+    .detail-container {
+        padding: 1rem !important;
+    }
+    
+    #detailImageContainer {
+        height: auto !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin-bottom: 10px !important;
+    }
+    
+    #detailImage {
+        height: auto !important;
+        display: block !important;
+        object-fit: contain !important;
+    }
+}
+
 #thumbnailGallery {
     display: flex;
-    gap: 10px; 
+    gap: 12px; 
     margin-top: 15px;
     overflow-x: auto; 
     padding-bottom: 10px; 
@@ -849,20 +870,41 @@ main {
 }
 
 .thumbnail {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.3s, border 0.3s;
-    border: 2px solid transparent;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
     flex-shrink: 0; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .thumbnail.active {
     opacity: 1;
     border-color: var(--secondary); 
+    box-shadow: 0 4px 12px rgba(212, 59, 26, 0.25);
+}
+
+/* 🟢 على الموبايل: spacing أصغر شوي */
+@media (max-width: 600px) {
+    #thumbnailGallery {
+        margin-top: 8px;
+        gap: 10px;
+    }
+    
+    .thumbnail {
+        width: 64px;
+        height: 64px;
+    }
 }
 
 .detail-info-row {

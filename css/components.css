@@ -852,6 +852,32 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
   }
 }
 
+/* موبايل كبير: بطاقتين بصف */
+@media (max-width: 700px) {
+  .category-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  /* البطاقة الـ 5 (الأخيرة الفردية) تتوسط */
+  .category-cards .category-card:nth-child(5):last-child {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 6px);
+    margin: 0 auto;
+  }
+}
+
+/* موبايل صغير: نفس الإشي بس مع spacing أصغر */
+@media (max-width: 380px) {
+  .category-cards {
+    gap: 8px;
+  }
+  
+  .category-cards .category-card:nth-child(5):last-child {
+    max-width: calc(50% - 4px);
+  }
+}
+
 /* ============ نهاية بطاقات الفئات ============ */
 
 /* ============ 🟢 أنيميشن الإضافة للسلة والمفضلة 🟢 ============ */

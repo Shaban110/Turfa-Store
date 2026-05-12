@@ -563,3 +563,68 @@ body.dark-mode .checkout-form-field textarea {
         min-width: 50px;
     }
 }
+
+/* =================================================================
+   🟢 صورة تفاصيل المنتج - تكيف ذكي مع الشاشات المختلفة
+   ================================================================= */
+
+/* الوضع الافتراضي (لابتوب) */
+.detail-image-container {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.detail-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* تابلت */
+@media (max-width: 900px) {
+    .detail-image-container {
+        height: 380px;
+    }
+}
+
+/* موبايل - الحل الأساسي للمشكلة */
+@media (max-width: 600px) {
+    .detail-image-container {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        aspect-ratio: auto;
+        padding: 0;
+        background: transparent;
+        border-radius: 12px;
+    }
+    
+    .detail-image-container img {
+        object-fit: contain;
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+    }
+}
+
+/* موبايل صغير جداً */
+@media (max-width: 380px) {
+    .detail-image-container {
+        min-height: 0;
+    }
+}
+
+body.dark-mode .detail-image-container {
+    background: rgba(255, 255, 255, 0.05);
+}
