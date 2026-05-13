@@ -1042,13 +1042,13 @@ main {
     transform: translateY(0);
 }
 
-body.dark-mode .inquiry-btn {
+html[data-theme='dark'] .inquiry-btn {
     background: transparent;
     color: #f0e6d2;
     border-color: #f0e6d2;
 }
 
-body.dark-mode .inquiry-btn:hover {
+html[data-theme='dark'] .inquiry-btn:hover {
     background: rgba(255,255,255,0.05);
     color: #d4af37;
     border-color: #d4af37;
@@ -1792,4 +1792,9 @@ html[data-theme='dark'] .product-description {
 
 html[data-theme='dark'] .total-price {
     color: #f0f0f0;
+}
+
+/* 🟢 سعر العنصر في السلة — ذهبي فاتح */
+html[data-theme='dark'] .item-price {
+    color: #f5d76e;
 }

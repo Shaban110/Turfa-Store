@@ -264,6 +264,167 @@ function initHeaderAutoHide() {
     });
 }
 
+// =================================================================
+// 🟢 IMAGE LIGHTBOX - تكبير صور المنتجات
+// -----------------------------------------------------------------
+// مكونات:
+//   • فتح بالضغط على صورة المنتج في صفحة التفاصيل
+//   • إغلاق بـ Esc / زر X / الضغط على الخلفية
+//   • Double-tap على الموبايل أو click على الديسكتوب → زوم
+//   • Pinch-to-zoom طبيعي من المتصفح يعمل تلقائياً
+//   • سحب الصورة لما تكون مكبّرة
+// =================================================================
+function initImageLightbox() {
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = document.getElementById('imageLightboxImg');
+    const closeBtn = document.getElementById('imageLightboxClose');
+    const detailContainer = document.getElementById('detailImageContainer');
+    const detailImg = document.getElementById('detailImage');
+
+    if (!lightbox || !lightboxImg || !detailContainer || !detailImg) return;
+
+    let scrollY = 0;
+    let lastTapTime = 0;
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
+    let translateX = 0;
+    let translateY = 0;
+
+    const openLightbox = () => {
+        if (!detailImg.src) return;
+        // نحفظ مكان السكرول قبل قفل الـ body
+        scrollY = window.scrollY;
+        lightboxImg.src = detailImg.src;
+        lightboxImg.alt = detailImg.alt || '';
+        lightbox.classList.add('active');
+        document.body.classList.add('lightbox-open');
+        document.body.style.top = `-${scrollY}px`;
+        // focus لزر الإغلاق لدعم الـ keyboard
+        setTimeout(() => closeBtn.focus(), 100);
+    };
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        lightbox.classList.remove('user-interacted');
+        document.body.classList.remove('lightbox-open');
+        document.body.style.top = '';
+        // نرجّع المستخدم لنفس مكانه
+        window.scrollTo(0, scrollY);
+        // نرجّع الصورة لحالتها الأصلية
+        resetZoom();
+    };
+
+    const resetZoom = () => {
+        lightboxImg.classList.remove('zoomed');
+        translateX = 0;
+        translateY = 0;
+        lightboxImg.style.transform = '';
+    };
+
+    const toggleZoom = (e) => {
+        // علامة إن المستخدم تفاعل (لإخفاء التلميح)
+        lightbox.classList.add('user-interacted');
+
+        if (lightboxImg.classList.contains('zoomed')) {
+            resetZoom();
+        } else {
+            lightboxImg.classList.add('zoomed');
+        }
+    };
+
+    // --- فتح الـ lightbox ---
+    detailContainer.addEventListener('click', (e) => {
+        // ما نفتح لو الضغط كان على شي ثاني (مثلاً ولد العنصر)
+        // الـ container كله قابل للضغط، فأي ضغط فيه يفتح
+        openLightbox();
+    });
+
+    // دعم الـ keyboard (Enter / Space)
+    detailContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox();
+        }
+    });
+
+    // --- إغلاق ---
+    closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
+    });
+
+    // الضغط على الخلفية (خارج الصورة) يغلق
+    lightbox.addEventListener('click', (e) => {
+        // لو الضغط كان على الصورة نفسها، ما نغلق
+        if (e.target === lightboxImg) return;
+        // لو الضغط على زر الإغلاق، تركوا الـ handler الخاص فيه يشتغل
+        if (e.target.closest('.image-lightbox-close')) return;
+        closeLightbox();
+    });
+
+    // Esc يغلق
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
+    // --- Double-tap / Click للزوم ---
+    lightboxImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // على الديسكتوب: ضغطة واحدة تكفي
+        // على الموبايل: نستخدم double-tap (تحت)
+        // نميز بحسب نوع المؤشر
+        if (window.matchMedia('(hover: hover)').matches) {
+            toggleZoom(e);
+        }
+    });
+
+    // Double-tap للموبايل
+    lightboxImg.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTapTime < 300 && now - lastTapTime > 0) {
+            // double tap
+            e.preventDefault();
+            toggleZoom(e);
+        }
+        lastTapTime = now;
+    });
+
+    // --- سحب الصورة لما تكون مكبّرة (الديسكتوب فقط) ---
+    lightboxImg.addEventListener('mousedown', (e) => {
+        if (!lightboxImg.classList.contains('zoomed')) return;
+        e.preventDefault();
+        isPanning = true;
+        panStartX = e.clientX - translateX;
+        panStartY = e.clientY - translateY;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isPanning) return;
+        translateX = e.clientX - panStartX;
+        translateY = e.clientY - panStartY;
+        lightboxImg.style.transform = `scale(2.2) translate(${translateX / 2.2}px, ${translateY / 2.2}px)`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        isPanning = false;
+    });
+
+    // إخفاء التلميح بعد 4 ثواني تلقائياً
+    let hintTimer;
+    const lightboxObserver = new MutationObserver(() => {
+        if (lightbox.classList.contains('active')) {
+            clearTimeout(hintTimer);
+            hintTimer = setTimeout(() => {
+                lightbox.classList.add('user-interacted');
+            }, 4000);
+        }
+    });
+    lightboxObserver.observe(lightbox, { attributes: true, attributeFilter: ['class'] });
+}
+
 function initStore() {
     initThemeToggle();
     
@@ -388,6 +549,9 @@ function initStore() {
 
     // 🟢 إخفاء/إظهار الـ header التلقائي على الموبايل
     initHeaderAutoHide();
+
+    // 🟢 Image Lightbox - تكبير صور المنتجات
+    initImageLightbox();
 
     // 🟢 تشغيل السكرول التلقائي لقسم العروض
     initOffersAutoScroll();

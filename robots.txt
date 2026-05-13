@@ -21,8 +21,8 @@ Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.webp$
 
-# مكان ملف الـ Sitemap (عدّل الدومين بعد ما تشتريه)
-Sitemap: https://turfa-store.vercel.app/sitemap.xml
+# مكان ملف الـ Sitemap
+Sitemap: https://turfajo.me/sitemap.xml
 
 # Crawl delay (ثانيتين بين كل طلب) - لتقليل الضغط على السيرفر
 Crawl-delay: 2

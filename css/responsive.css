@@ -260,13 +260,13 @@
     flex-shrink: 0;
 }
 
-body.dark-mode .checkout-pickup-notice {
+html[data-theme='dark'] .checkout-pickup-notice {
     background: linear-gradient(135deg, rgba(129, 199, 132, 0.15), rgba(129, 199, 132, 0.08));
     border-color: rgba(129, 199, 132, 0.4);
     color: #a5d6a7;
 }
 
-body.dark-mode .checkout-pickup-notice i {
+html[data-theme='dark'] .checkout-pickup-notice i {
     color: #a5d6a7;
 }
 
@@ -275,16 +275,16 @@ body.dark-mode .checkout-pickup-notice i {
     display: none;
 }
 
-body.dark-mode .checkout-shipping-banner {
+html[data-theme='dark'] .checkout-shipping-banner {
     background: linear-gradient(135deg, rgba(245, 215, 110, 0.15), rgba(245, 215, 110, 0.08));
     border-color: rgba(245, 215, 110, 0.4);
 }
 
-body.dark-mode .checkout-shipping-text strong {
+html[data-theme='dark'] .checkout-shipping-text strong {
     color: #f5d76e;
 }
 
-body.dark-mode .checkout-shipping-text span {
+html[data-theme='dark'] .checkout-shipping-text span {
     color: rgba(245, 215, 110, 0.8);
 }
 
@@ -501,22 +501,57 @@ body.dark-mode .checkout-shipping-text span {
 }
 
 /* ---- Dark mode support ---- */
-body.dark-mode .checkout-summary {
+html[data-theme='dark'] .checkout-summary {
     background: rgba(255,255,255,0.04);
     border-color: rgba(255,255,255,0.1);
 }
 
-body.dark-mode .checkout-payment-card {
+/* 🟢 عنوان "ملخص الطلب" — ذهبي فاتح يلفت النظر */
+html[data-theme='dark'] .checkout-summary-header {
+    color: #f5d76e;
+    border-bottom-color: rgba(255,255,255,0.12);
+}
+
+html[data-theme='dark'] .checkout-summary-header i {
+    color: #ff8a65;
+}
+
+/* 🟢 اسم المنتج وصف العمود */
+html[data-theme='dark'] .checkout-summary-item {
+    color: rgba(255,255,255,0.85);
+}
+
+html[data-theme='dark'] .checkout-summary-item-qty {
+    color: rgba(255,255,255,0.5);
+}
+
+/* 🟢 سعر كل عنصر */
+html[data-theme='dark'] .checkout-summary-item-price {
+    color: #f5d76e;
+}
+
+/* 🟢 صفوف "المجموع الفرعي" و "رسوم التوصيل" */
+html[data-theme='dark'] .checkout-summary-row {
+    color: rgba(255,255,255,0.85);
+}
+
+/* 🟢 صف "الإجمالي" — الأبرز */
+html[data-theme='dark'] .checkout-summary-total {
+    color: #f5d76e;
+    border-top-color: rgba(255,255,255,0.15);
+}
+
+html[data-theme='dark'] .checkout-payment-card {
     background: rgba(255,255,255,0.03);
 }
 
-body.dark-mode .checkout-payment-option input:checked + .checkout-payment-card {
+html[data-theme='dark'] .checkout-payment-option input:checked + .checkout-payment-card {
     background: rgba(255,255,255,0.08);
 }
 
-body.dark-mode .checkout-form-field input,
-body.dark-mode .checkout-form-field select,
-body.dark-mode .checkout-form-field textarea {
+html[data-theme='dark'] .checkout-form-field input,
+html[data-theme='dark'] .checkout-form-field select,
+html[data-theme='dark'] .checkout-form-field textarea {
     background: rgba(255,255,255,0.04);
     color: #f0f0f0;
 }
@@ -625,6 +660,6 @@ body.dark-mode .checkout-form-field textarea {
     }
 }
 
-body.dark-mode .detail-image-container {
+html[data-theme='dark'] .detail-image-container {
     background: rgba(255, 255, 255, 0.05);
 }

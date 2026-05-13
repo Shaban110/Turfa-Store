@@ -1147,6 +1147,34 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
     transform: scale(0.92);
 }
 
+/* 🟢 أزرار الكمية في الدارك مود — خلفية أوضح + بوردر ذهبي خفيف */
+html[data-theme='dark'] .quantity-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(245, 215, 110, 0.35);
+    color: #f0f0f0;
+}
+
+html[data-theme='dark'] .quantity-btn:hover {
+    background: #f5d76e !important;
+    color: #002617 !important;
+    border-color: #f5d76e !important;
+}
+
+/* 🟢 منع علوق حالة hover على شاشات اللمس */
+@media (hover: none) {
+    .quantity-btn:hover {
+        transform: none;
+        background: var(--light-gray) !important;
+        color: inherit !important;
+        border-color: var(--border) !important;
+    }
+    html[data-theme='dark'] .quantity-btn:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #f0f0f0 !important;
+        border-color: rgba(245, 215, 110, 0.35) !important;
+    }
+}
+
 /* زر حذف من السلة */
 .remove-item {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -2364,6 +2392,12 @@ html[data-theme='dark'] .info-divider::after {
 
 html[data-theme='dark'] .info-section-text h3 {
     color: #d4af37;
+}
+
+/* 🟢 النص الختامي في موديل "من نحن" — ذهبي فاتح للقراءة على الخلفية الداكنة */
+html[data-theme='dark'] .info-closing {
+    color: #d4af37;
+    border-color: rgba(212, 175, 55, 0.45);
 }
 
 /* --- احترام تفضيل تقليل الحركة --- */
@@ -3858,12 +3892,12 @@ html[data-theme='dark'] .wedding-date-actions {
     transform: translateY(0);
 }
 
-body.dark-mode .artist-inquiry-banner {
+html[data-theme='dark'] .artist-inquiry-banner {
     background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(37, 211, 102, 0.06));
     border-color: rgba(37, 211, 102, 0.4);
 }
 
-body.dark-mode .artist-inquiry-text {
+html[data-theme='dark'] .artist-inquiry-text {
     color: #4ade80;
 }
 
@@ -3995,22 +4029,22 @@ body.dark-mode .artist-inquiry-text {
 }
 
 /* Dark mode */
-body.dark-mode .artist-info-card {
+html[data-theme='dark'] .artist-info-card {
     background: linear-gradient(135deg, rgba(245, 215, 110, 0.15), rgba(245, 215, 110, 0.08));
     border-color: rgba(245, 215, 110, 0.4);
 }
 
-body.dark-mode .artist-info-row strong {
+html[data-theme='dark'] .artist-info-row strong {
     color: #f5d76e;
 }
 
-body.dark-mode .artist-info-row span {
+html[data-theme='dark'] .artist-info-row span {
     color: rgba(245, 215, 110, 0.8);
 }
 
-body.dark-mode .artist-form-fields .checkout-form-field input,
-body.dark-mode .artist-form-fields .checkout-form-field select,
-body.dark-mode .artist-form-fields .checkout-form-field textarea {
+html[data-theme='dark'] .artist-form-fields .checkout-form-field input,
+html[data-theme='dark'] .artist-form-fields .checkout-form-field select,
+html[data-theme='dark'] .artist-form-fields .checkout-form-field textarea {
     background: rgba(255, 255, 255, 0.04);
     color: #f0f0f0;
 }
@@ -4040,5 +4074,267 @@ body.dark-mode .artist-form-fields .checkout-form-field textarea {
     
     .artist-info-row span {
         font-size: 0.78rem;
+    }
+}
+/* =================================================================
+   🟢 IMAGE LIGHTBOX - تكبير صور المنتجات
+   ================================================================= */
+
+/* --- مؤشر "قابلة للتكبير" على صورة التفاصيل --- */
+.detail-image-container.is-zoomable {
+    cursor: zoom-in;
+    position: relative;
+    transition: transform 0.25s ease;
+}
+
+.detail-image-container.is-zoomable:hover {
+    transform: scale(1.01);
+}
+
+@media (hover: none) {
+    .detail-image-container.is-zoomable:hover {
+        transform: none;
+    }
+}
+
+/* شارة الزوم — أيقونة صغيرة فوق الصورة */
+.zoom-hint-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: none;
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 2;
+}
+
+[dir="rtl"] .zoom-hint-badge {
+    left: auto;
+    right: 12px;
+}
+
+.detail-image-container.is-zoomable:hover .zoom-hint-badge {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+html[data-theme='dark'] .zoom-hint-badge {
+    background: rgba(245, 215, 110, 0.85);
+    color: #002617;
+}
+
+/* --- الـ Lightbox نفسه --- */
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    /* لتجنب bugs الـ scroll في iOS */
+    overscroll-behavior: contain;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.image-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* زر الإغلاق */
+.image-lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    z-index: 2;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+[dir="rtl"] .image-lightbox-close {
+    right: auto;
+    left: 18px;
+}
+
+.image-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.05);
+}
+
+.image-lightbox-close:active {
+    transform: scale(0.95);
+}
+
+/* المنطقة اللي فيها الصورة */
+.image-lightbox-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    box-sizing: border-box;
+    /* مهم: نسمح بسلوك pinch-zoom طبيعي من المتصفح */
+    touch-action: pinch-zoom;
+    overflow: hidden;
+}
+
+.image-lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: zoom-in;
+    will-change: transform;
+}
+
+/* الحالة المكبّرة (بعد double-tap أو click) */
+.image-lightbox-img.zoomed {
+    transform: scale(2.2);
+    cursor: grab;
+}
+
+.image-lightbox-img.zoomed:active {
+    cursor: grabbing;
+}
+
+/* تلميح للمستخدم في الأسفل */
+.image-lightbox-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.4s ease 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.image-lightbox.active .image-lightbox-hint {
+    opacity: 0.9;
+}
+
+/* بعد ما المستخدم يتفاعل، نخفي التلميح */
+.image-lightbox.user-interacted .image-lightbox-hint {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+/* Animation للصورة لما تفتح */
+.image-lightbox.active .image-lightbox-img {
+    animation: lightboxImageIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes lightboxImageIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* احترام تفضيل تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    .image-lightbox,
+    .image-lightbox-img,
+    .image-lightbox-close,
+    .image-lightbox-hint {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* منع scroll الـ body لما الـ lightbox مفتوح */
+body.lightbox-open {
+    overflow: hidden;
+    /* يحافظ على مكان السكرول */
+    position: fixed;
+    width: 100%;
+}
+
+/* تعديلات للموبايل */
+@media (max-width: 600px) {
+    .image-lightbox-close {
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.15rem;
+    }
+    
+    [dir="rtl"] .image-lightbox-close {
+        right: auto;
+        left: 12px;
+    }
+    
+    .image-lightbox-stage {
+        padding: 50px 10px;
+    }
+    
+    .image-lightbox-hint {
+        font-size: 0.75rem;
+        padding: 7px 14px;
+        bottom: 18px;
+    }
+    
+    .image-lightbox-img.zoomed {
+        transform: scale(2);
+    }
+    
+    .zoom-hint-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+        top: 8px;
+        left: 8px;
+    }
+    
+    [dir="rtl"] .zoom-hint-badge {
+        left: auto;
+        right: 8px;
     }
 }

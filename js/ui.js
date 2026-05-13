@@ -27,7 +27,7 @@ function renderProductCards(container, productList) {
         const favIconClass = isFav ? 'fas fa-heart' : 'far fa-heart';
         
         const originalPrice = product.price;
-        const discountedPrice = originalPrice * (1 - GLOBAL_DISCOUNT_PERCENT); // 🟢 تطبيق الخصم
+        const discountedPrice = getDiscountedPrice(originalPrice); // 🟢 تطبيق الخصم
 
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
@@ -172,7 +172,7 @@ function renderFavoritesModal() {
             <img src="${displayProduct.image}" alt="${displayProduct.name}" class="modal-item-img" loading="lazy">
             <div class="item-details" style="flex: 2;">
                 <div class="item-name">${displayProduct.name}</div>
-                <div class="item-price">د.أ ${(displayProduct.price * (1 - GLOBAL_DISCOUNT_PERCENT)).toFixed(2)}</div>
+                <div class="item-price">د.أ ${(getDiscountedPrice(displayProduct.price)).toFixed(2)}</div>
             </div>
             <button class="add-to-cart" data-id="${displayProduct.id}" data-has-sizes="${displayProduct.hasSizes}" style="width: auto; padding: 0.5rem 1rem;">
                 <i class="fas fa-shopping-cart"></i>
@@ -451,8 +451,28 @@ const filtered = products.filter(p => {
         renderProductCards(giftsContainer, filtered.filter(p => p.category === 'gift'));
     };
 
-    searchInput.addEventListener('input', performSearch);
-    searchBtn.addEventListener('click', performSearch);
+    // 🟢 Debounce: نأجل البحث 200ms بعد آخر حرف
+    // فايدتها: بدل ما نعمل re-render كامل لكل المنتجات مع كل ضغطة كيبورد،
+    // نستنى المستخدم يخلص يكتب. على الموبايل بصير الكتابة أنعم بكتير.
+    let searchTimer = null;
+    const debouncedSearch = () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(performSearch, 200);
+    };
+
+    searchInput.addEventListener('input', debouncedSearch);
+    // الضغط على زر البحث = بحث فوري (المستخدم خلص كتابة فعلاً)
+    searchBtn.addEventListener('click', () => {
+        clearTimeout(searchTimer);
+        performSearch();
+    });
+    // كمان لو ضغط Enter
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            clearTimeout(searchTimer);
+            performSearch();
+        }
+    });
 }
 
 // 🟢 السكرول التلقائي السلس لقسم العروض (Loop مستمر)

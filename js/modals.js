@@ -219,7 +219,7 @@ async function showProductDetails(productId) {
     }
     
     const initialOriginalPrice = product.price;
-    const initialDiscountedPrice = initialOriginalPrice * (1 - GLOBAL_DISCOUNT_PERCENT);
+    const initialDiscountedPrice = getDiscountedPrice(initialOriginalPrice);
     
     detailPriceRow.innerHTML = `
         ${variantOptionsHTML}
@@ -263,7 +263,7 @@ detailDescriptionFull.textContent =
                 const originalNewPrice = product.price + priceDiff;
                 
                 // 🟢 تطبيق الخصم هنا
-                const discountedNewPrice = originalNewPrice * (1 - GLOBAL_DISCOUNT_PERCENT);
+                const discountedNewPrice = getDiscountedPrice(originalNewPrice);
                 
                 sizeBoxes.forEach(b => b.classList.remove('active'));
                 box.classList.add('active');
@@ -358,7 +358,7 @@ detailDescriptionFull.textContent =
 
             // 3) تحديث السعر (السعر الأساسي + priceDiff) مع تطبيق الخصم
             const basePrice = product.price + priceDiff;
-            const discountedPrice = basePrice * (1 - GLOBAL_DISCOUNT_PERCENT);
+            const discountedPrice = getDiscountedPrice(basePrice);
             const currencyLabel = currentLang === 'ar' ? 'د.أ' : 'JOD';
 
             if (detailPriceEl && !product.hasSizes) {
@@ -417,7 +417,7 @@ detailDescriptionFull.textContent =
             sizeIndex = e.currentTarget.dataset.selectedSizeIndex || '0';
         } else if (!selectedVariantName) {
             // لا يوجد variant، استخدم السعر الأساسي
-            finalPrice = product.price * (1 - GLOBAL_DISCOUNT_PERCENT);
+            finalPrice = getDiscountedPrice(product.price);
         }
         // لو في variant، فـ finalPrice محسوب فعلاً من dataset.selectedPrice
 
@@ -677,7 +677,7 @@ function openWeddingForm(product, sourceEl = null, extras = null) {
     if (previewImg) { previewImg.src = product.image; previewImg.alt = product.name; }
     if (previewName) previewName.textContent = product.name;
     if (previewPrice) {
-        const finalPrice = (extras && extras.finalPrice) ? extras.finalPrice : product.price * (1 - GLOBAL_DISCOUNT_PERCENT);
+        const finalPrice = (extras && extras.finalPrice) ? extras.finalPrice : getDiscountedPrice(product.price);
         const currencyLabel = currentLang === 'ar' ? 'د.أ' : 'JD';
         previewPrice.textContent = `${currencyLabel} ${finalPrice.toFixed(2)}`;
     }
@@ -786,7 +786,7 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selec
     if (finalPrice !== null) {
         price = finalPrice;
     } else {
-        price = product.price * (1 - GLOBAL_DISCOUNT_PERCENT);
+        price = getDiscountedPrice(product.price);
     }
     price = parseFloat(price.toFixed(2));
 
@@ -978,11 +978,32 @@ function updateQuantity(cartItemId, change) {
     item.quantity += change;
     if (item.quantity <= 0) {
         removeFromCart(cartItemId);
-    } else {
-        saveCartToStorage();
-        updateCartUI();
-        updateFloatingCart();
+        return;
     }
+
+    saveCartToStorage();
+
+    // 🟢 تحديث جزئي بدون rerender كامل (لتجنب الأنيميشن المزعج)
+    // نحدّث الرقم في العنصر نفسه + الإجمالي + السلة العائمة + الـ badge
+    const itemEl = cartItems && cartItems.querySelector(`.quantity-btn[data-id="${cartItemId}"]`);
+    if (itemEl) {
+        const qtySpan = itemEl.parentElement.querySelector('span');
+        if (qtySpan) qtySpan.textContent = item.quantity;
+    }
+
+    // تحديث الإجمالي
+    const total = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
+    if (totalPrice) totalPrice.textContent = `د.أ ${total.toFixed(2)}`;
+
+    // تحديث الـ badge على أيقونة السلة
+    const totalCount = cart.reduce((sum, it) => sum + it.quantity, 0);
+    if (cartCount) {
+        cartCount.textContent = totalCount;
+        cartCount.style.display = totalCount > 0 ? 'flex' : 'none';
+    }
+
+    // السلة العائمة
+    updateFloatingCart();
 }
 
 function removeFromCart(cartItemId) {
@@ -1036,7 +1057,7 @@ function proceedToInquiry() {
     }
 
     // فتح واتساب
-    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(buildWhatsAppLink(message), '_blank');
 }
 
 // =================================================================
@@ -1323,7 +1344,7 @@ function submitCheckoutForm() {
     message += `${texts.whatsappThanks}`;
 
     // فتح واتساب
-    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(buildWhatsAppLink(message), '_blank');
 
     // إغلاق الموديل
     closeCheckoutForm();
@@ -1446,7 +1467,7 @@ function renderComingSoonModal(key) {
         <p class="info-closing">
             ${stayTunedLabel}
             <br>
-            <a href="https://wa.me/+962788489914" target="_blank" class="coming-soon-whatsapp">
+            <a href="${WHATSAPP_BASE}" target="_blank" class="coming-soon-whatsapp">
                 <i class="fab fa-whatsapp"></i> ${whatsappLabel}
             </a>
         </p>
@@ -1640,7 +1661,7 @@ function submitArtistForm() {
     message += texts.waArtistClosing;
 
     // فتح واتساب
-    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(buildWhatsAppLink(message), '_blank');
 
     // إغلاق الموديل
     closeArtistForm();
@@ -1649,6 +1670,6 @@ function submitArtistForm() {
 // 🟢 استفسار قبل التسجيل (من موديل الفنان)
 function artistInquiry() {
     const message = texts.artistInquiryMessage || "مرحباً متجر طُرفة! عندي استفسار عن الانضمام لمتجركم.\n\n";
-    window.open(`https://wa.me/+962788489914?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(buildWhatsAppLink(message), '_blank');
     closeArtistForm();
 }

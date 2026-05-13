@@ -13,6 +13,33 @@
 // --- 0. GLOBAL CONFIGURATION (NEW) ---
 // =================================================================
 const GLOBAL_DISCOUNT_PERCENT = 0.500; // 50% خصم (50/100)
+
+// 🟢 دالة موحّدة لحساب السعر بعد الخصم — استخدمها بدل التكرار اليدوي
+// لو احتجت تغيّر طريقة الخصم (مثلاً خصومات مختلفة لكل منتج)، عدّل هون فقط.
+function getDiscountedPrice(basePrice) {
+    const price = Number(basePrice) || 0;
+    return price * (1 - GLOBAL_DISCOUNT_PERCENT);
+}
+
+// 🟢 معلومات التواصل الموحّدة — لو تغيّر الرقم، عدّل هون فقط
+const STORE_PHONE = '+962788489914';                    // الرقم الكامل بصيغة دولية
+const STORE_PHONE_DISPLAY = '+962 7 8848 9914';         // الرقم بصيغة العرض (للفوتر)
+const STORE_PHONE_DIGITS = STORE_PHONE.replace(/\D/g, ''); // أرقام فقط، لاستخدامها مع wa.me
+const WHATSAPP_BASE = `https://wa.me/${STORE_PHONE_DIGITS}`;
+const TEL_LINK = `tel:${STORE_PHONE}`;
+
+// 🟢 إيميل المتجر وموقعه — عدّل هون فقط
+const STORE_EMAIL = 'info@turfa.art';
+const STORE_EMAIL_LINK = `mailto:${STORE_EMAIL}`;
+const STORE_DOMAIN = 'https://turfajo.me';
+
+// مساعد لبناء رابط واتساب مع رسالة جاهزة
+function buildWhatsAppLink(message) {
+    return message
+        ? `${WHATSAPP_BASE}?text=${encodeURIComponent(message)}`
+        : WHATSAPP_BASE;
+}
+
 // =================================================================
 // --- 1. LANGUAGE & TRANSLATION DATA ---
 // =================================================================
@@ -408,8 +435,8 @@ const englishTexts = {
 
 const footerLinksEnglish = {
     contact: [
-        { text: "+962 7 8848 9914", icon: "fas fa-phone", link: "tel:+962788489914" },
-        { text: "info@turfa.art", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
+        { text: STORE_PHONE_DISPLAY, icon: "fas fa-phone", link: TEL_LINK },
+        { text: STORE_EMAIL, icon: "fas fa-envelope", link: STORE_EMAIL_LINK }
     ],
     about: [ { text: "About Us", link: "#about" }, { text: "Contact", link: "#contact" }, { text: "Privacy Policy", link: "#privacy" } ],
 categories: [
@@ -427,8 +454,8 @@ categories: [
 
 const footerLinksArabic = {
     contact: [
-        { text: "+962 7 8848 9914", icon: "fas fa-phone", link: "tel:+962788489914" },
-        { text: "info@turfa.art", icon: "fas fa-envelope", link: "mailto:info@turfastore.com" }
+        { text: STORE_PHONE_DISPLAY, icon: "fas fa-phone", link: TEL_LINK },
+        { text: STORE_EMAIL, icon: "fas fa-envelope", link: STORE_EMAIL_LINK }
     ],
     about: [ { text: "من نحن", link: "#about" }, { text: "تواصل معنا", link: "#contact" }, { text: "سياسة الخصوصية", link: "#privacy" } ],
 categories: [
@@ -625,7 +652,7 @@ const contactContentArabic = {
             title: "واتساب",
             value: "+962 78 848 9914",
             desc: "للطلبات والاستفسارات السريعة",
-            link: "https://wa.me/+962788489914"
+            link: WHATSAPP_BASE
         },
         {
             icon: "fas fa-phone",
@@ -633,15 +660,15 @@ const contactContentArabic = {
             title: "الهاتف",
             value: "+962 78 848 9914",
             desc: "متاحون لاستقبال اتصالكم",
-            link: "tel:+962788489914"
+            link: TEL_LINK
         },
         {
             icon: "fas fa-envelope",
             type: "email",
             title: "البريد الإلكتروني",
-            value: "info@turfa.art",
+            value: STORE_EMAIL,
             desc: "للاستفسارات الرسمية والتعاون",
-            link: "mailto:info@turfa.art"
+            link: STORE_EMAIL_LINK
         },
         {
             icon: "fab fa-instagram",
@@ -673,7 +700,7 @@ const contactContentEnglish = {
             title: "WhatsApp",
             value: "+962 78 848 9914",
             desc: "For quick orders and inquiries",
-            link: "https://wa.me/+962788489914"
+            link: WHATSAPP_BASE
         },
         {
             icon: "fas fa-phone",
@@ -681,15 +708,15 @@ const contactContentEnglish = {
             title: "Phone",
             value: "+962 78 848 9914",
             desc: "Available to take your call",
-            link: "tel:+962788489914"
+            link: TEL_LINK
         },
         {
             icon: "fas fa-envelope",
             type: "email",
             title: "Email",
-            value: "info@turfa.art",
+            value: STORE_EMAIL,
             desc: "For formal inquiries and collaborations",
-            link: "mailto:info@turfa.art"
+            link: STORE_EMAIL_LINK
         },
         {
             icon: "fab fa-instagram",
