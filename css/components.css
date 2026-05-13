@@ -242,7 +242,8 @@ input:checked + .lang-slider:before { transform: translateX(33px); }
     }
     
     .hero-inner p {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+        line-height: 1.5;
     }
     
     /* 🟢 Category cards responsive */
@@ -466,7 +467,15 @@ input:checked + .lang-slider:before { transform: translateX(33px); }
 
 /* نص */
 .hero-inner h2{ color:#fff; font-size:2rem; margin:0 0 .25rem; letter-spacing:.5px }
-.hero-inner p{ color:#f3f3f3; opacity:.95; margin:0; font-size:1rem }
+.hero-inner p{ 
+    color:#f3f3f3; 
+    opacity:.95; 
+    margin: 0 auto;
+    font-size:0.95rem;
+    line-height: 1.55;
+    max-width: 620px;
+    text-align: center;
+}
 
 /* تحريك البطاقة طفو ناعم */
 .anim-float{ animation: floatY 6s ease-in-out infinite }
@@ -692,7 +701,8 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
 
 .hero-inner p{
   color: #f0ebe0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 620px;
   font-size: 1.05rem;
   font-weight: 400;
   opacity: 0;
@@ -700,6 +710,8 @@ html[data-theme='dark'] .hero-inner p{ color:#eaeaea; opacity:.9 }
   position: relative;
   z-index: 2;
   letter-spacing: 0.3px;
+  text-align: center;
+  line-height: 1.55;
 }
 
 /* ============ 🟢 بطاقات فئات المنتجات ============ */
@@ -4337,4 +4349,132 @@ body.lightbox-open {
         left: auto;
         right: 8px;
     }
+}
+
+/* =================================================================
+   🟢 HERO CUSTOMIZATION BADGE — شارة "تخصيص متاح"
+   ================================================================= */
+.hero-custom-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    max-width: 100%;
+    padding: 7px 18px;
+    margin: 18px auto 14px;
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.18), rgba(212, 175, 55, 0.12));
+    border: 1px solid rgba(245, 215, 110, 0.45);
+    border-radius: 999px;
+    color: #f5d76e;
+    font-size: 0.82rem;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    /* أنيميشن دخول من فوق */
+    animation:
+        heroBadgeIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+        heroBadgePulse 3s ease-in-out 1.5s infinite;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+    /* مهم: يمنع الـ shine يغطي الشارة */
+    z-index: 2;
+}
+
+/* النقطة الخضراء الصغيرة - علامة حية */
+.hero-custom-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+    animation: heroBadgeDot 2s ease-in-out infinite;
+    flex-shrink: 0;
+    /* مسافة إضافية بعد النقطة - تفصلها عن المجموعة (أيقونة + نص) */
+    margin-inline-end: 4px;
+}
+
+.hero-custom-badge-icon {
+    font-size: 0.9rem;
+    color: #f5d76e;
+    flex-shrink: 0;
+}
+
+.hero-custom-badge-text {
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+}
+
+/* أنيميشن دخول */
+@keyframes heroBadgeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* أنيميشن النبض الخفيف - مرة كل 3 ثواني */
+@keyframes heroBadgePulse {
+    0%, 100% {
+        box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35), 0 0 0 4px rgba(245, 215, 110, 0.12);
+        transform: scale(1.025);
+    }
+}
+
+/* نبض النقطة الخضراء - بمعدل أسرع لإحساس "live" */
+@keyframes heroBadgeDot {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 0 5px rgba(74, 222, 128, 0);
+    }
+}
+
+/* احترام تفضيل تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    .hero-custom-badge,
+    .hero-custom-badge-dot {
+        animation: none;
+    }
+}
+
+/* تعديلات للموبايل */
+@media (max-width: 600px) {
+    .hero-custom-badge {
+        font-size: 0.72rem;
+        padding: 6px 14px;
+        gap: 7px;
+        margin: 14px auto 10px;
+    }
+    
+    .hero-custom-badge-icon {
+        font-size: 0.82rem;
+    }
+    
+    .hero-custom-badge-dot {
+        width: 6px;
+        height: 6px;
+        margin-inline-end: 3px;
+    }
+}
+
+/* الوضع النهاري - تباين أقوى شوي */
+html:not([data-theme='dark']) .hero-custom-badge {
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.22), rgba(212, 175, 55, 0.15));
+    color: #d4af37;
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
+}
+
+html:not([data-theme='dark']) .hero-custom-badge-icon {
+    color: #b8941d;
 }

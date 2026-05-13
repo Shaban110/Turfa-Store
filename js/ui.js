@@ -386,6 +386,10 @@ function toggleLanguage() {
     const heroSubtitle = document.getElementById('heroSubtitle');
     if (heroSubtitle) heroSubtitle.textContent = texts.heroSubtitle;
 
+    // 🟢 تحديث نص شارة التخصيص
+    const heroCustomBadgeText = document.getElementById('heroCustomBadgeText');
+    if (heroCustomBadgeText && texts.heroCustomBadge) heroCustomBadgeText.textContent = texts.heroCustomBadge;
+
     renderAllSections();
     renderFooterLinks();
     updateCartUI();
