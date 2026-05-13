@@ -176,23 +176,63 @@ input:checked + .lang-slider:before { transform: translateX(33px); }
 }
 
 @media (max-width: 768px) {
+    /* 🟢 Header مدمج على الموبايل */
+    header {
+        padding: 0.5rem 0.75rem;
+    }
+
     .header-container {
         flex-wrap: wrap;
+        gap: 8px;
     }
-    
+
+    /* 🟢 اللوغو أصغر على الموبايل */
+    .logo img {
+        height: 38px;
+        max-width: 110px;
+    }
+
+    /* 🟢 search bar في الصف التاني — أنحف وأصغر */
     .search-container {
         order: 3;
         width: 100%;
         max-width: 100%;
-        margin: 1rem 0 0 0;
+        margin: 0;
     }
-    
-    .whatsapp-contact span {
+
+    .search-input {
+        padding: 0.5rem 2.6rem 0.5rem 0.85rem;
+        font-size: 0.88rem;
+        border-radius: 7px;
+    }
+
+    [dir="rtl"] .search-input {
+        padding: 0.5rem 0.85rem 0.5rem 2.6rem;
+    }
+
+    .search-btn {
+        padding: 0.4rem 0.75rem;
+    }
+
+    .search-btn i {
+        font-size: 0.9rem;
+    }
+
+    /* 🟢 إخفاء زر الواتساب على الموبايل لتوفير مساحة 
+       (المستخدم يقدر يوصل واتساب من زر الـ checkout والـ floating-cart) */
+    .whatsapp-contact {
         display: none;
     }
-    
-    .whatsapp-contact i {
-        font-size: 1.8rem;
+
+    /* 🟢 nav icons مدمجة أكثر */
+    .nav-icons {
+        gap: 10px;
+    }
+
+    .cart-icon {
+        font-size: 1.4rem;
+        width: 36px;
+        height: 36px;
     }
 
     /* 🟢 Hero responsive */
@@ -291,12 +331,35 @@ input:checked + .lang-slider:before { transform: translateX(33px); }
 }
 
 @media (max-width: 500px) {
-    .nav-icons {
-        gap: 8px;
+    /* 🟢 تضييق أكثر على الشاشات الصغيرة جداً */
+    header {
+        padding: 0.45rem 0.6rem;
     }
-    
-    .whatsapp-contact {
-        padding: 0.3rem 0.5rem;
+
+    .header-container {
+        gap: 6px;
+    }
+
+    .logo img {
+        height: 34px;
+        max-width: 95px;
+    }
+
+    .nav-icons {
+        gap: 6px;
+    }
+
+    .cart-icon {
+        font-size: 1.3rem;
+        width: 34px;
+        height: 34px;
+    }
+
+    /* 🟢 تصغير سويتشات اللغة/الدارك مود على الشاشات الضيقة */
+    .theme-switch,
+    .language-switch {
+        transform: scale(0.85);
+        transform-origin: center;
     }
 
     .carousel-wrapper {

@@ -45,6 +45,23 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    /* 🟢 transition للإخفاء/الإظهار عند السكرول */
+    transform: translateY(0);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+    will-change: transform;
+}
+
+/* 🟢 لما المستخدم ينزل لتحت بنخفي الـ header */
+header.header-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
+}
+
+/* 🟢 احترام تفضيلات تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+    header {
+        transition: none;
+    }
 }
 
 .header-container {

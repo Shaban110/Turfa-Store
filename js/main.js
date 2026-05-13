@@ -191,6 +191,79 @@ function initInfoModals() {
     }
 }
 
+// =================================================================
+// 🟢 HEADER AUTO-HIDE ON SCROLL
+// -----------------------------------------------------------------
+// يخفي الـ header لما المستخدم ينزل لتحت، ويظهره لما يطلع لفوق.
+// يشتغل بس على الموبايل (≤ 768px) لأن على الشاشات الكبيرة في مساحة.
+// =================================================================
+function initHeaderAutoHide() {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    // عتبة بسيطة عشان ما يرفّ الـ header مع كل حركة صغيرة
+    const SCROLL_THRESHOLD = 8;
+    // ما نخفي إلا بعد ما المستخدم ينزل عن ارتفاع الـ header نفسه
+    const HIDE_AFTER = 80;
+
+    const updateHeader = () => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
+
+        // نطبّق السلوك بس على الشاشات الصغيرة
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        if (!isMobile) {
+            header.classList.remove('header-hidden');
+            lastScrollY = currentY;
+            ticking = false;
+            return;
+        }
+
+        // فوق الصفحة دائماً ظاهر
+        if (currentY < HIDE_AFTER) {
+            header.classList.remove('header-hidden');
+            lastScrollY = currentY;
+            ticking = false;
+            return;
+        }
+
+        // تجاهل الحركات الصغيرة جداً (تجنب الارتعاش)
+        if (Math.abs(delta) < SCROLL_THRESHOLD) {
+            ticking = false;
+            return;
+        }
+
+        if (delta > 0) {
+            // نازل لتحت → نخفي
+            header.classList.add('header-hidden');
+        } else {
+            // طالع لفوق → نظهر
+            header.classList.remove('header-hidden');
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
+    };
+
+    // نستخدم requestAnimationFrame عشان الأداء يكون سلس
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateHeader);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // لما المستخدم يغيّر حجم الشاشة (مثلاً يدور الجهاز) نرجّع الـ header للوضع الطبيعي
+    window.addEventListener('resize', () => {
+        if (!window.matchMedia('(max-width: 768px)').matches) {
+            header.classList.remove('header-hidden');
+        }
+    });
+}
+
 function initStore() {
     initThemeToggle();
     
@@ -312,6 +385,9 @@ function initStore() {
     initFloatingCart();
     initScrollToTop(); 
     resetCarouselScrolls();
+
+    // 🟢 إخفاء/إظهار الـ header التلقائي على الموبايل
+    initHeaderAutoHide();
 
     // 🟢 تشغيل السكرول التلقائي لقسم العروض
     initOffersAutoScroll();
