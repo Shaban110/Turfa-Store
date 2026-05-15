@@ -99,9 +99,9 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 🟢 ملفات CSS مقسّمة (الترتيب مهم: base → components → responsive) -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/base.css?v=2">
+    <link rel="stylesheet" href="css/components.css?v=2">
+    <link rel="stylesheet" href="css/responsive.css?v=2">
 </head>
 <body>
 
@@ -175,7 +175,7 @@
 
     <h2 class="typewriter-container"><span id="typewriter-text"></span></h2>
     <div class="hero-divider" aria-hidden="true"></div>
-    <p id="heroSubtitle">كل قطعة عندنا قابلة للتخصيص — اختر، عدّل، أو احكيلنا فكرتك ونصممها من الصفر</p>
+    <p id="heroSubtitle">كل قطعة عنا قابلة للتخصيص — اختر، عدّل، أو احكيلنا فكرتك ومنصممها من الصفر</p>
   </div>
   </div>
 
@@ -661,6 +661,90 @@
         </div>
     </div>
 
+    <!-- 🟢 Modal اللوحة المخصصة (تصميم حسب الطلب) -->
+    <div class="cart-modal custom-design-modal" id="customDesignModal">
+        <div class="cart-content custom-design-content">
+            <div class="cart-header custom-design-header">
+                <div class="custom-design-header-text">
+                    <h2 id="customDesignFormTitle">صمم لوحتك الخاصة</h2>
+                    <p id="customDesignFormSubtitle">اختار نوع التصميم واكتب التفاصيل</p>
+                </div>
+                <button class="close-cart" id="closeCustomDesign">&times;</button>
+            </div>
+            <div class="custom-design-body">
+                <div class="custom-design-product-preview" id="customDesignPreview">
+                    <img id="customDesignProductImg" src="" alt="">
+                    <div class="custom-design-product-info">
+                        <h3 id="customDesignProductName"></h3>
+                        <span id="customDesignProductPrice" class="custom-design-price-badge"></span>
+                    </div>
+                </div>
+
+                <div class="custom-design-fields">
+                    <!-- نوع التصميم -->
+                    <div class="custom-design-field full-width">
+                        <label>
+                            <span id="customDesignTypeLabel">نوع التصميم</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <div class="custom-design-types-grid" id="customDesignTypesGrid"></div>
+                    </div>
+
+                    <!-- النص المطلوب -->
+                    <div class="custom-design-field full-width">
+                        <label for="customDesignText">
+                            <span id="customDesignTextLabel">النص المطلوب</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <textarea id="customDesignText" rows="4" maxlength="500"></textarea>
+                    </div>
+
+                    <!-- المقاس -->
+                    <div class="custom-design-field full-width">
+                        <label>
+                            <span id="customDesignSizeLabel">المقاس المطلوب</span>
+                            <span class="required-star">*</span>
+                        </label>
+                        <div class="custom-design-sizes-grid" id="customDesignSizesGrid"></div>
+
+                        <!-- 🟢 خانات المقاس المخصص (تظهر فقط عند اختيار "مقاس مخصص") -->
+                        <div class="custom-design-custom-size" id="customDesignCustomSize">
+                            <div class="custom-design-custom-size-fields">
+                                <div class="custom-design-custom-size-field">
+                                    <label for="customDesignWidth" id="customDesignWidthLabel">العرض (سم)</label>
+                                    <input type="number" id="customDesignWidth" min="10" max="500" step="1" placeholder="مثال: 60" inputmode="numeric">
+                                </div>
+                                <span class="custom-design-custom-size-x">×</span>
+                                <div class="custom-design-custom-size-field">
+                                    <label for="customDesignHeight" id="customDesignHeightLabel">الطول (سم)</label>
+                                    <input type="number" id="customDesignHeight" min="10" max="500" step="1" placeholder="مثال: 90" inputmode="numeric">
+                                </div>
+                            </div>
+                            <p class="custom-design-custom-size-hint" id="customDesignCustomSizeHint">اكتب القياس بالسنتيمتر</p>
+                        </div>
+                    </div>
+
+                    <!-- ملاحظات إضافية -->
+                    <div class="custom-design-field full-width">
+                        <label for="customDesignNotes">
+                            <span id="customDesignNotesLabel">ملاحظات إضافية (اختياري)</span>
+                        </label>
+                        <textarea id="customDesignNotes" rows="2" maxlength="300"></textarea>
+                    </div>
+
+                    <p class="custom-design-hint" id="customDesignHint">* الحقول المعلّمة إجبارية</p>
+                    <p class="custom-design-error" id="customDesignErrorMsg"></p>
+                </div>
+            </div>
+            <div class="cart-footer custom-design-footer">
+                <button class="custom-design-cancel" id="customDesignCancelBtn">إلغاء</button>
+                <button class="checkout-btn custom-design-submit" id="customDesignSubmitBtn">
+                    <i class="fab fa-whatsapp"></i> <span id="customDesignSubmitText">إرسال الطلب عبر واتساب</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="cart-modal" id="productDetailModal">
         <div class="cart-content" style="max-width: 600px; height: 90%; margin: 20px auto; overflow: hidden;">
             <div class="cart-header">
@@ -811,12 +895,12 @@
 </a>
     <!-- 🟢 ملفات JavaScript مقسّمة - الترتيب مهم! -->
     <!-- 1. data.js: البيانات والترجمة (لازم يكون أول شي) -->
-    <script src="js/data.js"></script>
+    <script src="js/data.js?v=2"></script>
     <!-- 2. ui.js: دوال العرض والواجهة -->
-    <script src="js/ui.js"></script>
+    <script src="js/ui.js?v=2"></script>
     <!-- 3. modals.js: السلة، نموذج الطلب، الموديلات -->
-    <script src="js/modals.js"></script>
+    <script src="js/modals.js?v=2"></script>
     <!-- 4. main.js: نقطة البداية والتشغيل (لازم يكون آخر شي) -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=2"></script>
 </body>
 </html>

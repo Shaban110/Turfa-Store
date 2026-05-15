@@ -31,9 +31,38 @@ function renderProductCards(container, productList) {
 
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
+        // 🟢 صف خاص للوحة المخصصة (يستخدم في CSS لتنسيق مختلف)
+        if (product.isCustomDesign) {
+            productCard.classList.add('custom-design-card');
+        }
+        
+        // 🟢 لو لوحة مخصصة: شارة + سعر "حسب الطلب" + زر مختلف
+        let priceBlock, ctaButton, badgeBlock = '';
+        if (product.isCustomDesign) {
+            badgeBlock = `<div class="custom-design-ribbon"><i class="fas fa-palette"></i> ${texts.customDesignBadge || 'تصميم مخصص'}</div>`;
+            priceBlock = `
+                <div class="product-price custom-design-price-block" style="display: flex; flex-direction: column; align-items: flex-start; margin: 0.8rem 0 1.2rem;">
+                    <span class="custom-design-price-label"><i class="fas fa-tag"></i> ${texts.customDesignPriceLabel || 'السعر حسب الطلب'}</span>
+                </div>`;
+            ctaButton = `
+                <button class="add-to-cart custom-design-cta" data-id="${product.id}" data-custom-design="true">
+                    <i class="fas fa-pen-nib"></i> ${texts.customDesignBtn || 'اطلب تصميمك الخاص'}
+                </button>`;
+        } else {
+            priceBlock = `
+                <div class="product-price" style="display: flex; flex-direction: column; align-items: flex-start; margin: 0.8rem 0 1.2rem;">
+                    <span style="font-size: 0.9rem; color: #888; text-decoration: line-through;">د.أ ${originalPrice.toFixed(2)}</span>
+                    <span style="font-size: 1.6rem; font-weight: 700; color: var(--secondary);">د.أ ${discountedPrice.toFixed(2)}</span>
+                </div>`;
+            ctaButton = `
+                <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}" data-discounted-price="${discountedPrice.toFixed(2)}">
+                    <i class="fas fa-plus"></i> ${texts.addToCart}
+                </button>`;
+        }
         
         productCard.innerHTML = `
             <div class="product-image">
+                ${badgeBlock}
                 <img src="${product.image}" alt="${product.name}" loading="lazy">
             </div>
             <div class="product-info">
@@ -45,14 +74,8 @@ function renderProductCards(container, productList) {
   product.shortDesc ||
   (product.description ? (product.description.split(/(?<=\.)\s+/)[0]) : '')
 }</p>                
-                <div class="product-price" style="display: flex; flex-direction: column; align-items: flex-start; margin: 0.8rem 0 1.2rem;">
-                    <span style="font-size: 0.9rem; color: #888; text-decoration: line-through;">د.أ ${originalPrice.toFixed(2)}</span>
-                    <span style="font-size: 1.6rem; font-weight: 700; color: var(--secondary);">د.أ ${discountedPrice.toFixed(2)}</span>
-                </div>
-                
-                <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}" data-discounted-price="${discountedPrice.toFixed(2)}">
-                    <i class="fas fa-plus"></i> ${texts.addToCart}
-                </button>
+                ${priceBlock}
+                ${ctaButton}
             </div>
         `;
         container.appendChild(productCard);
@@ -62,8 +85,11 @@ function renderProductCards(container, productList) {
             const hasSizes = e.currentTarget.dataset.hasSizes === 'true';
             // 🟢 لو في variants (خيارات مثل ماريو/لويجي) لازم يفوت على التفاصيل ليختار
             const hasVariants = product.variants && product.variants.length > 0;
-            // 🟢 لو المنتج بدو نموذج تخصيص (عيد الزواج) نفتح الموديل بدل ما نضيفه على طول
-            if (product.requiresWeddingForm) {
+            // 🟢 لو لوحة مخصصة (تصميم حسب الطلب) نفتح موديل التصميم المخصص
+            if (product.requiresCustomForm || product.isCustomDesign) {
+                openCustomDesignForm(product, e.currentTarget);
+            } else if (product.requiresWeddingForm) {
+                // 🟢 لو المنتج بدو نموذج تخصيص (عيد الزواج) نفتح الموديل بدل ما نضيفه على طول
                 openWeddingForm(product, e.currentTarget);
             } else if (hasSizes || hasVariants) {
                 showProductDetails(product.id);
@@ -679,7 +705,16 @@ function handleProductClick(e) {
     const productCard = e.target.closest('.product-card');
     if (productCard && !e.target.closest('.add-to-cart')) {
         const id = productCard.querySelector('.add-to-cart')?.dataset.id;
-        if (id) showProductDetails(parseInt(id));
+        if (id) {
+            // 🟢 لو لوحة مخصصة (تصميم حسب الطلب) نفتح موديل التصميم المخصص بدل التفاصيل
+            const productId = parseInt(id);
+            const product = products.find(p => p.id === productId);
+            if (product && (product.requiresCustomForm || product.isCustomDesign)) {
+                openCustomDesignForm(product, productCard.querySelector('.add-to-cart'));
+            } else {
+                showProductDetails(productId);
+            }
+        }
     }
 }
 

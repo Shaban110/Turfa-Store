@@ -114,6 +114,64 @@ function initInfoModals() {
         });
     }
 
+    // 🟢 ربط أزرار موديل اللوحة المخصصة (Custom Design)
+    const customDesignModal = document.getElementById('customDesignModal');
+    const closeCustomDesignBtn = document.getElementById('closeCustomDesign');
+    const customDesignCancelBtn = document.getElementById('customDesignCancelBtn');
+    const customDesignSubmitBtn = document.getElementById('customDesignSubmitBtn');
+
+    if (closeCustomDesignBtn) closeCustomDesignBtn.addEventListener('click', closeCustomDesignForm);
+    if (customDesignCancelBtn) customDesignCancelBtn.addEventListener('click', closeCustomDesignForm);
+    if (customDesignSubmitBtn) customDesignSubmitBtn.addEventListener('click', submitCustomDesignForm);
+    if (customDesignModal) {
+        customDesignModal.addEventListener('click', (e) => {
+            if (e.target === customDesignModal) closeCustomDesignForm();
+        });
+    }
+
+    // إزالة حالة الخطأ عند الكتابة في textarea اللوحة المخصصة
+    const customDesignTextEl = document.getElementById('customDesignText');
+    if (customDesignTextEl) {
+        customDesignTextEl.addEventListener('input', () => {
+            customDesignTextEl.classList.remove('field-error');
+            const errorEl = document.getElementById('customDesignErrorMsg');
+            if (errorEl) errorEl.classList.remove('show');
+        });
+    }
+
+    // 🟢 إزالة حالة الخطأ عند الكتابة في خانات المقاس المخصص
+    ['customDesignWidth', 'customDesignHeight'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => {
+                el.classList.remove('field-error');
+                const errorEl = document.getElementById('customDesignErrorMsg');
+                if (errorEl) errorEl.classList.remove('show');
+            });
+        }
+    });
+
+    // 🟢 حقل النص المخصص للـ variants (يولد ديناميكياً) — event delegation
+    // - يزيل حالة الخطأ عند الكتابة
+    // - يمنع الحروف العربية لو الحقل بدو إنجليزي بس
+    document.addEventListener('input', (e) => {
+        if (e.target && e.target.id === 'variantCustomTextInput') {
+            const el = e.target;
+            el.classList.remove('field-error');
+
+            // لو الحقل بدو إنجليزي بس، نفلتر الحروف العربية فوراً
+            if (el.dataset.lang === 'en') {
+                // أبقي فقط الأحرف اللاتينية والمسافة والشرطة والفاصلة العليا والنقطة
+                const cleaned = el.value.replace(/[^A-Za-z\s\-'.]/g, '');
+                if (cleaned !== el.value) {
+                    const cursorPos = el.selectionStart - (el.value.length - cleaned.length);
+                    el.value = cleaned;
+                    try { el.setSelectionRange(cursorPos, cursorPos); } catch (_) {}
+                }
+            }
+        }
+    });
+
     // إزالة حالة الخطأ عند تعديل الحقل
     ['weddingInitial1', 'weddingInitial2'].forEach(id => {
         const el = document.getElementById(id);

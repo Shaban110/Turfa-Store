@@ -4478,3 +4478,748 @@ html:not([data-theme='dark']) .hero-custom-badge {
 html:not([data-theme='dark']) .hero-custom-badge-icon {
     color: #b8941d;
 }
+/* =================================================================
+   🟢 LOVHA المخصصة (Custom Design) - شارة + ستايل البطاقة + الموديل
+   ================================================================= */
+
+/* --- شارة "تصميم مخصص" فوق صورة البطاقة --- */
+.product-card.custom-design-card {
+    position: relative;
+}
+
+.product-card.custom-design-card .product-image {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #faf6ee 0%, #fff8e1 100%);
+}
+
+.product-card.custom-design-card .product-image img {
+    object-fit: contain !important;
+    padding: 6px;
+}
+
+html[data-theme='dark'] .product-card.custom-design-card .product-image {
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.06) 0%, rgba(212, 175, 55, 0.04) 100%);
+}
+
+.custom-design-ribbon {
+    position: absolute;
+    top: 12px;
+    inset-inline-start: 12px;
+    z-index: 3;
+    background: linear-gradient(135deg, #d4af37 0%, #f5d76e 50%, #b8941d 100%);
+    color: #2a1f00;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4), 0 0 0 1.5px rgba(255,255,255,0.5) inset;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.3px;
+    animation: customRibbonShine 3s ease-in-out infinite;
+}
+
+.custom-design-ribbon i {
+    font-size: 0.85rem;
+    color: #6b4f00;
+}
+
+@keyframes customRibbonShine {
+    0%, 100% { box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4), 0 0 0 1.5px rgba(255,255,255,0.5) inset; }
+    50% { box-shadow: 0 6px 18px rgba(212, 175, 55, 0.6), 0 0 0 1.5px rgba(255,255,255,0.7) inset; }
+}
+
+/* --- بلوك السعر "حسب الطلب" --- */
+.custom-design-price-block {
+    min-height: 60px;
+    justify-content: center !important;
+}
+
+.custom-design-price-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(245, 215, 110, 0.08));
+    border: 1.5px dashed #d4af37;
+    padding: 8px 14px;
+    border-radius: 10px;
+}
+
+.custom-design-price-label i {
+    color: #d4af37;
+}
+
+html[data-theme='dark'] .custom-design-price-label {
+    color: #f5d76e;
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.12), rgba(245, 215, 110, 0.05));
+    border-color: rgba(245, 215, 110, 0.5);
+}
+
+/* --- زر CTA على البطاقة --- */
+.add-to-cart.custom-design-cta {
+    /* نفس ستايل أزرار "أضف إلى العربة" — بدون أنيميشن إضافي */
+}
+
+/* =================================================================
+   🟢 موديل اللوحة المخصصة
+   ================================================================= */
+.custom-design-content {
+    max-width: 580px;
+    width: 95%;
+    height: auto;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-design-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-design-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    inset-inline-end: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(245, 215, 110, 0.18), transparent 70%);
+    pointer-events: none;
+}
+
+.custom-design-header-text h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-design-header-text h2::before {
+    content: '🎨';
+    font-size: 1.5rem;
+}
+
+.custom-design-header-text p {
+    margin: 4px 0 0;
+    font-size: 0.88rem;
+    opacity: 0.9;
+    color: #fff;
+}
+
+.custom-design-header .close-cart {
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    z-index: 2;
+}
+
+.custom-design-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem;
+}
+
+/* --- معاينة المنتج (الصورة + الاسم) --- */
+.custom-design-product-preview {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(245, 215, 110, 0.04));
+    border: 1.5px solid rgba(212, 175, 55, 0.3);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 1.5rem;
+}
+
+.custom-design-product-preview img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.custom-design-product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.custom-design-product-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+}
+
+.custom-design-price-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #6b4f00;
+    background: linear-gradient(135deg, #f5d76e, #d4af37);
+    padding: 4px 10px;
+    border-radius: 14px;
+    width: fit-content;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3);
+}
+
+html[data-theme='dark'] .custom-design-product-info h3 {
+    color: #f0f0f0;
+}
+
+/* --- الحقول --- */
+.custom-design-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.custom-design-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.custom-design-field label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.custom-design-field .required-star {
+    color: var(--secondary);
+}
+
+.custom-design-field textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+}
+
+.custom-design-field textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 38, 23, 0.08);
+}
+
+.custom-design-field textarea.field-error {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(212, 59, 26, 0.1);
+}
+
+html[data-theme='dark'] .custom-design-field textarea {
+    background: rgba(255,255,255,0.04);
+    color: #f0f0f0;
+}
+
+/* --- شبكة أنواع التصميم (6 cards) --- */
+.custom-design-types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 4px;
+    border-radius: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.custom-design-types-grid.field-error {
+    box-shadow: 0 0 0 2px rgba(212, 59, 26, 0.4);
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.custom-design-type-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.9rem 0.4rem;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    color: var(--text);
+    min-height: 85px;
+    text-align: center;
+}
+
+.custom-design-type-card i {
+    font-size: 1.4rem;
+    color: #888;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.custom-design-type-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.custom-design-type-card:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.custom-design-type-card:hover i {
+    color: var(--secondary);
+}
+
+.custom-design-type-card.selected {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(0, 38, 23, 0.06), rgba(212, 175, 55, 0.04));
+    box-shadow: 0 4px 12px rgba(0, 38, 23, 0.12);
+}
+
+.custom-design-type-card.selected i {
+    color: var(--secondary);
+    transform: scale(1.1);
+}
+
+html[data-theme='dark'] .custom-design-type-card {
+    background: rgba(255,255,255,0.03);
+}
+
+html[data-theme='dark'] .custom-design-type-card.selected {
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.1), rgba(212, 175, 55, 0.05));
+    border-color: #f5d76e;
+}
+
+/* --- شبكة المقاسات (4 cards) --- */
+.custom-design-sizes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.custom-design-sizes-grid.field-error {
+    box-shadow: 0 0 0 2px rgba(212, 59, 26, 0.4);
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.custom-design-size-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    color: var(--text);
+    text-align: start;
+}
+
+.custom-design-size-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.custom-design-size-desc {
+    font-size: 0.78rem;
+    color: #888;
+    font-weight: 500;
+}
+
+.custom-design-size-card:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+.custom-design-size-card.selected {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(0, 38, 23, 0.06), rgba(212, 175, 55, 0.04));
+    box-shadow: 0 3px 10px rgba(0, 38, 23, 0.1);
+}
+
+.custom-design-size-card.selected .custom-design-size-name {
+    color: var(--secondary);
+}
+
+html[data-theme='dark'] .custom-design-size-card {
+    background: rgba(255,255,255,0.03);
+}
+
+html[data-theme='dark'] .custom-design-size-card .custom-design-size-name {
+    color: #f0f0f0;
+}
+
+html[data-theme='dark'] .custom-design-size-card .custom-design-size-desc {
+    color: rgba(255,255,255,0.55);
+}
+
+html[data-theme='dark'] .custom-design-size-card.selected {
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.1), rgba(212, 175, 55, 0.05));
+    border-color: #f5d76e;
+}
+
+html[data-theme='dark'] .custom-design-size-card.selected .custom-design-size-name {
+    color: #f5d76e;
+}
+
+/* --- 🟢 خانات المقاس المخصص (الطول × العرض) --- */
+.custom-design-custom-size {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease, padding 0.25s ease;
+    margin-top: 0;
+}
+
+.custom-design-custom-size.active {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 14px;
+}
+
+.custom-design-custom-size-fields {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(245, 215, 110, 0.03));
+    border: 1.5px dashed rgba(212, 175, 55, 0.5);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.custom-design-custom-size-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.custom-design-custom-size-field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+.custom-design-custom-size-field input {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    text-align: center;
+    /* إخفاء أسهم number input */
+    -moz-appearance: textfield;
+}
+
+.custom-design-custom-size-field input::-webkit-outer-spin-button,
+.custom-design-custom-size-field input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.custom-design-custom-size-field input:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.custom-design-custom-size-field input.field-error {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(212, 59, 26, 0.12);
+    animation: customErrorShake 0.4s ease;
+}
+
+.custom-design-custom-size-x {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #d4af37;
+    padding-bottom: 10px;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.custom-design-custom-size-hint {
+    font-size: 0.78rem;
+    color: #888;
+    margin: 8px 0 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+html[data-theme='dark'] .custom-design-custom-size-fields {
+    background: linear-gradient(135deg, rgba(245, 215, 110, 0.07), rgba(212, 175, 55, 0.03));
+    border-color: rgba(245, 215, 110, 0.4);
+}
+
+html[data-theme='dark'] .custom-design-custom-size-field input {
+    background: rgba(255,255,255,0.04);
+    color: #f0f0f0;
+}
+
+html[data-theme='dark'] .custom-design-custom-size-x {
+    color: #f5d76e;
+}
+
+/* Responsive للموبايل */
+@media (max-width: 380px) {
+    .custom-design-custom-size-fields {
+        padding: 12px 10px;
+        gap: 6px;
+    }
+    .custom-design-custom-size-field input {
+        padding: 0.55rem 0.5rem;
+        font-size: 0.95rem;
+    }
+    .custom-design-custom-size-x {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Hint & Error --- */
+.custom-design-hint {
+    font-size: 0.78rem;
+    color: #888;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.custom-design-error {
+    font-size: 0.88rem;
+    color: var(--secondary);
+    margin: 0;
+    min-height: 1.1rem;
+    font-weight: 700;
+    display: none;
+}
+
+.custom-design-error.show {
+    display: block;
+    animation: customErrorShake 0.4s ease;
+}
+
+@keyframes customErrorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* --- الفوتر --- */
+.custom-design-footer {
+    display: flex;
+    gap: 10px;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.custom-design-cancel {
+    padding: 0.85rem 1.4rem;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.custom-design-cancel:hover {
+    background: var(--light-gray);
+    border-color: #888;
+}
+
+.custom-design-submit {
+    flex: 1;
+    background: #25D366 !important;
+    border-color: #25D366 !important;
+}
+
+.custom-design-submit:hover {
+    background: #1ebe5d !important;
+}
+
+.custom-design-submit i {
+    font-size: 1.2rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .custom-design-content {
+        max-width: 100%;
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .custom-design-types-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .custom-design-type-card {
+        min-height: 80px;
+    }
+
+    .custom-design-type-card i {
+        font-size: 1.2rem;
+    }
+
+    .custom-design-type-name {
+        font-size: 0.78rem;
+    }
+
+    .custom-design-sizes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .custom-design-header-text h2 {
+        font-size: 1.2rem;
+    }
+
+    .custom-design-product-preview img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .custom-design-ribbon {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+        top: 8px;
+        inset-inline-start: 8px;
+    }
+}
+
+@media (max-width: 380px) {
+    .custom-design-types-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .custom-design-type-card {
+        padding: 0.7rem 0.3rem;
+    }
+}
+
+/* =================================================================
+   🟢 خيار "مخصص" داخل variants (للفاصل والمنتجات بـ variant مخصص)
+   ================================================================= */
+.variant-custom-text-wrap {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+    margin-top: 0;
+}
+
+.variant-custom-text-wrap.active {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 14px;
+}
+
+.variant-custom-text-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.variant-custom-text-label .required-star {
+    color: var(--secondary);
+}
+
+.variant-custom-text-input {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.variant-custom-text-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 38, 23, 0.08);
+}
+
+.variant-custom-text-input.field-error {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(212, 59, 26, 0.12);
+    animation: customErrorShake 0.4s ease;
+}
+
+.variant-custom-text-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #888;
+    margin: 8px 0 0;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.variant-custom-text-hint i {
+    color: #25D366;
+    font-size: 1rem;
+}
+
+html[data-theme='dark'] .variant-custom-text-input {
+    background: rgba(255,255,255,0.04);
+    color: #f0f0f0;
+}
+
+html[data-theme='dark'] .variant-custom-text-hint {
+    color: rgba(255,255,255,0.6);
+}

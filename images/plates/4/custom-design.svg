@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Custom design painting">
+  <title>لوحة مخصصة حسب الطلب</title>
+  <desc>إطار فني فارغ مع أدوات تصميم، يدل على إمكانية تخصيص اللوحة حسب طلب الزبون</desc>
+
+  <!-- خلفية ناعمة بلون كريمي دافئ -->
+  <rect width="400" height="400" fill="#faf6ee"/>
+
+  <!-- شعاع ضوئي ناعم من الزاوية -->
+  <defs>
+    <radialGradient id="lightGlow" cx="20%" cy="15%" r="80%">
+      <stop offset="0%" stop-color="#fff8e1" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#faf6ee" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="frameGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c769"/>
+      <stop offset="50%" stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#8a6f24"/>
+    </linearGradient>
+    <linearGradient id="frameInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#9c7c1f"/>
+    </linearGradient>
+    <pattern id="paperTexture" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="#fdfaf2"/>
+      <circle cx="1.5" cy="1.5" r="0.3" fill="#e8dcb8" opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#lightGlow)"/>
+
+  <!-- ظل اللوحة -->
+  <ellipse cx="200" cy="345" rx="130" ry="8" fill="#000" opacity="0.08"/>
+
+  <!-- إطار اللوحة الخارجي - ذهبي فاخر -->
+  <rect x="70" y="80" width="260" height="220" rx="4" fill="url(#frameGold)" stroke="#6b5118" stroke-width="0.8"/>
+
+  <!-- زخرفة الإطار الداخلية -->
+  <rect x="80" y="90" width="240" height="200" rx="2" fill="none" stroke="#6b5118" stroke-width="0.5" opacity="0.5"/>
+  <rect x="84" y="94" width="232" height="192" rx="2" fill="url(#frameInner)" stroke="#6b5118" stroke-width="0.4"/>
+
+  <!-- نقوش ركنية صغيرة على الإطار -->
+  <g fill="#8a6f24" opacity="0.6">
+    <circle cx="80" cy="90" r="2.5"/>
+    <circle cx="320" cy="90" r="2.5"/>
+    <circle cx="80" cy="290" r="2.5"/>
+    <circle cx="320" cy="290" r="2.5"/>
+  </g>
+
+  <!-- داخل اللوحة - ورقة فاضية بلون عاجي -->
+  <rect x="95" y="105" width="210" height="170" fill="url(#paperTexture)" stroke="#d4c89a" stroke-width="0.5"/>
+
+  <!-- خطوط رفيعة بتدل على "كتابة" بدون text فعلي - خطوط منحنية فنية -->
+  <g stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.35" stroke-linecap="round">
+    <!-- سطر فني منحني علوي يوحي بخط عربي -->
+    <path d="M 120 135 Q 145 125, 175 138 T 230 140 Q 255 142, 280 135"/>
+    <!-- سطر متوسط -->
+    <path d="M 115 165 Q 140 158, 165 168 Q 195 175, 220 165 Q 255 158, 285 168"/>
+    <!-- سطر سفلي مزخرف -->
+    <path d="M 125 195 Q 155 188, 185 198 Q 215 205, 245 195 Q 265 190, 280 198"/>
+  </g>
+
+  <!-- علامة استفهام كبيرة في الوسط بشكل فني (تشير لـ "اختر تصميمك") -->
+  <g transform="translate(200, 195)" opacity="0.18">
+    <path d="M -18 -10 Q -18 -25, 0 -25 Q 18 -25, 18 -10 Q 18 0, 5 8 Q 0 12, 0 22" 
+          stroke="#7a5a1c" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="0" cy="35" r="3.5" fill="#7a5a1c"/>
+  </g>
+
+  <!-- بريق صغير في الزاوية -->
+  <g transform="translate(305, 110)" opacity="0.7">
+    <path d="M 0 -8 L 1.5 -1.5 L 8 0 L 1.5 1.5 L 0 8 L -1.5 1.5 L -8 0 L -1.5 -1.5 Z" fill="#f5d76e"/>
+  </g>
+  <g transform="translate(115, 260)" opacity="0.6">
+    <path d="M 0 -5 L 1 -1 L 5 0 L 1 1 L 0 5 L -1 1 L -5 0 L -1 -1 Z" fill="#f5d76e"/>
+  </g>
+
+  <!-- ============ القلم - رمز التصميم المخصص ============ -->
+  <g transform="translate(95, 305) rotate(-25)">
+    <!-- ظل القلم -->
+    <ellipse cx="40" cy="50" rx="30" ry="3" fill="#000" opacity="0.12"/>
+    <!-- جسم القلم - خشبي بني -->
+    <rect x="0" y="42" width="60" height="8" rx="2" fill="#6b4423"/>
+    <rect x="0" y="42" width="60" height="3" rx="1" fill="#8a5a2f" opacity="0.8"/>
+    <!-- مقبض ذهبي -->
+    <rect x="60" y="41" width="12" height="10" rx="1" fill="#c9a84c" stroke="#8a6f24" stroke-width="0.4"/>
+    <rect x="60" y="44" width="12" height="1.5" fill="#8a6f24"/>
+    <!-- سن القلم (ذهبي) -->
+    <path d="M 72 42 L 92 46 L 72 50 Z" fill="url(#frameInner)" stroke="#6b5118" stroke-width="0.4"/>
+    <line x1="78" y1="44" x2="88" y2="46" stroke="#6b5118" stroke-width="0.5" opacity="0.6"/>
+    <line x1="80" y1="47" x2="89" y2="46.5" stroke="#6b5118" stroke-width="0.3" opacity="0.5"/>
+    <!-- نقطة الحبر -->
+    <circle cx="93" cy="46" r="1.5" fill="#2c2416"/>
+  </g>
+
+  <!-- ============ ألوان رش / دوائر ألوان تشير للاختيار ============ -->
+  <g transform="translate(280, 320)">
+    <!-- دائرة لون ذهبي -->
+    <circle cx="0" cy="0" r="9" fill="#d4af37" stroke="#fff" stroke-width="2"/>
+    <!-- دائرة لون بني -->
+    <circle cx="18" cy="-4" r="7" fill="#6b4423" stroke="#fff" stroke-width="2"/>
+    <!-- دائرة لون أخضر داكن (لون البراند) -->
+    <circle cx="32" cy="3" r="7" fill="#002617" stroke="#fff" stroke-width="2"/>
+    <!-- دائرة لون أحمر -->
+    <circle cx="14" cy="10" r="6" fill="#d43b1a" stroke="#fff" stroke-width="2"/>
+  </g>
+
+  <!-- نقاط تزيينية صغيرة جداً (sparkles) -->
+  <g opacity="0.5">
+    <circle cx="350" cy="180" r="1.5" fill="#d4af37"/>
+    <circle cx="55" cy="160" r="1.2" fill="#d4af37"/>
+    <circle cx="365" cy="280" r="1" fill="#d4af37"/>
+    <circle cx="40" cy="220" r="1" fill="#d4af37"/>
+  </g>
+</svg>

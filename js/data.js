@@ -50,7 +50,7 @@ const arabicTexts = {
     framesTitle: "براويز",
     giftsTitle: "هدايا منوعة",
     offersTitle: "العروض",
-    heroSubtitle: "كل قطعة عندنا قابلة للتخصيص — اختر، عدّل، أو احكيلنا فكرتك ونصممها من الصفر",
+    heroSubtitle: "كل قطعة عنا قابلة للتخصيص — اختر، عدّل، أو احكيلنا فكرتك ومنصممها من الصفر",
     heroCustomBadge: "تخصيص متاح على كل القطع",
     searchPlaceholder: "ابحث عن منتجك من هنا",
     addToCart: "أضف إلى العربة",
@@ -117,6 +117,68 @@ const arabicTexts = {
     weddingDateClear: "مسح",
     weddingDateConfirm: "تم",
     weddingMonthsList: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+    // 🟢 نصوص موديل اللوحة المخصصة
+    customDesignBadge: "تصميم مخصص",
+    customDesignPriceLabel: "السعر حسب الطلب",
+    customDesignBtn: "اطلب الأن",
+    customDesignFormTitle: "صمم لوحتك الخاصة",
+    customDesignFormSubtitle: "اختار نوع التصميم واكتب التفاصيل، ونحن نحوّلها لقطعة فنية مميزة",
+    customDesignTypeLabel: "نوع التصميم",
+    customDesignTypes: [
+        { value: "verse", label: "آية قرآنية", icon: "fa-mosque" },
+        { value: "hadith", label: "حديث شريف", icon: "fa-book-quran" },
+        { value: "dua", label: "دعاء", icon: "fa-hands-praying" },
+        { value: "poem", label: "قصيدة", icon: "fa-feather-pointed" },
+        { value: "name", label: "اسم / أسماء", icon: "fa-signature" },
+        { value: "other", label: "تصميم خاص", icon: "fa-palette" }
+    ],
+    customDesignTextLabel: "النص المطلوب",
+    customDesignTextPlaceholderVerse: "اكتب الآية اللي تحبها...",
+    customDesignTextPlaceholderHadith: "اكتب الحديث الشريف...",
+    customDesignTextPlaceholderDua: "اكتب الدعاء...",
+    customDesignTextPlaceholderPoem: "اكتب القصيدة أو الأبيات...",
+    customDesignTextPlaceholderName: "اكتب الاسم أو الأسماء...",
+    customDesignTextPlaceholderOther: "اوصف لنا التصميم اللي تريده...",
+    customDesignSizeLabel: "المقاس المطلوب",
+    customDesignSizes: [
+        { value: "small", label: "صغير", desc: "40×40 سم" },
+        { value: "medium", label: "متوسط", desc: "50×70 سم" },
+        { value: "large", label: "كبير", desc: "80×120 سم" },
+        { value: "custom", label: "مقاس مخصص", desc: "حدد الطول والعرض" }
+    ],
+    customDesignWidthLabel: "العرض (سم)",
+    customDesignHeightLabel: "الطول (سم)",
+    customDesignWidthPlaceholder: "مثال: 60",
+    customDesignHeightPlaceholder: "مثال: 90",
+    customDesignCustomSizeHint: "اكتب القياس بالسنتيمتر (10 - 500)",
+    customDesignCustomSizeError: "الرجاء إدخال الطول والعرض بشكل صحيح",
+    // 🟢 نصوص خيار "مخصص" داخل variants (للفاصل وغيره)
+    variantCustomNameLabel: "اسم النادي",
+    variantCustomNamePlaceholder: "مثال: ليفربول، بايرن ميونخ...",
+    variantCustomNameHint: "بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب",
+    variantCustomNameError: "الرجاء كتابة اسم النادي",
+    variantCustomNameWhatsAppLabel: "النادي المطلوب",
+    // 🟢 نصوص الاسم الإنجليزي للولد/البنت (طباعة 3D)
+    variantCustomNameForGirl: "اسم البنت (بالإنجليزي)",
+    variantCustomNameForBoy: "اسم الولد (بالإنجليزي)",
+    variantCustomNameLatinPlaceholder: "e.g. Sara, Ahmad...",
+    variantCustomNamePlaceholderGirl: "e.g. Sara, Layla, Mariam...",
+    variantCustomNamePlaceholderBoy: "e.g. Ahmad, Omar, Yousef...",
+    variantCustomNameLatinHint: "الرجاء كتابة الاسم بالأحرف الإنجليزية فقط",
+    variantCustomNameLatinError: "الاسم لازم يكون بالأحرف الإنجليزية فقط",
+    customDesignNotesLabel: "ملاحظات إضافية (اختياري)",
+    customDesignNotesPlaceholder: "أي تفاصيل إضافية: لون الإطار، نوع الخط، طريقة التنفيذ...",
+    customDesignRequiredHint: "* الحقول المعلّمة إجبارية — السعر النهائي يصلك على واتساب",
+    customDesignSubmit: "إرسال الطلب عبر واتساب",
+    customDesignCancel: "إلغاء",
+    customDesignError: "الرجاء اختيار نوع التصميم وكتابة النص المطلوب وتحديد المقاس",
+    customDesignDetailsLabel: "تفاصيل التصميم المخصص",
+    customDesignTypeDisplay: "النوع",
+    customDesignTextDisplay: "النص",
+    customDesignSizeDisplay: "المقاس",
+    customDesignNotesDisplay: "ملاحظات",
+    customDesignWhatsAppIntro: "السلام عليكم 👋\nبدي أطلب *لوحة مخصصة* بالتفاصيل التالية:",
+    customDesignWhatsAppOutro: "\n\nبستنى ردكم بسعر اللوحة وموعد التسليم — شكراً!",
     // ... (بقية النصوص) ...
     // 🟢 إضافة نصوص الآلة الكاتبة
     typewriterStrings: [
@@ -313,6 +375,68 @@ const englishTexts = {
     weddingDateClear: "Clear",
     weddingDateConfirm: "Done",
     weddingMonthsList: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    // 🟢 Custom design painting modal texts
+    customDesignBadge: "Custom Design",
+    customDesignPriceLabel: "Price on Request",
+    customDesignBtn: "Order Your Custom Design",
+    customDesignFormTitle: "Design Your Own Painting",
+    customDesignFormSubtitle: "Choose the design type, write the details, and we'll turn it into a unique piece",
+    customDesignTypeLabel: "Design Type",
+    customDesignTypes: [
+        { value: "verse", label: "Qur'anic Verse", icon: "fa-mosque" },
+        { value: "hadith", label: "Hadith", icon: "fa-book-quran" },
+        { value: "dua", label: "Prayer (Du'a)", icon: "fa-hands-praying" },
+        { value: "poem", label: "Poem", icon: "fa-feather-pointed" },
+        { value: "name", label: "Name(s)", icon: "fa-signature" },
+        { value: "other", label: "Custom Design", icon: "fa-palette" }
+    ],
+    customDesignTextLabel: "The Text",
+    customDesignTextPlaceholderVerse: "Write the verse you'd like...",
+    customDesignTextPlaceholderHadith: "Write the hadith...",
+    customDesignTextPlaceholderDua: "Write the prayer...",
+    customDesignTextPlaceholderPoem: "Write the poem or verses...",
+    customDesignTextPlaceholderName: "Write the name(s)...",
+    customDesignTextPlaceholderOther: "Describe the design you want...",
+    customDesignSizeLabel: "Size",
+    customDesignSizes: [
+        { value: "small", label: "Small", desc: "40×40 cm" },
+        { value: "medium", label: "Medium", desc: "50×70 cm" },
+        { value: "large", label: "Large", desc: "80×120 cm" },
+        { value: "custom", label: "Custom Size", desc: "set width & height" }
+    ],
+    customDesignWidthLabel: "Width (cm)",
+    customDesignHeightLabel: "Height (cm)",
+    customDesignWidthPlaceholder: "e.g. 60",
+    customDesignHeightPlaceholder: "e.g. 90",
+    customDesignCustomSizeHint: "Enter measurements in centimeters (10 - 500)",
+    customDesignCustomSizeError: "Please enter valid width and height",
+    // 🟢 Custom variant texts (used for bookmarks and similar variant-based products)
+    variantCustomNameLabel: "Club Name",
+    variantCustomNamePlaceholder: "e.g. Liverpool, Bayern Munich...",
+    variantCustomNameHint: "After placing the order, send us the reference logo on WhatsApp",
+    variantCustomNameError: "Please enter the club name",
+    variantCustomNameWhatsAppLabel: "Requested Club",
+    // 🟢 Latin-only name field for 3D Girl/Boy variants
+    variantCustomNameForGirl: "Girl's Name (English)",
+    variantCustomNameForBoy: "Boy's Name (English)",
+    variantCustomNameLatinPlaceholder: "e.g. Sara, Ahmad...",
+    variantCustomNamePlaceholderGirl: "e.g. Sara, Layla, Mariam...",
+    variantCustomNamePlaceholderBoy: "e.g. Ahmad, Omar, Yousef...",
+    variantCustomNameLatinHint: "Please enter the name in English letters only",
+    variantCustomNameLatinError: "Name must contain English letters only",
+    customDesignNotesLabel: "Additional Notes (Optional)",
+    customDesignNotesPlaceholder: "Any extra details: frame color, calligraphy style, finish...",
+    customDesignRequiredHint: "* Marked fields are required — final price will be sent to you on WhatsApp",
+    customDesignSubmit: "Send Order via WhatsApp",
+    customDesignCancel: "Cancel",
+    customDesignError: "Please choose a design type, write the text, and select a size",
+    customDesignDetailsLabel: "Custom Design Details",
+    customDesignTypeDisplay: "Type",
+    customDesignTextDisplay: "Text",
+    customDesignSizeDisplay: "Size",
+    customDesignNotesDisplay: "Notes",
+    customDesignWhatsAppIntro: "Hello 👋\nI'd like to order a *Custom Painting* with the following details:",
+    customDesignWhatsAppOutro: "\n\nLooking forward to your reply with the price and delivery time — thanks!",
     // 🟢 إضافة نصوص الآلة الكاتبة
     typewriterStrings: [
         "Handmade art has its originality.",
@@ -748,16 +872,15 @@ const paintingsEnglish = [
       colors: [
         { name: "Pink",  hex: "#e8a0b0", images: ["images/plates/1/1.webp", "images/plates/1/1b.webp", "images/plates/1/1c.webp"] },
         { name: "Beige", hex: "#d4b896", images: ["images/plates/1/1_beige.webp", "images/plates/1/1b_beige.webp", "images/plates/1/1c_beige.webp"] },
-        { name: "Blue",  hex: "#7ba7c7", images: ["images/plates/1/1_blue.webp",  "images/plates/1/1b_blue.webp",  "images/plates/1/1c_blue.webp"] },
       ]
     },
     { id: 2, name: "Alhamdulillah", price: 39.99, shortDesc: "A beautiful plaque, to remind you of gratitude at all times.",fullDesc: "A spiritual art piece crafted with 3D layered technology, designed to illuminate your walls with the remembrance of God and tranquility. A design that merges the grandeur of calligraphy with the depth of ornamentation, serving as a daily reminder of the beauty of gratitude",image: "images/plates/2/2.webp", category: "painting", hasSizes: true },
     { id: 3, name: "Ayatul Kursi", price: 39.99, shortDesc: "The greatest verse, in an artistic design that immortalizes its beauty.",fullDesc: "A décor piece carrying the greatest verse in the Qur'an, crafted with striking layered (3D) technology to bring tranquility and reverence to your space. A unique design blending the grandeur of calligraphy with the warmth of wood, to keep your home under God's protection.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
-    { id: 4, name: "...", price: 59.99,shortDesc: "...",fullDesc: "...", image: "images/plates/4/4.webp", category: "painting", hasSizes: true }
+    { id: 4, name: "Custom Design Painting", price: 0, shortDesc: "Design your own painting — verse, hadith, prayer, poem, name or anything you'd like, in your chosen size.", fullDesc: "A painting tailored entirely to your taste. Choose the type of text — a Qur'anic verse, a noble hadith, a prayer, a poem, a name or any custom design — write what you want, pick the size, and we'll craft it as a unique handmade piece for you. Final price is sent to you on WhatsApp after we review your request.", image: "images/plates/4/custom-design.webp", category: "painting", hasSizes: false, requiresCustomForm: true, isCustomDesign: true }
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 29.99, shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.", image: "images/plates/1/1.webp", category: "painting", hasSizes: true,
+    { id: 1, name: "لوحة يا شام", price: 39.99, shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.", image: "images/plates/1/1.webp", category: "painting", hasSizes: true,
       colors: [
         { name: "وردي", hex: "#e8a0b0", images: ["images/plates/1/1.webp", "images/plates/1/1b.webp", "images/plates/1/1c.webp"] },
         { name: "بني",  hex: "#704214", images: ["images/plates/1/brown/1.webp", "images/plates/1/brown/2.webp"] },
@@ -772,8 +895,8 @@ const paintingsArabic = [
   ]
         
      },
-    { id: 3, name: "لوحة آية الكرسي", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.",fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
-    { id: 4, name: "...", price: 0.00, shortDesc: "...",fullDesc: "...", image: "images/plates/4/4.webp", category: "painting", hasSizes: true },
+    { id: 3, name: " لوحة آية الكرسي ", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.",fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
+    { id: 4, name: "لوحة مخصصة حسب طلبك", price: 0, shortDesc: "صمم لوحتك الخاصة — آية، حديث، دعاء، قصيدة، اسم أو أي تصميم تختاره، بالمقاس اللي يناسبك.", fullDesc: "لوحة مفصلة على ذوقك بالكامل. اختر نوع النص اللي بدك إياه — آية قرآنية، حديث شريف، دعاء، قصيدة، اسم أو تصميم خاص — اكتب لنا ما تريد، حدد المقاس، ونحن نصنعها لك قطعة يدوية فريدة. السعر النهائي يصلك على واتساب بعد مراجعة طلبك.", image: "images/plates/4/custom-design.webp", category: "painting", hasSizes: false, requiresCustomForm: true, isCustomDesign: true },
 ];
 
 // ============ 🟢 التعديل هنا (مسار الأكواب) 🟢 ============
@@ -852,14 +975,16 @@ const prints3dEnglish = [
             priceDiff: 0,
             images: ["images/3d/2/girl/2.webp", "images/3d/2/girl/2b.webp"],
             shortDesc: "Girl design",
-            fullDesc: "High-quality 3D printed girl figure with fine details and durable materials."
+            fullDesc: "High-quality 3D printed girl figure with fine details and durable materials.",
+            requiresCustomText: { labelKey: "variantCustomNameForGirl", placeholderKey: "variantCustomNamePlaceholderGirl", hintKey: "variantCustomNameLatinHint", lang: "en" }
         },
         {
             name: "Boy",
             priceDiff: 0,
             images: ["images/3d/2/boy/2.webp"],
             shortDesc: "Boy design",
-            fullDesc: "High-quality 3D printed boy figure with fine details and durable materials."
+            fullDesc: "High-quality 3D printed boy figure with fine details and durable materials.",
+            requiresCustomText: { labelKey: "variantCustomNameForBoy", placeholderKey: "variantCustomNamePlaceholderBoy", hintKey: "variantCustomNameLatinHint", lang: "en" }
         }
 
       ]
@@ -902,14 +1027,16 @@ const prints3dArabic = [
             priceDiff: 0,
             images: ["images/3d/2/girl/2.webp", "images/3d/2/girl/2b.webp"],
             shortDesc: "تصميم بنت",
-            fullDesc: "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة."
+            fullDesc: "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+            requiresCustomText: { labelKey: "variantCustomNameForGirl", placeholderKey: "variantCustomNamePlaceholderGirl", hintKey: "variantCustomNameLatinHint", lang: "en" }
         },
         {
             name: "ولد",
             priceDiff: 0,
             images: ["images/3d/2/boy/2.webp"],
             shortDesc: "تصميم ولد",
-            fullDesc: "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة."
+            fullDesc: "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+            requiresCustomText: { labelKey: "variantCustomNameForBoy", placeholderKey: "variantCustomNamePlaceholderBoy", hintKey: "variantCustomNameLatinHint", lang: "en" }
         }
 
       ]
@@ -922,14 +1049,92 @@ const prints3dArabic = [
 
 const framesEnglish = [
     { id: 201, name: "Wedding Anniversary", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
-    { id: 202, name: "Leather Bookmark", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false },
+    { id: 202, name: "Leather Bookmark", price: 12.50, shortDesc: "Premium leather bookmark with your favorite football club crest.",fullDesc: "A handcrafted leather bookmark featuring the crest of your favorite football club. Choose from top European clubs, or request a custom design with any club of your choice.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false,
+      variants: [
+        {
+            name: "Barcelona",
+            priceDiff: 0,
+            images: ["images/Frame/2/barcelona/1.webp"],
+            shortDesc: "Premium leather bookmark with FC Barcelona crest.",
+            fullDesc: "Handcrafted premium leather bookmark with the iconic FC Barcelona crest. A perfect gift for every Blaugrana fan."
+        },
+        {
+            name: "Real Madrid",
+            priceDiff: 0,
+            images: ["images/Frame/2/real-madrid/1.webp"],
+            shortDesc: "Premium leather bookmark with Real Madrid crest.",
+            fullDesc: "Handcrafted premium leather bookmark with the legendary Real Madrid crest. A treasure for every Los Blancos fan."
+        },
+        {
+            name: "Manchester City",
+            priceDiff: 0,
+            images: ["images/Frame/2/man-city/1.webp"],
+            shortDesc: "Premium leather bookmark with Manchester City crest.",
+            fullDesc: "Handcrafted premium leather bookmark with the Manchester City crest. A distinctive choice for Citizens supporters."
+        },
+        {
+            name: "Manchester United",
+            priceDiff: 0,
+            images: ["images/Frame/2/man-united/1.webp"],
+            shortDesc: "Premium leather bookmark with Manchester United crest.",
+            fullDesc: "Handcrafted premium leather bookmark with the Manchester United crest. The perfect gift for every Red Devils fan."
+        },
+        {
+            name: "Custom",
+            priceDiff: 0,
+            images: ["images/Frame/2/custom/1.webp"],
+            shortDesc: "Leather bookmark with any club of your choice.",
+            fullDesc: "Premium leather bookmark — choose any club name and we'll handcraft it for you with the highest detail. Note: after placing the order, please send us the reference logo on WhatsApp.",
+            requiresCustomText: true
+        }
+      ]
+    },
     { id: 203, name: "Scented Candle", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/3/3.webp", category: "frame", hasSizes: false },
     { id: 204, name: "Personalized Photo Mug", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/4/4.webp", category: "frame", hasSizes: false },
 ];
 
 const framesArabic = [
     { id: 201, name: "عيد الزواج", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
-    { id: 202, name: "فاصل كتب جلدي", price: 12.50, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false },
+    { id: 202, name: "فاصل كتب جلدي", price: 12.50, shortDesc: "فاصل كتب جلدي فاخر بشعار ناديك المفضل، صناعة يدوية.",fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً بدقة عالية، يحمل شعار ناديك الرياضي المفضل. اختار من بين أبرز الأندية العالمية، أو اطلب شعاراً مخصصاً بنادي من اختيارك.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false,
+      variants: [
+        {
+            name: "برشلونة",
+            priceDiff: 0,
+            images: ["images/Frame/2/barcelona/1.webp"],
+            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي برشلونة.",
+            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي برشلونة العريق. هدية مثالية لكل عاشق للبلاوغرانا."
+        },
+        {
+            name: "ريال مدريد",
+            priceDiff: 0,
+            images: ["images/Frame/2/real-madrid/1.webp"],
+            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي ريال مدريد.",
+            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي ريال مدريد الملكي. تحفة لكل مشجع للنادي الأبيض."
+        },
+        {
+            name: "مانشستر سيتي",
+            priceDiff: 0,
+            images: ["images/Frame/2/man-city/1.webp"],
+            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي مانشستر سيتي.",
+            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر سيتي. اختيار مميز لمحبي السماويين."
+        },
+        {
+            name: "مانشستر يونايتد",
+            priceDiff: 0,
+            images: ["images/Frame/2/man-united/1.webp"],
+            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي مانشستر يونايتد.",
+            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر يونايتد. هدية مثالية لكل مشجع للشياطين الحمر."
+        },
+        {
+            name: "مخصص",
+            priceDiff: 0,
+            images: ["images/Frame/2/custom/1.webp"],
+            shortDesc: "فاصل كتب جلدي بشعار نادي من اختيارك.",
+            fullDesc: "فاصل كتب من الجلد الفاخر، اختار اسم النادي اللي بدك إياه، ونحن نصنعه لك يدوياً بأعلى دقة. ملاحظة: بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب.",
+            requiresCustomText: true
+        }
+      ]
+    },
     { id: 203, name: "شمعة معطرة", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/3/3.webp", category: "frame", hasSizes: false },
     { id: 204, name: "كوب بصورة شخصية", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/4/4.webp", category: "frame", hasSizes: false },
 ];

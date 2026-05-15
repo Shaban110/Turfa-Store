@@ -172,11 +172,21 @@ async function showProductDetails(productId) {
                                 data-index="${index}"
                                 data-image="${firstImg}"
                                 data-name="${variant.name}"
-                                data-pricediff="${priceDiff}">
+                                data-pricediff="${priceDiff}"
+                                data-custom="${variant.requiresCustomText ? 'true' : 'false'}">
                             <span class="variant-name">${variant.name}</span>
                             ${priceLabel ? `<span class="variant-price-diff">${priceLabel}</span>` : ''}
                         </button>`;
                     }).join('')}
+                </div>
+                <!-- 🟢 textarea للـ variant المخصص (يظهر فقط عند اختيار variant مع requiresCustomText) -->
+                <div class="variant-custom-text-wrap" id="variantCustomTextWrap">
+                    <label for="variantCustomTextInput" class="variant-custom-text-label">
+                        <span>${texts.variantCustomNameLabel || 'اسم النادي/اللاعب'}</span>
+                        <span class="required-star">*</span>
+                    </label>
+                    <input type="text" id="variantCustomTextInput" class="variant-custom-text-input" maxlength="80" placeholder="${texts.variantCustomNamePlaceholder || ''}">
+                    <p class="variant-custom-text-hint"><i class="fab fa-whatsapp"></i> ${texts.variantCustomNameHint || ''}</p>
                 </div>
             </div>`;
     }
@@ -342,6 +352,47 @@ detailDescriptionFull.textContent =
                 || (variantData.image ? [variantData.image] : [product.image]);
             const priceDiff = parseFloat(box.dataset.pricediff) || 0;
 
+            // 🟢 إظهار/إخفاء حقل النص المخصص حسب نوع الـ variant
+            const customTextWrap = document.getElementById('variantCustomTextWrap');
+            const customTextInput = document.getElementById('variantCustomTextInput');
+            const customTextLabelSpan = customTextWrap ? customTextWrap.querySelector('.variant-custom-text-label span:first-child') : null;
+            const customTextHint = customTextWrap ? customTextWrap.querySelector('.variant-custom-text-hint') : null;
+            if (customTextWrap) {
+                if (variantData.requiresCustomText) {
+                    // 🟢 دعم الشكل القديم (boolean) والشكل الجديد (object فيه labelKey/placeholderKey/hintKey/lang)
+                    const cfg = typeof variantData.requiresCustomText === 'object' ? variantData.requiresCustomText : {};
+                    const labelText = (cfg.labelKey && texts[cfg.labelKey]) || texts.variantCustomNameLabel || '';
+                    const placeholderText = (cfg.placeholderKey && texts[cfg.placeholderKey]) || texts.variantCustomNamePlaceholder || '';
+                    const hintText = (cfg.hintKey && texts[cfg.hintKey]) || texts.variantCustomNameHint || '';
+                    const lang = cfg.lang || 'any'; // 'en' أو 'any'
+
+                    if (customTextLabelSpan) customTextLabelSpan.textContent = labelText;
+                    if (customTextInput) {
+                        customTextInput.placeholder = placeholderText;
+                        customTextInput.value = '';
+                        customTextInput.classList.remove('field-error');
+                        // 🟢 خزّن اللغة المطلوبة على الحقل + اضبط الاتجاه
+                        customTextInput.dataset.lang = lang;
+                        customTextInput.setAttribute('dir', lang === 'en' ? 'ltr' : 'auto');
+                    }
+                    if (customTextHint) {
+                        // أيقونة الواتساب فقط لو الـ hint عن واتساب (للنادي/اللاعب)، أما باقي الـ hints فبأيقونة عادية
+                        const isWhatsAppHint = (cfg.hintKey === undefined || cfg.hintKey === null);
+                        customTextHint.innerHTML = isWhatsAppHint
+                            ? `<i class="fab fa-whatsapp"></i> ${hintText}`
+                            : `<i class="fas fa-info-circle"></i> ${hintText}`;
+                    }
+                    customTextWrap.classList.add('active');
+                    setTimeout(() => { if (customTextInput) customTextInput.focus(); }, 250);
+                } else {
+                    customTextWrap.classList.remove('active');
+                    if (customTextInput) {
+                        customTextInput.value = '';
+                        customTextInput.classList.remove('field-error');
+                    }
+                }
+            }
+
             // 1) تغيير الصورة الرئيسية
             detailImage.src = variantImages[0];
 
@@ -412,6 +463,45 @@ detailDescriptionFull.textContent =
         // قراءة الـ variant المختار
         const activeVariant = detailPriceRow.querySelector('.variant-option-box.active');
         const selectedVariantName = activeVariant ? activeVariant.dataset.name : null;
+        const variantRequiresCustomText = activeVariant ? activeVariant.dataset.custom === 'true' : false;
+
+        // 🟢 لو الـ variant المختار يطلب نص مخصص - نتحقق من القيمة (واللغة لو محددة)
+        let customVariantText = null;
+        let customVariantLabelKey = null;
+        if (variantRequiresCustomText) {
+            const customTextInput = document.getElementById('variantCustomTextInput');
+            const val = customTextInput ? (customTextInput.value || '').trim() : '';
+            if (!val) {
+                if (customTextInput) {
+                    customTextInput.classList.add('field-error');
+                    customTextInput.focus();
+                    if (typeof showToast === 'function') {
+                        showToast(texts.variantCustomNameError || 'الرجاء كتابة الاسم', 'error');
+                    }
+                }
+                return;
+            }
+            // 🟢 لو محدد lang='en' نتأكد إنه ما في حروف عربية (أحرف لاتينية + مسافة + شرطة + فاصلة عليا فقط)
+            const requiredLang = customTextInput ? customTextInput.dataset.lang : 'any';
+            if (requiredLang === 'en') {
+                const latinOnly = /^[A-Za-z\s\-'.]+$/.test(val);
+                if (!latinOnly) {
+                    customTextInput.classList.add('field-error');
+                    customTextInput.focus();
+                    if (typeof showToast === 'function') {
+                        showToast(texts.variantCustomNameLatinError || 'Latin letters only', 'error');
+                    }
+                    return;
+                }
+            }
+            customVariantText = val;
+
+            // 🟢 احفظ مفتاح الـ label عشان نستخدمه في رسالة الواتساب
+            const variantIndex = parseInt(activeVariant.dataset.index);
+            const variantData = product.variants[variantIndex];
+            const cfg = (variantData && typeof variantData.requiresCustomText === 'object') ? variantData.requiresCustomText : null;
+            customVariantLabelKey = (cfg && cfg.labelKey) ? cfg.labelKey : null;
+        }
 
         if (hasSizes) {
             sizeIndex = e.currentTarget.dataset.selectedSizeIndex || '0';
@@ -420,6 +510,13 @@ detailDescriptionFull.textContent =
             finalPrice = getDiscountedPrice(product.price);
         }
         // لو في variant، فـ finalPrice محسوب فعلاً من dataset.selectedPrice
+
+        // 🟢 لو لوحة مخصصة - نفتح موديل التصميم المخصص بدل الإضافة للسلة
+        if (product.requiresCustomForm || product.isCustomDesign) {
+            document.getElementById('productDetailModal').classList.remove('active');
+            openCustomDesignForm(product, e.currentTarget);
+            return;
+        }
 
         // 🟢 لو المنتج بدو نموذج تخصيص (عيد الزواج) - نفتح الموديل بدل ما نضيفه
         if (product.requiresWeddingForm) {
@@ -430,7 +527,7 @@ detailDescriptionFull.textContent =
             return;
         }
 
-        addToCart(productId, sizeIndex, finalPrice, selectedColorName, e.currentTarget, selectedVariantName);
+        addToCart(productId, sizeIndex, finalPrice, selectedColorName, e.currentTarget, selectedVariantName, null, customVariantText, customVariantLabelKey);
         document.getElementById('productDetailModal').classList.remove('active');
     });
     
@@ -778,7 +875,268 @@ function formatWeddingDate(dateStr) {
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
 }
 
-function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selectedColorName = null, sourceEl = null, selectedVariantName = null, weddingData = null) {
+// =================================================================
+// 🟢 LOGIC الـ Custom Design Form (طلب لوحة مخصصة)
+// =================================================================
+let _pendingCustomDesignProduct = null;
+let _pendingCustomDesignSourceEl = null;
+let _selectedDesignType = null;
+let _selectedDesignSize = null;
+
+function openCustomDesignForm(product, sourceEl = null) {
+    _pendingCustomDesignProduct = product;
+    _pendingCustomDesignSourceEl = sourceEl;
+    _selectedDesignType = null;
+    _selectedDesignSize = null;
+
+    const modal = document.getElementById('customDesignModal');
+    if (!modal) return;
+
+    // تطبيق نصوص اللغة الحالية
+    const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+    setText('customDesignFormTitle', texts.customDesignFormTitle);
+    setText('customDesignFormSubtitle', texts.customDesignFormSubtitle);
+    setText('customDesignTypeLabel', texts.customDesignTypeLabel);
+    setText('customDesignTextLabel', texts.customDesignTextLabel);
+    setText('customDesignSizeLabel', texts.customDesignSizeLabel);
+    setText('customDesignNotesLabel', texts.customDesignNotesLabel);
+    setText('customDesignHint', texts.customDesignRequiredHint);
+    setText('customDesignSubmitText', texts.customDesignSubmit);
+    setText('customDesignWidthLabel', texts.customDesignWidthLabel);
+    setText('customDesignHeightLabel', texts.customDesignHeightLabel);
+    setText('customDesignCustomSizeHint', texts.customDesignCustomSizeHint);
+    document.getElementById('customDesignCancelBtn').textContent = texts.customDesignCancel;
+
+    // placeholders الخانات
+    const widthInput = document.getElementById('customDesignWidth');
+    const heightInput = document.getElementById('customDesignHeight');
+    if (widthInput) { widthInput.placeholder = texts.customDesignWidthPlaceholder || ''; widthInput.value = ''; }
+    if (heightInput) { heightInput.placeholder = texts.customDesignHeightPlaceholder || ''; heightInput.value = ''; }
+
+    // إخفاء حقول المقاس المخصص افتراضياً
+    const customSizeBlock = document.getElementById('customDesignCustomSize');
+    if (customSizeBlock) customSizeBlock.classList.remove('active');
+
+    // معاينة المنتج
+    const previewImg = document.getElementById('customDesignProductImg');
+    const previewName = document.getElementById('customDesignProductName');
+    const previewPrice = document.getElementById('customDesignProductPrice');
+    if (previewImg) { previewImg.src = product.image; previewImg.alt = product.name; }
+    if (previewName) previewName.textContent = product.name;
+    if (previewPrice) previewPrice.textContent = texts.customDesignPriceLabel;
+
+    // بناء أنواع التصميم (cards)
+    const typesGrid = document.getElementById('customDesignTypesGrid');
+    if (typesGrid) {
+        typesGrid.innerHTML = '';
+        (texts.customDesignTypes || []).forEach(t => {
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'custom-design-type-card';
+            card.dataset.value = t.value;
+            card.innerHTML = `
+                <i class="fas ${t.icon}"></i>
+                <span class="custom-design-type-name">${t.label}</span>
+            `;
+            card.addEventListener('click', () => selectDesignType(t.value, card));
+            typesGrid.appendChild(card);
+        });
+    }
+
+    // بناء المقاسات (cards)
+    const sizesGrid = document.getElementById('customDesignSizesGrid');
+    if (sizesGrid) {
+        sizesGrid.innerHTML = '';
+        (texts.customDesignSizes || []).forEach(s => {
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'custom-design-size-card';
+            card.dataset.value = s.value;
+            card.innerHTML = `
+                <span class="custom-design-size-name">${s.label}</span>
+                <span class="custom-design-size-desc">${s.desc}</span>
+            `;
+            card.addEventListener('click', () => selectDesignSize(s.value, card));
+            sizesGrid.appendChild(card);
+        });
+    }
+
+    // مسح القيم القديمة
+    const textInput = document.getElementById('customDesignText');
+    const notesInput = document.getElementById('customDesignNotes');
+    if (textInput) {
+        textInput.value = '';
+        textInput.placeholder = texts.customDesignTextPlaceholderVerse || '';
+    }
+    if (notesInput) {
+        notesInput.value = '';
+        notesInput.placeholder = texts.customDesignNotesPlaceholder || '';
+    }
+    document.getElementById('customDesignErrorMsg').textContent = '';
+    document.getElementById('customDesignErrorMsg').classList.remove('show');
+
+    // إزالة حالات الـ error
+    document.querySelectorAll('#customDesignModal .field-error').forEach(el => el.classList.remove('field-error'));
+
+    modal.classList.add('active');
+
+    // فوكس على أول حقل بعد فتح الموديل
+    setTimeout(() => {
+        const firstCard = typesGrid && typesGrid.querySelector('.custom-design-type-card');
+        if (firstCard) firstCard.focus();
+    }, 300);
+}
+
+function selectDesignType(value, cardEl) {
+    _selectedDesignType = value;
+    // تحديث الـ UI
+    document.querySelectorAll('#customDesignTypesGrid .custom-design-type-card').forEach(c => c.classList.remove('selected'));
+    if (cardEl) cardEl.classList.add('selected');
+    // إزالة الـ error
+    document.getElementById('customDesignTypesGrid').classList.remove('field-error');
+
+    // تحديث placeholder حسب النوع
+    const textInput = document.getElementById('customDesignText');
+    if (textInput) {
+        const placeholderMap = {
+            verse: texts.customDesignTextPlaceholderVerse,
+            hadith: texts.customDesignTextPlaceholderHadith,
+            dua: texts.customDesignTextPlaceholderDua,
+            poem: texts.customDesignTextPlaceholderPoem,
+            name: texts.customDesignTextPlaceholderName,
+            other: texts.customDesignTextPlaceholderOther
+        };
+        textInput.placeholder = placeholderMap[value] || '';
+    }
+}
+
+function selectDesignSize(value, cardEl) {
+    _selectedDesignSize = value;
+    document.querySelectorAll('#customDesignSizesGrid .custom-design-size-card').forEach(c => c.classList.remove('selected'));
+    if (cardEl) cardEl.classList.add('selected');
+    document.getElementById('customDesignSizesGrid').classList.remove('field-error');
+
+    // 🟢 إظهار/إخفاء خانات الطول والعرض حسب الاختيار
+    const customSizeBlock = document.getElementById('customDesignCustomSize');
+    if (customSizeBlock) {
+        if (value === 'custom') {
+            customSizeBlock.classList.add('active');
+            // فوكس على خانة العرض بعد الـ animation
+            setTimeout(() => {
+                const widthInput = document.getElementById('customDesignWidth');
+                if (widthInput) widthInput.focus();
+            }, 250);
+        } else {
+            customSizeBlock.classList.remove('active');
+            // إزالة حالات الخطأ
+            const widthInput = document.getElementById('customDesignWidth');
+            const heightInput = document.getElementById('customDesignHeight');
+            if (widthInput) widthInput.classList.remove('field-error');
+            if (heightInput) heightInput.classList.remove('field-error');
+        }
+    }
+}
+
+function closeCustomDesignForm() {
+    const modal = document.getElementById('customDesignModal');
+    if (modal) modal.classList.remove('active');
+    _pendingCustomDesignProduct = null;
+    _pendingCustomDesignSourceEl = null;
+    _selectedDesignType = null;
+    _selectedDesignSize = null;
+}
+
+function submitCustomDesignForm() {
+    if (!_pendingCustomDesignProduct) return;
+
+    const textInput = document.getElementById('customDesignText');
+    const notesInput = document.getElementById('customDesignNotes');
+    const errorEl = document.getElementById('customDesignErrorMsg');
+    const typesGrid = document.getElementById('customDesignTypesGrid');
+    const sizesGrid = document.getElementById('customDesignSizesGrid');
+    const widthInput = document.getElementById('customDesignWidth');
+    const heightInput = document.getElementById('customDesignHeight');
+
+    const designText = (textInput.value || '').trim();
+    const notes = (notesInput.value || '').trim();
+
+    // مسح حالة الخطأ السابقة
+    textInput.classList.remove('field-error');
+    typesGrid.classList.remove('field-error');
+    sizesGrid.classList.remove('field-error');
+    if (widthInput) widthInput.classList.remove('field-error');
+    if (heightInput) heightInput.classList.remove('field-error');
+    errorEl.classList.remove('show');
+    errorEl.textContent = '';
+
+    // التحقق من الحقول الإجبارية
+    let hasError = false;
+    let customErrorMsg = texts.customDesignError;
+
+    if (!_selectedDesignType) { typesGrid.classList.add('field-error'); hasError = true; }
+    if (!designText) { textInput.classList.add('field-error'); hasError = true; }
+    if (!_selectedDesignSize) { sizesGrid.classList.add('field-error'); hasError = true; }
+
+    // 🟢 لو اختار "مقاس مخصص" لازم يعبي العرض والطول
+    let customWidth = null, customHeight = null;
+    if (_selectedDesignSize === 'custom') {
+        const wVal = widthInput ? parseInt(widthInput.value, 10) : NaN;
+        const hVal = heightInput ? parseInt(heightInput.value, 10) : NaN;
+        const wOk = !isNaN(wVal) && wVal >= 10 && wVal <= 500;
+        const hOk = !isNaN(hVal) && hVal >= 10 && hVal <= 500;
+        if (!wOk) { if (widthInput) widthInput.classList.add('field-error'); hasError = true; }
+        if (!hOk) { if (heightInput) heightInput.classList.add('field-error'); hasError = true; }
+        if (!wOk || !hOk) customErrorMsg = texts.customDesignCustomSizeError;
+        customWidth = wVal;
+        customHeight = hVal;
+    }
+
+    if (hasError) {
+        errorEl.textContent = customErrorMsg;
+        errorEl.classList.add('show');
+        return;
+    }
+
+    // ابحث عن اسم النوع والمقاس بالنص (للعرض في رسالة الواتساب)
+    const typeObj = (texts.customDesignTypes || []).find(t => t.value === _selectedDesignType);
+    const sizeObj = (texts.customDesignSizes || []).find(s => s.value === _selectedDesignSize);
+    const typeLabel = typeObj ? typeObj.label : _selectedDesignType;
+    // 🟢 لو "مقاس مخصص" نعرض القياس الفعلي اللي كتبه الزبون
+    let sizeLabel;
+    const cmUnit = currentLang === 'ar' ? 'سم' : 'cm';
+    if (_selectedDesignSize === 'custom') {
+        sizeLabel = `${customWidth}×${customHeight} ${cmUnit}`;
+    } else {
+        sizeLabel = sizeObj ? `${sizeObj.label} (${sizeObj.desc})` : _selectedDesignSize;
+    }
+
+    const product = _pendingCustomDesignProduct;
+
+    // بناء رسالة واتساب
+    let message = '';
+    message += `${texts.customDesignWhatsAppIntro}\n`;
+    message += `━━━━━━━━━━━━━━━\n`;
+    message += `🎨 *${product.name}*\n`;
+    message += `━━━━━━━━━━━━━━━\n`;
+    message += `📌 *${texts.customDesignTypeDisplay}:* ${typeLabel}\n`;
+    message += `📏 *${texts.customDesignSizeDisplay}:* ${sizeLabel}\n`;
+    message += `━━━━━━━━━━━━━━━\n`;
+    message += `📝 *${texts.customDesignTextDisplay}:*\n${designText}\n`;
+    if (notes) {
+        message += `━━━━━━━━━━━━━━━\n`;
+        message += `💬 *${texts.customDesignNotesDisplay}:*\n${notes}\n`;
+    }
+    message += `${texts.customDesignWhatsAppOutro}`;
+
+    // فتح واتساب
+    window.open(buildWhatsAppLink(message), '_blank');
+
+    // إغلاق الموديل
+    closeCustomDesignForm();
+}
+
+function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selectedColorName = null, sourceEl = null, selectedVariantName = null, weddingData = null, customVariantText = null, customVariantLabelKey = null) {
     const product = products.find(p => p.id === productId); 
     if (!product) return;
     
@@ -796,9 +1154,13 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selec
     const weddingSuffix = weddingData
         ? `-w${weddingData.initial1}${weddingData.initial2}${weddingData.date}${(weddingData.customText || '').slice(0, 6)}`
         : '';
+    // 🟢 لو في customVariantText (مثلاً اسم نادي مخصص للفاصل)، نضيفه للـ id حتى كل طلب مخصص يكون عنصر منفصل
+    const customVariantSuffix = customVariantText
+        ? `-c${customVariantText.slice(0, 12).replace(/\s+/g, '_')}`
+        : '';
     const cartItemId = selectedSizeIndex !== null 
-        ? `${productId}-${selectedSizeIndex}${colorSuffix}${variantSuffix}${weddingSuffix}` 
-        : `${productId}${colorSuffix}${variantSuffix}${weddingSuffix}`;
+        ? `${productId}-${selectedSizeIndex}${colorSuffix}${variantSuffix}${weddingSuffix}${customVariantSuffix}` 
+        : `${productId}${colorSuffix}${variantSuffix}${weddingSuffix}${customVariantSuffix}`;
     
     let sizeName = '';
     if (selectedSizeIndex !== null && product.hasSizes) {
@@ -806,10 +1168,15 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selec
     }
 
     // 🟢 دمج اسم الـ variant بنهاية اسم المنتج
-    // مثال: "طباعة ثلاثية الأبعاد - لويجي"
-    const displayName = selectedVariantName
-        ? `${product.name} - ${selectedVariantName}`
-        : product.name;
+    // مثال: "طباعة ثلاثية الأبعاد - لويجي" / "فاصل كتب جلدي - مخصص (ليفربول)"
+    let displayName;
+    if (customVariantText) {
+        displayName = `${product.name} - ${selectedVariantName} (${customVariantText})`;
+    } else if (selectedVariantName) {
+        displayName = `${product.name} - ${selectedVariantName}`;
+    } else {
+        displayName = product.name;
+    }
 
     const existingItem = cart.find(item => item.id === cartItemId);
     if (existingItem) {
@@ -820,6 +1187,8 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selec
             price: price, quantity: 1, sizeName, image: product.image,
             colorName: selectedColorName,
             variantName: selectedVariantName,
+            customVariantText: customVariantText, // 🟢 النص المخصص (اسم النادي/اللاعب/الولد/البنت)
+            customVariantLabelKey: customVariantLabelKey, // 🟢 مفتاح الـ label لرسالة الواتساب
             weddingData: weddingData // 🟢 حفظ بيانات التخصيص
         });
     }
@@ -885,6 +1254,21 @@ function updateCartUI() {
                 </div>
             `;
         }
+        // 🟢 عرض النص المخصص للـ variant (مثلاً اسم نادي/لاعب/ولد/بنت)
+        let customVariantDisplay = '';
+        if (item.customVariantText) {
+            // استخدم أيقونة مناسبة حسب نوع الـ variant
+            const icon = item.customVariantLabelKey === 'variantCustomNameForGirl'
+                ? '👧'
+                : item.customVariantLabelKey === 'variantCustomNameForBoy'
+                ? '👦'
+                : '⚽';
+            customVariantDisplay = `
+                <div class="wedding-cart-details">
+                    <div class="wedding-cart-line">${icon} <strong>${item.customVariantText}</strong></div>
+                </div>
+            `;
+        }
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         
@@ -894,6 +1278,7 @@ function updateCartUI() {
             <div class="item-details">
                 <div class="item-name">${item.name} ${sizeDisplay} ${colorDisplay}</div>
                 ${weddingDisplay}
+                ${customVariantDisplay}
                 <div class="item-price">د.أ ${item.price.toFixed(2)}</div>
             </div>
             <div class="item-quantity">
@@ -1330,6 +1715,16 @@ function submitCheckoutForm() {
             if (w.customText) {
                 message += `   • ${customLabel}: ${w.customText}\n`;
             }
+        }
+
+        // 🟢 تفاصيل النص المخصص للـ variant (اسم نادي/لاعب/ولد/بنت...)
+        if (item.customVariantText) {
+            // استخدم الـ labelKey لو موجود (مثلاً variantCustomNameForGirl)، وإلا الـ default للنادي
+            const labelKey = item.customVariantLabelKey;
+            const customLabel = (labelKey && texts[labelKey])
+                || texts.variantCustomNameWhatsAppLabel
+                || (currentLang === 'ar' ? 'الاسم المطلوب' : 'Requested Name');
+            message += `   • ${customLabel}: ${item.customVariantText}\n`;
         }
     });
 

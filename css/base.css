@@ -616,8 +616,10 @@ main {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: var(--text);
-    max-height: 2.6rem; 
+    max-height: 2.6rem;
     overflow: hidden;
+    /* 🟢 مساحة آمنة بسيطة عشان لا يتغطى الاسم بزر القلب لما يكون طويل */
+    padding-inline-end: 48px;
 }
 
 .favorite-btn {
