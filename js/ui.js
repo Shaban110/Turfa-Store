@@ -517,7 +517,6 @@ function initOffersAutoScroll() {
 
     const NORMAL_SPEED = 0.5;   // السرعة الطبيعية (بكسل/إطار)
     const SLOW_SPEED = 0.08;    // السرعة البطيئة عند الـ hover على القسم
-    const isRTL = document.documentElement.dir === 'rtl';
     let currentSpeed = NORMAL_SPEED;
     let isFullyPaused = false;  // وقف كامل (بس عند hover على بطاقة معينة أو لمس الموبايل)
     let rafId = null;
@@ -525,6 +524,10 @@ function initOffersAutoScroll() {
     const tick = () => {
         if (!isFullyPaused) {
             const halfWidth = container.scrollWidth / 2; // لأنه ضاعفنا المحتوى
+
+            // 🟢 نحسب الاتجاه كل إطار (مش مرة وحدة) — عشان لما المستخدم
+            //    يبدّل اللغة عربي/إنجليزي يتكيّف السكرول فوراً
+            const isRTL = document.documentElement.dir === 'rtl';
 
             if (isRTL) {
                 container.scrollLeft -= currentSpeed;

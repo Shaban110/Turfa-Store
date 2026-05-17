@@ -1001,8 +1001,7 @@ const cupsEnglish = [
     { id: 113, name: "Cup 13", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
     { id: 114, name: "Cup 14", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
     { id: 115, name: "Cup 15", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
-    { id: 116, name: "Cup 16", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
-    { id: 117, name: "Cup 17", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
+    { id: 116, name: "Cup 16", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
@@ -1021,8 +1020,7 @@ const cupsArabic = [
     { id: 113, name: "كوب 13", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
     { id: 114, name: "كوب 14", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
     { id: 115, name: "كوب 15", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
-    { id: 116, name: "كوب 16", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
-    { id: 117, name: "كوب 17", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
+    { id: 116, name: "كوب 16", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false }
 ];
 
 const prints3dEnglish = [
