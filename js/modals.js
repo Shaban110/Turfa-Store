@@ -1649,6 +1649,32 @@ function validateCheckoutForm() {
     return !firstError;
 }
 
+// 🟢 توليد رقم طلب فريد بصيغة TRF-YYMMDD-XXXX
+// العدّاد بينحفظ بالـ localStorage عشان كل طلب ياخد رقم مختلف
+function generateOrderNumber() {
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(-2);
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const datePart = `${yy}${mm}${dd}`;
+
+    let seq = 0;
+    try {
+        seq = parseInt(localStorage.getItem('turfaOrderSeq') || '0', 10);
+        if (isNaN(seq)) seq = 0;
+    } catch (e) {
+        seq = 0;
+    }
+    seq += 1;
+    try {
+        localStorage.setItem('turfaOrderSeq', String(seq));
+    } catch (e) { /* لو localStorage مش متاح، نكمل عادي */ }
+
+    // رقم تسلسلي 4 خانات + جزء عشوائي عشان ما يتوقع بسهولة
+    const seqPart = String(seq).padStart(4, '0');
+    return `TRF-${datePart}-${seqPart}`;
+}
+
 function submitCheckoutForm() {
     if (!validateCheckoutForm()) {
         // التركيز على أول حقل فيه خطأ
@@ -1684,7 +1710,11 @@ function submitCheckoutForm() {
 
     // بناء رسالة واتساب
     const currency = currentLang === 'ar' ? 'د.أ' : 'JD';
+    const orderNumber = generateOrderNumber();
     let message = `${texts.whatsappGreeting}`;
+
+    // 🟢 رقم الطلب — مرجع مشترك بينك وبين الزبون للمتابعة
+    message += `🔖 *${texts.waOrderNumberLabel}: ${orderNumber}*\n`;
 
     // معلومات الزبون
     message += `━━━━━━━━━━━━━━━\n`;

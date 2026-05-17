@@ -78,6 +78,7 @@ const arabicTexts = {
     footerCategories: "الفئات",
     footerCollections: "مجموعات",
     whatsappGreeting: "مرحباً متجر طُرفة! أود طلب الآتي:\n\n",
+    waOrderNumberLabel: "رقم الطلب",
     whatsappTotal: "\nالإجمالي:",
     whatsappThanks: "\n\نشكراً لك!",
     yourFavorites: "منتجاتك المفضلة",
@@ -341,6 +342,7 @@ const englishTexts = {
     footerCategories: "Categories",
     footerCollections: "Collections",
     whatsappGreeting: "Hello Turfa Store! I would like to order the following:\n\n",
+    waOrderNumberLabel: "Order Number",
     whatsappTotal: "\nTotal:",
     whatsappThanks: "\n\nThank you!",
     yourFavorites: "Your Favorites",
@@ -986,48 +988,46 @@ const paintingsArabic = [
 ];
 
 const cupsEnglish = [
-    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, shortDesc: "Ceramic Coffee Mug", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
-    { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
-    { id: 103, name: "Glass Tea Cup Set", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
-    { id: 104, name: "Artistic Espresso Cup", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
-    { id: 105, name: "Color Changing Mug", price: 19.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
-    { id: 106, name: "Bamboo Eco Cup", price: 18.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
-    { id: 107, name: "Cup 7", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
-    { id: 108, name: "Cup 8", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
-    { id: 109, name: "Cup 9", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
-    { id: 110, name: "Cup 10", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
-    { id: 111, name: "Cup 11", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
-    { id: 112, name: "Cup 12", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
-    { id: 113, name: "Cup 13", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
-    { id: 114, name: "Cup 14", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
-    { id: 115, name: "Cup 15", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
-    { id: 116, name: "Cup 16", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false }
+    { id: 101, name: "Floral Blossom Mug", price: 13.99, shortDesc: "An elegant pastel pink mug adorned with beautiful 3D blossoms, perfect for adding a touch of nature to your daily routine.", fullDesc: "Sip your favorite beverage in style with this beautifully crafted mug. Featuring a soft pastel pink finish and stunning, raised 3D floral embellishments, this piece brings a touch of botanical elegance to your table. Whether for your morning coffee or as a thoughtful gift for a loved one, its delicate nature-inspired design makes every sip special.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
+    { id: 102, name: "Keffiyeh & Olive Branch 3D Mug", price: 15.99, shortDesc: "An elegant white mug featuring a beautifully sculpted 3D olive branch and traditional Keffiyeh pattern.", fullDesc: "Celebrate heritage and craftsmanship with this unique handcrafted mug. It features stunning 3D elements, beautifully combining the iconic Keffiyeh pattern with a lifelike sculpted olive branch. Perfect for your daily coffee or tea, or as a meaningful, culturally inspired gift that showcases a true appreciation for handmade artistry.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
+    { id: 103, name: "Personalized Cute Mouse & Heart 3D Mug", price: 11.99, shortDesc: "An adorable mug featuring a 3D sculpted mouse holding a heart that can be customized with the name of your choice.", fullDesc: "Surprise your loved ones with a truly heartwarming gift! This beautifully handcrafted mug features a cute 3D mouse delicately holding a red heart, surrounded by tiny floating hearts. Make it extra special by personalizing the main heart with a name, creating a memorable and unique keepsake. Perfect for special occasions, romantic gestures, or simply showing someone you care with a beautiful, custom-made touch.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
+    { id: 104, name: "Red Heart & White Roses Mug", price: 13.99, shortDesc: "A romantically designed mug featuring a bold red 3D heart elegantly accented with delicate sculpted white roses.", fullDesc: "Express your feelings in the most beautiful way with this exceptional mug. It features a meticulously handcrafted design that pairs a striking, raised red heart with delicate, 3D white roses cascading gracefully along its edge. Crafted with high attention to detail, this signature piece from Turfa is more than just a mug—it's a small work of art. It makes for an absolutely perfect gift for anniversaries, Valentine's Day, or any special occasion to show someone how much you truly care.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
+    { id: 105, name: "Keffiyeh & Olive Branch Coffee Cup Set", price: 19.99, shortDesc: "An elegant set of coffee cups beautifully detailed with a 3D Keffiyeh pattern and sculpted olive branches, perfect for traditional hospitality.", fullDesc: "Elevate your hosting experience with this exquisite cup set from Turfa. Perfectly sized for Arabic coffee or espresso, each piece in this collection features a meticulously handcrafted 3D design that merges the iconic Keffiyeh pattern with a lifelike olive branch. More than just drinkware, this set is a celebration of heritage and artisanal craftsmanship, making it a sophisticated addition to your home or a highly meaningful cultural gift for your loved ones.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
+    { id: 106, name: "Bamboo Eco Cup", price: 13.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
+    { id: 107, name: "Vibrant Floral Bouquet & Bow Mug", price: 13.99, shortDesc: "A cheerful mug beautifully adorned with a brightly colored, 3D sculpted floral bouquet and a delicate bow.", fullDesc: "Start your morning with a splash of color and positivity with this charming mug from Turfa. It features a meticulously handcrafted 3D design showcasing a blooming bouquet of vibrant orange, red, and yellow flowers, nestled among lively green leaves and finished with a sweet, sculpted bow. The intricate raised details make this piece a true work of art that pops with natural beauty. It's the perfect uplifting gift for those who love warm colors, or a wonderful, joy-filled addition to your own collection.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
+    { id: 108, name: "Ceramic Paste Red Heart & Yellow Roses Mug", price: 13.99, shortDesc: "A striking black mug featuring a uniquely textured red heart and vibrant yellow roses, meticulously handcrafted from ceramic paste.", fullDesc: "Add a touch of bold elegance to your day with this striking black ceramic mug from Turfa. The dramatic contrast between the sleek dark background, the beautifully textured 3D red heart, and the vibrant crown of yellow roses creates a truly eye-catching piece of art. All the raised 3D elements are carefully sculpted by hand using high-quality ceramic paste, ensuring a unique and durable finish. It makes for an unforgettable, unconventional gift that beautifully expresses both love and distinct style.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
+    { id: 109, name: "Spring Daffodil Bouquet Mug", price: 13.99, shortDesc: "A calming pale green mug featuring a beautiful 3D bouquet of spring daffodils and flowers, meticulously handcrafted from ceramic paste.", fullDesc: "Embrace the beauty of spring with every sip using this elegant mug from Turfa. It features a soothing pastel green finish, beautifully adorned with a sculpted bouquet of yellow and pale pink daffodils, vibrant green leaves, and tied together with a delicate white bow. Each raised 3D element is carefully handcrafted using premium ceramic paste, giving it a unique, artisanal, and durable texture. This charming piece makes a wonderful addition to your morning routine or a thoughtful, nature-inspired gift.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
+    { id: 110, name: "Scalloped Frame & Red Roses Mug", price: 13.99, shortDesc: "An elegant white mug featuring a textured, scalloped peach backdrop adorned with striking 3D red roses, all handcrafted from ceramic paste.", fullDesc: "Elevate your coffee moments with this beautifully artistic mug from Turfa. It features a unique, handcrafted design showcasing a scalloped, marbled peach background perfectly complemented by a vibrant cluster of raised red roses and delicate blue and white accent flowers. Every 3D element is meticulously sculpted by hand using premium ceramic paste, ensuring a stunning, high-quality, and durable finish. A sophisticated piece that makes a gorgeous addition to your own collection or an eye-catching, elegant gift for someone special.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
+    { id: 111, name: "Floral Crescent & Ramadan Kareem Mug", price: 13.99, shortDesc: "A soothing peach-colored mug decorated with a sculpted crescent, vibrant flowers, and a Ramadan Kareem plaque, beautifully handcrafted from ceramic paste.", fullDesc: "Celebrate the holy month in style with this special Ramadan mug from Turfa. The festive design features a beautiful yellow crescent moon adorned with a colorful cluster of flowers, paired with an elegant, rustic plaque displaying Ramadan Kareem. Every raised 3D detail is lovingly sculpted by hand using premium ceramic paste, ensuring a unique, high-quality, and durable finish. It is a wonderful addition to your Suhoor and Iftar gatherings, or a thoughtful, joyous Ramadan gift for family and friends.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
+    { id: 112, name: "Blooming Branch & Floral Mug", price: 13.99, shortDesc: "A captivating black mug featuring a sculpted branch with vibrant red and peach blossoms, beautifully handcrafted from ceramic paste.", fullDesc: "Bring a touch of nature's magic to your daily routine with this elegant black mug from Turfa. The design showcases a beautifully sculpted 3D winding branch, blooming with warm, eye-catching flowers in bold red and soft peach, gently accented by tiny buds and green leaves. Every raised detail is meticulously handcrafted and shaped using premium ceramic paste, creating a stunning and vibrant contrast against the dark, sleek background. It is the perfect choice for lovers of nature-inspired, artisanal craftsmanship, and a truly exceptional gift.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
+    { id: 113, name: "My Mother, My Paradise Floral Mug", price: 13.99, shortDesc: "An elegant white mug carrying a warm message for mothers, decorated with a sculpted yellow plaque and vibrant 3D flowers meticulously handcrafted from ceramic paste.", fullDesc: "Express your deep love and gratitude to the most special woman in your life with this heartwarming mug from Turfa. The charming design features a delicately scalloped yellow plaque inscribed with the touching Arabic phrase Mother.. My paradise in this life.. (أمي.. جَنتي في هذه الحياة..), beautifully framed by a handcrafted arrangement of vibrant 3D flowers and leaves. Every raised element is meticulously sculpted by hand using premium ceramic paste, creating a unique and durable piece of art. It is the perfect Mother's Day gift or a meaningful surprise to bring joy to your mother's heart any day of the year.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
+    { id: 114, name: "Teddy Bear & Personalized Hearts Mug", price: 13.99, shortDesc: "An adorable white mug featuring a sculpted grey teddy bear in a blue beanie holding customizable hearts, meticulously handcrafted from ceramic paste.", fullDesc: "Bring a smile to your loved one's face with this incredibly cute mug from Turfa. The design features a beautifully detailed 3D grey teddy bear wearing a textured blue knitted hat, affectionately holding a bundle of hearts that can be personalized with your chosen initials. Every raised element, from the realistic fuzzy texture of the bear to the tiny scattered hearts, is lovingly handcrafted using premium ceramic paste ensuring high quality and durability. A perfectly sweet, customized gift for friends, couples, or that special someone in your life.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
+    { id: 115, name: "Floral Wooden Plaque Personalized Mug", price: 13.99, shortDesc: "Create your own masterpiece or give a truly memorable gift with this unique customizable mug from Turfa. The design highlights a meticulously sculpted, wood-textured plaque surrounded by vibrant 3D red and white roses, complete with a soft pink bow. Every raised detail is handcrafted with care using premium ceramic paste, leaving the center space perfectly blank for you to customize with a name, a special date, or a short message. It is the perfect choice for anyone seeking an artisanal, highly personalized gift with a romantic, vintage charm.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
-    { id: 102, name: "كوب سفر معزول", price: 24.99, shortDesc: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", fullDesc: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
-    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
-    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
-    { id: 105, name: "كوب متغير اللون", price: 19.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
-    { id: 106, name: "كوب منزل السنافر", price: 18.99, shortDesc: "ابدأ صباحك بابتسامة مع كوب منزل السنافر الساحر. تفاصيله الدقيقة وألوانه الدافئة تجعله الهدية المثالية لمحبي القطع الفريدة والمميزة", fullDesc: "استمتع بتجربة فريدة مع كوب ل السنافر المصنوع من الخزف عالي الجودة والمزين بتفاصيل ثلاثية الأبعاد تنبض بالحياة. يتميز هذا الكوب بتصميم ساحر يجسد كوخ الفطر الأحمر الريفي مع تفاصيل الباب والنباتات الخضراء، مما يجعله قطعة فنية جذابة تزين مكتبك وتضفي دفئاً وسحراً خاصاً على مشروباتك الساخنة في كل مرة تستخدمه", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
-    { id: 107, name: "كوب منزل السنافر 7", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
-    { id: 108, name: "كوب منزل السنافر 8", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
-    { id: 109, name: "كوب منزل السنافر 9", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
-    { id: 110, name: "كوب منزل السنافر 10", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
-    { id: 111, name: "كوب منزل السنافر 11", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
-    { id: 112, name: "كوب منزل السنافر 12", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
-    { id: 113, name: "كوب 13", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
-    { id: 114, name: "كوب 14", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
-    { id: 115, name: "كوب 15", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
-    { id: 116, name: "كوب 16", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false }
+    { id: 101, name: "كوب الزهور الوردية البارزة", price: 13.99, shortDesc: "كوب أنيق بلون وردي هادئ، مزين بزهور مجسمة تضفي لمسة من الطبيعة والجمال على مشروبك المفضل.", fullDesc: "استمتع بقهوتك أو شايك مع هذا الكوب الفريد المصمم بحرفية عالية. يتميز الكوب بلون وردي جذاب وتفاصيل بارزة لزهور وأغصان دقيقة تمنحه طابعاً فنياً راقياً. تصميمه المستوحى من الطبيعة يجعله قطعة مميزة في مجموعتك، أو هدية مثالية ورائعة لمن تحب.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
+    { id: 102, name: "كوب الكوفية وغصن الزيتون", price: 15.99, shortDesc: "كوب أبيض أنيق يجمع بين أصالة الكوفية ورمزية غصن الزيتون بتصميم مجسم وبارز.", fullDesc: "أضف لمسة من الأصالة والتراث إلى أوقاتك مع هذا الكوب الفريد. يتميز بتصميم ثلاثي الأبعاد مصنوع بحرفية ودقة، يدمج بين نقوش الكوفية التقليدية وأغصان الزيتون البارزة. خيار مثالي للاستخدام اليومي أو كهدية ذات طابع ثقافي ومعنوي عميق تعكس ذوقك الرفيع في اختيار القطع الفنية اليدوية.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
+    { id: 103, name: "كوب الفأر اللطيف والقلب المخصص", price: 11.99, shortDesc: "كوب بتصميم رقيق مزين بمجسم فأر صغير يحمل قلباً أحمر، مع إمكانية كتابة اسم من تحب عليه.", fullDesc: "فاجئ أحباءك بهدية فريدة ومليئة بالمشاعر! يتميز هذا الكوب بتصميم ثلاثي الأبعاد مصنوع يدوياً لفأر لطيف يحمل قلباً أحمر مزيناً بقلوب صغيرة متناثرة. ما يجعل هذه القطعة مميزة حقاً هو إمكانية تخصيص الاسم المحفور على القلب ليكون تذكاراً شخصياً لا يُنسى. خيار مثالي للإهداء في المناسبات الخاصة، أو للتعبير عن الاهتمام بطريقة مبتكرة ولمسة فنية دافئة.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
+    { id: 104, name: "كوب القلب الأحمر والورود البيضاء", price: 13.99, shortDesc: "كوب بتصميم رومانسي دافئ، يبرز فيه قلب أحمر كبير مزين بورود بيضاء مجسمة، مثالي للتعبير عن الحب.", fullDesc: "عبّر عن مشاعرك بأصدق طريقة مع هذا الكوب الاستثنائي. يتميز الكوب بتصميم يدوي متقن يجمع بين دفء القلب الأحمر البارز ورقة الورود البيضاء ثلاثية الأبعاد التي تزين أطرافه بانسجام تام. صُنع هذا الكوب بحرفية عالية ليكون تحفة فنية صغيرة بين يديك؛ فهو قطعة مميزة من طُرفة تعكس ذوقك الرفيع في اختيار الهدايا المصنوعة يدوياً، ويعتبر خياراً مثالياً للإهداء في الأعياد والمناسبات الرومانسية لمن تحب.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
+    { id: 105, name: "طقم فناجين الكوفية وغصن الزيتون", price: 19.99, shortDesc: "طقم فناجين قهوة أنيق يجمع بين نقش الكوفية العريق وأغصان الزيتون المجسمة، لتقديم ضيافة استثنائية بلمسة تراثية.", fullDesc: "ارتقِ بتجربة الضيافة الخاصة بك مع هذا الطقم الفاخر من طُرفة. يتكون الطقم من فناجين بحجم مثالي للقهوة العربية أو الإسبريسو، وتتميز كل قطعة بتصميم ثلاثي الأبعاد متقن يدمج بين تفاصيل الكوفية الأصيلة وغصن الزيتون البارز. هذا الطقم ليس مجرد أوانٍ للضيافة، بل هو تجسيد للتراث والفن اليدوي العالي، مما يجعله إضافة راقية لمجلسك أو هدية قيمة تعبر عن الفخر والأصالة في كل رشفة.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
+    { id: 106, name: "كوب منزل السنافر", price: 13.99, shortDesc: "ابدأ صباحك بابتسامة مع كوب منزل السنافر الساحر. تفاصيله الدقيقة وألوانه الدافئة تجعله الهدية المثالية لمحبي القطع الفريدة والمميزة", fullDesc: "استمتع بتجربة فريدة مع كوب ل السنافر المصنوع من الخزف عالي الجودة والمزين بتفاصيل ثلاثية الأبعاد تنبض بالحياة. يتميز هذا الكوب بتصميم ساحر يجسد كوخ الفطر الأحمر الريفي مع تفاصيل الباب والنباتات الخضراء، مما يجعله قطعة فنية جذابة تزين مكتبك وتضفي دفئاً وسحراً خاصاً على مشروباتك الساخنة في كل مرة تستخدمه", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
+    { id: 107, name: "كوب باقة الزهور المشرقة والفيونكة", price: 13.99, shortDesc: "كوب أنيق ومبهج مزين بباقة بارزة من الزهور المتفتحة بألوان دافئة، مع فيونكة ناعمة تضفي لمسة من الحيوية على يومك.", fullDesc: "ابدأ صباحك بطاقة إيجابية مع هذا الكوب الساحر من طُرفة. يتميز بتصميم يدوي دقيق يبرز باقة من الزهور ثلاثية الأبعاد بألوان متدرجة بين البرتقالي والأحمر والأصفر، تتوسطها أوراق خضراء نابضة بالحياة وتزينها فيونكة رقيقة من الجانب. التفاصيل البارزة والحرفية العالية تجعل من هذا الكوب تحفة فنية تنبض بالجمال الطبيعي، وهو الهدية المثالية لمحبي الألوان الدافئة والقطع اليدوية المليئة بالحياة.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
+    { id: 108, name: "كوب القلب الأحمر البارز بتاج الورود الصفراء", price: 13.99, shortDesc: "كوب أسود أنيق يتميز بتصميم فريد لقلب أحمر وورود صفراء زاهية، تم تشكيلها يدوياً باحترافية من معجون السيراميك.", fullDesc: "أضف لمسة من الجرأة والفخامة إلى أوقاتك مع هذا الكوب الأسود اللامع من طُرفة. يخلق التباين اللوني بين الخلفية الداكنة والقلب الأحمر ذي الملمس البارز، مع تاج الورود الصفراء النابضة بالحياة، لوحة فنية مميزة. جميع التفاصيل المجسمة على الكوب مصنوعة ومُشكلة يدوياً بدقة وعناية فائقة باستخدام معجون السيراميك عالي الجودة. خيار مثالي كهدية غير تقليدية تعبر عن الحب والتميز في آن واحد.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
+    { id: 109, name: "كوب باقة أزهار النرجس الربيعية", price: 13.99, shortDesc: "كوب بلون أخضر هادئ مزين بباقة مجسمة من أزهار النرجس والورود المبهجة، مُشكلة يدوياً باحترافية من معجون السيراميك.", fullDesc: "استمتع بنسيم الربيع مع كل رشفة من هذا الكوب الهادئ والأنيق من طُرفة. يتميز هذا الكوب بتصميم مجسم يضم باقة من أزهار النرجس والورود ذات الألوان المبهجة كالأصفر والوردي الفاتح، ومربوطة بعناية بفيونكة بيضاء رقيقة. جميع التفاصيل البارزة تمت صياغتها ونحتها يدوياً بكل حب ودقة باستخدام معجون السيراميك عالي الجودة لضمان متانة وجمال لا مثيل لهما. يعتبر إضافة رائعة لمجموعتك الصباحية أو هدية تفيض بالرقة لمن تحب.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
+    { id: 110, name: "كوب الإطار المزخرف والورود الحمراء", price: 13.99, shortDesc: "كوب أبيض أنيق يزينه إطار دائري مجسم بلون خوخي متموج، وتعلوه باقة من الورود الحمراء البارزة المصنوعة يدوياً من معجون السيراميك.", fullDesc: "اجعل لحظات تناول قهوتك أكثر جمالاً مع هذا الكوب الفريد من طُرفة. يتميز بتصميم فني مبتكر يدمج بين خلفية دائرية ذات حواف مزخرفة كالدانتيل بلون خوخي متموج، وتنسيقة ساحرة من الورود الحمراء الجورية البارزة مع لمسات رقيقة من الأزهار الصغيرة الزرقاء والبيضاء. جميع هذه التفاصيل المجسمة تم تشكيلها ونحتها يدوياً بدقة واحترافية عالية من معجون السيراميك، مما يمنحها مظهراً طبيعياً متألقاً. قطعة فنية راقية تناسب الاستخدام اليومي أو كهدية أنيقة تخطف الأنظار.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
+    { id: 111, name: "كوب هلال الزهور رمضان كريم", price: 13.99, shortDesc: "كوب بلون خوخي هادئ، مزين بهلال وعبارة رمضان كريم مع تفاصيل زاهية من الزهور، مُشكلة يدوياً باحترافية من معجون السيراميك.", fullDesc: "احتفل بأجواء الشهر الفضيل مع هذا الكوب الرمضاني الساحر من طُرفة. يتميز التصميم بهلال أصفر جميل مزين بباقة رقيقة من الزهور الملونة، إلى جانب لافتة كلاسيكية تحمل عبارة رمضان كريم مع تدلي زخرفة بسيطة تزيد من جمال القطعة. جميع هذه التفاصيل المجسمة تم نحتها وتشكيلها يدوياً بحب واحترافية من معجون السيراميك عالي الجودة لضمان متانتها ورونقها. إضافة رائعة لجلسات السحور والإفطار، أو كهدية رمضانية مميزة تنبض بالبهجة لمن تحب.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
+    { id: 112, name: "كوب الغصن البارز والزهور الملونة", price: 13.99, shortDesc: "كوب أسود جذاب مزين بغصن شجرة بارز وزهور حمراء وخوخية متفتحة، مُشكلة يدوياً باحترافية من معجون السيراميك.", fullDesc: "أضف لمسة من سحر الطبيعة إلى يومك مع هذا الكوب الأسود الأنيق من طُرفة. يتألق التصميم بغصن خشبي مجسم تتفتح عليه زهور بألوان دافئة وجذابة تجمع بين الأحمر الجريء والخوخي الناعم، مع براعم صغيرة وأوراق خضراء تزيد من حيويته. تم تشكيل ونحت جميع هذه التفاصيل البارزة يدوياً بكل دقة وعناية باستخدام معجون السيراميك عالي الجودة، مما يخلق تبايناً فنياً رائعاً مع الخلفية الداكنة للكوب. خيار مثالي لعشاق الفن اليدوي المستوحى من الطبيعة، وهدية استثنائية لمن يقدرون الجمال والتفاصيل.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
+    { id: 113, name: "كوب أمي جنتي المزين بالزهور", price: 13.99, shortDesc: "كوب أبيض أنيق يحمل رسالة حب دافئة للأم، مزين بلوحة صفراء وزهور مجسمة، مُشكلة يدوياً باحترافية من معجون السيراميك.", fullDesc: "عبّر عن حبك وامتنانك لست الحبايب مع هذا الكوب المعبر من طُرفة يتميز التصميم بلوحة صفراء رقيقة ذات حواف مزخرفة تحمل عبارة أمي.. جَنتي في هذه الحياة.. بخط عربي أنيق، وتُحيط بها أزهار زاهية وتفاصيل بارزة تنبض بالحياة. تم تشكيل ونحت جميع هذه العناصر المجسمة يدوياً بكل حب وعناية باستخدام معجون السيراميك عالي الجودة لضمان بقائها كذكرى جميلة تدوم طويلاً. إنها الهدية المثالية لعيد الأم أو لأي مناسبة تريد فيها أن تُدخل الفرحة على قلب والدتك بقطعة فنية فريدة ومميزة.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
+    { id: 114, name: "كوب الدبدوب والقلوب المخصصة", price: 13.99, shortDesc: "كوب أبيض لطيف مزين بمجسم دبدوب رمادي يرتدي قبعة زرقاء ويحمل قلوباً، مُشكل يدوياً باحترافية من معجون السيراميك مع إمكانية كتابة الحروف عليها.", fullDesc: "أدخل البهجة إلى قلب من تحب مع هذا الكوب الساحر من طُرفة يتميز بتصميم مجسم غاية في اللطافة لدبدوب رمادي ذي ملمس واقعي يرتدي قبعة شتوية زرقاء، ويحتضن مجموعة من القلوب الرقيقة. ما يميز هذه القطعة هو إمكانية تخصيص القلوب بحروفك وحروف من تحب لتكون تذكاراً خاصاً. جميع التفاصيل البارزة تم نحتها وتشكيلها يدوياً بعناية فائقة باستخدام معجون السيراميك عالي الجودة. هدية رومانسية وشخصية بامتياز، مثالية للأصدقاء والمحبين لتخليد أجمل اللحظات.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
+    { id: 115, name: "كوب اللوحة الخشبية والورود المخصصة", price: 13.99, shortDesc: "كوب بتصميم كلاسيكي رقيق يحمل إطاراً خشبياً بارزاً محاطاً بالورود، مُشكل يدوياً من معجون السيراميك ومصمم لإضافة اسم أو عبارة خاصة بك.", fullDesc: "صمم كوبك الخاص أو قدم هدية لا تُنسى مع هذا الكوب الفريد من طُرفة. يتميز التصميم بلوحة مجسمة ذات ملمس خشبي عتيق، تتزين أطرافها بتنسيقة رائعة من الورود البيضاء والحمراء البارزة وفيونكة وردية ناعمة. جميع التفاصيل تم نحتها وتشكيلها يدوياً باحترافية من معجون السيراميك عالي الجودة، لتُترك المساحة الوسطى فارغة وجاهزة لتخصيصها بكتابة اسم، تاريخ مميز، أو رسالة قصيرة. خيار رائع للباحثين عن هدايا شخصية تحمل طابعاً فنياً مليئاً بالرقة والأصالة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false }
 ];
 
 const prints3dEnglish = [
     {
         id: 301,
         name: "3D Print",
-        price: 20,
+        price: 15.99,
         shortDesc: "Choose your favorite character",
         fullDesc: "High-quality 3D printed figures of your favorite Mario characters.",
         image: "images/3d/1/1.webp",
@@ -1069,10 +1069,10 @@ const prints3dEnglish = [
     },
     {
         id: 302,
-        name: "3D Print 2",
-        price: 0.99,
-        shortDesc: "Choose between boy or girl",
-        fullDesc: "High-quality 3D printed figures, available in boy or girl design.",
+        name: "Personalized 3D Letter & Name Stand",
+        price: 13.99,
+        shortDesc: "A 3D printed decorative initial paired with a custom name in a stylish script — personalized in your chosen colors.",
+        fullDesc: "A charming personalized desk and shelf piece from Turfa: a bold initial letter with a custom name shaped in an elegant flowing script across it, 3D printed from durable plastic. Made to order in the colors you choose, with a clean lasting finish — a lovely keepsake for newborns, kids' rooms, birthdays and thoughtful personalized gifts. Just tell us the letter, the name and your preferred colors.",
         image: "images/3d/2/girl/2.webp",
         category: "print3d",
         hasSizes: false,
@@ -1084,8 +1084,8 @@ const prints3dEnglish = [
               "images/3d/2/girl/2.webp",
               "images/3d/2/girl/2b.webp"
             ],
-            "shortDesc": "Girl design",
-            "fullDesc": "High-quality 3D printed girl figure with fine details and durable materials.",
+            "shortDesc": "Girl design — soft, elegant color styling",
+            "fullDesc": "A personalized initial-and-name stand 3D printed from durable plastic, with a soft, elegant color palette. Customized with her name in a flowing script — a lovely keepsake for a girl's room or a thoughtful gift.",
             "requiresCustomText": {
               "labelKey": "variantCustomNameForGirl",
               "placeholderKey": "variantCustomNamePlaceholderGirl",
@@ -1099,8 +1099,8 @@ const prints3dEnglish = [
             "images": [
               "images/3d/2/boy/2.webp"
             ],
-            "shortDesc": "Boy design",
-            "fullDesc": "High-quality 3D printed boy figure with fine details and durable materials.",
+            "shortDesc": "Boy design — bold, vibrant color styling",
+            "fullDesc": "A personalized initial-and-name stand 3D printed from durable plastic, with a bold, vibrant color palette. Customized with his name in a flowing script — a lovely keepsake for a boy's room or a thoughtful gift.",
             "requiresCustomText": {
               "labelKey": "variantCustomNameForBoy",
               "placeholderKey": "variantCustomNamePlaceholderBoy",
@@ -1110,11 +1110,11 @@ const prints3dEnglish = [
           }
         ],
     },
-    { id: 303, name: "3D Print 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
+    { id: 303, name: "Beste Mama Typography Stand", price: 3.99, shortDesc: "An elegant 3D printed freestanding ornament featuring the phrase (Best Mom) in a beautiful blend of crisp white and pastel blue, complete with a sweet heart.", fullDesc: "Show your appreciation with a modern and heartfelt gift from Turfa. This decorative typographic piece beautifully spells out  Best Mom, combining bold, crisp white letters with a flowing pastel blue cursive script and a matching little heart. Precision-crafted using state-of-the-art 3D printing technology and high-quality durable materials, it makes for a perfect keepsake. A wonderful addition to her desk, shelf, or nightstand that will constantly remind her of your love.", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
     {
         id: 304,
         name: "Kids Toys",
-        price: 0.99,
+        price: 17.99,
         shortDesc: "A 3D-printed kids toy.",
         fullDesc: "Toy 1 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children.",
         image: "images/3d/4/toy1/4.webp",
@@ -1145,7 +1145,7 @@ const prints3dEnglish = [
           },
           {
             "name": "Toy 3",
-            "priceDiff": 0,
+            "priceDiff": -14,
             "images": [
               "images/3d/4/toy3/4.webp",
               "images/3d/4/toy3/4b.webp",
@@ -1156,7 +1156,7 @@ const prints3dEnglish = [
           },
           {
             "name": "Toy 4",
-            "priceDiff": 0,
+            "priceDiff": -2,
             "images": [
               "images/3d/4/toy4/4.webp",
               "images/3d/4/toy4/4b.webp"
@@ -1166,7 +1166,7 @@ const prints3dEnglish = [
           },
           {
             "name": "Toy 5",
-            "priceDiff": 0,
+            "priceDiff": -8,
             "images": [
               "images/3d/4/toy5/4.webp",
               "images/3d/4/toy5/4b.webp"
@@ -1210,7 +1210,7 @@ const prints3dArabic = [
             "fullDesc": "تمثال واريو بتفاصيل أكثر تعقيداً وحجم أكبر قليلاً، لذلك السعر أعلى. شخصية مميزة لعشّاق الجانب الشقيّ من عالم ماريو، تضيف طابعاً مرحاً وغير تقليدي على ديكورك."
           },
           {
-            "name": "يوشي",
+            "name": "لوشي",
             "priceDiff": 0,
             "images": [
               "images/3d/1/luchi/1.webp",
@@ -1223,10 +1223,10 @@ const prints3dArabic = [
     },
     {
         id: 302,
-        name: "طباعة ثلاثية الأبعاد 2",
-        price: 0.99,
-        shortDesc: "اختر بين تصميم ولد أو بنت",
-        fullDesc: "تماثيل ثلاثية الأبعاد عالية الجودة، متوفرة بتصميم ولد أو بنت.",
+        name: "حرف ثلاثي الأبعاد مع اسم مخصّص",
+        price: 14,
+        shortDesc: "حرف ديكوري مطبوع ثلاثي الأبعاد مع اسم مخصّص بخط أنيق متشابك — بالألوان التي تختارها.",
+        fullDesc: "قطعة شخصية ساحرة لمكتبك أو رفّك من طُرفة: حرف بارز مع اسم مخصّص مشكّل بخط انسيابي أنيق فوقه، مطبوع ثلاثي الأبعاد من البلاستيك المتين. يُصنع حسب الطلب بالألوان التي تختارها، بلمسة نهائية نظيفة وثابتة — تذكار جميل للمواليد وغرف الأطفال وأعياد الميلاد والهدايا الشخصية المدروسة. فقط أخبرنا بالحرف والاسم والألوان المفضّلة لديك.",
         image: "images/3d/2/girl/2.webp",
         category: "print3d",
         hasSizes: false,
@@ -1238,8 +1238,8 @@ const prints3dArabic = [
               "images/3d/2/girl/2.webp",
               "images/3d/2/girl/2b.webp"
             ],
-            "shortDesc": "تصميم بنت",
-            "fullDesc": "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+            "shortDesc": "تصميم بنت — تنسيق ألوان ناعم وأنيق",
+            "fullDesc": "حرف واسم مخصّص مطبوع ثلاثي الأبعاد من البلاستيك المتين، بتنسيق ألوان ناعم وأنيق. مخصّص باسمها بخط انسيابي — تذكار جميل لغرفة البنت أو هدية مدروسة.",
             "requiresCustomText": {
               "labelKey": "variantCustomNameForGirl",
               "placeholderKey": "variantCustomNamePlaceholderGirl",
@@ -1253,8 +1253,8 @@ const prints3dArabic = [
             "images": [
               "images/3d/2/boy/2.webp"
             ],
-            "shortDesc": "تصميم ولد",
-            "fullDesc": "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+            "shortDesc": "تصميم ولد — تنسيق ألوان جريء وحيوي",
+            "fullDesc": "حرف واسم مخصّص مطبوع ثلاثي الأبعاد من البلاستيك المتين، بتنسيق ألوان جريء وحيوي. مخصّص باسمه بخط انسيابي — تذكار جميل لغرفة الولد أو هدية مدروسة.",
             "requiresCustomText": {
               "labelKey": "variantCustomNameForBoy",
               "placeholderKey": "variantCustomNamePlaceholderBoy",
@@ -1264,11 +1264,11 @@ const prints3dArabic = [
           }
         ],
     },
-    { id: 303, name: "طباعة ثلاثية الأبعاد 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
+    { id: 303, name: "مجسم أفضل أم", price: 3.99, shortDesc: "مجسم ديكور أنيق مطبوع بتقنية ثلاثية الأبعاد بعبارة Beste Mama (أفضل أم)، يجمع بين اللونين الأبيض والأزرق الفاتح مع قلب رقيق.", fullDesc: "عبّر عن تقديرك لوالدتك بهدية مميزة وعصرية من طُرفة. يعرض هذا المجسم القائم عبارة Beste Mama (أفضل أم) بتصميم طبوغرافي جذاب يدمج بين الحروف البيضاء البارزة والخط الأزرق الانسيابي، وتكتمل اللوحة بلمسة قلب صغير ولطيف. صُنع هذا العمل الفني بدقة فائقة باستخدام أحدث تقنيات الطباعة ثلاثية الأبعاد ومواد متينة وعالية الجودة، ليكون تذكاراً جميلاً يزين مكتبها أو الرف المفضل لديها، ويذكرها دائماً بمكانتها الخاصة.", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
     {
         id: 304,
         name: "ألعاب أطفال",
-        price: 0.99,
+        price: 17.99,
         shortDesc: "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
         fullDesc: "لعبة 1 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال.",
         image: "images/3d/4/toy1/4.webp",
@@ -1299,7 +1299,7 @@ const prints3dArabic = [
           },
           {
             "name": "لعبة 3",
-            "priceDiff": 0,
+            "priceDiff": -14,
             "images": [
               "images/3d/4/toy3/4.webp",
               "images/3d/4/toy3/4b.webp",
@@ -1310,7 +1310,7 @@ const prints3dArabic = [
           },
           {
             "name": "لعبة 4",
-            "priceDiff": 0,
+            "priceDiff": -2,
             "images": [
               "images/3d/4/toy4/4.webp",
               "images/3d/4/toy4/4b.webp"
@@ -1320,7 +1320,7 @@ const prints3dArabic = [
           },
           {
             "name": "لعبة 5",
-            "priceDiff": 0,
+            "priceDiff": -8,
             "images": [
               "images/3d/4/toy5/4.webp",
               "images/3d/4/toy5/4b.webp"
@@ -1332,11 +1332,11 @@ const prints3dArabic = [
     }];
 
 const framesEnglish = [
-    { id: 201, name: "Wedding Anniversary", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
+    { id: 201, name: "Personalized Wedding Anniversary Frame", price: 14.99, shortDesc: "A custom framed keepsake with your intertwined initials shaped from real preserved roses, your wedding date and a heartfelt message — the perfect anniversary gift for the one you love.", fullDesc: "Celebrate your love story with this personalized wedding anniversary frame, handcrafted by Turfa. The couple's initials are intertwined and shaped entirely by hand from real preserved natural roses in romantic blue and rose tones, set against an elegant ornamental border with a loving message and your special wedding date. A deeply meaningful, ready-to-display keepsake that turns your most precious moment into timeless wall art — the ideal gift for anniversaries, engagements and weddings. Fully customized and handmade in Jordan, truly one-of-a-kind.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
     {
         id: 202,
-        name: "Leather Bookmark",
-        price: 12.5,
+        name: "Sports Clubs Frames",
+        price: 14.99,
         shortDesc: "Premium leather bookmark with your favorite football club crest.",
         fullDesc: "A handcrafted leather bookmark featuring the crest of your favorite football club. Choose from top European clubs, or request a custom design with any club of your choice.",
         image: "images/Frame/2/2.webp",
@@ -1371,15 +1371,6 @@ const framesEnglish = [
             "fullDesc": "Handcrafted premium leather bookmark with the Manchester City crest. A distinctive choice for Citizens supporters."
           },
           {
-            "name": "Manchester United",
-            "priceDiff": 0,
-            "images": [
-              "images/Frame/2/man-united/1.webp"
-            ],
-            "shortDesc": "Premium leather bookmark with Manchester United crest.",
-            "fullDesc": "Handcrafted premium leather bookmark with the Manchester United crest. The perfect gift for every Red Devils fan."
-          },
-          {
             "name": "Custom",
             "priceDiff": 0,
             "images": [
@@ -1393,11 +1384,11 @@ const framesEnglish = [
     },];
 
 const framesArabic = [
-    { id: 201, name: "عيد الزواج", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
+    { id: 201, name: "برواز عيد الزواج المخصّص", price: 14.99, shortDesc: "تذكار مؤطّر مخصّص بحرفَي اسميكما متشابكين منقوشين بالورد الطبيعي المجفّف، مع تاريخ زواجكما وعبارة من القلب — الهدية المثالية لذكرى الزواج لمن تحب.", fullDesc: "احتفِ بقصة حبكما مع برواز عيد الزواج المخصّص، المصنوع يدوياً من طُرفة. حرفا اسم العروسين متشابكان ومشكّلان بالكامل يدوياً من الورد الطبيعي المجفّف بدرجتي الأزرق والوردي الرومانسيتين، على خلفية إطار زخرفي أنيق مع عبارة محبّة وتاريخ زواجكما المميّز. تذكار عميق المعنى وجاهز للعرض، يحوّل أغلى لحظاتكما إلى لوحة جدارية خالدة — الهدية المثالية لذكرى الزواج والخطوبة والأعراس. مخصّص بالكامل ومصنوع يدوياً في الأردن، فريد لا يتكرّر.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
     {
         id: 202,
-        name: "فاصل كتب جلدي",
-        price: 12.5,
+        name: "لوحات الأندية الرياضية",
+        price: 14.99,
         shortDesc: "فاصل كتب جلدي فاخر بشعار ناديك المفضل، صناعة يدوية.",
         fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً بدقة عالية، يحمل شعار ناديك الرياضي المفضل. اختار من بين أبرز الأندية العالمية، أو اطلب شعاراً مخصصاً بنادي من اختيارك.",
         image: "images/Frame/2/2.webp",
@@ -1432,15 +1423,6 @@ const framesArabic = [
             "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر سيتي. اختيار مميز لمحبي السماويين."
           },
           {
-            "name": "مانشستر يونايتد",
-            "priceDiff": 0,
-            "images": [
-              "images/Frame/2/man-united/1.webp"
-            ],
-            "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر يونايتد.",
-            "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر يونايتد. هدية مثالية لكل مشجع للشياطين الحمر."
-          },
-          {
             "name": "مخصص",
             "priceDiff": 0,
             "images": [
@@ -1454,13 +1436,13 @@ const framesArabic = [
     }];
 
 const giftsEnglish = [
-    { id: 401, name: "Mixed Gift 1", price: 9.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
+    { id: 401, name: "Handcrafted Foam Clay Mushroom Cottage", price: 9.99, shortDesc: "A show-stopping mushroom cottage sculpted entirely by hand from foam clay — a lavender domed roof, a rustic door, and a real tree-bark base. The perfect statement gift.", fullDesc: "Turn heads with this one-of-a-kind decorative mushroom cottage, meticulously hand-sculpted from premium foam clay by Turfa's artisans. Every detail is shaped by hand: a striking lavender-and-white domed roof crowned with a tiny door and round window, climbing vines, and clusters of dried flowers, opening onto a weathered red door framed with fine stonework and a white daisy — all set on a genuine wood-bark base. Lightweight yet beautifully durable, it makes an unforgettable centerpiece for any shelf or desk, and an exceptional gift that no one else will have. A true conversation piece, handmade in Jordan.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
     {
         id: 402,
-        name: "Mixed Gift 2",
-        price: 12.5,
-        shortDesc: "Special handmade gift.",
-        fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.",
+        name: "Personalized Wooden Keepsake Medallion",
+        price: 10,
+        shortDesc: "A hand-decorated wooden slice medallion, personalized with any name, date or occasion and adorned with foam-clay roses — the perfect keepsake gift for graduations, achievements and milestones.",
+        fullDesc: "Make any moment unforgettable with this personalized wooden keepsake medallion, handcrafted by Turfa on a natural tree-bark slice and finished with a braided rope hanger. Every detail — the name, the date, the occasion symbol and the delicately sculpted foam-clay roses — is shaped entirely by hand and customized just for you. A meaningful, ready-to-hang gift for graduations, engineers, doctors, birthdays and life's proudest milestones, made to be treasured for years. Handmade in Jordan, completely one-of-a-kind.",
         image: "images/gifts/2/girl/2.webp",
         category: "gift",
         hasSizes: false,
@@ -1473,8 +1455,8 @@ const giftsEnglish = [
               "images/gifts/2/girl/2b.webp",
               "images/gifts/2/girl/2c.webp"
             ],
-            "shortDesc": "A girl design with a delicate touch.",
-            "fullDesc": "A unique handmade gift with a girl-themed custom design, crafted with care and fine detailing. A lovely choice for special occasions and heartfelt gifting.",
+            "shortDesc": "A graceful design with a feminine touch — personalized with her name and special date.",
+            "fullDesc": "An elegant personalized medallion with a soft, feminine design, hand-decorated with foam-clay roses on a natural wood slice. Customized with her name and the date that matters most — a heartfelt keepsake for graduations, birthdays and proud milestones.",
             "requiresCustomText": {
               "labelKey": "variantGiftCustomLabel",
               "placeholderKey": "variantGiftCustomPlaceholder",
@@ -1490,8 +1472,8 @@ const giftsEnglish = [
               "images/gifts/2/boy/2b.webp",
               "images/gifts/2/boy/2c.webp"
             ],
-            "shortDesc": "A boy design with a distinctive character.",
-            "fullDesc": "A unique handmade gift with a boy-themed custom design, crafted with care and fine detailing. A great choice for special occasions and gifting.",
+            "shortDesc": "A bold, character-rich design — personalized with his name, title and special date.",
+            "fullDesc": "A striking personalized medallion with a strong, distinctive design, hand-decorated with foam-clay details on a natural wood slice. Customized with his name, profession or title and the date that matters most — a standout keepsake for engineers, doctors, graduates and life's proudest moments.",
             "requiresCustomText": {
               "labelKey": "variantGiftCustomLabel",
               "placeholderKey": "variantGiftCustomPlaceholder",
@@ -1505,8 +1487,8 @@ const giftsEnglish = [
             "images": [
               "images/gifts/2/family/2.webp"
             ],
-            "shortDesc": "A family design that brings loved ones together.",
-            "fullDesc": "A unique handmade gift with a family design that brings everyone together in one piece, crafted with great care. A warm gift that immortalizes the gathering of loved ones.",
+            "shortDesc": "A warm family design that brings loved ones together in one keepsake piece.",
+            "fullDesc": "A heartfelt personalized medallion celebrating the whole family in a single handcrafted piece, hand-decorated with foam-clay roses on a natural wood slice. Customized with your family name and a date to remember — a warm keepsake that immortalizes the people who matter most.",
             "requiresCustomText": {
               "labelKey": "variantGiftCustomLabel",
               "placeholderKey": "variantGiftCustomPlaceholder",
@@ -1516,18 +1498,18 @@ const giftsEnglish = [
           }
         ],
     },
-    { id: 403, name: "Mixed Gift 3", price: 15, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
-    { id: 404, name: "Mixed Gift 4", price: 18.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false }
+    { id: 403, name: "Handcrafted Foam Clay Mushroom Cottage — Deluxe", price: 10, shortDesc: "A premium decorative mushroom cottage hand-sculpted from foam clay, with a lavender domed roof, a rustic wooden door, and a natural tree-bark base — a true statement centerpiece.", fullDesc: "An exquisite collector-grade decorative mushroom cottage, meticulously hand-sculpted from premium foam clay by Turfa's artisans. Every element is shaped by hand: the striking lavender-and-white domed roof crowned with a tiny door and round window, climbing vines, dried flowers and berries, all opening onto a weathered red door framed with fine stonework and a white daisy, set on a genuine wood-bark base. Lightweight yet beautifully durable, it brings a touch of refined craftsmanship to any shelf, desk or display, and makes an exceptional gift no one else will have. A true conversation piece, handmade in Jordan.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
+    { id: 404, name: "Decorated Glass Storage Jar with Wooden Lid", price: 10, shortDesc: "An elegant glass jar with an airtight wooden lid, hand-wrapped in burlap and lace and adorned with foam-clay roses and dried flowers — beautiful and practical for any kitchen or shelf.", fullDesc: "Blend beauty with everyday function with this hand-decorated glass storage jar from Turfa. The clear glass body is finished with a natural wooden lid and lovingly wrapped in rustic burlap and delicate lace, then accented with a hand-sculpted foam-clay floral bouquet and dried botanical touches. Perfect for storing coffee, tea, spices or sweets — or simply as a charming standalone décor piece. A thoughtful housewarming, wedding or hostess gift that feels personal and refined. Handmade in Jordan, no two are exactly alike.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false }
 ];
 
 const giftsArabic = [
-    { id: 401, name: "هدية منوعة 1", price: 9.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
+    { id: 401, name: "بيت الفطر المصنوع يدوياً من معجون الفوم", price: 9.99, shortDesc: "بيت فطر يخطف الأنظار، منحوت بالكامل يدوياً من معجون الفوم — سقف مقبب بنفسجي، باب ريفي، وقاعدة من لحاء الشجر الطبيعي. هدية مميزة لا تُنسى.", fullDesc: "اجذب كل الأنظار مع بيت الفطر الديكوري الفريد الذي لا يتكرر، المنحوت يدوياً بإتقان من معجون الفوم الفاخر على أيدي حرفيي طُرفة. كل تفصيل مشكّل باليد: سقف مقبب لافت بلونين بنفسجي وأبيض يعلوه باب صغير ونافذة دائرية، أغصان متسلقة، وعناقيد من الزهور المجففة، يفتح على باب أحمر عتيق محاط بتفاصيل حجرية دقيقة وزهرة أقحوان بيضاء — وكل ذلك على قاعدة من لحاء الشجر الطبيعي. خفيف الوزن ومتين في آنٍ واحد، ليكون قطعة محورية لا تُنسى على أي رف أو مكتب، وهدية استثنائية لن يمتلك أحد غيرها مثلها. تحفة تُلفت الأنظار وتفتح باب الحديث، مصنوعة يدوياً في الأردن.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
     {
         id: 402,
-        name: "هدية منوعة 2",
-        price: 12.5,
-        shortDesc: "هدية يدوية مميزة.",
-        fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.",
+        name: "ميدالية خشبية تذكارية مخصّصة بالاسم",
+        price: 10,
+        shortDesc: "ميدالية معلّقة من شريحة خشب طبيعية، مزخرفة يدوياً ومخصّصة بأي اسم أو تاريخ أو مناسبة، ومزيّنة بورود من معجون الفوم — الهدية التذكارية المثالية للتخرّج والإنجازات والمناسبات.",
+        fullDesc: "اجعل أي لحظة لا تُنسى مع الميدالية الخشبية التذكارية المخصّصة من طُرفة، المصنوعة يدوياً على شريحة من لحاء الشجر الطبيعي ومنتهية بحبل معلّق مجدول. كل تفصيل — الاسم، التاريخ، رمز المناسبة، والورود المنحوتة بدقة من معجون الفوم — مشكّل بالكامل يدوياً ومخصّص لك أنت وحدك. هدية ذات معنى وجاهزة للتعليق، مثالية للتخرّج والمهندسين والأطباء وأعياد الميلاد وأفخر لحظات الحياة، صُنعت لتبقى ذكرى غالية لسنوات. مصنوعة يدوياً في الأردن، فريدة لا تتكرّر.",
         image: "images/gifts/2/girl/2.webp",
         category: "gift",
         hasSizes: false,
@@ -1540,8 +1522,8 @@ const giftsArabic = [
               "images/gifts/2/girl/2b.webp",
               "images/gifts/2/girl/2c.webp"
             ],
-            "shortDesc": "تصميم بنت بلمسة رقيقة.",
-            "fullDesc": "هدية يدوية مميزة بتصميم مخصّص للبنت، مصنوعة بعناية وتفاصيل دقيقة. خيار جميل للمناسبات الخاصة وللإهداء بحب.",
+            "shortDesc": "تصميم أنيق بلمسة أنثوية — مخصّص باسمها وتاريخها المميّز.",
+            "fullDesc": "ميدالية مخصّصة أنيقة بتصميم ناعم وأنثوي، مزخرفة يدوياً بورود من معجون الفوم على شريحة خشب طبيعية. مخصّصة باسمها والتاريخ الأغلى — تذكار من القلب للتخرّج وأعياد الميلاد ولحظات الفخر.",
             "requiresCustomText": {
               "labelKey": "variantGiftCustomLabel",
               "placeholderKey": "variantGiftCustomPlaceholder",
@@ -1557,8 +1539,8 @@ const giftsArabic = [
               "images/gifts/2/boy/2b.webp",
               "images/gifts/2/boy/2c.webp"
             ],
-            "shortDesc": "تصميم ولد بطابع مميز.",
-            "fullDesc": "هدية يدوية مميزة بتصميم مخصّص للولد، مصنوعة بعناية وتفاصيل دقيقة. خيار رائع للمناسبات الخاصة وللإهداء.",
+            "shortDesc": "تصميم جريء بطابع مميّز — مخصّص باسمه ولقبه وتاريخه المميّز.",
+            "fullDesc": "ميدالية مخصّصة لافتة بتصميم قوي ومميّز، مزخرفة يدوياً بتفاصيل من معجون الفوم على شريحة خشب طبيعية. مخصّصة باسمه ومهنته أو لقبه والتاريخ الأغلى — تذكار بارز للمهندسين والأطباء والخرّيجين وأفخر لحظات الحياة.",
             "requiresCustomText": {
               "labelKey": "variantGiftCustomLabel",
               "placeholderKey": "variantGiftCustomPlaceholder",
@@ -1572,8 +1554,8 @@ const giftsArabic = [
             "images": [
               "images/gifts/2/family/2.webp"
             ],
-            "shortDesc": "تصميم عائلي يجمع الأحبّة.",
-            "fullDesc": "هدية يدوية مميزة بتصميم عائلي يجمع أفراد العائلة في قطعة واحدة، مصنوعة بعناية فائقة. هدية دافئة تخلّد لمّة الأحبّة.",
+            "shortDesc": "تصميم عائلي دافئ يجمع الأحبّة في قطعة تذكارية واحدة.",
+            "fullDesc": "ميدالية مخصّصة من القلب تحتفي بالعائلة كلها في قطعة واحدة مصنوعة يدوياً، مزخرفة بورود من معجون الفوم على شريحة خشب طبيعية. مخصّصة باسم عائلتك وتاريخ لا يُنسى — تذكار دافئ يخلّد أغلى الناس.",
             "requiresCustomText": {
               "labelKey": "variantGiftCustomLabel",
               "placeholderKey": "variantGiftCustomPlaceholder",
@@ -1583,8 +1565,8 @@ const giftsArabic = [
           }
         ],
     },
-    { id: 403, name: "هدية منوعة 3", price: 15, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
-    { id: 404, name: "هدية منوعة 4", price: 18.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false }
+    { id: 403, name: "بيت الفطر المصنوع يدوياً من معجون الفوم — فاخر", price: 10, shortDesc: "بيت فطر ديكوري فاخر منحوت يدوياً من معجون الفوم، بسقف مقبب بنفسجي، باب خشبي ريفي، وقاعدة من لحاء الشجر الطبيعي — قطعة محورية تخطف الأنظار.", fullDesc: "تحفة ديكورية بمستوى المقتنيات، منحوتة يدوياً بإتقان من معجون الفوم الفاخر على أيدي حرفيي طُرفة. كل عنصر مشكّل باليد: السقف المقبب اللافت بلونين بنفسجي وأبيض يعلوه باب صغير ونافذة دائرية، أغصان متسلقة، وزهور وتوت مجفف، يفتح على باب أحمر عتيق محاط بتفاصيل حجرية دقيقة وزهرة أقحوان بيضاء، على قاعدة من لحاء الشجر الطبيعي. خفيف الوزن ومتين في آنٍ واحد، يضفي لمسة من الحِرفية الراقية على أي رف أو مكتب أو ركن عرض، وهدية استثنائية لن يمتلك أحد غيرها مثلها. تحفة تُلفت الأنظار وتفتح باب الحديث، مصنوعة يدوياً في الأردن.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
+    { id: 404, name: "برطمان زجاجي مزخرف بغطاء خشبي", price: 10, shortDesc: "برطمان زجاجي أنيق بغطاء خشبي محكم، ملفوف يدوياً بالخيش والدانتيل ومزيّن بورود من معجون الفوم وزهور مجففة — جميل وعملي لأي مطبخ أو رف.", fullDesc: "امزج الجمال بالوظيفة اليومية مع البرطمان الزجاجي المزخرف يدوياً من طُرفة. جسم زجاجي شفاف بغطاء خشبي طبيعي، ملفوف بحب بالخيش الريفي والدانتيل الرقيق، ومزيّن بباقة ورود منحوتة يدوياً من معجون الفوم ولمسات نباتية مجففة. مثالي لحفظ القهوة أو الشاي أو البهارات أو الحلويات — أو كقطعة ديكور ساحرة بحد ذاتها. هدية مدروسة ومميزة لمناسبات تأثيث البيت الجديد والأعراس والضيافة، تحمل طابعاً شخصياً وراقياً. مصنوع يدوياً في الأردن، ولا قطعة تشبه الأخرى تماماً.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false }
 ];
 
 let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...prints3dEnglish, ...framesEnglish, ...giftsEnglish];
