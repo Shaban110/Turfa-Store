@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محوّل منتجات طُرفة — CSV ⇄ data.js</title>
+<style>
+  :root{
+    --green:#002617; --green-light:#0a4a32; --gold:#c9a84c;
+    --bg:#f4f1ea; --card:#fffdf8; --ink:#1c1c1c; --muted:#6b6b6b;
+    --line:#e2ddd0; --ok:#1f7a4d; --err:#c0392b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",Tahoma,system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%,rgba(201,168,76,.08),transparent 40%),
+      radial-gradient(circle at 85% 100%,rgba(0,38,23,.06),transparent 40%),
+      var(--bg);
+    color:var(--ink); min-height:100vh; padding:32px 18px; line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header{text-align:center;margin-bottom:28px}
+  .logo-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--green);color:#fff;padding:10px 22px;border-radius:999px;
+    font-weight:700;font-size:1.05rem;letter-spacing:.3px;
+    box-shadow:0 6px 20px rgba(0,38,23,.25)
+  }
+  .logo-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--gold)}
+  h1{font-size:1.5rem;margin:18px 0 6px;color:var(--green)}
+  .sub{color:var(--muted);font-size:.95rem}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:26px;margin-bottom:20px;
+    box-shadow:0 4px 18px rgba(0,0,0,.04)
+  }
+  .step-tag{
+    display:inline-block;background:var(--gold);color:var(--green);
+    font-weight:700;font-size:.78rem;padding:4px 12px;border-radius:999px;
+    margin-bottom:12px
+  }
+  .card h2{font-size:1.15rem;color:var(--green);margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.92rem;margin-bottom:16px}
+  .drop{
+    border:2.5px dashed var(--line);border-radius:14px;padding:34px 20px;
+    text-align:center;cursor:pointer;transition:.2s;background:#fff
+  }
+  .drop:hover,.drop.over{border-color:var(--gold);background:#fffaf0}
+  .drop .ic{font-size:2.4rem;margin-bottom:8px}
+  .drop strong{color:var(--green)}
+  .drop small{display:block;color:var(--muted);margin-top:6px;font-size:.82rem}
+  input[type=file]{display:none}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;justify-content:center;
+    background:var(--green);color:#fff;border:none;border-radius:12px;
+    padding:14px 26px;font-size:1rem;font-weight:700;cursor:pointer;
+    width:100%;transition:.2s;font-family:inherit
+  }
+  .btn:hover:not(:disabled){background:var(--green-light);transform:translateY(-1px)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.gold{background:var(--gold);color:var(--green)}
+  .btn.gold:hover:not(:disabled){background:#d8b85a}
+  .msg{
+    margin-top:16px;padding:13px 16px;border-radius:11px;font-size:.9rem;
+    font-weight:600;display:none
+  }
+  .msg.show{display:block}
+  .msg.ok{background:rgba(31,122,77,.1);color:var(--ok);border:1px solid rgba(31,122,77,.25)}
+  .msg.err{background:rgba(192,57,43,.08);color:var(--err);border:1px solid rgba(192,57,43,.25)}
+  .msg.info{background:rgba(0,38,23,.05);color:var(--green);border:1px solid var(--line)}
+  .stat{
+    display:flex;gap:14px;flex-wrap:wrap;margin-top:14px
+  }
+  .stat div{
+    flex:1;min-width:120px;background:#fff;border:1px solid var(--line);
+    border-radius:11px;padding:12px 14px;text-align:center
+  }
+  .stat .n{font-size:1.4rem;font-weight:800;color:var(--green)}
+  .stat .l{font-size:.78rem;color:var(--muted);margin-top:2px}
+  .hint{
+    background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);
+    border-radius:12px;padding:14px 16px;font-size:.86rem;color:#6b5a1f;
+    margin-top:18px
+  }
+  .hint b{color:var(--green)}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px}
+  ol{margin:10px 22px;font-size:.9rem;color:var(--muted)}
+  ol li{margin:5px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo-badge"><span class="dot"></span> متجر طُرفة</div>
+    <h1>محوّل المنتجات</h1>
+    <div class="sub">عدّل نصوص منتجاتك في Excel، وحوّلها لـ <code>data.js</code> بضغطة زر — بدون برمجة</div>
+  </header>
+
+  <div class="card">
+    <span class="step-tag">الخطوة ١</span>
+    <h2>ارفع ملف products.csv</h2>
+    <p>افتح <b>products.csv</b> في Excel أو Google Sheets، عدّل الأسماء والأوصاف والأسعار، احفظه بصيغة CSV، ثم اسحبه هنا.</p>
+    <label class="drop" id="drop">
+      <div class="ic">📄</div>
+      <strong>اسحب الملف هنا أو اضغط للاختيار</strong>
+      <small>products.csv فقط</small>
+      <input type="file" id="file" accept=".csv,text/csv">
+    </label>
+    <div class="stat" id="stat" style="display:none">
+      <div><div class="n" id="nProducts">0</div><div class="l">منتج</div></div>
+      <div><div class="n" id="nCols">0</div><div class="l">عمود</div></div>
+      <div><div class="n" id="nAdv">0</div><div class="l">منتج بألوان/variants</div></div>
+    </div>
+    <div class="msg" id="msg1"></div>
+  </div>
+
+  <div class="card">
+    <span class="step-tag">الخطوة ٢</span>
+    <h2>نزّل data.js الجاهز</h2>
+    <p>بنبني لك ملف <b>data.js</b> كامل وشغّال. بعدها انسخه لمجلد <b>js/</b> في موقعك مكان القديم.</p>
+    <button class="btn gold" id="build" disabled>⚙️ بناء وتنزيل data.js</button>
+    <div class="msg" id="msg2"></div>
+  </div>
+
+  <div class="hint">
+    <b>نصيحة:</b> احتفظ دائماً بنسخة من <code>data.js</code> القديم قبل ما تستبدله.
+    لو صار خطأ، ارجع للنسخة القديمة وجرّب من جديد.
+    لتعديل الألوان أو الـ variants (٧ منتجات فقط) لازم تعديل <code>_advanced.json</code> يدوياً.
+  </div>
+
+  <div class="card">
+    <span class="step-tag">للمرجع</span>
+    <h2>كيف يشتغل النظام؟</h2>
+    <ol>
+      <li><b>products.csv</b> — كل النصوص والأسعار. هذا اللي بتعدّله دائماً.</li>
+      <li><b>_advanced.json</b> — الألوان والـ variants (٧ منتجات). نادراً ما تلمسه.</li>
+      <li>هذا المحوّل يدمج الاثنين ويبني <b>data.js</b> الكامل.</li>
+      <li>كل أعمدة <code>_ar</code> للعربي و<code>_en</code> للإنجليزي. لا تغيّر عمودَي <code>group</code> و<code>id</code>.</li>
+    </ol>
+  </div>
+
+  <footer>متجر طُرفة — أداة داخلية لإدارة المنتجات</footer>
+</div>
+
+<script>
+// ====== الجزء الثابت من data.js (الإعدادات + الترجمة + صفحات المعلومات) ======
+const DATA_HEAD = "// =================================================================\n// 📦 data.js - بيانات المتجر\n// -----------------------------------------------------------------\n// يحتوي على:\n//   • الإعدادات العامة (GLOBAL_DISCOUNT_PERCENT)\n//   • نصوص الترجمة (عربي + إنجليزي)\n//   • محتوى صفحات المعلومات (من نحن، الخصوصية، التواصل، قريباً)\n//   • روابط الفوتر\n//   • بيانات المنتجات (لوحات، كاسات، طباعات 3D، براويز)\n// =================================================================\n\n// =================================================================\n// --- 0. GLOBAL CONFIGURATION (NEW) ---\n// =================================================================\nconst GLOBAL_DISCOUNT_PERCENT = 0.500; // 50% خصم (50/100)\n\n// 🟢 دالة موحّدة لحساب السعر بعد الخصم — استخدمها بدل التكرار اليدوي\n// لو احتجت تغيّر طريقة الخصم (مثلاً خصومات مختلفة لكل منتج)، عدّل هون فقط.\nfunction getDiscountedPrice(basePrice) {\n    const price = Number(basePrice) || 0;\n    return price * (1 - GLOBAL_DISCOUNT_PERCENT);\n}\n\n// 🟢 معلومات التواصل الموحّدة — لو تغيّر الرقم، عدّل هون فقط\nconst STORE_PHONE = '+962788489914';                    // الرقم الكامل بصيغة دولية\nconst STORE_PHONE_DISPLAY = '+962 7 8848 9914';         // الرقم بصيغة العرض (للفوتر)\nconst STORE_PHONE_DIGITS = STORE_PHONE.replace(/\\D/g, ''); // أرقام فقط، لاستخدامها مع wa.me\nconst WHATSAPP_BASE = `https://wa.me/${STORE_PHONE_DIGITS}`;\nconst TEL_LINK = `tel:${STORE_PHONE}`;\n\n// 🟢 إيميل المتجر وموقعه — عدّل هون فقط\nconst STORE_EMAIL = 'info@turfa.art';\nconst STORE_EMAIL_LINK = `mailto:${STORE_EMAIL}`;\nconst STORE_DOMAIN = 'https://turfajo.me';\n\n// مساعد لبناء رابط واتساب مع رسالة جاهزة\nfunction buildWhatsAppLink(message) {\n    return message\n        ? `${WHATSAPP_BASE}?text=${encodeURIComponent(message)}`\n        : WHATSAPP_BASE;\n}\n\n// =================================================================\n// --- 1. LANGUAGE & TRANSLATION DATA ---\n// =================================================================\nconst arabicTexts = {\n    title: \"لوحات\",\n    cupsTitle: \"كاسات\",\n    prints3dTitle: \"طباعات 3D\",\n    framesTitle: \"براويز\",\n    giftsTitle: \"هدايا منوعة\",\n    offersTitle: \"العروض\",\n    heroSubtitle: \"كل قطعة عنا قابلة للتخصيص — اختر، عدّل، أو احكيلنا فكرتك ومنصممها من الصفر\",\n    heroCustomBadge: \"تخصيص متاح على كل القطع\",\n    searchPlaceholder: \"ابحث عن منتجك من هنا\",\n    addToCart: \"أضف إلى العربة\",\n    added: \"تمت الإضافة!\",\n    yourCart: \"عربتك\",\n    total: \"الإجمالي:\",\n    checkout: \"متابعة الشراء عبر واتساب\",\n    inquiry: \"استفسار\",\n    inquiryFull: \"استفسار عبر واتساب\",\n    inquiryMessage: \"مرحباً متجر طُرفة 👋\\nأنا تصفّحت موقعكم وعندي كم استفسار، ممكن تساعدوني؟\\n\\n\",\n    emptyCart: \"عربتك فارغة\",\n    emptyCartSub: \"أضف بعض المنتجات إلى عربتك\",\n    selectSize: \"اختر الحجم:\",\n    selectColor: \"اختر اللون:\",\n    selectVariant: \"اختر النوع:\",\n    sizeOptions: [\n        { name: \"صغير 40×40سم\", priceDiff: 0 },\n        { name: \"متوسط 50×70سم\", priceDiff: 19.99 },\n        { name: \"كبير 80×120سم\", priceDiff: 39.99 },     \n    ],\n    footerCopyright: \"&copy; 2025 متجر طُرفة. جميع الحقوق محفوظة.\",\n    footerContact: \"تواصل معنا\",\n    footerSocial: \"تابعنا\",\n    footerAbout: \"عن الموقع\",\n    footerCategories: \"الفئات\",\n    footerCollections: \"مجموعات\",\n    whatsappGreeting: \"مرحباً متجر طُرفة! أود طلب الآتي:\\n\\n\",\n    whatsappTotal: \"\\nالإجمالي:\",\n    whatsappThanks: \"\\n\\نشكراً لك!\",\n    yourFavorites: \"منتجاتك المفضلة\",\n    emptyFavorites: \"قائمة المفضلة فارغة\",\n    emptyFavoritesSub: \"أضف منتجات تعجبك لحفظها هنا\",\n    favoritesFooter: \"انقر على المنتج لعرض التفاصيل أو الزر لإضافته للعربة.\",\n    detailTitle: \"تفاصيل المنتج\", \n    detailFullDescription: \"الوصف الكامل:\", \n    floatingItem: \"منتج\",\n    floatingItems: \"منتجات\",\n    promoTitle: \"عرض عيد الأضحى وعيد الاستقلال\",\n    promoMessage: \"بمناسبة عيد الأضحى المبارك وعيد الاستقلال , يسُر متجر طُرفة أن يقدم لكم خصمًا خاصًا بقيمة 50% على جميع المنتجات لفترة محدودة. كل عام وأنتم بخير!\",\n    promoButton: \"تسوق الآن واستفد من الخصم\",\n    // 🟢 نصوص موديل التخصيص (عيد الزواج)\n    weddingFormTitle: \"خصص هديتك\",\n    weddingFormSubtitle: \"اكتب لنا التفاصيل ونحن نحوّلها لقطعة فنية تخلّد ذكراكم\",\n    weddingFormInitial1: \"الحرف الأول\",\n    weddingFormInitial2: \"الحرف الثاني\",\n    weddingFormInitial1Placeholder: \"م\",\n    weddingFormInitial2Placeholder: \"س\",\n    weddingFormDate: \"تاريخ الزواج\",\n    weddingFormCustomText: \"نص خاص (اختياري)\",\n    weddingFormCustomTextPlaceholder: \"مثال: ذكرى لا تُنسى ❤\",\n    weddingFormRequiredHint: \"* الحقول المعلّمة إجبارية\",\n    weddingFormSubmit: \"أضف للسلة\",\n    weddingFormCancel: \"إلغاء\",\n    weddingFormError: \"الرجاء تعبئة الحقول الإجبارية\",\n    weddingFormInitialError: \"حرف واحد فقط\",\n    weddingDetailsLabel: \"تفاصيل التخصيص\",\n    weddingInitialsLabel: \"الحروف\",\n    weddingDateLabel: \"تاريخ الزواج\",\n    weddingCustomTextLabel: \"نص خاص\",\n    weddingDatePlaceholder: \"اختر تاريخ الزواج\",\n    weddingDateDay: \"اليوم\",\n    weddingDateMonth: \"الشهر\",\n    weddingDateYear: \"السنة\",\n    weddingDateClear: \"مسح\",\n    weddingDateConfirm: \"تم\",\n    weddingMonthsList: [\"يناير\",\"فبراير\",\"مارس\",\"أبريل\",\"مايو\",\"يونيو\",\"يوليو\",\"أغسطس\",\"سبتمبر\",\"أكتوبر\",\"نوفمبر\",\"ديسمبر\"],\n    // 🟢 نصوص موديل اللوحة المخصصة\n    customDesignBadge: \"تصميم مخصص\",\n    customDesignPriceLabel: \"السعر حسب الطلب\",\n    customDesignBtn: \"اطلب الأن\",\n    customDesignFormTitle: \"صمم لوحتك الخاصة\",\n    customDesignFormSubtitle: \"اختار نوع التصميم واكتب التفاصيل، ونحن نحوّلها لقطعة فنية مميزة\",\n    customDesignTypeLabel: \"نوع التصميم\",\n    customDesignTypes: [\n        { value: \"verse\", label: \"آية قرآنية\", icon: \"fa-mosque\" },\n        { value: \"hadith\", label: \"حديث شريف\", icon: \"fa-book-quran\" },\n        { value: \"dua\", label: \"دعاء\", icon: \"fa-hands-praying\" },\n        { value: \"poem\", label: \"قصيدة\", icon: \"fa-feather-pointed\" },\n        { value: \"name\", label: \"اسم / أسماء\", icon: \"fa-signature\" },\n        { value: \"other\", label: \"تصميم خاص\", icon: \"fa-palette\" }\n    ],\n    customDesignTextLabel: \"النص المطلوب\",\n    customDesignTextPlaceholderVerse: \"اكتب الآية اللي تحبها...\",\n    customDesignTextPlaceholderHadith: \"اكتب الحديث الشريف...\",\n    customDesignTextPlaceholderDua: \"اكتب الدعاء...\",\n    customDesignTextPlaceholderPoem: \"اكتب القصيدة أو الأبيات...\",\n    customDesignTextPlaceholderName: \"اكتب الاسم أو الأسماء...\",\n    customDesignTextPlaceholderOther: \"اوصف لنا التصميم اللي تريده...\",\n    customDesignSizeLabel: \"المقاس المطلوب\",\n    customDesignSizes: [\n        { value: \"small\", label: \"صغير\", desc: \"40×40 سم\" },\n        { value: \"medium\", label: \"متوسط\", desc: \"50×70 سم\" },\n        { value: \"large\", label: \"كبير\", desc: \"80×120 سم\" },\n        { value: \"custom\", label: \"مقاس مخصص\", desc: \"حدد الطول والعرض\" }\n    ],\n    customDesignWidthLabel: \"العرض (سم)\",\n    customDesignHeightLabel: \"الطول (سم)\",\n    customDesignWidthPlaceholder: \"مثال: 60\",\n    customDesignHeightPlaceholder: \"مثال: 90\",\n    customDesignCustomSizeHint: \"اكتب القياس بالسنتيمتر (10 - 500)\",\n    customDesignCustomSizeError: \"الرجاء إدخال الطول والعرض بشكل صحيح\",\n    // 🟢 نصوص خيار \"مخصص\" داخل variants (للفاصل وغيره)\n    variantCustomNameLabel: \"اسم النادي\",\n    variantCustomNamePlaceholder: \"مثال: ليفربول، بايرن ميونخ...\",\n    variantCustomNameHint: \"بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب\",\n    variantCustomNameError: \"الرجاء كتابة اسم النادي\",\n    variantCustomNameWhatsAppLabel: \"النادي المطلوب\",\n    // 🟢 نصوص الاسم الإنجليزي للولد/البنت (طباعة 3D)\n    variantCustomNameForGirl: \"اسم البنت (بالإنجليزي)\",\n    variantCustomNameForBoy: \"اسم الولد (بالإنجليزي)\",\n    variantCustomNameLatinPlaceholder: \"e.g. Sara, Ahmad...\",\n    variantCustomNamePlaceholderGirl: \"e.g. Sara, Layla, Mariam...\",\n    variantCustomNamePlaceholderBoy: \"e.g. Ahmad, Omar, Yousef...\",\n    variantCustomNameLatinHint: \"الرجاء كتابة الاسم بالأحرف الإنجليزية فقط\",\n    variantCustomNameLatinError: \"الاسم لازم يكون بالأحرف الإنجليزية فقط\",\n    customDesignNotesLabel: \"ملاحظات إضافية (اختياري)\",\n    customDesignNotesPlaceholder: \"أي تفاصيل إضافية: لون الإطار، نوع الخط، طريقة التنفيذ...\",\n    customDesignRequiredHint: \"* الحقول المعلّمة إجبارية — السعر النهائي يصلك على واتساب\",\n    customDesignSubmit: \"إرسال الطلب عبر واتساب\",\n    customDesignCancel: \"إلغاء\",\n    customDesignError: \"الرجاء اختيار نوع التصميم وكتابة النص المطلوب وتحديد المقاس\",\n    customDesignDetailsLabel: \"تفاصيل التصميم المخصص\",\n    customDesignTypeDisplay: \"النوع\",\n    customDesignTextDisplay: \"النص\",\n    customDesignSizeDisplay: \"المقاس\",\n    customDesignNotesDisplay: \"ملاحظات\",\n    customDesignWhatsAppIntro: \"السلام عليكم 👋\\nبدي أطلب *لوحة مخصصة* بالتفاصيل التالية:\",\n    customDesignWhatsAppOutro: \"\\n\\nبستنى ردكم بسعر اللوحة وموعد التسليم — شكراً!\",\n    // ... (بقية النصوص) ...\n    // 🟢 إضافة نصوص الآلة الكاتبة\n    typewriterStrings: [\n        \"للفن اليدوي أصالته.\",\n        \"للتصميم العربي رونقه.\",\n        \"نصنع قطعاً تليق بجمال ذوقك.\"\n    ],\n    // 🟢 نصوص نموذج الطلب (Checkout Form)\n    checkoutFormTitle: \"إتمام الطلب\",\n    checkoutFormSubtitle: \"أكمل بياناتك ليصلك الطلب بأسرع وقت\",\n    checkoutSummaryTitle: \"ملخص الطلب\",\n    checkoutSubtotalLabel: \"المجموع الفرعي\",\n    checkoutShippingLabel: \"رسوم التوصيل\",\n    checkoutTotalLabel: \"الإجمالي\",\n    checkoutNameLabel: \"الاسم الكامل\",\n    checkoutPhoneLabel: \"رقم الهاتف\",\n    checkoutPhonePlaceholder: \"07XXXXXXXX\",\n    checkoutCityLabel: \"المدينة\",\n    checkoutCityPlaceholder: \"اختر المدينة\",\n    checkoutAddressLabel: \"العنوان التفصيلي\",\n    checkoutAddressPlaceholder: \"مثال: شارع الجامعة، عمارة 12، شقة 3\",\n    checkoutPaymentLabel: \"طريقة الدفع\",\n    checkoutPaymentCOD: \"الدفع عند الاستلام\",\n    checkoutPaymentCliQ: \"CliQ\",\n    checkoutNotesLabel: \"ملاحظات (اختياري)\",\n    checkoutFormHint: \"* الحقول المعلّمة إجبارية\",\n    checkoutFormCancel: \"رجوع\",\n    checkoutFormSubmit: \"إرسال الطلب عبر واتساب\",\n    checkoutFormErrorRequired: \"الرجاء تعبئة الحقول الإجبارية\",\n    checkoutFormErrorPhone: \"الرجاء إدخال رقم هاتف صحيح\",\n    // 🟢 رسوم التوصيل الموحدة (د.أ 2 لكل المملكة)\n    shippingFee: 2.00,\n    checkoutShippingBannerTitle: \"خدمة توصيل بدينارين فقط\",\n    checkoutShippingBannerSub: \"لجميع محافظات المملكة الأردنية الهاشمية\",\n    checkoutPickupText: \"استلام شخصي - سيتم التنسيق على المكان عبر واتساب\",\n    waPickupLabel: \"طريقة الاستلام\",\n    waPickupValue: \"استلام شخصي (يتم التنسيق على المكان عبر واتساب)\",\n    waShippingValue: \"توصيل للعنوان\",\n    // 🟢 نصوص قسم الفنانين\n    artistCtaTitle: \"اعرض منتجاتك في متجرنا\",\n    artistCtaDesc: \"هل تصنع أعمالاً يدوية مميزة؟ اعرض منتجاتك في متجر طُرفة وانضم لمنصتنا.\",\n    artistCtaBtn: \"قدّم طلبك\",\n    // نصوص موديل التقديم\n    artistFormTitle: \"انضم لمتجر طُرفة\",\n    artistFormSubtitle: \"اعرض منتجاتك اليدوية على منصتنا\",\n    artistInquiryText: \"عندك أسئلة قبل التسجيل؟\",\n    artistInquiryBtn: \"استفسر\",\n    artistInquiryMessage: \"مرحباً متجر طُرفة 👋\\nأنا مهتم بعرض منتجاتي اليدوية في متجركم، بس عندي كم استفسار قبل ما أقدم طلب الانضمام:\\n\\n\",\n    artistCommissionTitle: \"شراكة مربحة\",\n    artistCommissionDesc: \"عمولة 15% فقط على كل عملية بيع تتم عبر متجرنا\",\n    artistShippingTitle: \"نتولى التوصيل والتسويق\",\n    artistShippingDesc: \"إنت تركّز على الإبداع، ونحن نهتم بالباقي\",\n    artistShowcaseTitle: \"عرض احترافي\",\n    artistShowcaseDesc: \"منتجاتك تظهر بجودة وتصميم مميز\",\n    artistNameLabel: \"الاسم الكامل\",\n    artistPhoneLabel: \"رقم الهاتف\",\n    artistPhonePlaceholder: \"07XXXXXXXX\",\n    artistProductTypeLabel: \"نوع المنتجات\",\n    artistProductTypePlaceholder: \"اختر نوع المنتجات\",\n    artistDescriptionLabel: \"وصف منتجاتك\",\n    artistDescriptionPlaceholder: \"اكتب وصفاً مختصراً عن منتجاتك، خبرتك، والأسعار التقريبية...\",\n    artistInstagramLabel: \"رابط الإنستغرام (اختياري)\",\n    artistInstagramPlaceholder: \"@username أو instagram.com/username\",\n    artistPhotosNote: \"ستتمكن من إرسال صور منتجاتك مباشرة في محادثة الواتساب بعد إرسال الطلب\",\n    artistFormHint: \"* الحقول المعلّمة إجبارية\",\n    artistFormCancel: \"رجوع\",\n    artistFormSubmit: \"إرسال طلب الانضمام\",\n    artistFormErrorRequired: \"الرجاء تعبئة الحقول الإجبارية\",\n    artistFormErrorPhone: \"الرجاء إدخال رقم هاتف صحيح\",\n    // أنواع المنتجات\n    artistProductTypes: [\n        \"لوحات وفنون جدارية\",\n        \"إكسسوارات يدوية\",\n        \"أعمال خشبية\",\n        \"فخار وسيراميك\",\n        \"حياكة وتطريز\",\n        \"أعمال جلدية\",\n        \"زجاج ورزائن (Resin)\",\n        \"صابون وعطور طبيعية\",\n        \"شموع\",\n        \"مجوهرات يدوية\",\n        \"ديكور منزلي\",\n        \"أخرى\"\n    ],\n    // نصوص رسالة واتساب الفنان\n    waArtistGreeting: \"مرحباً متجر طُرفة 👋\\nأرغب بالانضمام لمتجركم وعرض منتجاتي اليدوية:\\n\\n\",\n    waArtistInfoLabel: \"معلومات الفنان\",\n    waArtistNameLabel: \"الاسم\",\n    waArtistPhoneLabel: \"الهاتف\",\n    waArtistProductTypeLabel: \"نوع المنتجات\",\n    waArtistDescriptionLabel: \"وصف المنتجات\",\n    waArtistInstagramLabel: \"إنستغرام\",\n    waArtistClosing: \"\\n\\nسأقوم بإرفاق صور لمنتجاتي في الرسائل التالية. شكراً لكم 🌟\",\n    // قائمة المدن - رسوم توصيل موحدة (د.أ 2 لكل المملكة)\n    checkoutCities: [\n        { name: \"عمّان\" },\n        { name: \"الزرقاء\" },\n        { name: \"الرصيفة\" },\n        { name: \"السلط\" },\n        { name: \"مادبا\" },\n        { name: \"إربد\" },\n        { name: \"جرش\" },\n        { name: \"عجلون\" },\n        { name: \"المفرق\" },\n        { name: \"الكرك\" },\n        { name: \"الطفيلة\" },\n        { name: \"معان\" },\n        { name: \"العقبة\" }\n    ],\n    // نصوص رسالة واتساب\n    waOrderInfoLabel: \"معلومات الزبون\",\n    waNameLabel: \"الاسم\",\n    waPhoneLabel: \"الهاتف\",\n    waCityLabel: \"المدينة\",\n    waAddressLabel: \"العنوان\",\n    waPaymentLabel: \"طريقة الدفع\",\n    waNotesLabel: \"ملاحظات\",\n    waOrderItemsLabel: \"المنتجات المطلوبة\",\n    waSubtotalLabel: \"المجموع الفرعي\",\n    waShippingLabel: \"رسوم التوصيل\"\n};\n\nconst englishTexts = {\n    title: \" Paintings\",\n    cupsTitle: \" Cups\",\n    prints3dTitle: \"3D Prints\",\n    framesTitle: \"Frames\",\n    giftsTitle: \"Mixed Gifts\",\n    offersTitle: \"Special Offers\",\n    heroSubtitle: \"Every piece is customizable — pick one, tweak it, or tell us your idea and we'll build it from scratch\",\n    heroCustomBadge: \"Customization available on every piece\",\n    searchPlaceholder: \"Search for your product here\",\n    addToCart: \"Add to Cart\",\n    added: \"Added!\",\n    yourCart: \"Your Cart\",\n    total: \"Total:\",\n    checkout: \"Checkout via WhatsApp\",\n    inquiry: \"Inquiry\",\n    inquiryFull: \"Inquiry via WhatsApp\",\n    inquiryMessage: \"Hi Turfa Store 👋\\nI was browsing your website and I have a few questions, could you help me?\\n\\n\",\n    emptyCart: \"Your cart is empty\",\n    emptyCartSub: \"Add some products to your cart\",\n    selectSize: \"Select Size:\",\n    selectColor: \"Select Color:\",\n    selectVariant: \"Select Type:\",\n    sizeOptions: [\n        { name: \"Small 40x40cm\", priceDiff: 0.00 },\n        { name: \"Medium 50x70cm\", priceDiff: 19.99 },\n        { name: \"Large 80x120cm\", priceDiff: 39.99 },     \n    ],\n    footerCopyright: \"&copy; 2025 Turfa Store. All rights reserved.\",\n    footerContact: \"Contact Us\",\n    footerSocial: \"Follow Us\",\n    footerAbout: \"About\",\n    footerCategories: \"Categories\",\n    footerCollections: \"Collections\",\n    whatsappGreeting: \"Hello Turfa Store! I would like to order the following:\\n\\n\",\n    whatsappTotal: \"\\nTotal:\",\n    whatsappThanks: \"\\n\\nThank you!\",\n    yourFavorites: \"Your Favorites\",\n    emptyFavorites: \"Your favorites list is empty\",\n    emptyFavoritesSub: \"Add products you like to save them here\",\n    favoritesFooter: \"Click a product for details or the button to add it to your cart.\",\n    detailTitle: \"Product Details\", \n    detailFullDescription: \"Full Description:\",\n    floatingItem: \"item\",\n    floatingItems: \"items\",\n    promoTitle: \"Eid Al-Adha & Independence Day Sale 🇯🇴\",\n    promoMessage: \"To celebrate Eid Al-Adha and Jordan's Independence Day, Turfa Store is delighted to offer you a special 50% discount on ALL products for a limited time. Eid Mubarak!\",\n    promoButton: \"Shop Now & Claim Your Discount\",\n    // 🟢 Wedding customization modal texts\n    weddingFormTitle: \"Customize Your Gift\",\n    weddingFormSubtitle: \"Tell us the details and we'll turn them into a piece that immortalizes your memory\",\n    weddingFormInitial1: \"First Initial\",\n    weddingFormInitial2: \"Second Initial\",\n    weddingFormInitial1Placeholder: \"M\",\n    weddingFormInitial2Placeholder: \"S\",\n    weddingFormDate: \"Wedding Date\",\n    weddingFormCustomText: \"Custom Text (Optional)\",\n    weddingFormCustomTextPlaceholder: \"e.g. An unforgettable memory ❤\",\n    weddingFormRequiredHint: \"* Marked fields are required\",\n    weddingFormSubmit: \"Add to Cart\",\n    weddingFormCancel: \"Cancel\",\n    weddingFormError: \"Please fill in the required fields\",\n    weddingFormInitialError: \"One letter only\",\n    weddingDetailsLabel: \"Customization Details\",\n    weddingInitialsLabel: \"Initials\",\n    weddingDateLabel: \"Wedding Date\",\n    weddingCustomTextLabel: \"Custom Text\",\n    weddingDatePlaceholder: \"Select your wedding date\",\n    weddingDateDay: \"Day\",\n    weddingDateMonth: \"Month\",\n    weddingDateYear: \"Year\",\n    weddingDateClear: \"Clear\",\n    weddingDateConfirm: \"Done\",\n    weddingMonthsList: [\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sep\",\"Oct\",\"Nov\",\"Dec\"],\n    // 🟢 Custom design painting modal texts\n    customDesignBadge: \"Custom Design\",\n    customDesignPriceLabel: \"Price on Request\",\n    customDesignBtn: \"Order Your Custom Design\",\n    customDesignFormTitle: \"Design Your Own Painting\",\n    customDesignFormSubtitle: \"Choose the design type, write the details, and we'll turn it into a unique piece\",\n    customDesignTypeLabel: \"Design Type\",\n    customDesignTypes: [\n        { value: \"verse\", label: \"Qur'anic Verse\", icon: \"fa-mosque\" },\n        { value: \"hadith\", label: \"Hadith\", icon: \"fa-book-quran\" },\n        { value: \"dua\", label: \"Prayer (Du'a)\", icon: \"fa-hands-praying\" },\n        { value: \"poem\", label: \"Poem\", icon: \"fa-feather-pointed\" },\n        { value: \"name\", label: \"Name(s)\", icon: \"fa-signature\" },\n        { value: \"other\", label: \"Custom Design\", icon: \"fa-palette\" }\n    ],\n    customDesignTextLabel: \"The Text\",\n    customDesignTextPlaceholderVerse: \"Write the verse you'd like...\",\n    customDesignTextPlaceholderHadith: \"Write the hadith...\",\n    customDesignTextPlaceholderDua: \"Write the prayer...\",\n    customDesignTextPlaceholderPoem: \"Write the poem or verses...\",\n    customDesignTextPlaceholderName: \"Write the name(s)...\",\n    customDesignTextPlaceholderOther: \"Describe the design you want...\",\n    customDesignSizeLabel: \"Size\",\n    customDesignSizes: [\n        { value: \"small\", label: \"Small\", desc: \"40×40 cm\" },\n        { value: \"medium\", label: \"Medium\", desc: \"50×70 cm\" },\n        { value: \"large\", label: \"Large\", desc: \"80×120 cm\" },\n        { value: \"custom\", label: \"Custom Size\", desc: \"set width & height\" }\n    ],\n    customDesignWidthLabel: \"Width (cm)\",\n    customDesignHeightLabel: \"Height (cm)\",\n    customDesignWidthPlaceholder: \"e.g. 60\",\n    customDesignHeightPlaceholder: \"e.g. 90\",\n    customDesignCustomSizeHint: \"Enter measurements in centimeters (10 - 500)\",\n    customDesignCustomSizeError: \"Please enter valid width and height\",\n    // 🟢 Custom variant texts (used for bookmarks and similar variant-based products)\n    variantCustomNameLabel: \"Club Name\",\n    variantCustomNamePlaceholder: \"e.g. Liverpool, Bayern Munich...\",\n    variantCustomNameHint: \"After placing the order, send us the reference logo on WhatsApp\",\n    variantCustomNameError: \"Please enter the club name\",\n    variantCustomNameWhatsAppLabel: \"Requested Club\",\n    // 🟢 Latin-only name field for 3D Girl/Boy variants\n    variantCustomNameForGirl: \"Girl's Name (English)\",\n    variantCustomNameForBoy: \"Boy's Name (English)\",\n    variantCustomNameLatinPlaceholder: \"e.g. Sara, Ahmad...\",\n    variantCustomNamePlaceholderGirl: \"e.g. Sara, Layla, Mariam...\",\n    variantCustomNamePlaceholderBoy: \"e.g. Ahmad, Omar, Yousef...\",\n    variantCustomNameLatinHint: \"Please enter the name in English letters only\",\n    variantCustomNameLatinError: \"Name must contain English letters only\",\n    customDesignNotesLabel: \"Additional Notes (Optional)\",\n    customDesignNotesPlaceholder: \"Any extra details: frame color, calligraphy style, finish...\",\n    customDesignRequiredHint: \"* Marked fields are required — final price will be sent to you on WhatsApp\",\n    customDesignSubmit: \"Send Order via WhatsApp\",\n    customDesignCancel: \"Cancel\",\n    customDesignError: \"Please choose a design type, write the text, and select a size\",\n    customDesignDetailsLabel: \"Custom Design Details\",\n    customDesignTypeDisplay: \"Type\",\n    customDesignTextDisplay: \"Text\",\n    customDesignSizeDisplay: \"Size\",\n    customDesignNotesDisplay: \"Notes\",\n    customDesignWhatsAppIntro: \"Hello 👋\\nI'd like to order a *Custom Painting* with the following details:\",\n    customDesignWhatsAppOutro: \"\\n\\nLooking forward to your reply with the price and delivery time — thanks!\",\n    // 🟢 إضافة نصوص الآلة الكاتبة\n    typewriterStrings: [\n        \"Handmade art has its originality.\",\n        \"Arabic design has its splendor.\",\n        \"We make pieces worthy of your home.\"\n    ],\n    // 🟢 نصوص نموذج الطلب (Checkout Form)\n    checkoutFormTitle: \"Complete Your Order\",\n    checkoutFormSubtitle: \"Fill in your details to receive your order quickly\",\n    checkoutSummaryTitle: \"Order Summary\",\n    checkoutSubtotalLabel: \"Subtotal\",\n    checkoutShippingLabel: \"Shipping Fee\",\n    checkoutTotalLabel: \"Total\",\n    checkoutNameLabel: \"Full Name\",\n    checkoutPhoneLabel: \"Phone Number\",\n    checkoutPhonePlaceholder: \"07XXXXXXXX\",\n    checkoutCityLabel: \"City\",\n    checkoutCityPlaceholder: \"Select City\",\n    checkoutAddressLabel: \"Detailed Address\",\n    checkoutAddressPlaceholder: \"e.g., University St, Building 12, Apt 3\",\n    checkoutPaymentLabel: \"Payment Method\",\n    checkoutPaymentCOD: \"Cash on Delivery\",\n    checkoutPaymentCliQ: \"CliQ\",\n    checkoutNotesLabel: \"Notes (Optional)\",\n    checkoutFormHint: \"* Marked fields are required\",\n    checkoutFormCancel: \"Back\",\n    checkoutFormSubmit: \"Send Order via WhatsApp\",\n    checkoutFormErrorRequired: \"Please fill in the required fields\",\n    checkoutFormErrorPhone: \"Please enter a valid phone number\",\n    // 🟢 رسوم التوصيل الموحدة (JD 2 لكل المملكة)\n    shippingFee: 2.00,\n    checkoutShippingBannerTitle: \"Flat shipping rate of just JD 2\",\n    checkoutShippingBannerSub: \"To all governorates across Jordan\",\n    checkoutPickupText: \"Self-pickup - location will be arranged via WhatsApp\",\n    waPickupLabel: \"Pickup Method\",\n    waPickupValue: \"Self-pickup (location to be arranged via WhatsApp)\",\n    waShippingValue: \"Delivery to address\",\n    // 🟢 نصوص قسم الفنانين\n    artistCtaTitle: \"Showcase Your Products In Our Store\",\n    artistCtaDesc: \"Do you create unique handmade products? Showcase your work at Turfa Store and join our platform.\",\n    artistCtaBtn: \"Apply Now\",\n    // نصوص موديل التقديم\n    artistFormTitle: \"Join Turfa Store\",\n    artistFormSubtitle: \"Showcase your handmade products on our platform\",\n    artistInquiryText: \"Have questions before signing up?\",\n    artistInquiryBtn: \"Inquire\",\n    artistInquiryMessage: \"Hi Turfa Store 👋\\nI'm interested in showcasing my handmade products in your store, but I have a few questions before submitting an application:\\n\\n\",\n    artistCommissionTitle: \"Profitable Partnership\",\n    artistCommissionDesc: \"Just 15% commission on every sale made through our store\",\n    artistShippingTitle: \"We Handle Delivery & Marketing\",\n    artistShippingDesc: \"You focus on creating, we take care of the rest\",\n    artistShowcaseTitle: \"Professional Showcase\",\n    artistShowcaseDesc: \"Your products presented with quality and style\",\n    artistNameLabel: \"Full Name\",\n    artistPhoneLabel: \"Phone Number\",\n    artistPhonePlaceholder: \"07XXXXXXXX\",\n    artistProductTypeLabel: \"Product Type\",\n    artistProductTypePlaceholder: \"Select product type\",\n    artistDescriptionLabel: \"Describe Your Products\",\n    artistDescriptionPlaceholder: \"Write a brief description about your products, experience, and approximate prices...\",\n    artistInstagramLabel: \"Instagram (Optional)\",\n    artistInstagramPlaceholder: \"@username or instagram.com/username\",\n    artistPhotosNote: \"You'll be able to send photos of your products directly in the WhatsApp conversation after submitting\",\n    artistFormHint: \"* Marked fields are required\",\n    artistFormCancel: \"Back\",\n    artistFormSubmit: \"Send Application\",\n    artistFormErrorRequired: \"Please fill in the required fields\",\n    artistFormErrorPhone: \"Please enter a valid phone number\",\n    // أنواع المنتجات\n    artistProductTypes: [\n        \"Paintings & Wall Art\",\n        \"Handmade Accessories\",\n        \"Wooden Crafts\",\n        \"Pottery & Ceramics\",\n        \"Knitting & Embroidery\",\n        \"Leather Crafts\",\n        \"Glass & Resin Art\",\n        \"Natural Soaps & Perfumes\",\n        \"Candles\",\n        \"Handmade Jewelry\",\n        \"Home Decor\",\n        \"Other\"\n    ],\n    // نصوص رسالة واتساب الفنان\n    waArtistGreeting: \"Hi Turfa Store 👋\\nI'd like to join your platform and showcase my handmade products:\\n\\n\",\n    waArtistInfoLabel: \"Artist Information\",\n    waArtistNameLabel: \"Name\",\n    waArtistPhoneLabel: \"Phone\",\n    waArtistProductTypeLabel: \"Product Type\",\n    waArtistDescriptionLabel: \"Product Description\",\n    waArtistInstagramLabel: \"Instagram\",\n    waArtistClosing: \"\\n\\nI'll send photos of my products in the following messages. Thank you 🌟\",\n    // قائمة المدن (نفس الترتيب مع الترجمة)\n    checkoutCities: [\n        { name: \"Amman\" },\n        { name: \"Zarqa\" },\n        { name: \"Russeifa\" },\n        { name: \"Salt\" },\n        { name: \"Madaba\" },\n        { name: \"Irbid\" },\n        { name: \"Jerash\" },\n        { name: \"Ajloun\" },\n        { name: \"Mafraq\" },\n        { name: \"Karak\" },\n        { name: \"Tafilah\" },\n        { name: \"Ma'an\" },\n        { name: \"Aqaba\" }\n    ],\n    // نصوص رسالة واتساب\n    waOrderInfoLabel: \"Customer Info\",\n    waNameLabel: \"Name\",\n    waPhoneLabel: \"Phone\",\n    waCityLabel: \"City\",\n    waAddressLabel: \"Address\",\n    waPaymentLabel: \"Payment Method\",\n    waNotesLabel: \"Notes\",\n    waOrderItemsLabel: \"Ordered Items\",\n    waSubtotalLabel: \"Subtotal\",\n    waShippingLabel: \"Shipping Fee\"\n    \n};\n\nconst footerLinksEnglish = {\n    contact: [\n        { text: STORE_PHONE_DISPLAY, icon: \"fas fa-phone\", link: TEL_LINK },\n        { text: STORE_EMAIL, icon: \"fas fa-envelope\", link: STORE_EMAIL_LINK }\n    ],\n    about: [ { text: \"About Us\", link: \"#about\" }, { text: \"Contact\", link: \"#contact\" }, { text: \"Privacy Policy\", link: \"#privacy\" } ],\ncategories: [\n    { text: \"Paintings\", link: \"#paintingsTitle\" },\n    { text: \"Cups\", link: \"#cupsTitle\" },\n    { text: \"3D Prints\", link: \"#prints3dTitle\" },\n    { text: \"Frames\", link: \"#framesTitle\" },\n    { text: \"Mixed Gifts\", link: \"#giftsTitle\" }\n],\n    collections: [\n        { text: \"Praise of the Prophet\", link: \"#coming-praise\" },\n        { text: \"Ramadan Products\", link: \"#coming-ramadan\" }\n    ]\n};\n\nconst footerLinksArabic = {\n    contact: [\n        { text: STORE_PHONE_DISPLAY, icon: \"fas fa-phone\", link: TEL_LINK },\n        { text: STORE_EMAIL, icon: \"fas fa-envelope\", link: STORE_EMAIL_LINK }\n    ],\n    about: [ { text: \"من نحن\", link: \"#about\" }, { text: \"تواصل معنا\", link: \"#contact\" }, { text: \"سياسة الخصوصية\", link: \"#privacy\" } ],\ncategories: [\n    { text: \"لوحات\", link: \"#paintingsTitle\" },\n    { text: \"كاسات\", link: \"#cupsTitle\" },\n    { text: \"طباعات 3D\", link: \"#prints3dTitle\" },\n    { text: \"براويز\", link: \"#framesTitle\" },\n    { text: \"هدايا منوعة\", link: \"#giftsTitle\" }\n],\n    collections: [\n        { text: \"مدح الرسول ﷺ\", link: \"#coming-praise\" },\n        { text: \"منتجات رمضانية\", link: \"#coming-ramadan\" }\n    ]\n};\n\n// =================================================================\n// --- 🟢 INFO PAGES CONTENT (About Us / Privacy Policy) ---\n// =================================================================\nconst infoContentArabic = {\n    about: {\n        title: \"من نحن\",\n        intro: \"في متجر طُرفة، نؤمن أن الفن العربي ليس مجرد ديكور، بل رسالة تتنقل بين الجدران لتروي حكاية أصالة ودفء.\",\n        sections: [\n            {\n                icon: \"fa-paint-brush\",\n                title: \"قصتنا\",\n                text: \"بدأت طُرفة من شغف صادق بالخط العربي والفنون اليدوية، حيث آمنّا أن لكل بيت روحاً تستحق أن تُزيَّن بقطع تليق بذوق أصحابها. نحن نُحوّل الكلمات إلى لوحات نابضة بالحياة، ونصنع من الخامات البسيطة قطعاً تحمل بصمة فريدة.\"\n            },\n            {\n                icon: \"fa-heart\",\n                title: \"رسالتنا\",\n                text: \"أن نقدم لك قطعة فنية لا تُشترى من أي مكان، بل تُصنع خصيصاً بأيدٍ متقنة، تجمع بين روح التراث وجمال التصميم العصري، لتكون شاهداً على ذوقك في كل زاوية من بيتك.\"\n            },\n            {\n                icon: \"fa-gem\",\n                title: \"ما يميّزنا\",\n                text: \"كل قطعة في طُرفة هي ثمرة ساعات من العمل اليدوي الدقيق. نستخدم تقنية الطبقات ثلاثية الأبعاد لإضفاء عمقٍ آسر على لوحاتنا، ونختار خاماتنا بعناية لتدوم معك سنوات طويلة. لسنا فقط متجراً، نحن شركاؤك في إضفاء لمسة فنية على حياتك.\"\n            },\n            {\n                icon: \"fa-map-marker-alt\",\n                title: \"من الأردن إلى العالم\",\n                text: \"انطلقنا من قلب الأردن لنصل إلى عشّاق الفن العربي في كل مكان. هدفنا أن تكون كل قطعة من طُرفة جسراً يربط بين الماضي العريق والحاضر الأنيق.\"\n            }\n        ],\n        closing: \"شكراً لثقتكم بنا. كل قطعة تختارونها تعني لنا الكثير. ✨\"\n    },\n    privacy: {\n        title: \"سياسة الخصوصية\",\n        intro: \"خصوصيتك تهمّنا في متجر طُرفة. هذه الصفحة توضح بشكل مبسّط كيف نتعامل مع معلوماتك عند تسوّقك من موقعنا.\",\n        sections: [\n            {\n                icon: \"fa-database\",\n                title: \"المعلومات التي نجمعها\",\n                text: \"عند إتمام الطلب عبر واتساب، نحصل على معلومات أساسية فقط مثل الاسم ورقم الهاتف وعنوان التوصيل. لا نطلب أي معلومات بنكية أو حساسة على الموقع.\"\n            },\n            {\n                icon: \"fa-lock\",\n                title: \"كيف نستخدم بياناتك\",\n                text: \"نستخدم معلوماتك فقط لتنفيذ طلبك، التواصل معك بخصوص حالة الشحنة، أو إعلامك بالعروض الجديدة في حال أبديت رغبتك بذلك. لن نشاركها مع أي طرف خارجي تحت أي ظرف.\"\n            },\n            {\n                icon: \"fa-cookie-bite\",\n                title: \"ملفات الكوكيز\",\n                text: \"نستخدم تقنيات تخزين بسيطة في متصفّحك لحفظ سلة التسوق وقائمة المفضّلة لديك، حتى تجد منتجاتك في انتظارك عند عودتك. هذه البيانات تبقى على جهازك ولا تُرسل إلينا.\"\n            },\n            {\n                icon: \"fa-user-shield\",\n                title: \"حقوقك\",\n                text: \"لك الحق الكامل في طلب حذف بياناتك أو الاستفسار عمّا نحتفظ به في أي وقت. تواصل معنا عبر واتساب أو البريد الإلكتروني وسنردّ في أقرب فرصة.\"\n            },\n            {\n                icon: \"fa-sync-alt\",\n                title: \"تحديثات السياسة\",\n                text: \"قد نُحدّث سياسة الخصوصية من وقت لآخر لتواكب تطوّر خدماتنا. أي تغيير سيظهر في هذه الصفحة مع تاريخ آخر تحديث.\"\n            }\n        ],\n        closing: \"لأي استفسار، لا تتردّد بالتواصل معنا عبر واتساب: +962 78 848 9914\"\n    }\n};\n\nconst infoContentEnglish = {\n    about: {\n        title: \"About Us\",\n        intro: \"At Turfa Store, we believe Arabic art is more than décor — it's a message that travels through walls, telling stories of authenticity and warmth.\",\n        sections: [\n            {\n                icon: \"fa-paint-brush\",\n                title: \"Our Story\",\n                text: \"Turfa was born from a sincere passion for Arabic calligraphy and handcrafted arts. We believe every home has a soul that deserves pieces matching its owner's taste. We turn words into living paintings, and craft simple materials into unique signature pieces.\"\n            },\n            {\n                icon: \"fa-heart\",\n                title: \"Our Mission\",\n                text: \"To offer you art that cannot be bought elsewhere — pieces handcrafted with mastery, blending heritage spirit with modern design beauty, becoming a testimony of your taste in every corner of your home.\"\n            },\n            {\n                icon: \"fa-gem\",\n                title: \"What Makes Us Different\",\n                text: \"Every piece at Turfa is the fruit of hours of precise handwork. We use 3D layered technology to add captivating depth to our paintings, and carefully select materials that last for years. We're not just a store — we're your partners in adding artistic touches to your life.\"\n            },\n            {\n                icon: \"fa-map-marker-alt\",\n                title: \"From Jordan to the World\",\n                text: \"We started from the heart of Jordan to reach Arabic art lovers everywhere. Our goal is for every Turfa piece to be a bridge between rich heritage and elegant modernity.\"\n            }\n        ],\n        closing: \"Thank you for trusting us. Every piece you choose means a lot to us. ✨\"\n    },\n    privacy: {\n        title: \"Privacy Policy\",\n        intro: \"Your privacy matters to us at Turfa Store. This page explains in simple terms how we handle your information when shopping on our website.\",\n        sections: [\n            {\n                icon: \"fa-database\",\n                title: \"Information We Collect\",\n                text: \"When completing your order via WhatsApp, we only collect essential information such as name, phone number, and delivery address. We never request any banking or sensitive information on the website.\"\n            },\n            {\n                icon: \"fa-lock\",\n                title: \"How We Use Your Data\",\n                text: \"We use your information solely to fulfill your order, communicate about shipment status, or notify you about new offers if you choose to subscribe. We never share it with any third party under any circumstances.\"\n            },\n            {\n                icon: \"fa-cookie-bite\",\n                title: \"Cookies\",\n                text: \"We use simple browser storage to save your shopping cart and favorites list, so your items wait for you when you return. This data stays on your device and is not sent to us.\"\n            },\n            {\n                icon: \"fa-user-shield\",\n                title: \"Your Rights\",\n                text: \"You have full right to request deletion of your data or inquire about what we hold at any time. Contact us via WhatsApp or email and we'll respond as soon as possible.\"\n            },\n            {\n                icon: \"fa-sync-alt\",\n                title: \"Policy Updates\",\n                text: \"We may update this privacy policy from time to time as our services evolve. Any changes will appear on this page with the date of last update.\"\n            }\n        ],\n        closing: \"For any inquiry, don't hesitate to contact us via WhatsApp: +962 78 848 9914\"\n    }\n};\n\n// =================================================================\n// --- 🟢 COMING SOON COLLECTIONS DATA ---\n// =================================================================\nconst comingSoonContentArabic = {\n    'coming-praise': {\n        title: \"مدح الرسول ﷺ\",\n        icon: \"fa-mosque\",\n        intro: \"مجموعة فنية روحانية قيد التحضير\",\n        message: \"نعمل حالياً على تجهيز مجموعة مميزة من اللوحات الفنية المستوحاة من مدح خير الأنام، سيدنا محمد ﷺ.\",\n        sub: \"ترقّبوا قطعاً نابضة بالخط العربي الأصيل والمعاني العذبة، تليق بأرواحكم وبيوتكم.\",\n        eta: \"قريباً جداً\"\n    },\n    'coming-ramadan': {\n        title: \"منتجات رمضانية\",\n        icon: \"fa-moon\",\n        intro: \"مجموعة شهر الخير قادمة\",\n        message: \"نُعدّ لكم تشكيلة خاصة بأجواء شهر رمضان المبارك — لوحات وهدايا تضفي على بيوتكم روحانية الشهر الفضيل.\",\n        sub: \"هدايا مثالية تشاركونها مع أحبابكم، أو تزيّنون بها مجالسكم في الليالي المباركة.\",\n        eta: \"قريباً مع اقتراب الشهر الكريم\"\n    }\n};\n\nconst comingSoonContentEnglish = {\n    'coming-praise': {\n        title: \"Praise of the Prophet ﷺ\",\n        icon: \"fa-mosque\",\n        intro: \"A spiritual art collection in the making\",\n        message: \"We are currently preparing a special collection of artistic pieces inspired by the praise of Prophet Muhammad ﷺ.\",\n        sub: \"Stay tuned for pieces vibrant with authentic Arabic calligraphy and profound meanings, worthy of your soul and your home.\",\n        eta: \"Coming very soon\"\n    },\n    'coming-ramadan': {\n        title: \"Ramadan Collection\",\n        icon: \"fa-moon\",\n        intro: \"The Holy Month collection is on its way\",\n        message: \"We are preparing a special collection inspired by the spirit of the Holy Month of Ramadan — paintings and gifts that bring blessings into your home.\",\n        sub: \"Perfect gifts to share with loved ones, or to adorn your gatherings during the blessed nights.\",\n        eta: \"Coming soon, before Ramadan\"\n    }\n};\n\n// =================================================================\n// --- 🟢 CONTACT US MODAL DATA ---\n// =================================================================\nconst contactContentArabic = {\n    title: \"تواصل معنا\",\n    intro: \"يسعدنا تواصلكم معنا في أي وقت — اختاروا الطريقة الأنسب لكم وسنرد عليكم بأقرب فرصة.\",\n    channels: [\n        {\n            icon: \"fab fa-whatsapp\",\n            type: \"whatsapp\",\n            title: \"واتساب\",\n            value: \"+962 78 848 9914\",\n            desc: \"للطلبات والاستفسارات السريعة\",\n            link: WHATSAPP_BASE\n        },\n        {\n            icon: \"fas fa-phone\",\n            type: \"phone\",\n            title: \"الهاتف\",\n            value: \"+962 78 848 9914\",\n            desc: \"متاحون لاستقبال اتصالكم\",\n            link: TEL_LINK\n        },\n        {\n            icon: \"fas fa-envelope\",\n            type: \"email\",\n            title: \"البريد الإلكتروني\",\n            value: STORE_EMAIL,\n            desc: \"للاستفسارات الرسمية والتعاون\",\n            link: STORE_EMAIL_LINK\n        },\n        {\n            icon: \"fab fa-instagram\",\n            type: \"instagram\",\n            title: \"إنستغرام\",\n            value: \"@turfa.jo\",\n            desc: \"تابعوا أحدث أعمالنا وقصصنا\",\n            link: \"https://www.instagram.com/turfa.jo/\"\n        },\n        {\n            icon: \"fab fa-facebook-f\",\n            type: \"facebook\",\n            title: \"فيسبوك\",\n            value: \"متجر طُرفة\",\n            desc: \"تواصلوا معنا وانضموا لمجتمعنا\",\n            link: \"https://www.facebook.com/profile.php?id=61580280779889\"\n        }\n    ],\n    closing: \"نعمل من قلب الأردن، وأبوابنا الرقمية مفتوحة لكم على مدار الساعة. ✨\"\n};\n\nconst contactContentEnglish = {\n    title: \"Contact Us\",\n    intro: \"We're happy to hear from you anytime — choose the channel that suits you best, and we'll reply as soon as possible.\",\n    channels: [\n        {\n            icon: \"fab fa-whatsapp\",\n            type: \"whatsapp\",\n            title: \"WhatsApp\",\n            value: \"+962 78 848 9914\",\n            desc: \"For quick orders and inquiries\",\n            link: WHATSAPP_BASE\n        },\n        {\n            icon: \"fas fa-phone\",\n            type: \"phone\",\n            title: \"Phone\",\n            value: \"+962 78 848 9914\",\n            desc: \"Available to take your call\",\n            link: TEL_LINK\n        },\n        {\n            icon: \"fas fa-envelope\",\n            type: \"email\",\n            title: \"Email\",\n            value: STORE_EMAIL,\n            desc: \"For formal inquiries and collaborations\",\n            link: STORE_EMAIL_LINK\n        },\n        {\n            icon: \"fab fa-instagram\",\n            type: \"instagram\",\n            title: \"Instagram\",\n            value: \"@turfa.jo\",\n            desc: \"Follow our latest work and stories\",\n            link: \"https://www.instagram.com/turfa.jo/\"\n        },\n        {\n            icon: \"fab fa-facebook-f\",\n            type: \"facebook\",\n            title: \"Facebook\",\n            value: \"Turfa Store\",\n            desc: \"Connect with us and join our community\",\n            link: \"https://www.facebook.com/profile.php?id=61580280779889\"\n        }\n    ],\n    closing: \"We work from the heart of Jordan, and our digital doors are open to you around the clock. ✨\"\n};\n\n";
+// ====== الحقول المعقدة (ألوان/variants) ======
+const ADVANCED = {
+  "paintings:1": {
+    "ar": {
+      "colors": [
+        {
+          "name": "وردي",
+          "hex": "#e8a0b0",
+          "images": [
+            "images/plates/1/1.webp",
+            "images/plates/1/1b.webp",
+            "images/plates/1/1c.webp"
+          ]
+        },
+        {
+          "name": "بني",
+          "hex": "#704214",
+          "images": [
+            "images/plates/1/brown/1.webp",
+            "images/plates/1/brown/2.webp"
+          ]
+        }
+      ]
+    },
+    "en": {
+      "colors": [
+        {
+          "name": "Pink",
+          "hex": "#e8a0b0",
+          "images": [
+            "images/plates/1/1.webp",
+            "images/plates/1/1b.webp",
+            "images/plates/1/1c.webp"
+          ]
+        },
+        {
+          "name": "Beige",
+          "hex": "#d4b896",
+          "images": [
+            "images/plates/1/1_beige.webp",
+            "images/plates/1/1b_beige.webp",
+            "images/plates/1/1c_beige.webp"
+          ]
+        }
+      ]
+    }
+  },
+  "paintings:2": {
+    "ar": {
+      "colors": [
+        {
+          "name": "بيج",
+          "hex": "#d4b896",
+          "images": [
+            "images/plates/2/2.webp",
+            "images/plates/2/2b.webp"
+          ]
+        },
+        {
+          "name": "أسود",
+          "hex": "#2c2c2c",
+          "images": [
+            "images/plates/2/2_black.webp",
+            "images/plates/2/2b_black.webp"
+          ]
+        },
+        {
+          "name": "ذهبي",
+          "hex": "#c9a84c",
+          "images": [
+            "images/plates/2/2_gold.webp"
+          ]
+        }
+      ]
+    }
+  },
+  "paintings:4": {
+    "ar": {
+      "requiresCustomForm": true,
+      "isCustomDesign": true
+    },
+    "en": {
+      "requiresCustomForm": true,
+      "isCustomDesign": true
+    }
+  },
+  "prints3d:301": {
+    "ar": {
+      "variants": [
+        {
+          "name": "ماريو",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/mario/1.webp",
+            "images/3d/1/mario/1b.webp",
+            "images/3d/1/mario/1c.webp",
+            "images/3d/1/mario/1d.webp"
+          ],
+          "shortDesc": "البطل الأصلي بقبعته الحمراء الشهيرة",
+          "fullDesc": "تمثال ماريو الكلاسيكي مطبوع بتقنية ثلاثية الأبعاد عالية الدقة. ارتفاع 12 سم، تفاصيل دقيقة لقبعته وشاربه، ألوان زاهية تدوم طويلاً. القطعة المثالية لعشاق الألعاب الكلاسيكية وتزيين المكتب أو الرفوف."
+        },
+        {
+          "name": "واريو",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/wario/1.webp"
+          ],
+          "shortDesc": "الشرير الكاريزماتي بقبعته الصفراء",
+          "fullDesc": "تمثال واريو بتفاصيل أكثر تعقيداً وحجم أكبر قليلاً، لذلك السعر أعلى. شخصية مميزة لعشّاق الجانب الشقيّ من عالم ماريو، تضيف طابعاً مرحاً وغير تقليدي على ديكورك."
+        },
+        {
+          "name": "يوشي",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/luchi/1.webp",
+            "images/3d/1/luchi/1b.webp"
+          ],
+          "shortDesc": "إصدار خاص بتفاصيل حصرية",
+          "fullDesc": "نسخة لوشي المميزة بتفاصيل دقيقة وألوان مدروسة. قطعة محدودة لجامعي التماثيل والمحبين الباحثين عن قطعة فريدة لا تتوفر في كل مكان."
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Mario",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/mario/1.webp",
+            "images/3d/1/mario/1b.webp",
+            "images/3d/1/mario/1c.webp",
+            "images/3d/1/mario/1d.webp"
+          ],
+          "shortDesc": "The original hero with his iconic red cap",
+          "fullDesc": "Classic Mario figure printed in high-precision 3D. 12cm tall, with detailed cap and mustache, vivid long-lasting colors. The perfect piece for classic gaming fans, ideal for desk and shelf decor."
+        },
+        {
+          "name": "Wario",
+          "priceDiff": 5,
+          "images": [
+            "images/3d/1/wario/1.webp"
+          ],
+          "shortDesc": "The charismatic villain with his yellow cap",
+          "fullDesc": "Wario figure with more intricate details and a slightly larger size, hence the higher price. A standout character for fans of the mischievous side of the Mario universe, adding a fun and unconventional touch to your decor."
+        },
+        {
+          "name": "Yoshi",
+          "priceDiff": 3,
+          "images": [
+            "images/3d/1/luchi/1.webp",
+            "images/3d/1/luchi/1b.webp"
+          ],
+          "shortDesc": "Special edition with exclusive details",
+          "fullDesc": "The distinctive Luchi version with intricate details and carefully chosen colors. A limited piece for figure collectors and enthusiasts looking for a unique item not available everywhere."
+        }
+      ]
+    }
+  },
+  "prints3d:302": {
+    "ar": {
+      "variants": [
+        {
+          "name": "بنت",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/girl/2.webp",
+            "images/3d/2/girl/2b.webp"
+          ],
+          "shortDesc": "تصميم بنت",
+          "fullDesc": "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForGirl",
+            "placeholderKey": "variantCustomNamePlaceholderGirl",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        },
+        {
+          "name": "ولد",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/boy/2.webp"
+          ],
+          "shortDesc": "تصميم ولد",
+          "fullDesc": "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForBoy",
+            "placeholderKey": "variantCustomNamePlaceholderBoy",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Girl",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/girl/2.webp",
+            "images/3d/2/girl/2b.webp"
+          ],
+          "shortDesc": "Girl design",
+          "fullDesc": "High-quality 3D printed girl figure with fine details and durable materials.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForGirl",
+            "placeholderKey": "variantCustomNamePlaceholderGirl",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        },
+        {
+          "name": "Boy",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/boy/2.webp"
+          ],
+          "shortDesc": "Boy design",
+          "fullDesc": "High-quality 3D printed boy figure with fine details and durable materials.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForBoy",
+            "placeholderKey": "variantCustomNamePlaceholderBoy",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        }
+      ]
+    }
+  },
+  "frames:201": {
+    "ar": {
+      "requiresWeddingForm": true
+    },
+    "en": {
+      "requiresWeddingForm": true
+    }
+  },
+  "frames:202": {
+    "ar": {
+      "variants": [
+        {
+          "name": "برشلونة",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/barcelona/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي برشلونة.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي برشلونة العريق. هدية مثالية لكل عاشق للبلاوغرانا."
+        },
+        {
+          "name": "ريال مدريد",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/real-madrid/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي ريال مدريد.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي ريال مدريد الملكي. تحفة لكل مشجع للنادي الأبيض."
+        },
+        {
+          "name": "مانشستر سيتي",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-city/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر سيتي.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر سيتي. اختيار مميز لمحبي السماويين."
+        },
+        {
+          "name": "مانشستر يونايتد",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-united/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر يونايتد.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر يونايتد. هدية مثالية لكل مشجع للشياطين الحمر."
+        },
+        {
+          "name": "مخصص",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/custom/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي بشعار نادي من اختيارك.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، اختار اسم النادي اللي بدك إياه، ونحن نصنعه لك يدوياً بأعلى دقة. ملاحظة: بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب.",
+          "requiresCustomText": true
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Barcelona",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/barcelona/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with FC Barcelona crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the iconic FC Barcelona crest. A perfect gift for every Blaugrana fan."
+        },
+        {
+          "name": "Real Madrid",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/real-madrid/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with Real Madrid crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the legendary Real Madrid crest. A treasure for every Los Blancos fan."
+        },
+        {
+          "name": "Manchester City",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-city/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with Manchester City crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the Manchester City crest. A distinctive choice for Citizens supporters."
+        },
+        {
+          "name": "Manchester United",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-united/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with Manchester United crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the Manchester United crest. The perfect gift for every Red Devils fan."
+        },
+        {
+          "name": "Custom",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/custom/1.webp"
+          ],
+          "shortDesc": "Leather bookmark with any club of your choice.",
+          "fullDesc": "Premium leather bookmark — choose any club name and we'll handcraft it for you with the highest detail. Note: after placing the order, please send us the reference logo on WhatsApp.",
+          "requiresCustomText": true
+        }
+      ]
+    }
+  }
+};
+
+const GROUP_ORDER = ['paintings','cups','prints3d','frames','gifts'];
+let parsedRecords = null;
+
+// ---------- CSV parser (RFC 4180) ----------
+function parseCSV(text){
+  if(text.charCodeAt(0)===0xFEFF) text=text.slice(1);
+  const rows=[]; let row=[],f='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){
+      if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; }
+      else f+=c;
+    } else if(c==='"') q=true;
+    else if(c===',') {row.push(f);f='';}
+    else if(c==='\n'||c==='\r'){
+      if(c==='\r'&&text[i+1]==='\n')i++;
+      if(f!==''||row.length){row.push(f);rows.push(row);}
+      row=[];f='';
+    } else f+=c;
+  }
+  if(f!==''||row.length){row.push(f);rows.push(row);}
+  return rows;
+}
+
+const NEED=['group','id','category','price_ar','price_en','hasSizes','image',
+ 'name_ar','name_en','shortDesc_ar','shortDesc_en','fullDesc_ar','fullDesc_en'];
+
+function show(el,type,text){
+  el.className='msg show '+type; el.textContent=text;
+}
+
+function handleFile(file){
+  const m1=document.getElementById('msg1');
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const M=parseCSV(r.result);
+      if(M.length<2){ show(m1,'err','الملف فاضي أو ما فيه بيانات.'); return; }
+      const h=M[0].map(x=>x.trim());
+      for(const col of NEED){
+        if(!h.includes(col)){
+          show(m1,'err','عمود ناقص في الـ CSV: '+col+' — تأكد إنك حفظت نفس الملف بصيغة CSV.');
+          return;
+        }
+      }
+      const ix={}; h.forEach((c,i)=>ix[c]=i);
+      const recs=[];
+      for(let r2=1;r2<M.length;r2++){
+        const c=M[r2];
+        if(c.every(x=>(x||'').trim()===''))continue;
+        recs.push({
+          group:(c[ix.group]||'').trim(),
+          id:Number((c[ix.id]||'').trim()),
+          category:(c[ix.category]||'').trim(),
+          price_ar:Number((c[ix.price_ar]||'0').trim()),
+          price_en:Number((c[ix.price_en]||'0').trim()),
+          hasSizes:((c[ix.hasSizes]||'false').trim().toLowerCase()==='true'),
+          image:(c[ix.image]||'').trim(),
+          name_ar:c[ix.name_ar]||'', name_en:c[ix.name_en]||'',
+          shortDesc_ar:c[ix.shortDesc_ar]||'', shortDesc_en:c[ix.shortDesc_en]||'',
+          fullDesc_ar:c[ix.fullDesc_ar]||'', fullDesc_en:c[ix.fullDesc_en]||''
+        });
+      }
+      parsedRecords=recs;
+      document.getElementById('stat').style.display='flex';
+      document.getElementById('nProducts').textContent=recs.length;
+      document.getElementById('nCols').textContent=h.length;
+      document.getElementById('nAdv').textContent=Object.keys(ADVANCED).length;
+      document.getElementById('build').disabled=false;
+      show(m1,'ok','✅ تمت قراءة '+recs.length+' منتج بنجاح. انتقل للخطوة ٢.');
+    }catch(e){
+      show(m1,'err','تعذّر قراءة الملف: '+e.message);
+    }
+  };
+  r.onerror=()=>show(m1,'err','فشل في فتح الملف.');
+  r.readAsText(file,'utf-8');
+}
+
+const drop=document.getElementById('drop');
+const fileInput=document.getElementById('file');
+fileInput.addEventListener('change',e=>{ if(e.target.files[0]) handleFile(e.target.files[0]); });
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{ const f=e.dataTransfer.files[0]; if(f) handleFile(f); });
+
+// ---------- بناء data.js ----------
+function jstr(v){ return JSON.stringify(v); }
+
+function buildProduct(rec,lang){
+  const name=lang==='ar'?rec.name_ar:rec.name_en;
+  const sd=lang==='ar'?rec.shortDesc_ar:rec.shortDesc_en;
+  const fd=lang==='ar'?rec.fullDesc_ar:rec.fullDesc_en;
+  const price=lang==='ar'?rec.price_ar:rec.price_en;
+  const obj={id:rec.id,name:name,price:price,shortDesc:sd,fullDesc:fd,
+    image:rec.image,category:rec.category,hasSizes:rec.hasSizes};
+  const adv=ADVANCED[rec.group+':'+rec.id];
+  const extra=adv&&adv[lang]?adv[lang]:null;
+  if(extra){ for(const k in extra){ if(k==='hasSizes')continue; obj[k]=extra[k]; } }
+  const complex=obj.colors||obj.variants;
+  const base=['id','name','price','shortDesc','fullDesc','image','category','hasSizes'];
+  if(!complex){
+    const p=[`id: ${obj.id}`,`name: ${jstr(obj.name)}`,`price: ${obj.price}`,
+      `shortDesc: ${jstr(obj.shortDesc)}`,`fullDesc: ${jstr(obj.fullDesc)}`,
+      `image: ${jstr(obj.image)}`,`category: ${jstr(obj.category)}`,
+      `hasSizes: ${obj.hasSizes}`];
+    for(const k in obj){ if(base.includes(k))continue; p.push(`${k}: ${jstr(obj[k])}`); }
+    return '    { '+p.join(', ')+' }';
+  }
+  const L=['    {',`        id: ${obj.id},`,`        name: ${jstr(obj.name)},`,
+    `        price: ${obj.price},`,`        shortDesc: ${jstr(obj.shortDesc)},`,
+    `        fullDesc: ${jstr(obj.fullDesc)},`,`        image: ${jstr(obj.image)},`,
+    `        category: ${jstr(obj.category)},`,`        hasSizes: ${obj.hasSizes},`];
+  for(const k in obj){
+    if(base.includes(k))continue;
+    const j=JSON.stringify(obj[k],null,2).split('\n')
+      .map((ln,i)=>i===0?ln:'        '+ln).join('\n');
+    L.push(`        ${k}: ${j},`);
+  }
+  L.push('    }');
+  return L.join('\n');
+}
+
+function buildArray(varBase,group,lang){
+  const list=parsedRecords.filter(r=>r.group===group);
+  const items=list.map(r=>buildProduct(r,lang));
+  return `const ${varBase}${lang==='ar'?'Arabic':'English'} = [\n`+items.join(',\n')+'\n];';
+}
+
+function buildDataJS(){
+  const B=[];
+  B.push('// =================================================================');
+  B.push('// --- 2. PRODUCT DATA ---');
+  B.push('// 🟢 هذا القسم مُولّد تلقائياً من products.csv — لا تعدّله يدوياً!');
+  B.push('//    عدّل products.csv ثم أعد التحويل من هذه الأداة.');
+  B.push('// =================================================================');
+  B.push('');
+  for(const g of GROUP_ORDER){
+    B.push(buildArray(g,g,'en')); B.push('');
+    B.push(buildArray(g,g,'ar')); B.push('');
+  }
+  B.push('let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...prints3dEnglish, ...framesEnglish, ...giftsEnglish];');
+  B.push('let allProductsArabic = [...paintingsArabic, ...cupsArabic, ...prints3dArabic, ...framesArabic, ...giftsArabic];');
+  return DATA_HEAD + B.join('\n') + '\n';
+}
+
+document.getElementById('build').addEventListener('click',()=>{
+  const m2=document.getElementById('msg2');
+  if(!parsedRecords){ show(m2,'err','ارفع ملف CSV أولاً.'); return; }
+  try{
+    const out=buildDataJS();
+    // فحص سلامة: نتأكد إنه ينفّذ بدون أخطاء
+    const test=new Function('document','window',
+      out+'\n;return {a:allProductsArabic.length,e:allProductsEnglish.length};');
+    const res=test({addEventListener(){},getElementById(){return null;}},{});
+    if(res.a!==res.e){
+      show(m2,'err',`⚠️ عدد المنتجات غير متطابق (عربي ${res.a} / إنجليزي ${res.e}). تحقق من الـ CSV.`);
+      return;
+    }
+    const blob=new Blob([out],{type:'application/javascript;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='data.js';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    show(m2,'ok',`✅ تم بناء data.js بنجاح (${res.a} منتج بكل لغة). انسخه لمجلد js/ في موقعك.`);
+  }catch(e){
+    show(m2,'err','خطأ في بناء الملف: '+e.message+' — تحقق من عدم وجود رموز غريبة في الـ CSV.');
+  }
+});
+</script>
+</body>
+</html>

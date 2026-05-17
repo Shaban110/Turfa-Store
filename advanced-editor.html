@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محرّر الألوان والخيارات — متجر طُرفة</title>
+<style>
+  :root{
+    --green:#002617; --green-light:#0a4a32; --gold:#c9a84c;
+    --bg:#f4f1ea; --card:#fffdf8; --ink:#1c1c1c; --muted:#6b6b6b;
+    --line:#e2ddd0; --ok:#1f7a4d; --err:#c0392b; --soft:#faf7ef;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",Tahoma,system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 12% 0%,rgba(201,168,76,.07),transparent 38%),
+      radial-gradient(circle at 88% 100%,rgba(0,38,23,.05),transparent 40%),
+      var(--bg);
+    color:var(--ink); min-height:100vh; padding:28px 16px; line-height:1.6;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+  header{text-align:center;margin-bottom:24px}
+  .badge{
+    display:inline-flex;align-items:center;gap:9px;background:var(--green);
+    color:#fff;padding:9px 20px;border-radius:999px;font-weight:700;
+    box-shadow:0 6px 18px rgba(0,38,23,.22)
+  }
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  h1{font-size:1.45rem;margin:16px 0 5px;color:var(--green)}
+  .sub{color:var(--muted);font-size:.92rem}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:22px;margin-bottom:18px;box-shadow:0 4px 16px rgba(0,0,0,.04)
+  }
+  .tag{
+    display:inline-block;background:var(--gold);color:var(--green);
+    font-weight:700;font-size:.74rem;padding:3px 11px;border-radius:999px;
+    margin-bottom:10px
+  }
+  .card h2{font-size:1.1rem;color:var(--green);margin-bottom:5px}
+  .card p.d{color:var(--muted);font-size:.88rem;margin-bottom:14px}
+  .drop{
+    border:2.5px dashed var(--line);border-radius:13px;padding:30px 18px;
+    text-align:center;cursor:pointer;transition:.2s;background:#fff
+  }
+  .drop:hover,.drop.over{border-color:var(--gold);background:#fffaf0}
+  .drop .ic{font-size:2.2rem;margin-bottom:6px}
+  .drop strong{color:var(--green)} .drop small{display:block;color:var(--muted);margin-top:5px;font-size:.8rem}
+  input[type=file]{display:none}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;justify-content:center;
+    background:var(--green);color:#fff;border:none;border-radius:11px;
+    padding:13px 24px;font-size:.98rem;font-weight:700;cursor:pointer;
+    transition:.2s;font-family:inherit;width:100%
+  }
+  .btn:hover:not(:disabled){background:var(--green-light)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn.gold{background:var(--gold);color:var(--green)}
+  .btn.gold:hover:not(:disabled){background:#d8b85a}
+  .msg{margin-top:14px;padding:12px 15px;border-radius:10px;font-size:.88rem;font-weight:600;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:rgba(31,122,77,.1);color:var(--ok);border:1px solid rgba(31,122,77,.25)}
+  .msg.err{background:rgba(192,57,43,.08);color:var(--err);border:1px solid rgba(192,57,43,.25)}
+
+  .prod{
+    border:1px solid var(--line);border-radius:14px;margin-bottom:16px;
+    overflow:hidden;background:#fff
+  }
+  .prod-head{
+    background:var(--soft);padding:13px 18px;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid var(--line)
+  }
+  .prod-head .t{font-weight:700;color:var(--green);font-size:1rem}
+  .prod-head .meta{font-size:.78rem;color:var(--muted);margin-top:2px}
+  .prod-head .chev{color:var(--gold);font-size:1.1rem;transition:.2s}
+  .prod.open .chev{transform:rotate(180deg)}
+  .prod-body{display:none;padding:18px}
+  .prod.open .prod-body{display:block}
+
+  .variant{
+    border:1px solid var(--line);border-radius:11px;padding:14px;
+    margin-bottom:13px;background:var(--soft)
+  }
+  .variant .vtitle{
+    font-weight:700;color:var(--green);font-size:.92rem;margin-bottom:10px;
+    display:flex;align-items:center;gap:7px
+  }
+  .variant .vtitle .pill{
+    background:var(--gold);color:var(--green);font-size:.7rem;
+    padding:2px 9px;border-radius:999px;font-weight:700
+  }
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .fld{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+  .fld label{font-size:.8rem;font-weight:600;color:var(--ink)}
+  .fld label .lng{color:var(--muted);font-weight:400;font-size:.74rem}
+  .fld input,.fld textarea{
+    border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;
+    font-size:.9rem;font-family:inherit;background:#fff;color:var(--ink);
+    width:100%;transition:.15s;outline:none
+  }
+  .fld input:focus,.fld textarea:focus{border-color:var(--gold)}
+  .fld textarea{resize:vertical;min-height:54px}
+  .fld.full{grid-column:1/-1}
+  .imgs-note{
+    font-size:.76rem;color:var(--muted);background:#fff;border:1px dashed var(--line);
+    border-radius:8px;padding:8px 11px;margin-top:4px
+  }
+  .swatch{
+    display:inline-block;width:18px;height:18px;border-radius:5px;
+    border:1px solid rgba(0,0,0,.15);vertical-align:middle;margin-inline-start:6px
+  }
+  .hint{
+    background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);
+    border-radius:11px;padding:13px 15px;font-size:.84rem;color:#6b5a1f;margin-top:6px
+  }
+  .hint b{color:var(--green)}
+  .flag-note{
+    font-size:.85rem;color:var(--muted);background:var(--soft);
+    border-radius:9px;padding:11px 14px
+  }
+  footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:22px}
+  .sticky-save{
+    position:sticky;bottom:14px;margin-top:18px;z-index:5
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge"><span class="dot"></span> متجر طُرفة</div>
+    <h1>محرّر الألوان والخيارات</h1>
+    <div class="sub">عدّل خيارات المنتجات (ولد/بنت، الألوان، الـ variants) بخانات جاهزة — بدون لمس JSON</div>
+  </header>
+
+  <div class="card">
+    <span class="tag">الخطوة ١</span>
+    <h2>ارفع ملف _advanced.json</h2>
+    <p class="d">اسحب ملف <b>_advanced.json</b> هنا. هو موجود بنفس مجلد <code>products.csv</code>.</p>
+    <label class="drop" id="drop">
+      <div class="ic">🎨</div>
+      <strong>اسحب _advanced.json هنا أو اضغط للاختيار</strong>
+      <small>_advanced.json فقط</small>
+      <input type="file" id="file" accept=".json,application/json">
+    </label>
+    <div class="msg" id="msg1"></div>
+  </div>
+
+  <div id="editor"></div>
+
+  <div class="card sticky-save" id="saveCard" style="display:none">
+    <span class="tag">الخطوة ٢</span>
+    <h2>احفظ التعديلات</h2>
+    <p class="d">بنبني لك ملف <b>_advanced.json</b> صحيح. انسخه لمجلد <code>js/</code> مكان القديم، ثم أعد بناء <code>data.js</code> من المحوّل.</p>
+    <button class="btn gold" id="save">💾 بناء وتنزيل _advanced.json</button>
+    <div class="msg" id="msg2"></div>
+    <div class="hint" style="margin-top:14px">
+      <b>تذكير:</b> بعد ما تنزّل الملف الجديد وتحطه مكان القديم،
+      لازم تفتح <b>turfa-converter.html</b> وتعيد بناء <code>data.js</code>
+      عشان التغييرات تظهر في الموقع.
+    </div>
+  </div>
+
+  <footer>متجر طُرفة — أداة داخلية</footer>
+</div>
+
+<script>
+let DATA=null;          // كائن _advanced.json الأصلي
+const LABELS={
+  'paintings:1':'لوحة يا شام',
+  'paintings:2':'لوحة الحمد لله',
+  'paintings:4':'لوحة مخصصة حسب طلبك',
+  'prints3d:301':'طباعة ثلاثية الأبعاد (ماريو)',
+  'prints3d:302':'طباعة ثلاثية الأبعاد 2 (ولد/بنت)',
+  'frames:201':'عيد الزواج',
+  'frames:202':'فاصل كتب جلدي'
+};
+
+function show(el,t,txt){ el.className='msg show '+t; el.textContent=txt; }
+
+function esc(s){ return String(s==null?'':s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;'); }
+
+// مفاتيح آمنة لتخزين القيم في الـ DOM
+function key(parts){ return parts.join('__'); }
+
+function fieldInput(id,labelAr,val,lng){
+  return `<div class="fld">
+    <label>${esc(labelAr)} ${lng?`<span class="lng">(${lng})</span>`:''}</label>
+    <input type="text" data-k="${id}" value="${esc(val)}">
+  </div>`;
+}
+function fieldArea(id,labelAr,val,lng){
+  return `<div class="fld full">
+    <label>${esc(labelAr)} ${lng?`<span class="lng">(${lng})</span>`:''}</label>
+    <textarea data-k="${id}">${esc(val)}</textarea>
+  </div>`;
+}
+
+function renderColorBlock(pid,lang,colors){
+  return colors.map((c,i)=>{
+    const base=key([pid,lang,'colors',i]);
+    return `<div class="variant">
+      <div class="vtitle">
+        <span class="pill">لون ${i+1}</span>
+        <span>${esc(c.name||'')}</span>
+        <span class="swatch" style="background:${esc(c.hex||'#ccc')}"></span>
+      </div>
+      <div class="grid">
+        ${fieldInput(base+'__name','اسم اللون',c.name,lang==='ar'?'عربي':'إنجليزي')}
+        ${fieldInput(base+'__hex','كود اللون (hex)',c.hex,'مثال: #e8a0b0')}
+      </div>
+      <div class="imgs-note">🖼️ صور هذا اللون (${(c.images||[]).length}): ${esc((c.images||[]).join('  ·  '))}<br>
+      <span style="color:var(--muted)">لتغيير الصور أخبرني وأرتّبها لك — تعديل المسارات يدوياً غير منصوح.</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderVariantBlock(pid,lang,variants){
+  return variants.map((v,i)=>{
+    const base=key([pid,lang,'variants',i]);
+    const hasCustom = v.requiresCustomText!==undefined;
+    return `<div class="variant">
+      <div class="vtitle">
+        <span class="pill">خيار ${i+1}</span>
+        <span>${esc(v.name||'')}</span>
+      </div>
+      <div class="grid">
+        ${fieldInput(base+'__name','اسم الخيار',v.name,lang==='ar'?'عربي':'إنجليزي')}
+        ${fieldInput(base+'__priceDiff','فرق السعر (+/-)',v.priceDiff!=null?v.priceDiff:0,'رقم')}
+      </div>
+      ${fieldArea(base+'__shortDesc','الوصف القصير',v.shortDesc,lang==='ar'?'عربي':'إنجليزي')}
+      ${fieldArea(base+'__fullDesc','الوصف الكامل',v.fullDesc,lang==='ar'?'عربي':'إنجليزي')}
+      <div class="imgs-note">🖼️ صور هذا الخيار (${(v.images||[]).length}): ${esc((v.images||[]).join('  ·  '))}
+      ${hasCustom?'<br>🔤 هذا الخيار يطلب نصاً مخصصاً من الزبون (محفوظ تلقائياً).':''}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderProduct(pid){
+  const entry=DATA[pid];
+  const langs=Object.keys(entry);
+  // نحدد نوع المحتوى
+  const sample=entry[langs[0]];
+  const kinds=Object.keys(sample);
+
+  let bodyHtml='';
+  let metaTxt='';
+
+  if(kinds.includes('colors')){
+    metaTxt='ألوان';
+    for(const L of langs){
+      bodyHtml+=`<div style="font-weight:700;color:var(--green);margin:10px 0 8px;font-size:.92rem">
+        ${L==='ar'?'🇯🇴 العربي':'🇬🇧 الإنجليزي'}</div>`;
+      bodyHtml+=renderColorBlock(pid,L,entry[L].colors||[]);
+    }
+  } else if(kinds.includes('variants')){
+    metaTxt='خيارات (variants)';
+    for(const L of langs){
+      bodyHtml+=`<div style="font-weight:700;color:var(--green);margin:10px 0 8px;font-size:.92rem">
+        ${L==='ar'?'🇯🇴 العربي':'🇬🇧 الإنجليزي'}</div>`;
+      bodyHtml+=renderVariantBlock(pid,L,entry[L].variants||[]);
+    }
+  } else {
+    // flags بسيطة فقط
+    metaTxt='إعداد ثابت';
+    bodyHtml=`<div class="flag-note">
+      ℹ️ هذا المنتج ما عنده ألوان أو خيارات تحتاج تعديل —
+      مجرد إعداد داخلي ثابت (يفتح نموذجاً خاصاً). نصوصه الأساسية في
+      <b>products.csv</b> كباقي المنتجات.</div>`;
+  }
+
+  return `<div class="prod" data-pid="${pid}">
+    <div class="prod-head" onclick="this.parentNode.classList.toggle('open')">
+      <div>
+        <div class="t">${esc(LABELS[pid]||pid)}</div>
+        <div class="meta">${pid} · ${metaTxt}</div>
+      </div>
+      <div class="chev">▾</div>
+    </div>
+    <div class="prod-body">${bodyHtml}</div>
+  </div>`;
+}
+
+function buildEditor(){
+  const wrap=document.getElementById('editor');
+  const order=['paintings:1','paintings:2','prints3d:301','prints3d:302',
+    'frames:202','paintings:4','frames:201'];
+  const ids=order.filter(k=>DATA[k]).concat(
+    Object.keys(DATA).filter(k=>!order.includes(k)));
+
+  let html=`<div class="card">
+    <span class="tag">الخطوة ١.٥</span>
+    <h2>عدّل ما تريد</h2>
+    <p class="d">اضغط على أي منتج ليفتح. عدّل الخانات مباشرة. تنتقل التعديلات تلقائياً عند الحفظ.</p>`;
+  for(const id of ids){ html+=renderProduct(id); }
+  html+=`</div>`;
+  wrap.innerHTML=html;
+  document.getElementById('saveCard').style.display='block';
+  // افتح أول منتج تلقائياً
+  const first=wrap.querySelector('.prod'); if(first) first.classList.add('open');
+}
+
+function handleFile(file){
+  const m1=document.getElementById('msg1');
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      DATA=JSON.parse(r.result);
+      if(typeof DATA!=='object'||Array.isArray(DATA)) throw new Error('صيغة غير متوقعة');
+      show(m1,'ok','✅ تم تحميل '+Object.keys(DATA).length+' منتج. عدّل ثم احفظ بالأسفل.');
+      buildEditor();
+    }catch(e){
+      show(m1,'err','تعذّر قراءة الملف — تأكد إنه _advanced.json الصحيح. ('+e.message+')');
+    }
+  };
+  r.onerror=()=>show(m1,'err','فشل في فتح الملف.');
+  r.readAsText(file,'utf-8');
+}
+
+const drop=document.getElementById('drop');
+document.getElementById('file').addEventListener('change',e=>{
+  if(e.target.files[0]) handleFile(e.target.files[0]);
+});
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)handleFile(f);});
+
+// قراءة قيمة حقل من الـ DOM
+function getVal(k){
+  const el=document.querySelector(`[data-k="${CSS.escape(k)}"]`);
+  return el?el.value:undefined;
+}
+
+document.getElementById('save').addEventListener('click',()=>{
+  const m2=document.getElementById('msg2');
+  if(!DATA){ show(m2,'err','ارفع الملف أولاً.'); return; }
+  try{
+    // ننسخ الأصل ثم نطبّق التعديلات حقلاً حقلاً
+    const out=JSON.parse(JSON.stringify(DATA));
+    for(const pid of Object.keys(out)){
+      const entry=out[pid];
+      for(const L of Object.keys(entry)){
+        const sec=entry[L];
+        if(Array.isArray(sec.colors)){
+          sec.colors.forEach((c,i)=>{
+            const b=key([pid,L,'colors',i]);
+            const nm=getVal(b+'__name'); if(nm!==undefined)c.name=nm;
+            const hx=getVal(b+'__hex'); if(hx!==undefined)c.hex=hx;
+          });
+        }
+        if(Array.isArray(sec.variants)){
+          sec.variants.forEach((v,i)=>{
+            const b=key([pid,L,'variants',i]);
+            const nm=getVal(b+'__name'); if(nm!==undefined)v.name=nm;
+            const pd=getVal(b+'__priceDiff');
+            if(pd!==undefined){ const n=Number(pd); v.priceDiff=isNaN(n)?0:n; }
+            const sd=getVal(b+'__shortDesc'); if(sd!==undefined)v.shortDesc=sd;
+            const fd=getVal(b+'__fullDesc'); if(fd!==undefined)v.fullDesc=fd;
+          });
+        }
+      }
+    }
+    // فحص سلامة JSON
+    const txt=JSON.stringify(out,null,2);
+    JSON.parse(txt); // لو فشل بيرمي
+    const blob=new Blob([txt],{type:'application/json;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='_advanced.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    show(m2,'ok','✅ تم بناء _advanced.json بنجاح. انسخه لمجلد js/ ثم أعد بناء data.js من المحوّل.');
+  }catch(e){
+    show(m2,'err','خطأ أثناء البناء: '+e.message);
+  }
+});
+</script>
+</body>
+</html>

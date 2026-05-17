@@ -166,6 +166,11 @@ const arabicTexts = {
     variantCustomNamePlaceholderBoy: "e.g. Ahmad, Omar, Yousef...",
     variantCustomNameLatinHint: "الرجاء كتابة الاسم بالأحرف الإنجليزية فقط",
     variantCustomNameLatinError: "الاسم لازم يكون بالأحرف الإنجليزية فقط",
+    variantGiftCustomLabel: "اسمك + تفاصيل التخصيص",
+    variantGiftCustomPlaceholder: "مثال: الاسم سارة، أريدها بألوان وردية مع اسم العائلة",
+    variantGiftCustomHint: "اكتب الاسم وأي تفاصيل تحب تخصيصها (الألوان، النص، التاريخ...)",
+    variantGiftCustomError: "الرجاء كتابة الاسم وتفاصيل التخصيص",
+    variantGiftCustomWhatsAppLabel: "تفاصيل التخصيص",
     customDesignNotesLabel: "ملاحظات إضافية (اختياري)",
     customDesignNotesPlaceholder: "أي تفاصيل إضافية: لون الإطار، نوع الخط، طريقة التنفيذ...",
     customDesignRequiredHint: "* الحقول المعلّمة إجبارية — السعر النهائي يصلك على واتساب",
@@ -424,6 +429,11 @@ const englishTexts = {
     variantCustomNamePlaceholderBoy: "e.g. Ahmad, Omar, Yousef...",
     variantCustomNameLatinHint: "Please enter the name in English letters only",
     variantCustomNameLatinError: "Name must contain English letters only",
+    variantGiftCustomLabel: "Your name + customization details",
+    variantGiftCustomPlaceholder: "e.g. Name: Sara, I'd like pink colors with the family name",
+    variantGiftCustomHint: "Write the name and any details you'd like customized (colors, text, date...)",
+    variantGiftCustomError: "Please enter the name and customization details",
+    variantGiftCustomWhatsAppLabel: "Customization details",
     customDesignNotesLabel: "Additional Notes (Optional)",
     customDesignNotesPlaceholder: "Any extra details: frame color, calligraphy style, finish...",
     customDesignRequiredHint: "* Marked fields are required — final price will be sent to you on WhatsApp",
@@ -866,293 +876,717 @@ const contactContentEnglish = {
 
 // =================================================================
 // --- 2. PRODUCT DATA ---
+// 🟢 هذا القسم مُولّد تلقائياً من products.csv — لا تعدّله يدوياً!
+//    عدّل products.csv ثم شغّل: node build-data.js
 // =================================================================
+
 const paintingsEnglish = [
-    { id: 1, name: "Ya Sham", price: 39.99,shortDesc: "Damascus in my heart, a piece of art on my wall",fullDesc: "A piece of art crafted with 3 layers of passion to be a lasting reminder of the most beautiful bonds. A serene décor piece with a pink touch, fit for your home and designed to delight your heart", image: "images/plates/1/1.webp", category: "painting", hasSizes: true,
-      colors: [
-        { name: "Pink",  hex: "#e8a0b0", images: ["images/plates/1/1.webp", "images/plates/1/1b.webp", "images/plates/1/1c.webp"] },
-        { name: "Beige", hex: "#d4b896", images: ["images/plates/1/1_beige.webp", "images/plates/1/1b_beige.webp", "images/plates/1/1c_beige.webp"] },
-      ]
+    {
+        id: 1,
+        name: "Ya Sham",
+        price: 39.99,
+        shortDesc: "Damascus in my heart, a piece of art on my wall",
+        fullDesc: "A piece of art crafted with 3 layers of passion to be a lasting reminder of the most beautiful bonds. A serene décor piece with a pink touch, fit for your home and designed to delight your heart",
+        image: "images/plates/1/1.webp",
+        category: "painting",
+        hasSizes: true,
+        colors: [
+          {
+            "name": "Pink",
+            "hex": "#e8a0b0",
+            "images": [
+              "images/plates/1/1.webp",
+              "images/plates/1/1b.webp",
+              "images/plates/1/1c.webp"
+            ]
+          },
+          {
+            "name": "Beige",
+            "hex": "#d4b896",
+            "images": [
+              "images/plates/1/1_beige.webp",
+              "images/plates/1/1b_beige.webp",
+              "images/plates/1/1c_beige.webp"
+            ]
+          }
+        ],
     },
-    { id: 2, name: "Alhamdulillah", price: 39.99, shortDesc: "A beautiful plaque, to remind you of gratitude at all times.",fullDesc: "A spiritual art piece crafted with 3D layered technology, designed to illuminate your walls with the remembrance of God and tranquility. A design that merges the grandeur of calligraphy with the depth of ornamentation, serving as a daily reminder of the beauty of gratitude",image: "images/plates/2/2.webp", category: "painting", hasSizes: true },
-    { id: 3, name: "Ayatul Kursi", price: 39.99, shortDesc: "The greatest verse, in an artistic design that immortalizes its beauty.",fullDesc: "A décor piece carrying the greatest verse in the Qur'an, crafted with striking layered (3D) technology to bring tranquility and reverence to your space. A unique design blending the grandeur of calligraphy with the warmth of wood, to keep your home under God's protection.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
+    { id: 2, name: "Alhamdulillah", price: 39.99, shortDesc: "A beautiful plaque, to remind you of gratitude at all times.", fullDesc: "A spiritual art piece crafted with 3D layered technology, designed to illuminate your walls with the remembrance of God and tranquility. A design that merges the grandeur of calligraphy with the depth of ornamentation, serving as a daily reminder of the beauty of gratitude", image: "images/plates/2/2.webp", category: "painting", hasSizes: true },
+    { id: 3, name: "Ayatul Kursi", price: 39.99, shortDesc: "The greatest verse, in an artistic design that immortalizes its beauty.", fullDesc: "A décor piece carrying the greatest verse in the Qur'an, crafted with striking layered (3D) technology to bring tranquility and reverence to your space. A unique design blending the grandeur of calligraphy with the warmth of wood, to keep your home under God's protection.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
     { id: 4, name: "Custom Design Painting", price: 0, shortDesc: "Design your own painting — verse, hadith, prayer, poem, name or anything you'd like, in your chosen size.", fullDesc: "A painting tailored entirely to your taste. Choose the type of text — a Qur'anic verse, a noble hadith, a prayer, a poem, a name or any custom design — write what you want, pick the size, and we'll craft it as a unique handmade piece for you. Final price is sent to you on WhatsApp after we review your request.", image: "images/plates/4/custom-design.webp", category: "painting", hasSizes: false, requiresCustomForm: true, isCustomDesign: true }
 ];
 
 const paintingsArabic = [
-    { id: 1, name: "لوحة يا شام", price: 39.99, shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.", image: "images/plates/1/1.webp", category: "painting", hasSizes: true,
-      colors: [
-        { name: "وردي", hex: "#e8a0b0", images: ["images/plates/1/1.webp", "images/plates/1/1b.webp", "images/plates/1/1c.webp"] },
-        { name: "بني",  hex: "#704214", images: ["images/plates/1/brown/1.webp", "images/plates/1/brown/2.webp"] },
-        //{ name: "أزرق", hex: "#7ba7c7", images: ["images/plates/1/1_blue.webp",  "images/plates/1/1b_blue.webp",  "images/plates/1/1c_blue.webp"] },
-      ]
+    {
+        id: 1,
+        name: "لوحة يا شام",
+        price: 39.99,
+        shortDesc: "دمشق في قلبي، قطعة فنية على جداري.",
+        fullDesc: "لوحة فنية صُنعت بـ 3 طبقات من الشغف لتبقى تذكاراً دائماً لأجمل الروابط. قطعة ديكور هادئة بلمسة وردية، تليق ببيتك وتُسعد قلبك.",
+        image: "images/plates/1/1.webp",
+        category: "painting",
+        hasSizes: true,
+        colors: [
+          {
+            "name": "وردي",
+            "hex": "#e8a0b0",
+            "images": [
+              "images/plates/1/1.webp",
+              "images/plates/1/1b.webp",
+              "images/plates/1/1c.webp"
+            ]
+          },
+          {
+            "name": "بني",
+            "hex": "#704214",
+            "images": [
+              "images/plates/1/brown/1.webp",
+              "images/plates/1/brown/2.webp"
+            ]
+          }
+        ],
     },
-    { id: 2, name: "لوحة الحمد لله", price: 39.99,shortDesc: "لوحة، تذكرك بجمال الامتنان في كل حين.",fullDesc: "قطعة فنية روحانية صُنعت بتقنية الطبقات الثلاثية الأبعاد، لتضيء جدران بيتك بذكر الله والسكينة. تصميم يجمع عظمة الخط مع عمق الزخرفة، لتكون تذكيراً يومياً بجمال الامتنان.", image: "images/plates/2/2.webp", category: "painting", hasSizes: true ,
-          colors: [
-    { name: "بيج",   hex: "#d4b896", images: ["images/plates/2/2.webp", "images/plates/2/2b.webp"] },
-    { name: "أسود",  hex: "#2c2c2c", images: ["images/plates/2/2_black.webp", "images/plates/2/2b_black.webp"] },
-    { name: "ذهبي",  hex: "#c9a84c", images: ["images/plates/2/2_gold.webp"] },
-  ]
-        
-     },
-    { id: 3, name: " لوحة آية الكرسي ", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.",fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
-    { id: 4, name: "لوحة مخصصة حسب طلبك", price: 0, shortDesc: "صمم لوحتك الخاصة — آية، حديث، دعاء، قصيدة، اسم أو أي تصميم تختاره، بالمقاس اللي يناسبك.", fullDesc: "لوحة مفصلة على ذوقك بالكامل. اختر نوع النص اللي بدك إياه — آية قرآنية، حديث شريف، دعاء، قصيدة، اسم أو تصميم خاص — اكتب لنا ما تريد، حدد المقاس، ونحن نصنعها لك قطعة يدوية فريدة. السعر النهائي يصلك على واتساب بعد مراجعة طلبك.", image: "images/plates/4/custom-design.webp", category: "painting", hasSizes: false, requiresCustomForm: true, isCustomDesign: true },
+    {
+        id: 2,
+        name: "لوحة الحمد لله",
+        price: 39.99,
+        shortDesc: "لوحة، تذكرك بجمال الامتنان في كل حين.",
+        fullDesc: "قطعة فنية روحانية صُنعت بتقنية الطبقات الثلاثية الأبعاد، لتضيء جدران بيتك بذكر الله والسكينة. تصميم يجمع عظمة الخط مع عمق الزخرفة، لتكون تذكيراً يومياً بجمال الامتنان.",
+        image: "images/plates/2/2.webp",
+        category: "painting",
+        hasSizes: true,
+        colors: [
+          {
+            "name": "بيج",
+            "hex": "#d4b896",
+            "images": [
+              "images/plates/2/2.webp",
+              "images/plates/2/2b.webp"
+            ]
+          },
+          {
+            "name": "أسود",
+            "hex": "#2c2c2c",
+            "images": [
+              "images/plates/2/2_black.webp",
+              "images/plates/2/2b_black.webp"
+            ]
+          },
+          {
+            "name": "ذهبي",
+            "hex": "#c9a84c",
+            "images": [
+              "images/plates/2/2_gold.webp"
+            ]
+          }
+        ],
+    },
+    { id: 3, name: " لوحة آية الكرسي ", price: 39.99, shortDesc: "أعظم آية، بتصميم فني يخلد جمالها.", fullDesc: "قطعة ديكور تحمل أعظم آية في القرآن، صُنعت بتقنية الطبقات البارزة، لتضفي على مساحتك سكينة ومهابة. تصميم فريد يمزج بين عظمة الخط ودفء الخشب، لتكون بيتك في حفظ الله.", image: "images/plates/3/3.webp", category: "painting", hasSizes: true },
+    { id: 4, name: "لوحة مخصصة حسب طلبك", price: 0, shortDesc: "صمم لوحتك الخاصة — آية، حديث، دعاء، قصيدة، اسم أو أي تصميم تختاره، بالمقاس اللي يناسبك.", fullDesc: "لوحة مفصلة على ذوقك بالكامل. اختر نوع النص اللي بدك إياه — آية قرآنية، حديث شريف، دعاء، قصيدة، اسم أو تصميم خاص — اكتب لنا ما تريد، حدد المقاس، ونحن نصنعها لك قطعة يدوية فريدة. السعر النهائي يصلك على واتساب بعد مراجعة طلبك.", image: "images/plates/4/custom-design.webp", category: "painting", hasSizes: false, requiresCustomForm: true, isCustomDesign: true }
 ];
 
-// ============ 🟢 التعديل هنا (مسار الأكواب) 🟢 ============
 const cupsEnglish = [
-    { id: 101, name: "Ceramic Coffee Mug", price: 15.99,shortDesc: "Ceramic Coffee Mug",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
-    { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
-    { id: 103, name: "Glass Tea Cup Set", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
-    { id: 104, name: "Artistic Espresso Cup", price: 12.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
-    { id: 105, name: "Color Changing Mug", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
-    { id: 106, name: "Bamboo Eco Cup", price: 18.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
-    { id: 107, name: "Cup 7", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
-    { id: 108, name: "Cup 8", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
-    { id: 109, name: "Cup 9", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
-    { id: 110, name: "Cup 10", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
-    { id: 111, name: "Cup 11", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
-    { id: 112, name: "Cup 12", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
-    { id: 113, name: "Cup 13", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
-    { id: 114, name: "Cup 14", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
-    { id: 115, name: "Cup 15", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
-    { id: 116, name: "Cup 16", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
-    { id: 117, name: "Cup 17", price: 15.00, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
+    { id: 101, name: "Ceramic Coffee Mug", price: 15.99, shortDesc: "Ceramic Coffee Mug", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
+    { id: 102, name: "Travel Tumbler", price: 24.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
+    { id: 103, name: "Glass Tea Cup Set", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
+    { id: 104, name: "Artistic Espresso Cup", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
+    { id: 105, name: "Color Changing Mug", price: 19.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
+    { id: 106, name: "Bamboo Eco Cup", price: 18.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
+    { id: 107, name: "Cup 7", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
+    { id: 108, name: "Cup 8", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
+    { id: 109, name: "Cup 9", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
+    { id: 110, name: "Cup 10", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
+    { id: 111, name: "Cup 11", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
+    { id: 112, name: "Cup 12", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
+    { id: 113, name: "Cup 13", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
+    { id: 114, name: "Cup 14", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
+    { id: 115, name: "Cup 15", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
+    { id: 116, name: "Cup 16", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
+    { id: 117, name: "Cup 17", price: 15, shortDesc: "Handmade ceramic cup with unique design.", fullDesc: "A beautifully crafted handmade ceramic cup with a unique artistic design. Perfect for hot and cold drinks.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
 ];
 
 const cupsArabic = [
-    { id: 101, name: "كوب قهوة سيراميك", price: 15.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.",image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
-    { id: 102, name: "كوب سفر معزول", price: 24.99, description: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
-    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
-    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
-    { id: 105, name: "كوب متغير اللون", price: 19.99,shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
-    { id: 106, name: "كوب منزل السنافر", price: 18.99, shortDesc: "ابدأ صباحك بابتسامة مع كوب منزل السنافر الساحر. تفاصيله الدقيقة وألوانه الدافئة تجعله الهدية المثالية لمحبي القطع الفريدة والمميزة",fullDesc: "استمتع بتجربة فريدة مع كوب ل السنافر المصنوع من الخزف عالي الجودة والمزين بتفاصيل ثلاثية الأبعاد تنبض بالحياة. يتميز هذا الكوب بتصميم ساحر يجسد كوخ الفطر الأحمر الريفي مع تفاصيل الباب والنباتات الخضراء، مما يجعله قطعة فنية جذابة تزين مكتبك وتضفي دفئاً وسحراً خاصاً على مشروباتك الساخنة في كل مرة تستخدمه", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
-    { id: 107, name: "كوب 7", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
-    { id: 108, name: "كوب 8", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
-    { id: 109, name: "كوب 9", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
-    { id: 110, name: "كوب 10", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
-    { id: 111, name: "كوب 11", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
-    { id: 112, name: "كوب 12", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
-    { id: 113, name: "كوب 13", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
-    { id: 114, name: "كوب 14", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
-    { id: 115, name: "كوب 15", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
-    { id: 116, name: "كوب 16", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
-    { id: 117, name: "كوب 17", price: 15.00, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
+    { id: 101, name: "كوب قهوة سيراميك", price: 15.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/1/1.webp", category: "cup", hasSizes: false },
+    { id: 102, name: "كوب سفر معزول", price: 24.99, shortDesc: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", fullDesc: "كوب سفر من الستانلس ستيل معزول. يحافظ على المشروبات ساخنة لمدة 6 ساعات.", image: "images/cup/2/2.webp", category: "cup", hasSizes: false },
+    { id: 103, name: "طقم أكواب شاي زجاجية", price: 34.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/3/3.webp", category: "cup", hasSizes: false },
+    { id: 104, name: "فنجان إسبريسو فني", price: 12.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/4/4.webp", category: "cup", hasSizes: false },
+    { id: 105, name: "كوب متغير اللون", price: 19.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/cup/5/5.webp", category: "cup", hasSizes: false },
+    { id: 106, name: "كوب منزل السنافر", price: 18.99, shortDesc: "ابدأ صباحك بابتسامة مع كوب منزل السنافر الساحر. تفاصيله الدقيقة وألوانه الدافئة تجعله الهدية المثالية لمحبي القطع الفريدة والمميزة", fullDesc: "استمتع بتجربة فريدة مع كوب ل السنافر المصنوع من الخزف عالي الجودة والمزين بتفاصيل ثلاثية الأبعاد تنبض بالحياة. يتميز هذا الكوب بتصميم ساحر يجسد كوخ الفطر الأحمر الريفي مع تفاصيل الباب والنباتات الخضراء، مما يجعله قطعة فنية جذابة تزين مكتبك وتضفي دفئاً وسحراً خاصاً على مشروباتك الساخنة في كل مرة تستخدمه", image: "images/cup/6/6.webp", category: "cup", hasSizes: false },
+    { id: 107, name: "كوب منزل السنافر 7", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/7/7.webp", category: "cup", hasSizes: false },
+    { id: 108, name: "كوب منزل السنافر 8", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/8/8.webp", category: "cup", hasSizes: false },
+    { id: 109, name: "كوب منزل السنافر 9", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/9/9.webp", category: "cup", hasSizes: false },
+    { id: 110, name: "كوب منزل السنافر 10", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/10/10.webp", category: "cup", hasSizes: false },
+    { id: 111, name: "كوب منزل السنافر 11", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/11/11.webp", category: "cup", hasSizes: false },
+    { id: 112, name: "كوب منزل السنافر 12", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/12/12.webp", category: "cup", hasSizes: false },
+    { id: 113, name: "كوب 13", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/13/13.webp", category: "cup", hasSizes: false },
+    { id: 114, name: "كوب 14", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/14/14.webp", category: "cup", hasSizes: false },
+    { id: 115, name: "كوب 15", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/15/15.webp", category: "cup", hasSizes: false },
+    { id: 116, name: "كوب 16", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/16/16.webp", category: "cup", hasSizes: false },
+    { id: 117, name: "كوب 17", price: 15, shortDesc: "كوب سيراميك يدوي بتصميم مميز.", fullDesc: "كوب سيراميك مصنوع يدوياً بتصميم فني فريد. مثالي للمشروبات الساخنة والباردة.", image: "images/cup/17/17.webp", category: "cup", hasSizes: false }
 ];
-// ========================================================
 
-// ============ 🟢 طباعات ثلاثية الأبعاد 🟢 ============
 const prints3dEnglish = [
-    { id: 301, name: "3D Print", price: 20.00, shortDesc: "Choose your favorite character", fullDesc: "High-quality 3D printed figures of your favorite Mario characters.", image: "images/3d/1/1.webp", category: "print3d", hasSizes: false,
-      variants: [
-        {
-            name: "Mario",
-            priceDiff: 0,
-            images: ["images/3d/1/mario/1.webp", "images/3d/1/mario/1b.webp", "images/3d/1/mario/1c.webp", "images/3d/1/mario/1d.webp"],
-            shortDesc: "The original hero with his iconic red cap",
-            fullDesc: "Classic Mario figure printed in high-precision 3D. 12cm tall, with detailed cap and mustache, vivid long-lasting colors. The perfect piece for classic gaming fans, ideal for desk and shelf decor."
-        },
-        {
-            name: "Wario",
-            priceDiff: 5.00,
-            images: ["images/3d/1/wario/1.webp"],
-            shortDesc: "The charismatic villain with his yellow cap",
-            fullDesc: "Wario figure with more intricate details and a slightly larger size, hence the higher price. A standout character for fans of the mischievous side of the Mario universe, adding a fun and unconventional touch to your decor."
-        },
-        {
-            name: "Yoshi",
-            priceDiff: 3.00,
-            images: ["images/3d/1/luchi/1.webp", "images/3d/1/luchi/1b.webp"],
-            shortDesc: "Special edition with exclusive details",
-            fullDesc: "The distinctive Luchi version with intricate details and carefully chosen colors. A limited piece for figure collectors and enthusiasts looking for a unique item not available everywhere."
-        }
-      ]
+    {
+        id: 301,
+        name: "3D Print",
+        price: 20,
+        shortDesc: "Choose your favorite character",
+        fullDesc: "High-quality 3D printed figures of your favorite Mario characters.",
+        image: "images/3d/1/1.webp",
+        category: "print3d",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "Mario",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/1/mario/1.webp",
+              "images/3d/1/mario/1b.webp",
+              "images/3d/1/mario/1c.webp",
+              "images/3d/1/mario/1d.webp"
+            ],
+            "shortDesc": "The original hero with his iconic red cap",
+            "fullDesc": "Classic Mario figure printed in high-precision 3D. 12cm tall, with detailed cap and mustache, vivid long-lasting colors. The perfect piece for classic gaming fans, ideal for desk and shelf decor."
+          },
+          {
+            "name": "Wario",
+            "priceDiff": 5,
+            "images": [
+              "images/3d/1/wario/1.webp"
+            ],
+            "shortDesc": "The charismatic villain with his yellow cap",
+            "fullDesc": "Wario figure with more intricate details and a slightly larger size, hence the higher price. A standout character for fans of the mischievous side of the Mario universe, adding a fun and unconventional touch to your decor."
+          },
+          {
+            "name": "Yoshi",
+            "priceDiff": 3,
+            "images": [
+              "images/3d/1/luchi/1.webp",
+              "images/3d/1/luchi/1b.webp"
+            ],
+            "shortDesc": "Special edition with exclusive details",
+            "fullDesc": "The distinctive Luchi version with intricate details and carefully chosen colors. A limited piece for figure collectors and enthusiasts looking for a unique item not available everywhere."
+          }
+        ],
     },
-    { id: 302, name: "3D Print 2", price: 0.99, shortDesc: "Choose between boy or girl", fullDesc: "High-quality 3D printed figures, available in boy or girl design.", image: "images/3d/2/girl/2.webp", category: "print3d", hasSizes: false,
-      variants: [
-                {
-            name: "Girl",
-            priceDiff: 0,
-            images: ["images/3d/2/girl/2.webp", "images/3d/2/girl/2b.webp"],
-            shortDesc: "Girl design",
-            fullDesc: "High-quality 3D printed girl figure with fine details and durable materials.",
-            requiresCustomText: { labelKey: "variantCustomNameForGirl", placeholderKey: "variantCustomNamePlaceholderGirl", hintKey: "variantCustomNameLatinHint", lang: "en" }
-        },
-        {
-            name: "Boy",
-            priceDiff: 0,
-            images: ["images/3d/2/boy/2.webp"],
-            shortDesc: "Boy design",
-            fullDesc: "High-quality 3D printed boy figure with fine details and durable materials.",
-            requiresCustomText: { labelKey: "variantCustomNameForBoy", placeholderKey: "variantCustomNamePlaceholderBoy", hintKey: "variantCustomNameLatinHint", lang: "en" }
-        }
-
-      ]
+    {
+        id: 302,
+        name: "3D Print 2",
+        price: 0.99,
+        shortDesc: "Choose between boy or girl",
+        fullDesc: "High-quality 3D printed figures, available in boy or girl design.",
+        image: "images/3d/2/girl/2.webp",
+        category: "print3d",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "Girl",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/2/girl/2.webp",
+              "images/3d/2/girl/2b.webp"
+            ],
+            "shortDesc": "Girl design",
+            "fullDesc": "High-quality 3D printed girl figure with fine details and durable materials.",
+            "requiresCustomText": {
+              "labelKey": "variantCustomNameForGirl",
+              "placeholderKey": "variantCustomNamePlaceholderGirl",
+              "hintKey": "variantCustomNameLatinHint",
+              "lang": "en"
+            }
+          },
+          {
+            "name": "Boy",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/2/boy/2.webp"
+            ],
+            "shortDesc": "Boy design",
+            "fullDesc": "High-quality 3D printed boy figure with fine details and durable materials.",
+            "requiresCustomText": {
+              "labelKey": "variantCustomNameForBoy",
+              "placeholderKey": "variantCustomNamePlaceholderBoy",
+              "hintKey": "variantCustomNameLatinHint",
+              "lang": "en"
+            }
+          }
+        ],
     },
     { id: 303, name: "3D Print 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
-    { id: 304, name: "3D Print 4", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
-    { id: 305, name: "3D Print 5", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
-];
+    {
+        id: 304,
+        name: "Kids Toys",
+        price: 0.99,
+        shortDesc: "A 3D-printed kids toy.",
+        fullDesc: "Toy 1 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children.",
+        image: "images/3d/4/toy1/4.webp",
+        category: "print3d",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "Toy 1",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy1/4.webp",
+              "images/3d/4/toy1/4b.webp",
+              "images/3d/4/toy1/4c.webp"
+            ],
+            "shortDesc": "A 3D-printed kids toy.",
+            "fullDesc": "Toy 1 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+          },
+          {
+            "name": "Toy 2",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy2/4.webp",
+              "images/3d/4/toy2/4b.webp",
+              "images/3d/4/toy2/4c.webp"
+            ],
+            "shortDesc": "A 3D-printed kids toy.",
+            "fullDesc": "Toy 2 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+          },
+          {
+            "name": "Toy 3",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy3/4.webp",
+              "images/3d/4/toy3/4b.webp",
+              "images/3d/4/toy3/4c.webp"
+            ],
+            "shortDesc": "A 3D-printed kids toy.",
+            "fullDesc": "Toy 3 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+          },
+          {
+            "name": "Toy 4",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy4/4.webp",
+              "images/3d/4/toy4/4b.webp"
+            ],
+            "shortDesc": "A 3D-printed kids toy.",
+            "fullDesc": "Toy 4 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+          },
+          {
+            "name": "Toy 5",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy5/4.webp",
+              "images/3d/4/toy5/4b.webp"
+            ],
+            "shortDesc": "A 3D-printed kids toy.",
+            "fullDesc": "Toy 5 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+          }
+        ],
+    }];
 
 const prints3dArabic = [
-    { id: 301, name: "طباعة ثلاثية الأبعاد", price: 15.99, shortDesc: "اختر شخصيتك المفضلة", fullDesc: "تماثيل عالية الجودة بتقنية الطباعة ثلاثية الأبعاد لشخصيات ماريو المحببة.", image: "images/3d/1/1.webp", category: "print3d", hasSizes: false,
-      variants: [
-        {
-            name: "ماريو",
-            priceDiff: 0,
-            images: ["images/3d/1/mario/1.webp", "images/3d/1/mario/1b.webp", "images/3d/1/mario/1c.webp", "images/3d/1/mario/1d.webp"],
-            shortDesc: "البطل الأصلي بقبعته الحمراء الشهيرة",
-            fullDesc: "تمثال ماريو الكلاسيكي مطبوع بتقنية ثلاثية الأبعاد عالية الدقة. ارتفاع 12 سم، تفاصيل دقيقة لقبعته وشاربه، ألوان زاهية تدوم طويلاً. القطعة المثالية لعشاق الألعاب الكلاسيكية وتزيين المكتب أو الرفوف."
-        },
-        {
-            name: "واريو",
-            priceDiff: 0,
-            images: ["images/3d/1/wario/1.webp"],
-            shortDesc: "الشرير الكاريزماتي بقبعته الصفراء",
-            fullDesc: "تمثال واريو بتفاصيل أكثر تعقيداً وحجم أكبر قليلاً، لذلك السعر أعلى. شخصية مميزة لعشّاق الجانب الشقيّ من عالم ماريو، تضيف طابعاً مرحاً وغير تقليدي على ديكورك."
-        },
-        {
-            name: "يوشي",
-            priceDiff: 0,
-            images: ["images/3d/1/luchi/1.webp", "images/3d/1/luchi/1b.webp"],
-            shortDesc: "إصدار خاص بتفاصيل حصرية",
-            fullDesc: "نسخة لوشي المميزة بتفاصيل دقيقة وألوان مدروسة. قطعة محدودة لجامعي التماثيل والمحبين الباحثين عن قطعة فريدة لا تتوفر في كل مكان."
-        }
-      ]
+    {
+        id: 301,
+        name: "طباعة ثلاثية الأبعاد",
+        price: 15.99,
+        shortDesc: "اختر شخصيتك المفضلة",
+        fullDesc: "تماثيل عالية الجودة بتقنية الطباعة ثلاثية الأبعاد لشخصيات ماريو المحببة.",
+        image: "images/3d/1/1.webp",
+        category: "print3d",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "ماريو",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/1/mario/1.webp",
+              "images/3d/1/mario/1b.webp",
+              "images/3d/1/mario/1c.webp",
+              "images/3d/1/mario/1d.webp"
+            ],
+            "shortDesc": "البطل الأصلي بقبعته الحمراء الشهيرة",
+            "fullDesc": "تمثال ماريو الكلاسيكي مطبوع بتقنية ثلاثية الأبعاد عالية الدقة. ارتفاع 12 سم، تفاصيل دقيقة لقبعته وشاربه، ألوان زاهية تدوم طويلاً. القطعة المثالية لعشاق الألعاب الكلاسيكية وتزيين المكتب أو الرفوف."
+          },
+          {
+            "name": "واريو",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/1/wario/1.webp"
+            ],
+            "shortDesc": "الشرير الكاريزماتي بقبعته الصفراء",
+            "fullDesc": "تمثال واريو بتفاصيل أكثر تعقيداً وحجم أكبر قليلاً، لذلك السعر أعلى. شخصية مميزة لعشّاق الجانب الشقيّ من عالم ماريو، تضيف طابعاً مرحاً وغير تقليدي على ديكورك."
+          },
+          {
+            "name": "يوشي",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/1/luchi/1.webp",
+              "images/3d/1/luchi/1b.webp"
+            ],
+            "shortDesc": "إصدار خاص بتفاصيل حصرية",
+            "fullDesc": "نسخة لوشي المميزة بتفاصيل دقيقة وألوان مدروسة. قطعة محدودة لجامعي التماثيل والمحبين الباحثين عن قطعة فريدة لا تتوفر في كل مكان."
+          }
+        ],
     },
-    { id: 302, name: "طباعة ثلاثية الأبعاد 2", price: 0.99, shortDesc: "اختر بين تصميم ولد أو بنت", fullDesc: "تماثيل ثلاثية الأبعاد عالية الجودة، متوفرة بتصميم ولد أو بنت.", image: "images/3d/2/girl/2.webp", category: "print3d", hasSizes: false,
-      variants: [
-                {
-            name: "بنت",
-            priceDiff: 0,
-            images: ["images/3d/2/girl/2.webp", "images/3d/2/girl/2b.webp"],
-            shortDesc: "تصميم بنت",
-            fullDesc: "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
-            requiresCustomText: { labelKey: "variantCustomNameForGirl", placeholderKey: "variantCustomNamePlaceholderGirl", hintKey: "variantCustomNameLatinHint", lang: "en" }
-        },
-        {
-            name: "ولد",
-            priceDiff: 0,
-            images: ["images/3d/2/boy/2.webp"],
-            shortDesc: "تصميم ولد",
-            fullDesc: "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
-            requiresCustomText: { labelKey: "variantCustomNameForBoy", placeholderKey: "variantCustomNamePlaceholderBoy", hintKey: "variantCustomNameLatinHint", lang: "en" }
-        }
-
-      ]
+    {
+        id: 302,
+        name: "طباعة ثلاثية الأبعاد 2",
+        price: 0.99,
+        shortDesc: "اختر بين تصميم ولد أو بنت",
+        fullDesc: "تماثيل ثلاثية الأبعاد عالية الجودة، متوفرة بتصميم ولد أو بنت.",
+        image: "images/3d/2/girl/2.webp",
+        category: "print3d",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "بنت",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/2/girl/2.webp",
+              "images/3d/2/girl/2b.webp"
+            ],
+            "shortDesc": "تصميم بنت",
+            "fullDesc": "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+            "requiresCustomText": {
+              "labelKey": "variantCustomNameForGirl",
+              "placeholderKey": "variantCustomNamePlaceholderGirl",
+              "hintKey": "variantCustomNameLatinHint",
+              "lang": "en"
+            }
+          },
+          {
+            "name": "ولد",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/2/boy/2.webp"
+            ],
+            "shortDesc": "تصميم ولد",
+            "fullDesc": "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+            "requiresCustomText": {
+              "labelKey": "variantCustomNameForBoy",
+              "placeholderKey": "variantCustomNamePlaceholderBoy",
+              "hintKey": "variantCustomNameLatinHint",
+              "lang": "en"
+            }
+          }
+        ],
     },
     { id: 303, name: "طباعة ثلاثية الأبعاد 3", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/3/3.webp", category: "print3d", hasSizes: false },
-    { id: 304, name: "طباعة ثلاثية الأبعاد 4", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
-    { id: 305, name: "طباعة ثلاثية الأبعاد 5", price: 0.99, shortDesc: "...", fullDesc: "...", image: "images/3d/4/4.webp", category: "print3d", hasSizes: false },
-];
-// =====================================================
+    {
+        id: 304,
+        name: "ألعاب أطفال",
+        price: 0.99,
+        shortDesc: "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+        fullDesc: "لعبة 1 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال.",
+        image: "images/3d/4/toy1/4.webp",
+        category: "print3d",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "لعبة 1",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy1/4.webp",
+              "images/3d/4/toy1/4b.webp",
+              "images/3d/4/toy1/4c.webp"
+            ],
+            "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+            "fullDesc": "لعبة 1 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+          },
+          {
+            "name": "لعبة 2",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy2/4.webp",
+              "images/3d/4/toy2/4b.webp",
+              "images/3d/4/toy2/4c.webp"
+            ],
+            "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+            "fullDesc": "لعبة 2 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+          },
+          {
+            "name": "لعبة 3",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy3/4.webp",
+              "images/3d/4/toy3/4b.webp",
+              "images/3d/4/toy3/4c.webp"
+            ],
+            "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+            "fullDesc": "لعبة 3 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+          },
+          {
+            "name": "لعبة 4",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy4/4.webp",
+              "images/3d/4/toy4/4b.webp"
+            ],
+            "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+            "fullDesc": "لعبة 4 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+          },
+          {
+            "name": "لعبة 5",
+            "priceDiff": 0,
+            "images": [
+              "images/3d/4/toy5/4.webp",
+              "images/3d/4/toy5/4b.webp"
+            ],
+            "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+            "fullDesc": "لعبة 5 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+          }
+        ],
+    }];
 
 const framesEnglish = [
     { id: 201, name: "Wedding Anniversary", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
-    { id: 202, name: "Leather Bookmark", price: 12.50, shortDesc: "Premium leather bookmark with your favorite football club crest.",fullDesc: "A handcrafted leather bookmark featuring the crest of your favorite football club. Choose from top European clubs, or request a custom design with any club of your choice.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false,
-      variants: [
-        {
-            name: "Barcelona",
-            priceDiff: 0,
-            images: ["images/Frame/2/barcelona/1.webp"],
-            shortDesc: "Premium leather bookmark with FC Barcelona crest.",
-            fullDesc: "Handcrafted premium leather bookmark with the iconic FC Barcelona crest. A perfect gift for every Blaugrana fan."
-        },
-        {
-            name: "Real Madrid",
-            priceDiff: 0,
-            images: ["images/Frame/2/real-madrid/1.webp"],
-            shortDesc: "Premium leather bookmark with Real Madrid crest.",
-            fullDesc: "Handcrafted premium leather bookmark with the legendary Real Madrid crest. A treasure for every Los Blancos fan."
-        },
-        {
-            name: "Manchester City",
-            priceDiff: 0,
-            images: ["images/Frame/2/man-city/1.webp"],
-            shortDesc: "Premium leather bookmark with Manchester City crest.",
-            fullDesc: "Handcrafted premium leather bookmark with the Manchester City crest. A distinctive choice for Citizens supporters."
-        },
-        {
-            name: "Manchester United",
-            priceDiff: 0,
-            images: ["images/Frame/2/man-united/1.webp"],
-            shortDesc: "Premium leather bookmark with Manchester United crest.",
-            fullDesc: "Handcrafted premium leather bookmark with the Manchester United crest. The perfect gift for every Red Devils fan."
-        },
-        {
-            name: "Custom",
-            priceDiff: 0,
-            images: ["images/Frame/2/custom/1.webp"],
-            shortDesc: "Leather bookmark with any club of your choice.",
-            fullDesc: "Premium leather bookmark — choose any club name and we'll handcraft it for you with the highest detail. Note: after placing the order, please send us the reference logo on WhatsApp.",
-            requiresCustomText: true
-        }
-      ]
-    },
-    { id: 203, name: "Scented Candle", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/3/3.webp", category: "frame", hasSizes: false },
-    { id: 204, name: "Personalized Photo Mug", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/4/4.webp", category: "frame", hasSizes: false },
-];
+    {
+        id: 202,
+        name: "Leather Bookmark",
+        price: 12.5,
+        shortDesc: "Premium leather bookmark with your favorite football club crest.",
+        fullDesc: "A handcrafted leather bookmark featuring the crest of your favorite football club. Choose from top European clubs, or request a custom design with any club of your choice.",
+        image: "images/Frame/2/2.webp",
+        category: "frame",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "Barcelona",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/barcelona/1.webp"
+            ],
+            "shortDesc": "Premium leather bookmark with FC Barcelona crest.",
+            "fullDesc": "Handcrafted premium leather bookmark with the iconic FC Barcelona crest. A perfect gift for every Blaugrana fan."
+          },
+          {
+            "name": "Real Madrid",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/real-madrid/1.webp"
+            ],
+            "shortDesc": "Premium leather bookmark with Real Madrid crest.",
+            "fullDesc": "Handcrafted premium leather bookmark with the legendary Real Madrid crest. A treasure for every Los Blancos fan."
+          },
+          {
+            "name": "Manchester City",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/man-city/1.webp"
+            ],
+            "shortDesc": "Premium leather bookmark with Manchester City crest.",
+            "fullDesc": "Handcrafted premium leather bookmark with the Manchester City crest. A distinctive choice for Citizens supporters."
+          },
+          {
+            "name": "Manchester United",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/man-united/1.webp"
+            ],
+            "shortDesc": "Premium leather bookmark with Manchester United crest.",
+            "fullDesc": "Handcrafted premium leather bookmark with the Manchester United crest. The perfect gift for every Red Devils fan."
+          },
+          {
+            "name": "Custom",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/custom/1.webp"
+            ],
+            "shortDesc": "Leather bookmark with any club of your choice.",
+            "fullDesc": "Premium leather bookmark — choose any club name and we'll handcraft it for you with the highest detail. Note: after placing the order, please send us the reference logo on WhatsApp.",
+            "requiresCustomText": true
+          }
+        ],
+    },];
 
 const framesArabic = [
     { id: 201, name: "عيد الزواج", price: 7.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.", fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/1/1.webp", category: "frame", hasSizes: false, requiresWeddingForm: true },
-    { id: 202, name: "فاصل كتب جلدي", price: 12.50, shortDesc: "فاصل كتب جلدي فاخر بشعار ناديك المفضل، صناعة يدوية.",fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً بدقة عالية، يحمل شعار ناديك الرياضي المفضل. اختار من بين أبرز الأندية العالمية، أو اطلب شعاراً مخصصاً بنادي من اختيارك.", image: "images/Frame/2/2.webp", category: "frame", hasSizes: false,
-      variants: [
-        {
-            name: "برشلونة",
-            priceDiff: 0,
-            images: ["images/Frame/2/barcelona/1.webp"],
-            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي برشلونة.",
-            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي برشلونة العريق. هدية مثالية لكل عاشق للبلاوغرانا."
-        },
-        {
-            name: "ريال مدريد",
-            priceDiff: 0,
-            images: ["images/Frame/2/real-madrid/1.webp"],
-            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي ريال مدريد.",
-            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي ريال مدريد الملكي. تحفة لكل مشجع للنادي الأبيض."
-        },
-        {
-            name: "مانشستر سيتي",
-            priceDiff: 0,
-            images: ["images/Frame/2/man-city/1.webp"],
-            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي مانشستر سيتي.",
-            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر سيتي. اختيار مميز لمحبي السماويين."
-        },
-        {
-            name: "مانشستر يونايتد",
-            priceDiff: 0,
-            images: ["images/Frame/2/man-united/1.webp"],
-            shortDesc: "فاصل كتب جلدي فاخر بشعار نادي مانشستر يونايتد.",
-            fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر يونايتد. هدية مثالية لكل مشجع للشياطين الحمر."
-        },
-        {
-            name: "مخصص",
-            priceDiff: 0,
-            images: ["images/Frame/2/custom/1.webp"],
-            shortDesc: "فاصل كتب جلدي بشعار نادي من اختيارك.",
-            fullDesc: "فاصل كتب من الجلد الفاخر، اختار اسم النادي اللي بدك إياه، ونحن نصنعه لك يدوياً بأعلى دقة. ملاحظة: بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب.",
-            requiresCustomText: true
-        }
-      ]
-    },
-    { id: 203, name: "شمعة معطرة", price: 15.00, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/3/3.webp", category: "frame", hasSizes: false },
-    { id: 204, name: "كوب بصورة شخصية", price: 14.99, shortDesc: "كوب سيراميك يدوي بطلاء زجاجي مميز.",fullDesc: "كوب قهوة من السيراميك مصنوع يدويًا بطلاء زجاجي مميز. آمن لغسالة الصحون ومريح في الإمساك.", image: "images/Frame/4/4.webp", category: "frame", hasSizes: false },
-];
+    {
+        id: 202,
+        name: "فاصل كتب جلدي",
+        price: 12.5,
+        shortDesc: "فاصل كتب جلدي فاخر بشعار ناديك المفضل، صناعة يدوية.",
+        fullDesc: "فاصل كتب من الجلد الفاخر، مصنوع يدوياً بدقة عالية، يحمل شعار ناديك الرياضي المفضل. اختار من بين أبرز الأندية العالمية، أو اطلب شعاراً مخصصاً بنادي من اختيارك.",
+        image: "images/Frame/2/2.webp",
+        category: "frame",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "برشلونة",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/barcelona/1.webp"
+            ],
+            "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي برشلونة.",
+            "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي برشلونة العريق. هدية مثالية لكل عاشق للبلاوغرانا."
+          },
+          {
+            "name": "ريال مدريد",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/real-madrid/1.webp"
+            ],
+            "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي ريال مدريد.",
+            "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي ريال مدريد الملكي. تحفة لكل مشجع للنادي الأبيض."
+          },
+          {
+            "name": "مانشستر سيتي",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/man-city/1.webp"
+            ],
+            "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر سيتي.",
+            "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر سيتي. اختيار مميز لمحبي السماويين."
+          },
+          {
+            "name": "مانشستر يونايتد",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/man-united/1.webp"
+            ],
+            "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر يونايتد.",
+            "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر يونايتد. هدية مثالية لكل مشجع للشياطين الحمر."
+          },
+          {
+            "name": "مخصص",
+            "priceDiff": 0,
+            "images": [
+              "images/Frame/2/custom/1.webp"
+            ],
+            "shortDesc": "فاصل كتب جلدي بشعار نادي من اختيارك.",
+            "fullDesc": "فاصل كتب من الجلد الفاخر، اختار اسم النادي اللي بدك إياه، ونحن نصنعه لك يدوياً بأعلى دقة. ملاحظة: بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب.",
+            "requiresCustomText": true
+          }
+        ],
+    }];
 
-// 🟢 فئة الهدايا المنوعة - بالإنجليزي
 const giftsEnglish = [
     { id: 401, name: "Mixed Gift 1", price: 9.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
-    { id: 402, name: "Mixed Gift 2", price: 12.50, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/2/2.webp", category: "gift", hasSizes: false },
-    { id: 403, name: "Mixed Gift 3", price: 15.00, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
-    { id: 404, name: "Mixed Gift 4", price: 18.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false },
+    {
+        id: 402,
+        name: "Mixed Gift 2",
+        price: 12.5,
+        shortDesc: "Special handmade gift.",
+        fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.",
+        image: "images/gifts/2/girl/2.webp",
+        category: "gift",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "Girl",
+            "priceDiff": 0,
+            "images": [
+              "images/gifts/2/girl/2.webp",
+              "images/gifts/2/girl/2b.webp",
+              "images/gifts/2/girl/2c.webp"
+            ],
+            "shortDesc": "A girl design with a delicate touch.",
+            "fullDesc": "A unique handmade gift with a girl-themed custom design, crafted with care and fine detailing. A lovely choice for special occasions and heartfelt gifting.",
+            "requiresCustomText": {
+              "labelKey": "variantGiftCustomLabel",
+              "placeholderKey": "variantGiftCustomPlaceholder",
+              "hintKey": "variantGiftCustomHint",
+              "lang": "any"
+            }
+          },
+          {
+            "name": "Boy",
+            "priceDiff": 0,
+            "images": [
+              "images/gifts/2/boy/2.webp",
+              "images/gifts/2/boy/2b.webp",
+              "images/gifts/2/boy/2c.webp"
+            ],
+            "shortDesc": "A boy design with a distinctive character.",
+            "fullDesc": "A unique handmade gift with a boy-themed custom design, crafted with care and fine detailing. A great choice for special occasions and gifting.",
+            "requiresCustomText": {
+              "labelKey": "variantGiftCustomLabel",
+              "placeholderKey": "variantGiftCustomPlaceholder",
+              "hintKey": "variantGiftCustomHint",
+              "lang": "any"
+            }
+          },
+          {
+            "name": "Family",
+            "priceDiff": 0,
+            "images": [
+              "images/gifts/2/family/2.webp"
+            ],
+            "shortDesc": "A family design that brings loved ones together.",
+            "fullDesc": "A unique handmade gift with a family design that brings everyone together in one piece, crafted with great care. A warm gift that immortalizes the gathering of loved ones.",
+            "requiresCustomText": {
+              "labelKey": "variantGiftCustomLabel",
+              "placeholderKey": "variantGiftCustomPlaceholder",
+              "hintKey": "variantGiftCustomHint",
+              "lang": "any"
+            }
+          }
+        ],
+    },
+    { id: 403, name: "Mixed Gift 3", price: 15, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
+    { id: 404, name: "Mixed Gift 4", price: 18.99, shortDesc: "Special handmade gift.", fullDesc: "A unique handmade gift item, carefully crafted with attention to detail.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false }
 ];
 
-// 🟢 فئة الهدايا المنوعة - بالعربي
 const giftsArabic = [
     { id: 401, name: "هدية منوعة 1", price: 9.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/1/1.webp", category: "gift", hasSizes: false },
-    { id: 402, name: "هدية منوعة 2", price: 12.50, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/2/2.webp", category: "gift", hasSizes: false },
-    { id: 403, name: "هدية منوعة 3", price: 15.00, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
-    { id: 404, name: "هدية منوعة 4", price: 18.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false },
+    {
+        id: 402,
+        name: "هدية منوعة 2",
+        price: 12.5,
+        shortDesc: "هدية يدوية مميزة.",
+        fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.",
+        image: "images/gifts/2/girl/2.webp",
+        category: "gift",
+        hasSizes: false,
+        variants: [
+          {
+            "name": "بنت",
+            "priceDiff": 0,
+            "images": [
+              "images/gifts/2/girl/2.webp",
+              "images/gifts/2/girl/2b.webp",
+              "images/gifts/2/girl/2c.webp"
+            ],
+            "shortDesc": "تصميم بنت بلمسة رقيقة.",
+            "fullDesc": "هدية يدوية مميزة بتصميم مخصّص للبنت، مصنوعة بعناية وتفاصيل دقيقة. خيار جميل للمناسبات الخاصة وللإهداء بحب.",
+            "requiresCustomText": {
+              "labelKey": "variantGiftCustomLabel",
+              "placeholderKey": "variantGiftCustomPlaceholder",
+              "hintKey": "variantGiftCustomHint",
+              "lang": "any"
+            }
+          },
+          {
+            "name": "ولد",
+            "priceDiff": 0,
+            "images": [
+              "images/gifts/2/boy/2.webp",
+              "images/gifts/2/boy/2b.webp",
+              "images/gifts/2/boy/2c.webp"
+            ],
+            "shortDesc": "تصميم ولد بطابع مميز.",
+            "fullDesc": "هدية يدوية مميزة بتصميم مخصّص للولد، مصنوعة بعناية وتفاصيل دقيقة. خيار رائع للمناسبات الخاصة وللإهداء.",
+            "requiresCustomText": {
+              "labelKey": "variantGiftCustomLabel",
+              "placeholderKey": "variantGiftCustomPlaceholder",
+              "hintKey": "variantGiftCustomHint",
+              "lang": "any"
+            }
+          },
+          {
+            "name": "عائلة",
+            "priceDiff": 0,
+            "images": [
+              "images/gifts/2/family/2.webp"
+            ],
+            "shortDesc": "تصميم عائلي يجمع الأحبّة.",
+            "fullDesc": "هدية يدوية مميزة بتصميم عائلي يجمع أفراد العائلة في قطعة واحدة، مصنوعة بعناية فائقة. هدية دافئة تخلّد لمّة الأحبّة.",
+            "requiresCustomText": {
+              "labelKey": "variantGiftCustomLabel",
+              "placeholderKey": "variantGiftCustomPlaceholder",
+              "hintKey": "variantGiftCustomHint",
+              "lang": "any"
+            }
+          }
+        ],
+    },
+    { id: 403, name: "هدية منوعة 3", price: 15, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/3/3.webp", category: "gift", hasSizes: false },
+    { id: 404, name: "هدية منوعة 4", price: 18.99, shortDesc: "هدية يدوية مميزة.", fullDesc: "قطعة هدية فريدة مصنوعة يدويًا بعناية فائقة وتفاصيل دقيقة.", image: "images/gifts/4/4.webp", category: "gift", hasSizes: false }
 ];
 
 let allProductsEnglish = [...paintingsEnglish, ...cupsEnglish, ...prints3dEnglish, ...framesEnglish, ...giftsEnglish];

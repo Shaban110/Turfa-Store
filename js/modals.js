@@ -141,6 +141,18 @@ async function showProductDetails(productId) {
         }
     }
 
+    // 🟢 نفس الشي للـ variants (ولد/بنت/عائلة...): نتأكد إنه عدد الـ
+    //    thumbnails يكفي لأكبر variant عنده صور — وإلا صور الخيار ما تظهر
+    if (product.variants && product.variants.length > 0) {
+        const maxVariantImages = Math.max(
+            ...product.variants.map(v => (v.images && v.images.length) || (v.image ? 1 : 1))
+        );
+        const neededExtraThumbs = Math.max(0, maxVariantImages - 1);
+        while (dynamicGallery.length < neededExtraThumbs) {
+            dynamicGallery.push(product.image);
+        }
+    }
+
     const detailTitle = document.getElementById('detailTitle');
     const detailImage = document.getElementById('detailImage');
     const detailName = document.getElementById('detailName');
@@ -383,7 +395,8 @@ detailDescriptionFull.textContent =
                             : `<i class="fas fa-info-circle"></i> ${hintText}`;
                     }
                     customTextWrap.classList.add('active');
-                    setTimeout(() => { if (customTextInput) customTextInput.focus(); }, 250);
+                    // 🟢 ما عاد نعمل focus تلقائي عند تبديل الخيار — كان يسبب
+                    //    تمرير الصفحة لتحت بشكل مزعج. الزبون يضغط الحقل لما يجهز.
                 } else {
                     customTextWrap.classList.remove('active');
                     if (customTextInput) {

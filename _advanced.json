@@ -1,0 +1,568 @@
+{
+  "paintings:1": {
+    "ar": {
+      "colors": [
+        {
+          "name": "وردي",
+          "hex": "#e8a0b0",
+          "images": [
+            "images/plates/1/1.webp",
+            "images/plates/1/1b.webp",
+            "images/plates/1/1c.webp"
+          ]
+        },
+        {
+          "name": "بني",
+          "hex": "#704214",
+          "images": [
+            "images/plates/1/brown/1.webp",
+            "images/plates/1/brown/2.webp"
+          ]
+        }
+      ]
+    },
+    "en": {
+      "colors": [
+        {
+          "name": "Pink",
+          "hex": "#e8a0b0",
+          "images": [
+            "images/plates/1/1.webp",
+            "images/plates/1/1b.webp",
+            "images/plates/1/1c.webp"
+          ]
+        },
+        {
+          "name": "Beige",
+          "hex": "#d4b896",
+          "images": [
+            "images/plates/1/1_beige.webp",
+            "images/plates/1/1b_beige.webp",
+            "images/plates/1/1c_beige.webp"
+          ]
+        }
+      ]
+    }
+  },
+  "paintings:2": {
+    "ar": {
+      "colors": [
+        {
+          "name": "بيج",
+          "hex": "#d4b896",
+          "images": [
+            "images/plates/2/2.webp",
+            "images/plates/2/2b.webp"
+          ]
+        },
+        {
+          "name": "أسود",
+          "hex": "#2c2c2c",
+          "images": [
+            "images/plates/2/2_black.webp",
+            "images/plates/2/2b_black.webp"
+          ]
+        },
+        {
+          "name": "ذهبي",
+          "hex": "#c9a84c",
+          "images": [
+            "images/plates/2/2_gold.webp"
+          ]
+        }
+      ]
+    }
+  },
+  "paintings:4": {
+    "ar": {
+      "requiresCustomForm": true,
+      "isCustomDesign": true
+    },
+    "en": {
+      "requiresCustomForm": true,
+      "isCustomDesign": true
+    }
+  },
+  "prints3d:301": {
+    "ar": {
+      "variants": [
+        {
+          "name": "ماريو",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/mario/1.webp",
+            "images/3d/1/mario/1b.webp",
+            "images/3d/1/mario/1c.webp",
+            "images/3d/1/mario/1d.webp"
+          ],
+          "shortDesc": "البطل الأصلي بقبعته الحمراء الشهيرة",
+          "fullDesc": "تمثال ماريو الكلاسيكي مطبوع بتقنية ثلاثية الأبعاد عالية الدقة. ارتفاع 12 سم، تفاصيل دقيقة لقبعته وشاربه، ألوان زاهية تدوم طويلاً. القطعة المثالية لعشاق الألعاب الكلاسيكية وتزيين المكتب أو الرفوف."
+        },
+        {
+          "name": "واريو",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/wario/1.webp"
+          ],
+          "shortDesc": "الشرير الكاريزماتي بقبعته الصفراء",
+          "fullDesc": "تمثال واريو بتفاصيل أكثر تعقيداً وحجم أكبر قليلاً، لذلك السعر أعلى. شخصية مميزة لعشّاق الجانب الشقيّ من عالم ماريو، تضيف طابعاً مرحاً وغير تقليدي على ديكورك."
+        },
+        {
+          "name": "يوشي",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/luchi/1.webp",
+            "images/3d/1/luchi/1b.webp"
+          ],
+          "shortDesc": "إصدار خاص بتفاصيل حصرية",
+          "fullDesc": "نسخة لوشي المميزة بتفاصيل دقيقة وألوان مدروسة. قطعة محدودة لجامعي التماثيل والمحبين الباحثين عن قطعة فريدة لا تتوفر في كل مكان."
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Mario",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/1/mario/1.webp",
+            "images/3d/1/mario/1b.webp",
+            "images/3d/1/mario/1c.webp",
+            "images/3d/1/mario/1d.webp"
+          ],
+          "shortDesc": "The original hero with his iconic red cap",
+          "fullDesc": "Classic Mario figure printed in high-precision 3D. 12cm tall, with detailed cap and mustache, vivid long-lasting colors. The perfect piece for classic gaming fans, ideal for desk and shelf decor."
+        },
+        {
+          "name": "Wario",
+          "priceDiff": 5,
+          "images": [
+            "images/3d/1/wario/1.webp"
+          ],
+          "shortDesc": "The charismatic villain with his yellow cap",
+          "fullDesc": "Wario figure with more intricate details and a slightly larger size, hence the higher price. A standout character for fans of the mischievous side of the Mario universe, adding a fun and unconventional touch to your decor."
+        },
+        {
+          "name": "Yoshi",
+          "priceDiff": 3,
+          "images": [
+            "images/3d/1/luchi/1.webp",
+            "images/3d/1/luchi/1b.webp"
+          ],
+          "shortDesc": "Special edition with exclusive details",
+          "fullDesc": "The distinctive Luchi version with intricate details and carefully chosen colors. A limited piece for figure collectors and enthusiasts looking for a unique item not available everywhere."
+        }
+      ]
+    }
+  },
+  "prints3d:302": {
+    "ar": {
+      "variants": [
+        {
+          "name": "بنت",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/girl/2.webp",
+            "images/3d/2/girl/2b.webp"
+          ],
+          "shortDesc": "تصميم بنت",
+          "fullDesc": "تمثال بنت مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForGirl",
+            "placeholderKey": "variantCustomNamePlaceholderGirl",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        },
+        {
+          "name": "ولد",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/boy/2.webp"
+          ],
+          "shortDesc": "تصميم ولد",
+          "fullDesc": "تمثال ولد مطبوع ثلاثي الأبعاد بجودة عالية وتفاصيل دقيقة وخامات متينة.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForBoy",
+            "placeholderKey": "variantCustomNamePlaceholderBoy",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Girl",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/girl/2.webp",
+            "images/3d/2/girl/2b.webp"
+          ],
+          "shortDesc": "Girl design",
+          "fullDesc": "High-quality 3D printed girl figure with fine details and durable materials.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForGirl",
+            "placeholderKey": "variantCustomNamePlaceholderGirl",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        },
+        {
+          "name": "Boy",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/2/boy/2.webp"
+          ],
+          "shortDesc": "Boy design",
+          "fullDesc": "High-quality 3D printed boy figure with fine details and durable materials.",
+          "requiresCustomText": {
+            "labelKey": "variantCustomNameForBoy",
+            "placeholderKey": "variantCustomNamePlaceholderBoy",
+            "hintKey": "variantCustomNameLatinHint",
+            "lang": "en"
+          }
+        }
+      ]
+    }
+  },
+  "prints3d:304": {
+    "ar": {
+      "variants": [
+        {
+          "name": "لعبة 1",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy1/4.webp",
+            "images/3d/4/toy1/4b.webp",
+            "images/3d/4/toy1/4c.webp"
+          ],
+          "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+          "fullDesc": "لعبة 1 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+        },
+        {
+          "name": "لعبة 2",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy2/4.webp",
+            "images/3d/4/toy2/4b.webp",
+            "images/3d/4/toy2/4c.webp"
+          ],
+          "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+          "fullDesc": "لعبة 2 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+        },
+        {
+          "name": "لعبة 3",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy3/4.webp",
+            "images/3d/4/toy3/4b.webp",
+            "images/3d/4/toy3/4c.webp"
+          ],
+          "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+          "fullDesc": "لعبة 3 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+        },
+        {
+          "name": "لعبة 4",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy4/4.webp",
+            "images/3d/4/toy4/4b.webp",
+            "images/3d/4/toy4/4c.webp"
+          ],
+          "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+          "fullDesc": "لعبة 4 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+        },
+        {
+          "name": "لعبة 5",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy5/4.webp",
+            "images/3d/4/toy5/4b.webp",
+            "images/3d/4/toy5/4c.webp"
+          ],
+          "shortDesc": "لعبة أطفال مطبوعة ثلاثية الأبعاد.",
+          "fullDesc": "لعبة 5 — لعبة أطفال مطبوعة ثلاثية الأبعاد بخامات آمنة ومتينة وألوان زاهية. مثالية كهدية ممتعة للأطفال."
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Toy 1",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy1/4.webp",
+            "images/3d/4/toy1/4b.webp",
+            "images/3d/4/toy1/4c.webp"
+          ],
+          "shortDesc": "A 3D-printed kids toy.",
+          "fullDesc": "Toy 1 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+        },
+        {
+          "name": "Toy 2",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy2/4.webp",
+            "images/3d/4/toy2/4b.webp",
+            "images/3d/4/toy2/4c.webp"
+          ],
+          "shortDesc": "A 3D-printed kids toy.",
+          "fullDesc": "Toy 2 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+        },
+        {
+          "name": "Toy 3",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy3/4.webp",
+            "images/3d/4/toy3/4b.webp",
+            "images/3d/4/toy3/4c.webp"
+          ],
+          "shortDesc": "A 3D-printed kids toy.",
+          "fullDesc": "Toy 3 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+        },
+        {
+          "name": "Toy 4",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy4/4.webp",
+            "images/3d/4/toy4/4b.webp",
+            "images/3d/4/toy4/4c.webp"
+          ],
+          "shortDesc": "A 3D-printed kids toy.",
+          "fullDesc": "Toy 4 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+        },
+        {
+          "name": "Toy 5",
+          "priceDiff": 0,
+          "images": [
+            "images/3d/4/toy5/4.webp",
+            "images/3d/4/toy5/4b.webp",
+            "images/3d/4/toy5/4c.webp"
+          ],
+          "shortDesc": "A 3D-printed kids toy.",
+          "fullDesc": "Toy 5 — a 3D-printed kids toy made with safe, durable materials and vivid colors. A perfect fun gift for children."
+        }
+      ]
+    }
+  },
+  "frames:201": {
+    "ar": {
+      "requiresWeddingForm": true
+    },
+    "en": {
+      "requiresWeddingForm": true
+    }
+  },
+  "frames:202": {
+    "ar": {
+      "variants": [
+        {
+          "name": "برشلونة",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/barcelona/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي برشلونة.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي برشلونة العريق. هدية مثالية لكل عاشق للبلاوغرانا."
+        },
+        {
+          "name": "ريال مدريد",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/real-madrid/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي ريال مدريد.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي ريال مدريد الملكي. تحفة لكل مشجع للنادي الأبيض."
+        },
+        {
+          "name": "مانشستر سيتي",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-city/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر سيتي.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر سيتي. اختيار مميز لمحبي السماويين."
+        },
+        {
+          "name": "مانشستر يونايتد",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-united/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي فاخر بشعار نادي مانشستر يونايتد.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، مصنوع يدوياً، يحمل شعار نادي مانشستر يونايتد. هدية مثالية لكل مشجع للشياطين الحمر."
+        },
+        {
+          "name": "مخصص",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/custom/1.webp"
+          ],
+          "shortDesc": "فاصل كتب جلدي بشعار نادي من اختيارك.",
+          "fullDesc": "فاصل كتب من الجلد الفاخر، اختار اسم النادي اللي بدك إياه، ونحن نصنعه لك يدوياً بأعلى دقة. ملاحظة: بعد إتمام الطلب، أرسل لنا صورة الشعار المرجعية على واتساب.",
+          "requiresCustomText": true
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Barcelona",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/barcelona/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with FC Barcelona crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the iconic FC Barcelona crest. A perfect gift for every Blaugrana fan."
+        },
+        {
+          "name": "Real Madrid",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/real-madrid/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with Real Madrid crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the legendary Real Madrid crest. A treasure for every Los Blancos fan."
+        },
+        {
+          "name": "Manchester City",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-city/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with Manchester City crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the Manchester City crest. A distinctive choice for Citizens supporters."
+        },
+        {
+          "name": "Manchester United",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/man-united/1.webp"
+          ],
+          "shortDesc": "Premium leather bookmark with Manchester United crest.",
+          "fullDesc": "Handcrafted premium leather bookmark with the Manchester United crest. The perfect gift for every Red Devils fan."
+        },
+        {
+          "name": "Custom",
+          "priceDiff": 0,
+          "images": [
+            "images/Frame/2/custom/1.webp"
+          ],
+          "shortDesc": "Leather bookmark with any club of your choice.",
+          "fullDesc": "Premium leather bookmark — choose any club name and we'll handcraft it for you with the highest detail. Note: after placing the order, please send us the reference logo on WhatsApp.",
+          "requiresCustomText": true
+        }
+      ]
+    }
+  },
+  "gifts:402": {
+    "ar": {
+      "variants": [
+        {
+          "name": "بنت",
+          "priceDiff": 0,
+          "images": [
+            "images/gifts/2/girl/2.webp",
+            "images/gifts/2/girl/2b.webp",
+            "images/gifts/2/girl/2c.webp"
+          ],
+          "shortDesc": "تصميم بنت بلمسة رقيقة.",
+          "fullDesc": "هدية يدوية مميزة بتصميم مخصّص للبنت، مصنوعة بعناية وتفاصيل دقيقة. خيار جميل للمناسبات الخاصة وللإهداء بحب.",
+          "requiresCustomText": {
+            "labelKey": "variantGiftCustomLabel",
+            "placeholderKey": "variantGiftCustomPlaceholder",
+            "hintKey": "variantGiftCustomHint",
+            "lang": "any"
+          }
+        },
+        {
+          "name": "ولد",
+          "priceDiff": 0,
+          "images": [
+            "images/gifts/2/boy/2.webp",
+            "images/gifts/2/boy/2b.webp",
+            "images/gifts/2/boy/2c.webp"
+          ],
+          "shortDesc": "تصميم ولد بطابع مميز.",
+          "fullDesc": "هدية يدوية مميزة بتصميم مخصّص للولد، مصنوعة بعناية وتفاصيل دقيقة. خيار رائع للمناسبات الخاصة وللإهداء.",
+          "requiresCustomText": {
+            "labelKey": "variantGiftCustomLabel",
+            "placeholderKey": "variantGiftCustomPlaceholder",
+            "hintKey": "variantGiftCustomHint",
+            "lang": "any"
+          }
+        },
+        {
+          "name": "عائلة",
+          "priceDiff": 0,
+          "images": [
+            "images/gifts/2/family/2.webp"
+          ],
+          "shortDesc": "تصميم عائلي يجمع الأحبّة.",
+          "fullDesc": "هدية يدوية مميزة بتصميم عائلي يجمع أفراد العائلة في قطعة واحدة، مصنوعة بعناية فائقة. هدية دافئة تخلّد لمّة الأحبّة.",
+          "requiresCustomText": {
+            "labelKey": "variantGiftCustomLabel",
+            "placeholderKey": "variantGiftCustomPlaceholder",
+            "hintKey": "variantGiftCustomHint",
+            "lang": "any"
+          }
+        }
+      ]
+    },
+    "en": {
+      "variants": [
+        {
+          "name": "Girl",
+          "priceDiff": 0,
+          "images": [
+            "images/gifts/2/girl/2.webp",
+            "images/gifts/2/girl/2b.webp",
+            "images/gifts/2/girl/2c.webp"
+          ],
+          "shortDesc": "A girl design with a delicate touch.",
+          "fullDesc": "A unique handmade gift with a girl-themed custom design, crafted with care and fine detailing. A lovely choice for special occasions and heartfelt gifting.",
+          "requiresCustomText": {
+            "labelKey": "variantGiftCustomLabel",
+            "placeholderKey": "variantGiftCustomPlaceholder",
+            "hintKey": "variantGiftCustomHint",
+            "lang": "any"
+          }
+        },
+        {
+          "name": "Boy",
+          "priceDiff": 0,
+          "images": [
+            "images/gifts/2/boy/2.webp",
+            "images/gifts/2/boy/2b.webp",
+            "images/gifts/2/boy/2c.webp"
+          ],
+          "shortDesc": "A boy design with a distinctive character.",
+          "fullDesc": "A unique handmade gift with a boy-themed custom design, crafted with care and fine detailing. A great choice for special occasions and gifting.",
+          "requiresCustomText": {
+            "labelKey": "variantGiftCustomLabel",
+            "placeholderKey": "variantGiftCustomPlaceholder",
+            "hintKey": "variantGiftCustomHint",
+            "lang": "any"
+          }
+        },
+        {
+          "name": "Family",
+          "priceDiff": 0,
+          "images": [
+            "images/gifts/2/family/2.webp"
+          ],
+          "shortDesc": "A family design that brings loved ones together.",
+          "fullDesc": "A unique handmade gift with a family design that brings everyone together in one piece, crafted with great care. A warm gift that immortalizes the gathering of loved ones.",
+          "requiresCustomText": {
+            "labelKey": "variantGiftCustomLabel",
+            "placeholderKey": "variantGiftCustomPlaceholder",
+            "hintKey": "variantGiftCustomHint",
+            "lang": "any"
+          }
+        }
+      ]
+    }
+  }
+}

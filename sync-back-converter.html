@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محوّل المزامنة العكسية — متجر طُرفة</title>
+<style>
+  :root{
+    --green:#002617; --green-light:#0a4a32; --gold:#c9a84c;
+    --bg:#f4f1ea; --card:#fffdf8; --ink:#1c1c1c; --muted:#6b6b6b;
+    --line:#e2ddd0; --ok:#1f7a4d; --err:#c0392b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",Tahoma,system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%,rgba(201,168,76,.08),transparent 40%),
+      radial-gradient(circle at 85% 100%,rgba(0,38,23,.06),transparent 40%),
+      var(--bg);
+    color:var(--ink); min-height:100vh; padding:32px 18px; line-height:1.6;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header{text-align:center;margin-bottom:28px}
+  .logo-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--green);color:#fff;padding:10px 22px;border-radius:999px;
+    font-weight:700;font-size:1.05rem;box-shadow:0 6px 20px rgba(0,38,23,.25)
+  }
+  .logo-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--gold)}
+  h1{font-size:1.5rem;margin:18px 0 6px;color:var(--green)}
+  .sub{color:var(--muted);font-size:.95rem}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:26px;margin-bottom:20px;box-shadow:0 4px 18px rgba(0,0,0,.04)
+  }
+  .step-tag{
+    display:inline-block;background:var(--gold);color:var(--green);
+    font-weight:700;font-size:.78rem;padding:4px 12px;border-radius:999px;margin-bottom:12px
+  }
+  .card h2{font-size:1.15rem;color:var(--green);margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.92rem;margin-bottom:16px}
+  .drop{
+    border:2.5px dashed var(--line);border-radius:14px;padding:34px 20px;
+    text-align:center;cursor:pointer;transition:.2s;background:#fff
+  }
+  .drop:hover,.drop.over{border-color:var(--gold);background:#fffaf0}
+  .drop.loaded{border-color:var(--ok);border-style:solid;background:rgba(31,122,77,.04)}
+  .drop .ic{font-size:2.4rem;margin-bottom:8px}
+  .drop strong{color:var(--green)}
+  .drop small{display:block;color:var(--muted);margin-top:6px;font-size:.82rem}
+  input[type=file]{display:none}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;justify-content:center;
+    background:var(--green);color:#fff;border:none;border-radius:12px;
+    padding:14px 26px;font-size:1rem;font-weight:700;cursor:pointer;
+    width:100%;transition:.2s;font-family:inherit
+  }
+  .btn:hover:not(:disabled){background:var(--green-light);transform:translateY(-1px)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.gold{background:var(--gold);color:var(--green)}
+  .btn.gold:hover:not(:disabled){background:#d8b85a}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+  .btn-row .btn{flex:1;min-width:200px}
+  .msg{margin-top:16px;padding:13px 16px;border-radius:11px;font-size:.9rem;font-weight:600;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:rgba(31,122,77,.1);color:var(--ok);border:1px solid rgba(31,122,77,.25)}
+  .msg.err{background:rgba(192,57,43,.08);color:var(--err);border:1px solid rgba(192,57,43,.25)}
+  .msg.info{background:rgba(0,38,23,.05);color:var(--green);border:1px solid var(--line)}
+  .report{
+    margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:16px;font-size:.88rem;display:none
+  }
+  .report.show{display:block}
+  .report h3{color:var(--green);font-size:1rem;margin-bottom:10px}
+  .report .line{padding:5px 0;border-bottom:1px dashed var(--line);color:var(--ink)}
+  .report .line:last-child{border-bottom:none}
+  .report .badge-n{
+    display:inline-block;background:var(--gold);color:var(--green);
+    border-radius:999px;padding:1px 9px;font-weight:700;font-size:.8rem;margin-inline-start:6px
+  }
+  .report .new{color:var(--ok);font-weight:600}
+  .report .del{color:var(--err);font-weight:600}
+  .hint{
+    background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);
+    border-radius:12px;padding:14px 16px;font-size:.86rem;color:#6b5a1f;margin-top:18px
+  }
+  .hint b{color:var(--green)}
+  ol{margin:10px 22px;font-size:.9rem;color:var(--muted)}
+  ol li{margin:6px 0}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo-badge"><span class="dot"></span> متجر طُرفة</div>
+    <h1>محوّل المزامنة العكسية</h1>
+    <div class="sub">عدّلت <code>data.js</code> يدوياً؟ رجّع تعديلاتك للـ CSV و JSON بضغطة زر</div>
+  </header>
+
+  <div class="card">
+    <span class="step-tag">الخطوة ١</span>
+    <h2>ارفع data.js المعدّل</h2>
+    <p>اسحب ملف <b>data.js</b> الذي عدّلته يدوياً (بعد الإطلاق). بنقرأ منه كل التعديلات.</p>
+    <label class="drop" id="drop">
+      <div class="ic">📜</div>
+      <strong>اسحب data.js هنا أو اضغط للاختيار</strong>
+      <small>data.js المعدّل فقط</small>
+      <input type="file" id="file" accept=".js,text/javascript,application/javascript">
+    </label>
+    <div class="msg" id="msg1"></div>
+    <div class="report" id="report"></div>
+  </div>
+
+  <div class="card">
+    <span class="step-tag">الخطوة ٢</span>
+    <h2>نزّل الملفات المتزامنة</h2>
+    <p>بنبني <b>products.csv</b> و <b>_advanced.json</b> يحتويان كل تعديلاتك اليدوية. انسخهما لمجلد <b>js/</b> مكان القديمين.</p>
+    <div class="btn-row">
+      <button class="btn gold" id="dlCsv" disabled>📄 تنزيل products.csv</button>
+      <button class="btn gold" id="dlJson" disabled>📦 تنزيل _advanced.json</button>
+    </div>
+    <div class="msg" id="msg2"></div>
+  </div>
+
+  <div class="hint">
+    <b>بعد التنزيل:</b> استبدل <code>products.csv</code> و <code>_advanced.json</code>
+    القديمين بالجديدين. من هاللحظة رجع النظام متزامن — تكمّل بالطريقة
+    الأوتوماتيكية (المحوّل العادي) وما تعدّل <code>data.js</code> يدوياً مرة ثانية.
+  </div>
+
+  <div class="card">
+    <span class="step-tag">للمرجع</span>
+    <h2>متى أستخدم هذه الأداة؟</h2>
+    <ol>
+      <li>عدّلت <code>data.js</code> يدوياً (يوم الإطلاق مثلاً) — أسعار، نصوص، منتجات، خيارات.</li>
+      <li>تريد ترجع لنظام الـ CSV المريح بدون ما تخسر تعديلاتك اليدوية.</li>
+      <li>ارفع <code>data.js</code> هنا، نزّل الملفين، استبدل القديمين.</li>
+      <li>خلص — كمّل بـ <code>turfa-converter.html</code> و <code>advanced-editor.html</code> كالعادة.</li>
+    </ol>
+  </div>
+
+  <footer>متجر طُرفة — أداة المزامنة العكسية</footer>
+</div>
+
+<script>
+let resultCsv = null;
+let resultJson = null;
+
+function show(el,type,text){ el.className='msg show '+type; el.textContent=text; }
+
+// الحقول البسيطة التي تذهب للـ CSV
+const SIMPLE = new Set(['id','name','price','shortDesc','fullDesc','description',
+  'image','category','hasSizes']);
+
+const GROUP_VARS = [
+  ['paintings','paintingsArabic','paintingsEnglish'],
+  ['cups','cupsArabic','cupsEnglish'],
+  ['prints3d','prints3dArabic','prints3dEnglish'],
+  ['frames','framesArabic','framesEnglish'],
+  ['gifts','giftsArabic','giftsEnglish'],
+];
+
+function csvCell(v){
+  if(v===undefined||v===null) v='';
+  v=String(v);
+  return /[",\n\r]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v;
+}
+
+function handleFile(file){
+  const m1=document.getElementById('msg1');
+  const rep=document.getElementById('report');
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      let src=r.result.replace(/\r/g,'');
+      // ننفّذ data.js داخل sandbox ونلتقط المصفوفات
+      const exportLine=';return {'+
+        'paintingsArabic:typeof paintingsArabic!=="undefined"?paintingsArabic:[],'+
+        'paintingsEnglish:typeof paintingsEnglish!=="undefined"?paintingsEnglish:[],'+
+        'cupsArabic:typeof cupsArabic!=="undefined"?cupsArabic:[],'+
+        'cupsEnglish:typeof cupsEnglish!=="undefined"?cupsEnglish:[],'+
+        'prints3dArabic:typeof prints3dArabic!=="undefined"?prints3dArabic:[],'+
+        'prints3dEnglish:typeof prints3dEnglish!=="undefined"?prints3dEnglish:[],'+
+        'framesArabic:typeof framesArabic!=="undefined"?framesArabic:[],'+
+        'framesEnglish:typeof framesEnglish!=="undefined"?framesEnglish:[],'+
+        'giftsArabic:typeof giftsArabic!=="undefined"?giftsArabic:[],'+
+        'giftsEnglish:typeof giftsEnglish!=="undefined"?giftsEnglish:[]};';
+      const fakeDoc={addEventListener(){},getElementById(){return null;}};
+      const X=new Function('document','window', src+'\n'+exportLine)(fakeDoc,{});
+
+      const header=['group','id','category','price_ar','price_en','hasSizes','image',
+        'name_ar','name_en','shortDesc_ar','shortDesc_en','fullDesc_ar','fullDesc_en'];
+      const rows=[header.join(',')];
+      const advanced={};
+      let total=0;
+      const complex=[], priceDiff=[];
+
+      for(const [key,arName,enName] of GROUP_VARS){
+        const arArr=X[arName]||[], enArr=X[enName]||[];
+        const enById=new Map(enArr.map(p=>[p.id,p]));
+        for(const ar of arArr){
+          const en=enById.get(ar.id)||{};
+          total++;
+          const arShort=ar.shortDesc!==undefined?ar.shortDesc:(ar.description!==undefined?ar.description:'');
+          const arFull =ar.fullDesc !==undefined?ar.fullDesc :(ar.description!==undefined?ar.description:'');
+          const enShort=en.shortDesc!==undefined?en.shortDesc:(en.description!==undefined?en.description:'');
+          const enFull =en.fullDesc !==undefined?en.fullDesc :(en.description!==undefined?en.description:'');
+          const pAr=ar.price!==undefined?ar.price:(en.price!==undefined?en.price:0);
+          const pEn=en.price!==undefined?en.price:(ar.price!==undefined?ar.price:0);
+          if(pAr!==pEn) priceDiff.push(key+':'+ar.id);
+
+          rows.push([
+            key, ar.id, ar.category||en.category||'',
+            pAr, pEn,
+            (ar.hasSizes||en.hasSizes)?'true':'false',
+            ar.image||en.image||'',
+            csvCell(ar.name), csvCell(en.name),
+            csvCell(arShort), csvCell(enShort),
+            csvCell(arFull), csvCell(enFull)
+          ].join(','));
+
+          const adv={};
+          for(const k in ar){ if(!SIMPLE.has(k)){ adv.ar=adv.ar||{}; adv.ar[k]=ar[k]; } }
+          for(const k in en){ if(!SIMPLE.has(k)){ adv.en=adv.en||{}; adv.en[k]=en[k]; } }
+          if(Object.keys(adv).length>0){ advanced[key+':'+ar.id]=adv; complex.push(key+':'+ar.id); }
+        }
+      }
+
+      resultCsv='\uFEFF'+rows.join('\n');
+      resultJson=JSON.stringify(advanced,null,2);
+
+      // التقرير
+      let html='<h3>📋 ملخّص المزامنة</h3>';
+      html+='<div class="line">المنتجات الكلية <span class="badge-n">'+total+'</span></div>';
+      html+='<div class="line">منتجات بألوان/خيارات <span class="badge-n">'+complex.length+'</span></div>';
+      if(priceDiff.length)
+        html+='<div class="line">💲 أسعار مختلفة بين العربي/الإنجليزي: '+priceDiff.join('، ')+'</div>';
+      html+='<div class="line" style="color:var(--ok);font-weight:600">✓ تمت قراءة كل التعديلات بنجاح</div>';
+      rep.innerHTML=html;
+      rep.classList.add('show');
+
+      document.getElementById('dlCsv').disabled=false;
+      document.getElementById('dlJson').disabled=false;
+      document.getElementById('drop').classList.add('loaded');
+      show(m1,'ok','✅ تمت قراءة data.js بنجاح ('+total+' منتج). نزّل الملفين من الأسفل.');
+    }catch(e){
+      show(m1,'err','تعذّر قراءة data.js — تأكد إنه الملف الصحيح وما فيه أخطاء برمجية. ('+e.message+')');
+      document.getElementById('dlCsv').disabled=true;
+      document.getElementById('dlJson').disabled=true;
+    }
+  };
+  r.onerror=()=>show(m1,'err','فشل في فتح الملف.');
+  r.readAsText(file,'utf-8');
+}
+
+function download(content,filename,type){
+  const blob=new Blob([content],{type:type+';charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+const drop=document.getElementById('drop');
+document.getElementById('file').addEventListener('change',e=>{
+  if(e.target.files[0]) handleFile(e.target.files[0]);
+});
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{ const f=e.dataTransfer.files[0]; if(f) handleFile(f); });
+
+document.getElementById('dlCsv').addEventListener('click',()=>{
+  if(!resultCsv){ show(document.getElementById('msg2'),'err','ارفع data.js أولاً.'); return; }
+  download(resultCsv,'products.csv','text/csv');
+  show(document.getElementById('msg2'),'ok','✅ تم تنزيل products.csv — انسخه لمجلد js/');
+});
+document.getElementById('dlJson').addEventListener('click',()=>{
+  if(!resultJson){ show(document.getElementById('msg2'),'err','ارفع data.js أولاً.'); return; }
+  download(resultJson,'_advanced.json','application/json');
+  show(document.getElementById('msg2'),'ok','✅ تم تنزيل _advanced.json — انسخه لمجلد js/');
+});
+</script>
+</body>
+</html>
