@@ -2003,6 +2003,7 @@ function submitArtistForm() {
     closeArtistForm();
 }
 
+//
 // 🟢 استفسار قبل التسجيل (من موديل الفنان)
 function artistInquiry() {
     const message = texts.artistInquiryMessage || "مرحباً متجر طُرفة! عندي استفسار عن الانضمام لمتجركم.\n\n";
