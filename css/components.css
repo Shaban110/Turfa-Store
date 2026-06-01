@@ -1977,29 +1977,7 @@ html[data-theme='dark'] .hero-inner p{color:#eaeaea; opacity:.9}
     transform: translateY(-6px) scale(1.02);
 }
 
-/* --- شريط "خصم" متحرك على بطاقات العروض --- */
-.offers-grid .product-card::after {
-    content: '50%';
-    position: absolute;
-    top: 12px;
-    /* في RTL يكون لليمين، في LTR لليسار */
-    inset-inline-start: 12px;
-    background: linear-gradient(135deg, #ff6b35 0%, #ff3d3d 100%);
-    color: #fff;
-    font-weight: 800;
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    border-radius: 999px;
-    box-shadow: 0 4px 12px rgba(255, 61, 61, 0.35);
-    z-index: 5;
-    pointer-events: none;
-    animation: offerTagFloat 2.5s ease-in-out infinite;
-}
-
-@keyframes offerTagFloat {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50%      { transform: translateY(-3px) rotate(3deg); }
-}
+/* --- (تم حذف شريط الخصم "50%" بعد انتهاء العرض) --- */
 
 /* --- استجابة الموبايل --- */
 @media (max-width: 768px) {
@@ -2027,10 +2005,6 @@ html[data-theme='dark'] .hero-inner p{color:#eaeaea; opacity:.9}
             #000 calc(100% - 30px),
             transparent 100%
         );
-    }
-    .offers-grid .product-card::after {
-        font-size: 0.75rem;
-        padding: 4px 9px;
     }
 }
 

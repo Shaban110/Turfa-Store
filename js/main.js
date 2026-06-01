@@ -511,17 +511,6 @@ function initStore() {
     setupModal('cartModal', 'cartIcon', 'closeCart');
     setupModal('favoritesModal', 'favoritesIcon', 'closeFavorites');
     setupModal('productDetailModal', null, 'closeDetail');
-    
-    // 🟢🟢🟢 إضافة سلوك إغلاق النافذة المنبثقة للعروض عند النقر خارجها 🟢🟢🟢
-    const promoModal = document.getElementById('promoModal');
-    if (promoModal) {
-        promoModal.addEventListener('click', (e) => {
-            // إغلاق النافذة فقط إذا كان النقر على عنصر الخلفية (أي خارج الـ .cart-content)
-            if (e.target === promoModal) {
-                promoModal.classList.remove('active');
-            }
-        });
-    }
     // 🟢🟢🟢 نهاية إضافة السلوك 🟢🟢🟢
 
     // Event Listeners
@@ -622,7 +611,6 @@ function initStore() {
     
     // تشغيل الآلة الكاتبة عند بدء المتجر
     initTypewriter();
-    showPromoModal();
 }
 
 document.addEventListener('DOMContentLoaded', initStore);

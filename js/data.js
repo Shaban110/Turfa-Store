@@ -12,7 +12,7 @@
 // =================================================================
 // --- 0. GLOBAL CONFIGURATION (NEW) ---
 // =================================================================
-const GLOBAL_DISCOUNT_PERCENT = 0.500; // 50% خصم (50/100)
+const GLOBAL_DISCOUNT_PERCENT = 0; // 🔴 انتهى عرض الخصم — الأسعار طبيعية الآن. (لإعادة تفعيل خصم لاحقاً: 0.500 = 50%)
 
 // 🟢 دالة موحّدة لحساب السعر بعد الخصم — استخدمها بدل التكرار اليدوي
 // لو احتجت تغيّر طريقة الخصم (مثلاً خصومات مختلفة لكل منتج)، عدّل هون فقط.
@@ -20,6 +20,25 @@ function getDiscountedPrice(basePrice) {
     const price = Number(basePrice) || 0;
     return price * (1 - GLOBAL_DISCOUNT_PERCENT);
 }
+
+// 🟢 هل يوجد خصم فعّال؟ (نستخدمها لإظهار/إخفاء السعر المشطوب في البطاقات والموديلات)
+function hasActiveDiscount() {
+    return GLOBAL_DISCOUNT_PERCENT > 0;
+}
+
+// 🟢 تنسيق السعر حسب اللغة:
+//   • بالعربي: الرقم ثم الرمز على اليمين  →  "19.99 د.أ"
+//   • بالإنجليزي: الرقم ثم JOD            →  "19.99 JOD"
+function formatPrice(amount) {
+    const n = (Number(amount) || 0).toFixed(2);
+    return (typeof currentLang !== 'undefined' && currentLang === 'en')
+        ? `${n} JOD`
+        : `${n} د.أ`;
+}
+
+// 🌟 المنتجات المميزة — تظهر في قسم "منتجات مميزة" بالسكرول التلقائي.
+// عدّل هذه القائمة لتحديد أي المنتجات تظهر كمميزة (حسب الـ id).
+const FEATURED_PRODUCT_IDS = [1, 3, 102, 104, 116, 201, 303, 401];
 
 // 🟢 معلومات التواصل الموحّدة — لو تغيّر الرقم، عدّل هون فقط
 const STORE_PHONE = '+962788489914';                    // الرقم الكامل بصيغة دولية
@@ -49,7 +68,7 @@ const arabicTexts = {
     prints3dTitle: "طباعات 3D",
     framesTitle: "براويز",
     giftsTitle: "هدايا منوعة",
-    offersTitle: "العروض",
+    offersTitle: "منتجات مميزة",
     heroSubtitle: "كل قطعة عنا قابلة للتخصيص — اختر، عدّل، أو احكيلنا فكرتك ومنصممها من الصفر",
     heroCustomBadge: "تخصيص متاح على كل القطع",
     searchPlaceholder: "ابحث عن منتجك من هنا",
@@ -313,7 +332,7 @@ const englishTexts = {
     prints3dTitle: "3D Prints",
     framesTitle: "Frames",
     giftsTitle: "Mixed Gifts",
-    offersTitle: "Special Offers",
+    offersTitle: "Featured Products",
     heroSubtitle: "Every piece is customizable — pick one, tweak it, or tell us your idea and we'll build it from scratch",
     heroCustomBadge: "Customization available on every piece",
     searchPlaceholder: "Search for your product here",

@@ -10,104 +10,8 @@
 // =================================================================
 
 // =================================================================
-// --- 8. PROMO MODAL LOGIC (New Section) ---
+// --- 8. (تم حذف منطق نافذة العرض الترويجي بعد انتهاء عرض الخصم) ---
 // =================================================================
-
-function updateCountdown(endTime) {
-    const timerElement = document.getElementById('promoCountdown');
-    if (!timerElement) return;
-
-    // مسح الـ interval السابق قبل بدء الجديد
-    const existingInterval = timerElement.dataset.intervalId;
-    if (existingInterval) {
-        clearInterval(parseInt(existingInterval));
-    }
-
-    const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = endTime - now;
-        
-        if (distance < 0) {
-            clearInterval(interval);
-            timerElement.innerHTML = `<p style="color: var(--secondary); font-size: 1.3rem; font-weight: 600;">انتهى العرض!</p>`;
-            document.getElementById('promoTitle').textContent = (currentLang === 'ar' ? 'انتهى العرض' : 'Sale Ended');
-            document.getElementById('closePromoBtn').style.display = 'none';
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        const lang = currentLang === 'ar';
-
-timerElement.innerHTML = `
-            <div class="countdown-timer">
-                <div><span>${seconds}</span><small>${lang ? 'ثواني' : 'Secs'}</small></div>
-                <div><span>${minutes}</span><small>${lang ? 'دقائق' : 'Mins'}</small></div>
-                <div><span>${hours}</span><small>${lang ? 'ساعات' : 'Hours'}</small></div>
-                <div><span>${days}</span><small>${lang ? 'أيام' : 'Days'}</small></div>
-            </div>
-        `;
-    }, 1000);
-
-    // تخزين الـ interval ID
-    timerElement.dataset.intervalId = interval;
-}
-
-function showPromoModal(updateOnly = false) {
-    // 🟢 تم إزالة التحقق من sessionStorage لتظهر النافذة مع كل تحديث.
-
-    const modal = document.getElementById('promoModal');
-    const title = document.getElementById('promoTitle');
-    const content = document.getElementById('promoContent');
-    const closeBtn = document.getElementById('closePromo');
-    const shopNowBtn = document.getElementById('closePromoBtn');
-
-    // 🟢 إذا كنا فقط بنحدّث (مثلاً عند تبديل اللغة) والنافذة مغلقة، لا نفعل شيئاً
-    if (updateOnly && !modal.classList.contains('active')) {
-        return;
-    }
-
-    const promoTexts = currentLang === 'ar' ? arabicTexts : englishTexts;
-    
-    // 🟢🟢🟢 تم تعديل التاريخ المستهدف إلى نهاية 28 نوفمبر 2025 🟢🟢🟢
-    // التاريخ المستهدف: نهاية يوم 30 مايو 2025 (الساعة 23:59:59)
-    // ملاحظة: شهر مايو هو الشهر الرابع (4) في JavaScript (الأشهر تبدأ من 0)
-    const targetDate = new Date(2026, 4, 30, 23, 59, 59).getTime();
-
-    title.textContent = promoTexts.promoTitle;
-    
-    const discountText = `${(GLOBAL_DISCOUNT_PERCENT * 100).toFixed(0)}%`; // 🟢 لتحديد نسبة الخصم ديناميكياً
-    
-    content.innerHTML = `
-        <h3 style="color: var(--secondary); margin-bottom: 15px; font-size: 1.8rem;">خصم ${discountText} على كل شيء!</h3>
-        <p>${promoTexts.promoMessage.replace('50%', discountText)}</p>
-        <div id="promoCountdown" style="text-align: center; margin-bottom: 20px;"></div>
-    `;
-    shopNowBtn.textContent = promoTexts.promoButton;
-    shopNowBtn.style.display = 'block';
-
-    // منطق إغلاق النافذة (بدون تخزين الجلسة)
-    const closeModal = () => {
-        modal.classList.remove('active');
-        // ❌ تم حذف تخزين المشاهدة من الجلسة
-    };
-
-    closeBtn.addEventListener('click', closeModal);
-    shopNowBtn.addEventListener('click', closeModal);
-
-    // 🟢 تشغيل العداد التنازلي بالتاريخ الجديد
-    updateCountdown(targetDate);
-
-    // 🟢 إظهار النافذة فقط إذا لم نكن في وضع التحديث فقط
-    if (!updateOnly) {
-        setTimeout(() => {
-            modal.classList.add('active');
-        }, 800);
-    }
-}
 
 async function showProductDetails(productId) {
     const product = products.find(p => p.id === productId);
@@ -167,7 +71,6 @@ async function showProductDetails(productId) {
     // --- Variants Selector HTML (الخيارات النصية مثل ماريو/لويجي) ---
     let variantOptionsHTML = '';
     if (product.variants && product.variants.length > 0) {
-        const currencyLabel = currentLang === 'ar' ? 'د.أ' : 'JOD';
         variantOptionsHTML = `
             <div class="product-variant-select" id="variantSelectSection">
                 <label>${texts.selectVariant}</label>
@@ -176,7 +79,7 @@ async function showProductDetails(productId) {
                         const firstImg = (variant.images && variant.images[0]) || variant.image || product.image;
                         const priceDiff = variant.priceDiff || 0;
                         const priceLabel = priceDiff > 0
-                            ? `+ ${currencyLabel} ${priceDiff.toFixed(2)}`
+                            ? `+ ${formatPrice(priceDiff)}`
                             : '';
                         return `
                         <button type="button"
@@ -232,7 +135,7 @@ async function showProductDetails(productId) {
                 <label>${texts.selectSize}</label>
                 <div class="size-options-container">
                     ${sizingData.map((size, index) => {
-                        const priceDisplay = index === 0 ? (currentLang === 'ar' ? 'السعر الأساسي' : 'Base Price') : `+ د.أ ${size.priceDiff.toFixed(2)}`;
+                        const priceDisplay = index === 0 ? (currentLang === 'ar' ? 'السعر الأساسي' : 'Base Price') : `+ ${formatPrice(size.priceDiff)}`;
                         const sizeNameOnly = size.name.split(/[\(]/)[0].trim();
                         return `<div class="size-option-box" data-index="${index}" data-pricediff="${size.priceDiff}"><span>${sizeNameOnly}</span><span class="size-price-diff">${priceDisplay}</span></div>`;
                     }).join('')}
@@ -248,10 +151,10 @@ async function showProductDetails(productId) {
         ${colorOptionsHTML}
         ${sizeOptionsHTML}
         <span id="detailPrice" style="font-weight: 700; color: var(--secondary); font-size: 2rem; display: block; margin-bottom: 15px;">
-             ${product.hasSizes ? '' : 
+             ${product.hasSizes ? '' :
              `
-             <span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">د.أ ${initialOriginalPrice.toFixed(2)}</span>
-             <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">د.أ ${initialDiscountedPrice.toFixed(2)}</span>
+             ${hasActiveDiscount() ? `<span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">${formatPrice(initialOriginalPrice)}</span>` : ''}
+             <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">${formatPrice(initialDiscountedPrice)}</span>
              `
              }
         </span>
@@ -291,8 +194,8 @@ detailDescriptionFull.textContent =
                 box.classList.add('active');
                 
                 updatedDetailPrice.innerHTML = `
-                    <span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">د.أ ${originalNewPrice.toFixed(2)}</span>
-                    <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">د.أ ${discountedNewPrice.toFixed(2)}</span>
+                    ${hasActiveDiscount() ? `<span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">${formatPrice(originalNewPrice)}</span>` : ''}
+                    <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">${formatPrice(discountedNewPrice)}</span>
                 `;
                 
                 finalAddToCartBtn.dataset.selectedSizeIndex = selectedIndex; 
@@ -423,12 +326,11 @@ detailDescriptionFull.textContent =
             // 3) تحديث السعر (السعر الأساسي + priceDiff) مع تطبيق الخصم
             const basePrice = product.price + priceDiff;
             const discountedPrice = getDiscountedPrice(basePrice);
-            const currencyLabel = currentLang === 'ar' ? 'د.أ' : 'JOD';
 
             if (detailPriceEl && !product.hasSizes) {
                 detailPriceEl.innerHTML = `
-                    <span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">${currencyLabel} ${basePrice.toFixed(2)}</span>
-                    <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">${currencyLabel} ${discountedPrice.toFixed(2)}</span>
+                    ${hasActiveDiscount() ? `<span style="font-size: 1.1rem; color: #888; text-decoration: line-through;">${formatPrice(basePrice)}</span>` : ''}
+                    <span style="font-size: 2rem; font-weight: 700; color: var(--secondary);">${formatPrice(discountedPrice)}</span>
                 `;
             }
 
@@ -788,8 +690,7 @@ function openWeddingForm(product, sourceEl = null, extras = null) {
     if (previewName) previewName.textContent = product.name;
     if (previewPrice) {
         const finalPrice = (extras && extras.finalPrice) ? extras.finalPrice : getDiscountedPrice(product.price);
-        const currencyLabel = currentLang === 'ar' ? 'د.أ' : 'JD';
-        previewPrice.textContent = `${currencyLabel} ${finalPrice.toFixed(2)}`;
+        previewPrice.textContent = formatPrice(finalPrice);
     }
 
     // مسح القيم القديمة
@@ -1239,7 +1140,7 @@ function updateCartUI() {
 
     if (cart.length === 0) {
         cartItems.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-cart"></i><h3>${texts.emptyCart}</h3><p>${texts.emptyCartSub}</p></div>`;
-        totalPrice.textContent = 'د.أ 0.00';
+        totalPrice.textContent = formatPrice(0);
         return;
     }
     
@@ -1292,7 +1193,7 @@ function updateCartUI() {
                 <div class="item-name">${item.name} ${sizeDisplay} ${colorDisplay}</div>
                 ${weddingDisplay}
                 ${customVariantDisplay}
-                <div class="item-price">د.أ ${item.price.toFixed(2)}</div>
+                <div class="item-price">${formatPrice(item.price)}</div>
             </div>
             <div class="item-quantity">
                 <button class="quantity-btn minus" data-id="${item.id}">-</button>
@@ -1303,7 +1204,7 @@ function updateCartUI() {
         cartItems.appendChild(cartItem);
     });
     
-    totalPrice.textContent = `د.أ ${total.toFixed(2)}`;
+    totalPrice.textContent = formatPrice(total);
 if (cart.length > 0) {
     const clearAllBtn = document.createElement('button');
     clearAllBtn.textContent = '🗑️ حذف الكل';
@@ -1391,7 +1292,7 @@ function updateQuantity(cartItemId, change) {
 
     // تحديث الإجمالي
     const total = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
-    if (totalPrice) totalPrice.textContent = `د.أ ${total.toFixed(2)}`;
+    if (totalPrice) totalPrice.textContent = formatPrice(total);
 
     // تحديث الـ badge على أيقونة السلة
     const totalCount = cart.reduce((sum, it) => sum + it.quantity, 0);
@@ -1441,7 +1342,6 @@ function proceedToInquiry() {
 
     // لو السلة فيها منتجات، نضيفها كمرجع
     if (cart.length > 0) {
-        const currency = currentLang === 'ar' ? 'د.أ' : 'JD';
         const itemsLabel = currentLang === 'ar' ? 'المنتجات اللي بفكر فيها' : 'Items I\'m considering';
         const fromCart = currentLang === 'ar' ? '(من سلتي)' : '(from my cart)';
 
@@ -1449,7 +1349,7 @@ function proceedToInquiry() {
         cart.forEach((item, idx) => {
             const sizeDetail = item.sizeName ? ` (${item.sizeName})` : '';
             const colorDetail = item.colorName ? ` - ${item.colorName}` : '';
-            message += `${idx + 1}. ${item.name}${sizeDetail}${colorDetail} (×${item.quantity}) — ${currency} ${(item.price * item.quantity).toFixed(2)}\n`;
+            message += `${idx + 1}. ${item.name}${sizeDetail}${colorDetail} (×${item.quantity}) — ${formatPrice(item.price * item.quantity)}\n`;
         });
         message += `\n`;
     }
@@ -1554,7 +1454,7 @@ function renderCheckoutSummary() {
         div.innerHTML = `
             <span class="checkout-summary-item-name">${item.name}${sizeDetail}${colorDetail}</span>
             <span class="checkout-summary-item-qty">×${item.quantity}</span>
-            <span class="checkout-summary-item-price">${currentLang === 'ar' ? 'د.أ' : 'JD'} ${lineTotal.toFixed(2)}</span>
+            <span class="checkout-summary-item-price">${formatPrice(lineTotal)}</span>
         `;
         itemsContainer.appendChild(div);
     });
@@ -1565,13 +1465,12 @@ function renderCheckoutSummary() {
     const shippingFee = shippingEnabled ? (texts.shippingFee || 2.00) : 0;
 
     const total = subtotal + shippingFee;
-    const currency = currentLang === 'ar' ? 'د.أ' : 'JD';
 
-    document.getElementById('checkoutSubtotalValue').textContent = `${currency} ${subtotal.toFixed(2)}`;
+    document.getElementById('checkoutSubtotalValue').textContent = formatPrice(subtotal);
     document.getElementById('checkoutShippingValue').textContent = shippingEnabled
-        ? `${currency} ${shippingFee.toFixed(2)}`
+        ? formatPrice(shippingFee)
         : (currentLang === 'ar' ? '— استلام شخصي' : '— Self-pickup');
-    document.getElementById('checkoutTotalValue').textContent = `${currency} ${total.toFixed(2)}`;
+    document.getElementById('checkoutTotalValue').textContent = formatPrice(total);
 }
 
 // 🟢 تبديل وضع التوصيل (مع توصيل / استلام شخصي)
@@ -1709,7 +1608,6 @@ function submitCheckoutForm() {
     };
 
     // بناء رسالة واتساب
-    const currency = currentLang === 'ar' ? 'د.أ' : 'JD';
     const orderNumber = generateOrderNumber();
     let message = `${texts.whatsappGreeting}`;
 
@@ -1745,7 +1643,7 @@ function submitCheckoutForm() {
         const colorDetail = item.colorName ? ` - ${currentLang === 'ar' ? 'اللون' : 'Color'}: ${item.colorName}` : '';
         const lineTotal = item.price * item.quantity;
         subtotal += lineTotal;
-        message += `${idx + 1}. ${item.name}${sizeDetail}${colorDetail} (×${item.quantity}) — ${currency} ${lineTotal.toFixed(2)}\n`;
+        message += `${idx + 1}. ${item.name}${sizeDetail}${colorDetail} (×${item.quantity}) — ${formatPrice(lineTotal)}\n`;
 
         // تفاصيل التخصيص (عيد الزواج) لو موجودة
         if (item.weddingData) {
@@ -1774,11 +1672,11 @@ function submitCheckoutForm() {
     // الإجماليات
     const total = subtotal + shippingFee;
     message += `━━━━━━━━━━━━━━━\n`;
-    message += `${texts.waSubtotalLabel}: ${currency} ${subtotal.toFixed(2)}\n`;
+    message += `${texts.waSubtotalLabel}: ${formatPrice(subtotal)}\n`;
     if (shippingEnabled) {
-        message += `${texts.waShippingLabel}: ${currency} ${shippingFee.toFixed(2)}\n`;
+        message += `${texts.waShippingLabel}: ${formatPrice(shippingFee)}\n`;
     }
-    message += `*${texts.total} ${currency} ${total.toFixed(2)}*`;
+    message += `*${texts.total} ${formatPrice(total)}*`;
     message += `${texts.whatsappThanks}`;
 
     // فتح واتساب

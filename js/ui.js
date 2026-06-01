@@ -51,8 +51,8 @@ function renderProductCards(container, productList) {
         } else {
             priceBlock = `
                 <div class="product-price" style="display: flex; flex-direction: column; align-items: flex-start; margin: 0.8rem 0 1.2rem;">
-                    <span style="font-size: 0.9rem; color: #888; text-decoration: line-through;">د.أ ${originalPrice.toFixed(2)}</span>
-                    <span style="font-size: 1.6rem; font-weight: 700; color: var(--secondary);">د.أ ${discountedPrice.toFixed(2)}</span>
+                    ${hasActiveDiscount() ? `<span style="font-size: 0.9rem; color: #888; text-decoration: line-through;">${formatPrice(originalPrice)}</span>` : ''}
+                    <span style="font-size: 1.6rem; font-weight: 700; color: var(--secondary);">${formatPrice(discountedPrice)}</span>
                 </div>`;
             ctaButton = `
                 <button class="add-to-cart" data-id="${product.id}" data-has-sizes="${product.hasSizes || false}" data-discounted-price="${discountedPrice.toFixed(2)}">
@@ -109,8 +109,8 @@ function renderAllSections() {
     renderProductSection(giftsContainer, 'gift', texts.giftsTitle, 'giftsTitle');
 }
 
-// 🟢 دالة ترندر قسم العروض (حالياً تعرض كل المنتجات لأن كلها عليها خصم،
-// لاحقاً ممكن إضافة flag مثل product.onSale = true في الـ data وفلترة بناءً عليها)
+// 🌟 دالة ترندر قسم "المنتجات المميزة" — تعرض فقط المنتجات المحددة في
+// FEATURED_PRODUCT_IDS (عدّل القائمة في data.js لتغيير المنتجات المميزة).
 function renderOffersSection() {
     if (!offersContainer) return;
 
@@ -118,10 +118,11 @@ function renderOffersSection() {
     const offersTitleTextEl = document.querySelector('#offersTitle .offers-title-text');
     if (offersTitleTextEl) offersTitleTextEl.textContent = texts.offersTitle;
 
-    // فلترة المنتجات اللي عليها عروض.
-    // مؤقتاً: كل المنتجات (لأن GLOBAL_DISCOUNT_PERCENT مفعّل على الكل).
-    // لاحقاً: غيّرها لـ products.filter(p => p.onSale === true) أو أي شرط بدك إياه.
-    const offersProducts = products;
+    // فلترة المنتجات المميزة حسب الـ id المحددة في FEATURED_PRODUCT_IDS.
+    const featuredIds = (typeof FEATURED_PRODUCT_IDS !== 'undefined') ? FEATURED_PRODUCT_IDS : [];
+    const offersProducts = featuredIds
+        .map(id => products.find(p => p.id === id))
+        .filter(Boolean);
 
     renderProductCards(offersContainer, offersProducts);
 
@@ -198,7 +199,7 @@ function renderFavoritesModal() {
             <img src="${displayProduct.image}" alt="${displayProduct.name}" class="modal-item-img" loading="lazy">
             <div class="item-details" style="flex: 2;">
                 <div class="item-name">${displayProduct.name}</div>
-                <div class="item-price">د.أ ${(getDiscountedPrice(displayProduct.price)).toFixed(2)}</div>
+                <div class="item-price">${formatPrice(getDiscountedPrice(displayProduct.price))}</div>
             </div>
             <button class="add-to-cart" data-id="${displayProduct.id}" data-has-sizes="${displayProduct.hasSizes}" style="width: auto; padding: 0.5rem 1rem;">
                 <i class="fas fa-shopping-cart"></i>
@@ -428,9 +429,6 @@ function toggleLanguage() {
     // 🟢 إعادة تشغيل الآلة الكاتبة باللغة الجديدة
     if (typewriter) typewriter.stop();
     initTypewriter();
-    
-    // 🟢 تحديث نافذة العروض باللغة الجديدة (فقط إذا كانت مفتوحة)
-    showPromoModal(true);
 }
 
 function initThemeToggle() {
@@ -630,7 +628,7 @@ function initFloatingCart() {
         if (totalCount > 0) {
             document.getElementById('floatingItemCount').textContent = totalCount;
             document.getElementById('floatingItemText').textContent = totalCount === 1 ? texts.floatingItem : texts.floatingItems;
-            document.getElementById('floatingTotalPrice').textContent = `د.أ ${cart.reduce((s, i) => s + i.price * i.quantity, 0).toFixed(2)}`;
+            document.getElementById('floatingTotalPrice').textContent = formatPrice(cart.reduce((s, i) => s + i.price * i.quantity, 0));
 
             // 🟢 لو السلة كانت مخفية، نضيف entering animation مرة وحدة
             const wasHidden = !floatingCart.classList.contains('active');
