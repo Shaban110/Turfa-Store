@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة تحكم متجر طُرفة</title>
+<style>
+  :root{ --green:#002617; --green-light:#0a4a32; --gold:#c9a84c; --bg:#f4f1ea;
+    --card:#fffdf8; --ink:#1c1c1c; --muted:#6b6b6b; --line:#e2ddd0; --err:#c0392b; --ok:#1f7a4d; --soft:#faf7ef; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Tahoma,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6}
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:radial-gradient(circle at 15% 0%,rgba(201,168,76,.08),transparent 40%),
+    radial-gradient(circle at 85% 100%,rgba(0,38,23,.06),transparent 40%),var(--bg)}
+  .login-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 28px;width:100%;max-width:400px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+  .badge{display:inline-flex;align-items:center;gap:9px;background:var(--green);color:#fff;padding:9px 22px;border-radius:999px;font-weight:700}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  .login-card h1{font-size:1.25rem;color:var(--green);text-align:center;margin:18px 0 4px}
+  .sub{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:22px}
+  label{display:block;font-weight:600;font-size:.85rem;margin:12px 0 5px;color:var(--green)}
+  input,textarea,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:.95rem;font-family:inherit;transition:.2s;background:#fff}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
+  textarea{resize:vertical;min-height:60px}
+  .btn{background:var(--green);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+  .btn:hover:not(:disabled){background:var(--green-light)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn-full{width:100%;margin-top:20px}
+  .btn-ghost{background:#fff;color:var(--green);border:1.5px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--gold);background:var(--soft)}
+  .btn-out{background:#fff;color:var(--err);border:1.5px solid var(--err)}
+  .btn-out:hover{background:rgba(192,57,43,.06)}
+  .btn-sm{padding:6px 12px;font-size:.82rem;border-radius:8px}
+  .msg{margin-top:16px;padding:11px 14px;border-radius:10px;font-size:.88rem;font-weight:600;display:none}
+  .msg.show{display:block}
+  .msg.err{background:rgba(192,57,43,.08);color:var(--err);border:1px solid rgba(192,57,43,.25)}
+  .msg.ok{background:rgba(31,122,77,.1);color:var(--ok);border:1px solid rgba(31,122,77,.25)}
+  #dashView{display:none}
+  .topbar{background:var(--green);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:10}
+  .topbar .who{font-size:.85rem;opacity:.9}
+  .topbar .btn-out{padding:8px 14px;font-size:.85rem}
+  .container{max-width:1000px;margin:0 auto;padding:22px 16px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+  .toolbar input[type=search]{flex:1;min-width:200px}
+  .count{color:var(--muted);font-size:.85rem}
+  .prod-list{display:grid;gap:10px}
+  .prod-row{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:.18s}
+  .prod-row:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.05);transform:translateY(-1px)}
+  .prod-row img{width:54px;height:54px;object-fit:cover;border-radius:9px;background:#eee;flex-shrink:0}
+  .prod-row .info{flex:1;min-width:0}
+  .prod-row .nm{font-weight:700;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prod-row .meta{font-size:.8rem;color:var(--muted)}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px}
+  .pill.cat{background:var(--soft);color:var(--green);border:1px solid var(--line)}
+  .pill.hidden{background:rgba(192,57,43,.1);color:var(--err)}
+  .pill.price{background:rgba(201,168,76,.15);color:#8a6d1f}
+  .chev{color:var(--gold);font-size:1.2rem}
+  #editView{display:none}
+  .edit-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;max-width:780px;margin:0 auto}
+  .edit-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .edit-head h2{color:var(--green);font-size:1.15rem}
+  .back{background:none;border:none;color:var(--green);font-weight:700;cursor:pointer;font-size:.95rem;font-family:inherit}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .field{margin-top:4px}
+  .section{margin-top:24px;border-top:2px solid var(--line);padding-top:16px}
+  .section h3{color:var(--green);font-size:1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+  .block{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px;position:relative}
+  .block .rm{position:absolute;top:10px;left:10px}
+  .block .hex-row{display:flex;gap:8px;align-items:center}
+  .block .hex-row input[type=color]{width:46px;height:42px;padding:2px;cursor:pointer;flex-shrink:0}
+  .hint{font-size:.78rem;color:var(--muted);margin-top:3px}
+  .img-preview{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .img-preview img{width:46px;height:46px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:#eee}
+  .row-flex{display:flex;align-items:center;gap:10px;margin-top:16px}
+  .switch{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-weight:600;color:var(--green)}
+  .switch input{width:auto}
+  .note{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:10px 13px;font-size:.83rem;color:#8a6d1f;margin-top:14px}
+  .edit-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .loading{text-align:center;color:var(--muted);padding:40px}
+  @media(max-width:560px){ .grid2{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div id="loginWrap" class="login-wrap">
+  <div class="login-card">
+    <div style="text-align:center"><span class="badge"><span class="dot"></span> متجر طُرفة</span></div>
+    <h1>لوحة التحكم</h1>
+    <p class="sub">سجّل دخولك للمتابعة</p>
+    <label for="email">البريد الإلكتروني</label>
+    <input type="email" id="email" autocomplete="username" placeholder="you@example.com">
+    <label for="password">كلمة المرور</label>
+    <input type="password" id="password" autocomplete="current-password" placeholder="********">
+    <button class="btn btn-full" id="loginBtn">تسجيل الدخول</button>
+    <div id="loginMsg" class="msg"></div>
+  </div>
+</div>
+
+<div id="dashView">
+  <div class="topbar">
+    <span class="badge"><span class="dot"></span> لوحة تحكم طُرفة</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="who" id="who"></span>
+      <button class="btn btn-out" id="logoutBtn">خروج</button>
+    </div>
+  </div>
+  <div class="container">
+    <div id="listView">
+      <div class="toolbar">
+        <input type="search" id="searchBox" placeholder="ابحث عن منتج...">
+        <span class="count" id="count"></span>
+      </div>
+      <div id="prodList" class="prod-list"></div>
+      <div id="listLoading" class="loading">جاري تحميل المنتجات...</div>
+    </div>
+
+    <div id="editView">
+      <div class="edit-card">
+        <div class="edit-head">
+          <button class="back" id="backBtn">رجوع للقائمة</button>
+          <h2 id="editTitle">تعديل منتج</h2>
+        </div>
+
+        <div class="grid2">
+          <div class="field"><label>الاسم (عربي)</label><input type="text" id="f_name_ar"></div>
+          <div class="field"><label>الاسم (إنجليزي)</label><input type="text" id="f_name_en"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>السعر (د.أ)</label><input type="number" id="f_price" step="0.01" min="0"></div>
+          <div class="field"><label>التصنيف</label>
+            <select id="f_category">
+              <option value="painting">لوحات</option>
+              <option value="cup">كاسات</option>
+              <option value="print3d">طباعات 3D</option>
+              <option value="frame">براويز</option>
+              <option value="gift">هدايا منوعة</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>الوصف القصير (عربي)</label><textarea id="f_short_ar"></textarea></div>
+        <div class="field"><label>الوصف القصير (إنجليزي)</label><textarea id="f_short_en"></textarea></div>
+        <div class="field"><label>الوصف الكامل (عربي)</label><textarea id="f_full_ar"></textarea></div>
+        <div class="field"><label>الوصف الكامل (إنجليزي)</label><textarea id="f_full_en"></textarea></div>
+
+        <div class="field" style="margin-top:14px">
+          <label>مسار الصورة الرئيسية</label>
+          <input type="text" id="f_main_image" placeholder="images/plates/1/1.webp" oninput="previewMain()">
+          <div class="hint">مثال: images/plates/1/1.webp — لازم تكون الصورة موجودة بمجلد الموقع.</div>
+          <div class="img-preview"><img id="mainPreview" alt="" onerror="this.style.visibility='hidden'" style="width:70px;height:70px"></div>
+        </div>
+
+        <!-- الألوان -->
+        <div class="section">
+          <h3>الألوان <button class="btn btn-ghost btn-sm" id="addColorBtn" type="button">+ إضافة لون</button></h3>
+          <div class="hint">كل لون إله اسم وكود لون وصور. اترك القسم فاضي لو المنتج ما إله ألوان.</div>
+          <div id="colorsWrap"></div>
+        </div>
+
+        <!-- الـ variants -->
+        <div class="section">
+          <h3>الخيارات الداخلية / Variants <button class="btn btn-ghost btn-sm" id="addVariantBtn" type="button">+ إضافة خيار</button></h3>
+          <div class="hint">مثل ماريو/واريو — كل خيار إله اسم وفرق سعر وصور ووصف.</div>
+          <div id="variantsWrap"></div>
+        </div>
+
+        <div class="row-flex">
+          <label class="switch"><input type="checkbox" id="f_active"> المنتج ظاهر في الموقع</label>
+        </div>
+
+        <div class="note">📌 ملاحظة: الصور هنا بـ <b>المسار</b> فقط (لازم تكون مرفوعة بمجلد الموقع). رفع الصور مباشرة من اللوحة بنضيفه في الدفعة القادمة.</div>
+
+        <div class="edit-actions">
+          <button class="btn" id="saveBtn">حفظ التغييرات</button>
+          <button class="btn btn-ghost" id="cancelBtn">إلغاء</button>
+        </div>
+        <div id="editMsg" class="msg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ====================================================
+  // 🟢 عدّل سطر المفتاح فقط:
+  // ====================================================
+  const SUPABASE_URL = "https://fneboifhuwrhkmdtjswh.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_e_-aX1xnWnfGJXWvPbObcg_Dbt6vTNr";
+  // ====================================================
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const $ = id => document.getElementById(id);
+  const catNames = { painting:'لوحات', cup:'كاسات', print3d:'طباعات 3D', frame:'براويز', gift:'هدايا منوعة' };
+  const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  let allProducts = [];
+  let currentId = null;
+
+  // ---------- الدخول ----------
+  async function doLogin(){
+    const email=$('email').value.trim(), password=$('password').value;
+    if(!email||!password){ msg('loginMsg','عبّي البريد وكلمة المرور.','err'); return; }
+    $('loginBtn').disabled=true; $('loginBtn').textContent='جاري الدخول...';
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    $('loginBtn').disabled=false; $('loginBtn').textContent='تسجيل الدخول';
+    if(error){ msg('loginMsg','البريد أو كلمة المرور غير صحيحة.','err'); return; }
+    enterDashboard(data.user);
+  }
+  async function doLogout(){
+    await client.auth.signOut();
+    $('dashView').style.display='none';
+    $('loginWrap').style.display='flex';
+    $('password').value='';
+  }
+  function enterDashboard(user){
+    $('loginWrap').style.display='none';
+    $('dashView').style.display='block';
+    $('who').textContent=user.email;
+    loadProducts();
+  }
+
+  // ---------- تحميل المنتجات ----------
+  async function loadProducts(){
+    $('listLoading').style.display='block';
+    const { data, error } = await client.from('products').select('*').order('sort_order');
+    $('listLoading').style.display='none';
+    if(error){ alert('خطأ في تحميل المنتجات: '+error.message); return; }
+    allProducts = data;
+    renderList(allProducts);
+  }
+  function renderList(list){
+    $('count').textContent = list.length + ' منتج';
+    $('prodList').innerHTML = list.map(p =>
+      '<div class="prod-row" data-id="'+p.id+'">'
+      + '<img src="'+esc(p.main_image||'')+'" alt="" onerror="this.style.visibility=\'hidden\'">'
+      + '<div class="info"><div class="nm">'+esc(p.name_ar||'(بدون اسم)')+'</div>'
+      + '<div class="meta"><span class="pill cat">'+(catNames[p.category]||esc(p.category))+'</span> '
+      + '<span class="pill price">'+p.price+' د.أ</span> '
+      + (p.is_active ? '' : '<span class="pill hidden">مخفي</span>')
+      + '</div></div><span class="chev">&#8249;</span></div>'
+    ).join('');
+    document.querySelectorAll('.prod-row').forEach(r=>{
+      r.addEventListener('click',()=>openEdit(parseInt(r.dataset.id)));
+    });
+  }
+  $('searchBox').addEventListener('input', e=>{
+    const q=e.target.value.toLowerCase().trim();
+    renderList(!q ? allProducts : allProducts.filter(p=>
+      (p.name_ar||'').toLowerCase().includes(q) || (p.name_en||'').toLowerCase().includes(q)));
+  });
+
+  // ---------- معاينة الصورة الرئيسية ----------
+  function previewMain(){
+    const v=$('f_main_image').value.trim();
+    const img=$('mainPreview');
+    img.src=v; img.style.visibility = v ? 'visible':'hidden';
+  }
+
+  // ---------- بناء بلوك لون ----------
+  function colorBlock(c){
+    c = c||{name_ar:'',name_en:'',hex:'#cccccc',images:[]};
+    const div=document.createElement('div');
+    div.className='block color-block';
+    div.innerHTML =
+      '<button class="btn btn-out btn-sm rm" type="button" onclick="this.parentNode.remove()">حذف</button>'
+      + '<div class="grid2"><div><label>اسم اللون (عربي)</label><input class="c_name_ar" value="'+esc(c.name_ar)+'"></div>'
+      + '<div><label>اسم اللون (إنجليزي)</label><input class="c_name_en" value="'+esc(c.name_en)+'"></div></div>'
+      + '<label>كود اللون</label><div class="hex-row"><input type="color" class="c_hex_picker" value="'+(c.hex||'#cccccc')+'" oninput="this.closest(\'.color-block\').querySelector(\'.c_hex\').value=this.value">'
+      + '<input class="c_hex" value="'+esc(c.hex)+'" placeholder="#e8a0b0"></div>'
+      + '<label>صور اللون (مسار بكل سطر)</label><textarea class="c_images" oninput="prevImgs(this)">'+esc((c.images||[]).join('\n'))+'</textarea>'
+      + '<div class="img-preview"></div>';
+    $('colorsWrap').appendChild(div);
+    prevImgs(div.querySelector('.c_images'));
+  }
+  // ---------- بناء بلوك variant ----------
+  function variantBlock(v){
+    v = v||{name_ar:'',name_en:'',price_diff:0,images:[],short_desc_ar:'',short_desc_en:'',full_desc_ar:'',full_desc_en:''};
+    const div=document.createElement('div');
+    div.className='block variant-block';
+    // نحفظ requires_custom_text كما هو (لو موجود) عشان ما يضيع عند الحفظ
+    if(v.requires_custom_text!==undefined) div.dataset.rct = JSON.stringify(v.requires_custom_text);
+    div.innerHTML =
+      '<button class="btn btn-out btn-sm rm" type="button" onclick="this.parentNode.remove()">حذف</button>'
+      + '<div class="grid2"><div><label>الاسم (عربي)</label><input class="v_name_ar" value="'+esc(v.name_ar)+'"></div>'
+      + '<div><label>الاسم (إنجليزي)</label><input class="v_name_en" value="'+esc(v.name_en)+'"></div></div>'
+      + '<label>فرق السعر عن السعر الأساسي (د.أ)</label><input type="number" step="0.01" class="v_price_diff" value="'+(Number(v.price_diff)||0)+'">'
+      + '<label>صور الخيار (مسار بكل سطر)</label><textarea class="v_images" oninput="prevImgs(this)">'+esc((v.images||[]).join('\n'))+'</textarea>'
+      + '<div class="img-preview"></div>'
+      + '<div class="grid2"><div><label>وصف قصير (عربي)</label><textarea class="v_short_ar">'+esc(v.short_desc_ar)+'</textarea></div>'
+      + '<div><label>وصف قصير (إنجليزي)</label><textarea class="v_short_en">'+esc(v.short_desc_en)+'</textarea></div></div>'
+      + '<div class="grid2"><div><label>وصف كامل (عربي)</label><textarea class="v_full_ar">'+esc(v.full_desc_ar)+'</textarea></div>'
+      + '<div><label>وصف كامل (إنجليزي)</label><textarea class="v_full_en">'+esc(v.full_desc_en)+'</textarea></div></div>';
+    $('variantsWrap').appendChild(div);
+    prevImgs(div.querySelector('.v_images'));
+  }
+  // معاينة صور من textarea
+  function prevImgs(ta){
+    const wrap=ta.parentNode.querySelector('.img-preview');
+    if(!wrap) return;
+    const paths=ta.value.split('\n').map(s=>s.trim()).filter(Boolean);
+    wrap.innerHTML=paths.map(p=>'<img src="'+esc(p)+'" onerror="this.style.visibility=\'hidden\'">').join('');
+  }
+
+  // ---------- فتح التعديل ----------
+  function openEdit(id){
+    const p = allProducts.find(x=>x.id===id);
+    if(!p) return;
+    currentId = id;
+    $('editTitle').textContent = 'تعديل: ' + (p.name_ar||'');
+    $('f_name_ar').value = p.name_ar||'';
+    $('f_name_en').value = p.name_en||'';
+    $('f_price').value = p.price != null ? p.price : 0;
+    $('f_category').value = p.category||'painting';
+    $('f_short_ar').value = p.short_desc_ar||'';
+    $('f_short_en').value = p.short_desc_en||'';
+    $('f_full_ar').value = p.full_desc_ar||'';
+    $('f_full_en').value = p.full_desc_en||'';
+    $('f_main_image').value = p.main_image||'';
+    $('f_active').checked = !!p.is_active;
+    previewMain();
+    // ألوان
+    $('colorsWrap').innerHTML='';
+    (Array.isArray(p.colors)?p.colors:[]).forEach(c=>colorBlock(c));
+    // variants
+    $('variantsWrap').innerHTML='';
+    (Array.isArray(p.variants)?p.variants:[]).forEach(v=>variantBlock(v));
+    $('editMsg').className='msg';
+    $('listView').style.display='none';
+    $('editView').style.display='block';
+    window.scrollTo(0,0);
+  }
+  function backToList(){
+    $('editView').style.display='none';
+    $('listView').style.display='block';
+    currentId=null;
+  }
+
+  // ---------- جمع الألوان والـ variants من الواجهة ----------
+  function collectColors(){
+    return [...document.querySelectorAll('.color-block')].map(b=>({
+      name_ar: b.querySelector('.c_name_ar').value.trim(),
+      name_en: b.querySelector('.c_name_en').value.trim(),
+      hex: b.querySelector('.c_hex').value.trim(),
+      images: b.querySelector('.c_images').value.split('\n').map(s=>s.trim()).filter(Boolean)
+    }));
+  }
+  function collectVariants(){
+    return [...document.querySelectorAll('.variant-block')].map(b=>{
+      const o={
+        name_ar: b.querySelector('.v_name_ar').value.trim(),
+        name_en: b.querySelector('.v_name_en').value.trim(),
+        price_diff: parseFloat(b.querySelector('.v_price_diff').value)||0,
+        images: b.querySelector('.v_images').value.split('\n').map(s=>s.trim()).filter(Boolean),
+        short_desc_ar: b.querySelector('.v_short_ar').value.trim(),
+        short_desc_en: b.querySelector('.v_short_en').value.trim(),
+        full_desc_ar: b.querySelector('.v_full_ar').value.trim(),
+        full_desc_en: b.querySelector('.v_full_en').value.trim()
+      };
+      if(b.dataset.rct!==undefined){ try{ o.requires_custom_text=JSON.parse(b.dataset.rct); }catch(e){} }
+      return o;
+    });
+  }
+
+  // ---------- حفظ ----------
+  async function saveProduct(){
+    if(currentId==null) return;
+    const updates = {
+      name_ar: $('f_name_ar').value.trim(),
+      name_en: $('f_name_en').value.trim(),
+      price: parseFloat($('f_price').value)||0,
+      category: $('f_category').value,
+      short_desc_ar: $('f_short_ar').value.trim(),
+      short_desc_en: $('f_short_en').value.trim(),
+      full_desc_ar: $('f_full_ar').value.trim(),
+      full_desc_en: $('f_full_en').value.trim(),
+      main_image: $('f_main_image').value.trim(),
+      colors: collectColors(),
+      variants: collectVariants(),
+      is_active: $('f_active').checked,
+      updated_at: new Date().toISOString()
+    };
+    $('saveBtn').disabled=true; $('saveBtn').textContent='جاري الحفظ...';
+    const { error } = await client.from('products').update(updates).eq('id', currentId);
+    $('saveBtn').disabled=false; $('saveBtn').textContent='حفظ التغييرات';
+    if(error){ msg('editMsg','خطأ في الحفظ: '+error.message,'err'); return; }
+    Object.assign(allProducts.find(p=>p.id===currentId), updates);
+    msg('editMsg','تم الحفظ بنجاح! التغيير ظاهر على الموقع الآن.','ok');
+  }
+
+  function msg(elId,text,type){ const el=$(elId); el.textContent=text; el.className='msg show '+type; }
+
+  // ---------- ربط الأزرار ----------
+  $('loginBtn').addEventListener('click', doLogin);
+  $('password').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
+  $('logoutBtn').addEventListener('click', doLogout);
+  $('backBtn').addEventListener('click', backToList);
+  $('cancelBtn').addEventListener('click', backToList);
+  $('saveBtn').addEventListener('click', saveProduct);
+  $('addColorBtn').addEventListener('click', ()=>colorBlock());
+  $('addVariantBtn').addEventListener('click', ()=>variantBlock());
+
+  (async()=>{ const {data}=await client.auth.getSession(); if(data.session) enterDashboard(data.session.user); })();
+</script>
+</body>
+</html>
