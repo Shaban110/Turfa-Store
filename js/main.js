@@ -613,4 +613,10 @@ function initStore() {
     initTypewriter();
 }
 
-document.addEventListener('DOMContentLoaded', initStore);
+document.addEventListener('DOMContentLoaded', async () => {
+    if (typeof loadProductsFromSupabase === 'function') {
+        await loadProductsFromSupabase();
+        products = allProductsArabic;
+    }
+    initStore();
+});

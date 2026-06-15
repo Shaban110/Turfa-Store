@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اختبار اتصال Supabase — متجر طُرفة</title>
+<style>
+  body{font-family:"Segoe UI",Tahoma,sans-serif;background:#f4f1ea;color:#1c1c1c;max-width:760px;margin:0 auto;padding:28px 16px;line-height:1.7}
+  h1{color:#002617;font-size:1.4rem}
+  .box{background:#fff;border:1px solid #e2ddd0;border-radius:14px;padding:20px;margin-top:16px}
+  .status{font-weight:700;padding:12px 16px;border-radius:10px;margin-bottom:14px}
+  .ok{background:rgba(31,122,77,.1);color:#1f7a4d;border:1px solid rgba(31,122,77,.3)}
+  .err{background:rgba(192,57,43,.08);color:#c0392b;border:1px solid rgba(192,57,43,.3)}
+  .wait{background:rgba(201,168,76,.12);color:#8a6d1f;border:1px solid rgba(201,168,76,.3)}
+  pre{background:#faf7ef;border:1px solid #e2ddd0;border-radius:10px;padding:14px;overflow:auto;font-size:.85rem;direction:ltr;text-align:left}
+  .prod{display:flex;gap:12px;align-items:center;border-bottom:1px solid #eee;padding:10px 0}
+  .prod b{color:#002617}
+  code{background:#eee;padding:2px 6px;border-radius:5px;direction:ltr;display:inline-block}
+</style>
+</head>
+<body>
+<h1>🔌 اختبار اتصال Supabase</h1>
+<p>هاي صفحة اختبار مستقلة — ما بتأثّر على موقعك إطلاقاً. الهدف نتأكد إنه الاتصال بقاعدة البيانات شغّال.</p>
+
+<div class="box">
+  <div id="status" class="status wait">⏳ جاري الاتصال...</div>
+  <div id="result"></div>
+</div>
+
+<!-- مكتبة Supabase الرسمية -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ====================================================
+  // 🟢 عدّل هالسطرين فقط:
+  // ====================================================
+  const SUPABASE_URL = "https://fneboifhuwrhkmdtjswh.supabase.co";
+  const SUPABASE_KEY = "";
+  // ====================================================
+
+  const statusEl = document.getElementById('status');
+  const resultEl = document.getElementById('result');
+
+  async function testConnection() {
+    if (SUPABASE_KEY.includes("ضع_")) {
+      statusEl.className = "status err";
+      statusEl.textContent = "✋ لازم تحط الـ Publishable key مكان \"ضع_الـ_Publishable_key_هنا\" أول.";
+      return;
+    }
+    try {
+      const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const { data, error } = await client
+        .from('products')
+        .select('id, name_ar, price, main_image, category')
+        .order('sort_order')
+        .limit(5);
+
+      if (error) throw error;
+
+      statusEl.className = "status ok";
+      statusEl.textContent = `✅ نجح الاتصال! جبنا ${data.length} منتجات (عيّنة).`;
+
+      resultEl.innerHTML = data.map(p => `
+        <div class="prod">
+          <img src="${p.main_image}" alt="" width="56" height="56"
+               style="object-fit:cover;border-radius:8px;background:#eee"
+               onerror="this.style.display='none'">
+          <div><b>${p.name_ar}</b><br><small>السعر: ${p.price} د.أ — ${p.category}</small></div>
+        </div>`).join('');
+    } catch (e) {
+      statusEl.className = "status err";
+      statusEl.textContent = "❌ فشل الاتصال — شوف التفاصيل تحت.";
+      resultEl.innerHTML = `<pre>${e.message || e}</pre>
+        <p>أكثر سبب شائع: الـ Publishable key غلط أو ناقص. تأكد إنك نسخته كامل.</p>`;
+    }
+  }
+  testConnection();
+</script>
+</body>
+</html>
