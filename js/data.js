@@ -48,7 +48,7 @@ const WHATSAPP_BASE = `https://wa.me/${STORE_PHONE_DIGITS}`;
 const TEL_LINK = `tel:${STORE_PHONE}`;
 
 // 🟢 إيميل المتجر وموقعه — عدّل هون فقط
-const STORE_EMAIL = 'info@turfa.art';
+const STORE_EMAIL = 'turfa.jor@gmail.com';
 const STORE_EMAIL_LINK = `mailto:${STORE_EMAIL}`;
 const STORE_DOMAIN = 'https://turfajo.me';
 
