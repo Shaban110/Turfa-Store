@@ -30,21 +30,26 @@
   .btn-out{background:#fff;color:var(--err);border:1.5px solid var(--err)}
   .btn-out:hover{background:rgba(192,57,43,.06)}
   .btn-sm{padding:6px 12px;font-size:.82rem;border-radius:8px}
+  .btn-mini{padding:3px 9px;font-size:.85rem;border-radius:7px;line-height:1}
   .msg{margin-top:16px;padding:11px 14px;border-radius:10px;font-size:.88rem;font-weight:600;display:none}
   .msg.show{display:block}
   .msg.err{background:rgba(192,57,43,.08);color:var(--err);border:1px solid rgba(192,57,43,.25)}
   .msg.ok{background:rgba(31,122,77,.1);color:var(--ok);border:1px solid rgba(31,122,77,.25)}
   #dashView{display:none}
-  .topbar{background:var(--green);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:10}
+  .topbar{background:var(--green);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:20}
   .topbar .who{font-size:.85rem;opacity:.9}
   .topbar .btn-out{padding:8px 14px;font-size:.85rem}
   .container{max-width:1000px;margin:0 auto;padding:22px 16px}
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-  .toolbar input[type=search]{flex:1;min-width:200px}
-  .count{color:var(--muted);font-size:.85rem}
+  .toolbar input[type=search]{flex:1;min-width:180px}
+  .toolbar select{width:auto;min-width:170px}
+  .count{color:var(--muted);font-size:.85rem;margin-inline-start:auto}
+  .reorder-hint{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:9px 13px;font-size:.82rem;color:#8a6d1f;margin-bottom:14px;display:none}
+  .reorder-hint.show{display:block}
   .prod-list{display:grid;gap:10px}
-  .prod-row{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:.18s}
-  .prod-row:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.05);transform:translateY(-1px)}
+  .prod-row{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:.18s}
+  .prod-row .body{display:flex;align-items:center;gap:14px;flex:1;min-width:0;cursor:pointer}
+  .prod-row:hover{border-color:var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.05)}
   .prod-row img{width:54px;height:54px;object-fit:cover;border-radius:9px;background:#eee;flex-shrink:0}
   .prod-row .info{flex:1;min-width:0}
   .prod-row .nm{font-weight:700;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -54,28 +59,45 @@
   .pill.hidden{background:rgba(192,57,43,.1);color:var(--err)}
   .pill.price{background:rgba(201,168,76,.15);color:#8a6d1f}
   .chev{color:var(--gold);font-size:1.2rem}
+  .move-col{display:none;flex-direction:column;gap:3px}
+  body.reordering .move-col{display:flex}
+  body.reordering .prod-row .body{cursor:default}
+  body.reordering .chev{display:none}
+
   #editView{display:none}
   .edit-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;max-width:780px;margin:0 auto}
   .edit-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
   .edit-head h2{color:var(--green);font-size:1.15rem}
-  .back{background:none;border:none;color:var(--green);font-weight:700;cursor:pointer;font-size:.95rem;font-family:inherit}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   .field{margin-top:4px}
   .section{margin-top:24px;border-top:2px solid var(--line);padding-top:16px}
-  .section h3{color:var(--green);font-size:1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+  .section h3{color:var(--green);font-size:1rem;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
   .block{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px;position:relative}
   .block .rm{position:absolute;top:10px;left:10px}
   .block .hex-row{display:flex;gap:8px;align-items:center}
   .block .hex-row input[type=color]{width:46px;height:42px;padding:2px;cursor:pointer;flex-shrink:0}
   .hint{font-size:.78rem;color:var(--muted);margin-top:3px}
-  .img-preview{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-  .img-preview img{width:46px;height:46px;object-fit:cover;border-radius:7px;border:1px solid var(--line);background:#eee}
+  /* صفوف الصور */
+  .img-rows{margin-top:8px;display:grid;gap:8px}
+  .img-row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 8px}
+  .img-row img{width:42px;height:42px;object-fit:cover;border-radius:6px;background:#eee;flex-shrink:0}
+  .img-row .idx{font-size:.72rem;font-weight:700;color:var(--gold);min-width:54px;text-align:center}
+  .img-row input{flex:1;min-width:0;direction:ltr;text-align:left}
+  .img-row .moves{display:flex;flex-direction:column;gap:2px}
+  .main-tag{background:var(--green);color:#fff;font-size:.66rem;padding:1px 6px;border-radius:5px}
+  .add-img{margin-top:8px}
   .row-flex{display:flex;align-items:center;gap:10px;margin-top:16px}
   .switch{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-weight:600;color:var(--green)}
   .switch input{width:auto}
   .note{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:10px 13px;font-size:.83rem;color:#8a6d1f;margin-top:14px}
   .edit-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
   .loading{text-align:center;color:var(--muted);padding:40px}
+  /* زر الرجوع العائم الثابت */
+  .fab-back{position:fixed;bottom:22px;left:22px;z-index:30;display:none;align-items:center;gap:7px;
+    background:var(--green);color:#fff;border:none;border-radius:999px;padding:12px 20px;font-weight:700;
+    font-family:inherit;font-size:.95rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:.2s}
+  .fab-back:hover{background:var(--green-light)}
+  body.editing .fab-back{display:flex}
   @media(max-width:560px){ .grid2{grid-template-columns:1fr} }
 </style>
 </head>
@@ -107,8 +129,10 @@
     <div id="listView">
       <div class="toolbar">
         <input type="search" id="searchBox" placeholder="ابحث عن منتج...">
+        <button class="btn btn-ghost btn-sm" id="reorderBtn">↕ تغيير الترتيب</button>
         <span class="count" id="count"></span>
       </div>
+      <div id="reorderHint" class="reorder-hint">وضع الترتيب مفعّل: استخدم أزرار ▲▼ لترتيب المنتجات، وبعدين اضغط "حفظ الترتيب".</div>
       <div id="prodList" class="prod-list"></div>
       <div id="listLoading" class="loading">جاري تحميل المنتجات...</div>
     </div>
@@ -116,7 +140,7 @@
     <div id="editView">
       <div class="edit-card">
         <div class="edit-head">
-          <button class="back" id="backBtn">رجوع للقائمة</button>
+          <button class="btn btn-ghost btn-sm" id="backBtn">رجوع للقائمة</button>
           <h2 id="editTitle">تعديل منتج</h2>
         </div>
 
@@ -141,24 +165,21 @@
         <div class="field"><label>الوصف الكامل (عربي)</label><textarea id="f_full_ar"></textarea></div>
         <div class="field"><label>الوصف الكامل (إنجليزي)</label><textarea id="f_full_en"></textarea></div>
 
-        <div class="field" style="margin-top:14px">
-          <label>مسار الصورة الرئيسية</label>
-          <input type="text" id="f_main_image" placeholder="images/plates/1/1.webp" oninput="previewMain()">
-          <div class="hint">مثال: images/plates/1/1.webp — لازم تكون الصورة موجودة بمجلد الموقع.</div>
-          <div class="img-preview"><img id="mainPreview" alt="" onerror="this.style.visibility='hidden'" style="width:70px;height:70px"></div>
+        <div class="field" id="mainImageField" style="margin-top:14px">
+          <label>الصورة الرئيسية</label>
+          <div class="img-rows" id="mainImageRows"></div>
+          <div class="hint">للمنتجات بدون ألوان/خيارات. الصورة الأولى هي الأساسية.</div>
         </div>
 
-        <!-- الألوان -->
         <div class="section">
           <h3>الألوان <button class="btn btn-ghost btn-sm" id="addColorBtn" type="button">+ إضافة لون</button></h3>
-          <div class="hint">كل لون إله اسم وكود لون وصور. اترك القسم فاضي لو المنتج ما إله ألوان.</div>
+          <div class="hint">كل لون إله صور؛ الصورة الأولى لأول لون هي اللي بتظهر بالقائمة. اترك القسم فاضي لو ما إله ألوان.</div>
           <div id="colorsWrap"></div>
         </div>
 
-        <!-- الـ variants -->
         <div class="section">
           <h3>الخيارات الداخلية / Variants <button class="btn btn-ghost btn-sm" id="addVariantBtn" type="button">+ إضافة خيار</button></h3>
-          <div class="hint">مثل ماريو/واريو — كل خيار إله اسم وفرق سعر وصور ووصف.</div>
+          <div class="hint">مثل ماريو/واريو — كل خيار إله صور وفرق سعر ووصف.</div>
           <div id="variantsWrap"></div>
         </div>
 
@@ -166,7 +187,7 @@
           <label class="switch"><input type="checkbox" id="f_active"> المنتج ظاهر في الموقع</label>
         </div>
 
-        <div class="note">📌 ملاحظة: الصور هنا بـ <b>المسار</b> فقط (لازم تكون مرفوعة بمجلد الموقع). رفع الصور مباشرة من اللوحة بنضيفه في الدفعة القادمة.</div>
+        <div class="note">📌 الصور هنا بـ <b>المسار</b> فقط (لازم تكون مرفوعة بمجلد الموقع). رفع الصور مباشرة بنضيفه لاحقاً.</div>
 
         <div class="edit-actions">
           <button class="btn" id="saveBtn">حفظ التغييرات</button>
@@ -177,6 +198,8 @@
     </div>
   </div>
 </div>
+
+<button class="fab-back" id="fabBack">→ رجوع للقائمة</button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -191,8 +214,11 @@
   const $ = id => document.getElementById(id);
   const catNames = { painting:'لوحات', cup:'كاسات', print3d:'طباعات 3D', frame:'براويز', gift:'هدايا منوعة' };
   const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  // إصلاح ظهور الصور: نبني المسار من جذر الموقع (لأن اللوحة جوّا مجلد /admin)
+  const imgURL = p => { p=String(p||'').trim(); if(!p) return ''; if(/^https?:\/\//.test(p)||p.startsWith('/')) return p; return '/'+p; };
   let allProducts = [];
   let currentId = null;
+  let reorderMode = false;
 
   // ---------- الدخول ----------
   async function doLogin(){
@@ -226,20 +252,34 @@
     allProducts = data;
     renderList(allProducts);
   }
+  // الصورة اللي تظهر بالقائمة: أول صورة بأول لون، أو أول variant، وإلا main_image
+  function listThumb(p){
+    if(Array.isArray(p.colors)&&p.colors[0]&&p.colors[0].images&&p.colors[0].images[0]) return p.colors[0].images[0];
+    if(Array.isArray(p.variants)&&p.variants[0]&&p.variants[0].images&&p.variants[0].images[0]) return p.variants[0].images[0];
+    return p.main_image||'';
+  }
   function renderList(list){
     $('count').textContent = list.length + ' منتج';
-    $('prodList').innerHTML = list.map(p =>
-      '<div class="prod-row" data-id="'+p.id+'">'
-      + '<img src="'+esc(p.main_image||'')+'" alt="" onerror="this.style.visibility=\'hidden\'">'
-      + '<div class="info"><div class="nm">'+esc(p.name_ar||'(بدون اسم)')+'</div>'
-      + '<div class="meta"><span class="pill cat">'+(catNames[p.category]||esc(p.category))+'</span> '
-      + '<span class="pill price">'+p.price+' د.أ</span> '
-      + (p.is_active ? '' : '<span class="pill hidden">مخفي</span>')
-      + '</div></div><span class="chev">&#8249;</span></div>'
+    $('prodList').innerHTML = list.map((p,i) =>
+      '<div class="prod-row" data-id="'+p.id+'" data-i="'+i+'">'
+      + '<div class="move-col">'
+      +   '<button class="btn btn-ghost btn-mini mv-up" type="button" title="فوق">▲</button>'
+      +   '<button class="btn btn-ghost btn-mini mv-down" type="button" title="تحت">▼</button>'
+      + '</div>'
+      + '<div class="body">'
+      +   '<img src="'+esc(imgURL(listThumb(p)))+'" alt="" onerror="this.style.visibility=\'hidden\'">'
+      +   '<div class="info"><div class="nm">'+esc(p.name_ar||'(بدون اسم)')+'</div>'
+      +   '<div class="meta"><span class="pill cat">'+(catNames[p.category]||esc(p.category))+'</span> '
+      +   '<span class="pill price">'+p.price+' د.أ</span> '
+      +   (p.is_active ? '' : '<span class="pill hidden">مخفي</span>')
+      +   '</div></div>'
+      + '</div><span class="chev">&#8249;</span></div>'
     ).join('');
-    document.querySelectorAll('.prod-row').forEach(r=>{
-      r.addEventListener('click',()=>openEdit(parseInt(r.dataset.id)));
+    document.querySelectorAll('.prod-row .body').forEach(b=>{
+      b.addEventListener('click',()=>{ if(!reorderMode) openEdit(parseInt(b.closest('.prod-row').dataset.id)); });
     });
+    document.querySelectorAll('.mv-up').forEach(btn=>btn.addEventListener('click',()=>moveRow(btn,-1)));
+    document.querySelectorAll('.mv-down').forEach(btn=>btn.addEventListener('click',()=>moveRow(btn,1)));
   }
   $('searchBox').addEventListener('input', e=>{
     const q=e.target.value.toLowerCase().trim();
@@ -247,56 +287,115 @@
       (p.name_ar||'').toLowerCase().includes(q) || (p.name_en||'').toLowerCase().includes(q)));
   });
 
-  // ---------- معاينة الصورة الرئيسية ----------
-  function previewMain(){
-    const v=$('f_main_image').value.trim();
-    const img=$('mainPreview');
-    img.src=v; img.style.visibility = v ? 'visible':'hidden';
+  // ---------- وضع الترتيب ----------
+  function toggleReorder(){
+    reorderMode = !reorderMode;
+    document.body.classList.toggle('reordering', reorderMode);
+    $('reorderHint').classList.toggle('show', reorderMode);
+    $('searchBox').value=''; renderList(allProducts);
+    $('reorderBtn').textContent = reorderMode ? '💾 حفظ الترتيب' : '↕ تغيير الترتيب';
+    $('reorderBtn').classList.toggle('btn-ghost', !reorderMode);
+    if(!reorderMode) saveOrder(); // طُفي الوضع => احفظ
+  }
+  function moveRow(btn, dir){
+    const row=btn.closest('.prod-row');
+    const i=parseInt(row.dataset.i);
+    const j=i+dir;
+    if(j<0||j>=allProducts.length) return;
+    const tmp=allProducts[i]; allProducts[i]=allProducts[j]; allProducts[j]=tmp;
+    renderList(allProducts);
+  }
+  async function saveOrder(){
+    // نكتب sort_order حسب الترتيب الحالي
+    const updates = allProducts.map((p,idx)=>({ id:p.id, sort_order:idx }));
+    let ok=true;
+    for(const u of updates){
+      const { error } = await client.from('products').update({ sort_order:u.sort_order }).eq('id', u.id);
+      if(error){ ok=false; break; }
+    }
+    allProducts.forEach((p,idx)=>p.sort_order=idx);
+    alert(ok ? '✅ تم حفظ الترتيب الجديد. سيظهر على الموقع الآن.' : '⚠️ صار خطأ أثناء حفظ الترتيب.');
   }
 
-  // ---------- بناء بلوك لون ----------
+  // ---------- صفوف الصور (قابلة للترتيب) ----------
+  function imageRow(path, container){
+    const div=document.createElement('div');
+    div.className='img-row';
+    div.innerHTML =
+      '<img src="'+esc(imgURL(path))+'" onerror="this.style.visibility=\'hidden\'">'
+      + '<span class="idx"></span>'
+      + '<input class="img-path" value="'+esc(path)+'" placeholder="images/...">'
+      + '<div class="moves">'
+      +   '<button class="btn btn-ghost btn-mini" type="button" onclick="moveImg(this,-1)">▲</button>'
+      +   '<button class="btn btn-ghost btn-mini" type="button" onclick="moveImg(this,1)">▼</button>'
+      + '</div>'
+      + '<button class="btn btn-out btn-mini" type="button" onclick="this.closest(\'.img-row\').remove();renumber(this)">حذف</button>';
+    container.appendChild(div);
+    const inp=div.querySelector('.img-path');
+    inp.addEventListener('input',()=>{ div.querySelector('img').src=imgURL(inp.value); div.querySelector('img').style.visibility='visible'; });
+    return div;
+  }
+  function renumber(ref){
+    document.querySelectorAll('.img-rows').forEach(rows=>{
+      [...rows.querySelectorAll('.img-row')].forEach((r,i)=>{
+        const idx=r.querySelector('.idx');
+        idx.innerHTML = i===0 ? '<span class="main-tag">أساسية</span>' : (i+1);
+      });
+    });
+  }
+  window.moveImg=function(btn,dir){
+    const row=btn.closest('.img-row'); const rows=row.parentNode;
+    const items=[...rows.children]; const i=items.indexOf(row); const j=i+dir;
+    if(j<0||j>=items.length) return;
+    if(dir<0) rows.insertBefore(row, items[j]); else rows.insertBefore(items[j], row);
+    renumber(btn);
+  };
+  function buildImageRows(container, paths){
+    container.innerHTML='';
+    (paths||[]).forEach(p=>imageRow(p, container));
+    const add=document.createElement('button');
+    add.type='button'; add.className='btn btn-ghost btn-sm add-img'; add.textContent='+ إضافة صورة';
+    add.onclick=()=>{ imageRow('', container); container.insertBefore(add, null); container.appendChild(add); renumber(add); };
+    container.appendChild(add);
+    renumber(container);
+  }
+  function collectImageRows(container){
+    return [...container.querySelectorAll('.img-row .img-path')].map(i=>i.value.trim()).filter(Boolean);
+  }
+
+  // ---------- بلوك لون ----------
   function colorBlock(c){
     c = c||{name_ar:'',name_en:'',hex:'#cccccc',images:[]};
     const div=document.createElement('div');
     div.className='block color-block';
     div.innerHTML =
-      '<button class="btn btn-out btn-sm rm" type="button" onclick="this.parentNode.remove()">حذف</button>'
+      '<button class="btn btn-out btn-sm rm" type="button" onclick="this.parentNode.remove()">حذف اللون</button>'
       + '<div class="grid2"><div><label>اسم اللون (عربي)</label><input class="c_name_ar" value="'+esc(c.name_ar)+'"></div>'
       + '<div><label>اسم اللون (إنجليزي)</label><input class="c_name_en" value="'+esc(c.name_en)+'"></div></div>'
       + '<label>كود اللون</label><div class="hex-row"><input type="color" class="c_hex_picker" value="'+(c.hex||'#cccccc')+'" oninput="this.closest(\'.color-block\').querySelector(\'.c_hex\').value=this.value">'
       + '<input class="c_hex" value="'+esc(c.hex)+'" placeholder="#e8a0b0"></div>'
-      + '<label>صور اللون (مسار بكل سطر)</label><textarea class="c_images" oninput="prevImgs(this)">'+esc((c.images||[]).join('\n'))+'</textarea>'
-      + '<div class="img-preview"></div>';
+      + '<label>صور اللون</label><div class="img-rows c_images"></div>';
     $('colorsWrap').appendChild(div);
-    prevImgs(div.querySelector('.c_images'));
+    buildImageRows(div.querySelector('.c_images'), c.images);
   }
-  // ---------- بناء بلوك variant ----------
+  // ---------- بلوك variant ----------
   function variantBlock(v){
     v = v||{name_ar:'',name_en:'',price_diff:0,images:[],short_desc_ar:'',short_desc_en:'',full_desc_ar:'',full_desc_en:''};
     const div=document.createElement('div');
     div.className='block variant-block';
-    // نحفظ requires_custom_text كما هو (لو موجود) عشان ما يضيع عند الحفظ
     if(v.requires_custom_text!==undefined) div.dataset.rct = JSON.stringify(v.requires_custom_text);
     div.innerHTML =
-      '<button class="btn btn-out btn-sm rm" type="button" onclick="this.parentNode.remove()">حذف</button>'
+      '<button class="btn btn-out btn-sm rm" type="button" onclick="this.parentNode.remove()">حذف الخيار</button>'
       + '<div class="grid2"><div><label>الاسم (عربي)</label><input class="v_name_ar" value="'+esc(v.name_ar)+'"></div>'
       + '<div><label>الاسم (إنجليزي)</label><input class="v_name_en" value="'+esc(v.name_en)+'"></div></div>'
-      + '<label>فرق السعر عن السعر الأساسي (د.أ)</label><input type="number" step="0.01" class="v_price_diff" value="'+(Number(v.price_diff)||0)+'">'
-      + '<label>صور الخيار (مسار بكل سطر)</label><textarea class="v_images" oninput="prevImgs(this)">'+esc((v.images||[]).join('\n'))+'</textarea>'
-      + '<div class="img-preview"></div>'
+      + '<label>فرق السعر عن الأساسي (د.أ)</label><input type="number" step="0.01" class="v_price_diff" value="'+(Number(v.price_diff)||0)+'">'
+      + '<label>صور الخيار</label><div class="img-rows v_images"></div>'
       + '<div class="grid2"><div><label>وصف قصير (عربي)</label><textarea class="v_short_ar">'+esc(v.short_desc_ar)+'</textarea></div>'
       + '<div><label>وصف قصير (إنجليزي)</label><textarea class="v_short_en">'+esc(v.short_desc_en)+'</textarea></div></div>'
       + '<div class="grid2"><div><label>وصف كامل (عربي)</label><textarea class="v_full_ar">'+esc(v.full_desc_ar)+'</textarea></div>'
       + '<div><label>وصف كامل (إنجليزي)</label><textarea class="v_full_en">'+esc(v.full_desc_en)+'</textarea></div></div>';
     $('variantsWrap').appendChild(div);
-    prevImgs(div.querySelector('.v_images'));
-  }
-  // معاينة صور من textarea
-  function prevImgs(ta){
-    const wrap=ta.parentNode.querySelector('.img-preview');
-    if(!wrap) return;
-    const paths=ta.value.split('\n').map(s=>s.trim()).filter(Boolean);
-    wrap.innerHTML=paths.map(p=>'<img src="'+esc(p)+'" onerror="this.style.visibility=\'hidden\'">').join('');
+    buildImageRows(div.querySelector('.v_images'), v.images);
   }
 
   // ---------- فتح التعديل ----------
@@ -313,9 +412,9 @@
     $('f_short_en').value = p.short_desc_en||'';
     $('f_full_ar').value = p.full_desc_ar||'';
     $('f_full_en').value = p.full_desc_en||'';
-    $('f_main_image').value = p.main_image||'';
     $('f_active').checked = !!p.is_active;
-    previewMain();
+    // صورة رئيسية (للمنتجات بدون ألوان/خيارات)
+    buildImageRows($('mainImageRows'), p.main_image ? [p.main_image] : []);
     // ألوان
     $('colorsWrap').innerHTML='';
     (Array.isArray(p.colors)?p.colors:[]).forEach(c=>colorBlock(c));
@@ -325,21 +424,24 @@
     $('editMsg').className='msg';
     $('listView').style.display='none';
     $('editView').style.display='block';
+    document.body.classList.add('editing');
     window.scrollTo(0,0);
   }
   function backToList(){
     $('editView').style.display='none';
     $('listView').style.display='block';
+    document.body.classList.remove('editing');
     currentId=null;
+    window.scrollTo(0,0);
   }
 
-  // ---------- جمع الألوان والـ variants من الواجهة ----------
+  // ---------- جمع البيانات ----------
   function collectColors(){
     return [...document.querySelectorAll('.color-block')].map(b=>({
       name_ar: b.querySelector('.c_name_ar').value.trim(),
       name_en: b.querySelector('.c_name_en').value.trim(),
       hex: b.querySelector('.c_hex').value.trim(),
-      images: b.querySelector('.c_images').value.split('\n').map(s=>s.trim()).filter(Boolean)
+      images: collectImageRows(b.querySelector('.c_images'))
     }));
   }
   function collectVariants(){
@@ -348,7 +450,7 @@
         name_ar: b.querySelector('.v_name_ar').value.trim(),
         name_en: b.querySelector('.v_name_en').value.trim(),
         price_diff: parseFloat(b.querySelector('.v_price_diff').value)||0,
-        images: b.querySelector('.v_images').value.split('\n').map(s=>s.trim()).filter(Boolean),
+        images: collectImageRows(b.querySelector('.v_images')),
         short_desc_ar: b.querySelector('.v_short_ar').value.trim(),
         short_desc_en: b.querySelector('.v_short_en').value.trim(),
         full_desc_ar: b.querySelector('.v_full_ar').value.trim(),
@@ -362,6 +464,15 @@
   // ---------- حفظ ----------
   async function saveProduct(){
     if(currentId==null) return;
+    const colors = collectColors();
+    const variants = collectVariants();
+    const mainImgs = collectImageRows($('mainImageRows'));
+    // الصورة الأساسية: لو في ألوان => أول صورة بأول لون، لو في variants => أول صورة بأول خيار، وإلا أول صورة رئيسية
+    let main = '';
+    if(colors[0] && colors[0].images[0]) main = colors[0].images[0];
+    else if(variants[0] && variants[0].images[0]) main = variants[0].images[0];
+    else main = mainImgs[0] || '';
+
     const updates = {
       name_ar: $('f_name_ar').value.trim(),
       name_en: $('f_name_en').value.trim(),
@@ -371,9 +482,9 @@
       short_desc_en: $('f_short_en').value.trim(),
       full_desc_ar: $('f_full_ar').value.trim(),
       full_desc_en: $('f_full_en').value.trim(),
-      main_image: $('f_main_image').value.trim(),
-      colors: collectColors(),
-      variants: collectVariants(),
+      main_image: main,
+      colors: colors,
+      variants: variants,
       is_active: $('f_active').checked,
       updated_at: new Date().toISOString()
     };
@@ -392,10 +503,12 @@
   $('password').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
   $('logoutBtn').addEventListener('click', doLogout);
   $('backBtn').addEventListener('click', backToList);
+  $('fabBack').addEventListener('click', backToList);
   $('cancelBtn').addEventListener('click', backToList);
   $('saveBtn').addEventListener('click', saveProduct);
   $('addColorBtn').addEventListener('click', ()=>colorBlock());
   $('addVariantBtn').addEventListener('click', ()=>variantBlock());
+  $('reorderBtn').addEventListener('click', toggleReorder);
 
   (async()=>{ const {data}=await client.auth.getSession(); if(data.session) enterDashboard(data.session.user); })();
 </script>
