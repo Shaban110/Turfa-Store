@@ -65,7 +65,9 @@ async function loadProductsFromSupabase() {
         if (TURFA_SUPABASE_KEY.includes('ضع_')) throw new Error('لم يتم وضع الـ Publishable key');
         const client = supabase.createClient(TURFA_SUPABASE_URL, TURFA_SUPABASE_KEY);
         const { data, error } = await client
-            .from('products').select('*').order('sort_order', { ascending: true });
+            .from('products').select('*')
+            .eq('is_active', true)
+            .order('sort_order', { ascending: true });
         if (error) throw error;
         if (!data || !data.length) throw new Error('لا توجد منتجات');
         const ar = [], en = [];
