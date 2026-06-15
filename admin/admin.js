@@ -237,7 +237,7 @@ function openEdit(id){
   $('f_full_en').value = p.full_desc_en||'';
   $('f_active').checked = !!p.is_active;
   $('deleteBtn').style.display='block';
-  buildImageRows($('mainImageRows'), p.main_image ? [p.main_image] : []);
+  buildImageRows($('mainImageRows'), (Array.isArray(p.images)&&p.images.length) ? p.images : (p.main_image ? [p.main_image] : []));
   $('colorsWrap').innerHTML='';
   (Array.isArray(p.colors)?p.colors:[]).forEach(c=>colorBlock(c));
   $('variantsWrap').innerHTML='';
@@ -291,6 +291,8 @@ async function saveProduct(){
   if(colors[0] && colors[0].images[0]) main = colors[0].images[0];
   else if(variants[0] && variants[0].images[0]) main = variants[0].images[0];
   else main = mainImgs[0] || '';
+  // معرض الصور: للمنتجات البسيطة = كل الصور؛ للي إلها ألوان/خيارات = الرئيسية فقط (المعرض يجي منهم)
+  const images = (colors.length || variants.length) ? (main ? [main] : []) : mainImgs;
 
   const data = {
     name_ar: $('f_name_ar').value.trim(),
@@ -302,6 +304,7 @@ async function saveProduct(){
     full_desc_ar: $('f_full_ar').value.trim(),
     full_desc_en: $('f_full_en').value.trim(),
     main_image: main,
+    images: images,
     colors: colors,
     variants: variants,
     is_active: $('f_active').checked,

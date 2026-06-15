@@ -17,18 +17,23 @@ async function showProductDetails(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
-    const dynamicGallery = [];
-    const lastDotIndex = product.image.lastIndexOf('.');
-    const baseImagePath = product.image.substring(0, lastDotIndex);
-    const extension = product.image.substring(lastDotIndex);
-
-    for (let i = 98; i <= 122; i++) {
-        const char = String.fromCharCode(i);
-        const imageUrl = `${baseImagePath}${char}${extension}`;
-        if (await checkImageExists(imageUrl)) {
-            dynamicGallery.push(imageUrl);
-        } else {
-            break; 
+const dynamicGallery = [];
+    // لو الصور موجودة صراحةً بقاعدة البيانات، استخدمها مباشرة
+    if (product.images && product.images.length) {
+        product.images.slice(1).forEach(img => dynamicGallery.push(img));
+    } else {
+        // طريقة قديمة احتياطية: تخمين أسماء الصور
+        const lastDotIndex = product.image.lastIndexOf('.');
+        const baseImagePath = product.image.substring(0, lastDotIndex);
+        const extension = product.image.substring(lastDotIndex);
+        for (let i = 98; i <= 122; i++) {
+            const char = String.fromCharCode(i);
+            const imageUrl = `${baseImagePath}${char}${extension}`;
+            if (await checkImageExists(imageUrl)) {
+                dynamicGallery.push(imageUrl);
+            } else {
+                break;
+            }
         }
     }
 

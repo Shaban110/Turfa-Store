@@ -1,10 +1,6 @@
 // =================================================================
 // 🟢 turfa-supabase.js — جلب المنتجات من قاعدة البيانات Supabase
 // =================================================================
-// هذا الملف يجلب المنتجات من Supabase ويحوّلها لنفس شكل data.js
-// بحيث باقي الموقع يشتغل بدون أي تغيير.
-// لو فشل الاتصال لأي سبب، يرجع الموقع تلقائياً لبيانات data.js (نسخة احتياطية).
-// =================================================================
 
 // ====================================================
 // 🟢 عدّل سطر المفتاح فقط — الرابط جاهز:
@@ -13,10 +9,8 @@ const TURFA_SUPABASE_URL = "https://fneboifhuwrhkmdtjswh.supabase.co";
 const TURFA_SUPABASE_KEY = "sb_publishable_e_-aX1xnWnfGJXWvPbObcg_Dbt6vTNr";
 // ====================================================
 
-// --- تحويل صف من قاعدة البيانات لشكل منتج يفهمه الموقع ---
 function turfaMapRow(row, lang) {
     const isAr = lang === 'ar';
-
     const p = {
         id: row.id,
         name: isAr ? row.name_ar : (row.name_en || row.name_ar),
@@ -28,7 +22,11 @@ function turfaMapRow(row, lang) {
         hasSizes: !!row.has_sizes
     };
 
-    // الألوان (إن وُجدت)
+    // معرض الصور الصريح (للمنتجات البسيطة) — يُستخدم بدل تخمين الأسماء
+    if (Array.isArray(row.images) && row.images.length) {
+        p.images = row.images;
+    }
+
     const colors = Array.isArray(row.colors) ? row.colors : [];
     if (colors.length) {
         p.colors = colors.map(c => ({
@@ -38,7 +36,6 @@ function turfaMapRow(row, lang) {
         }));
     }
 
-    // الـ variants مثل ماريو/واريو (إن وُجدت)
     const variants = Array.isArray(row.variants) ? row.variants : [];
     if (variants.length) {
         p.variants = variants.map(v => {
@@ -49,7 +46,6 @@ function turfaMapRow(row, lang) {
                 shortDesc: isAr ? v.short_desc_ar : (v.short_desc_en || v.short_desc_ar),
                 fullDesc: isAr ? v.full_desc_ar : (v.full_desc_en || v.full_desc_ar)
             };
-            // نحافظ على إعدادات النص المخصّص كما هي (كائن أو true)
             if (v.requires_custom_text !== undefined && v.requires_custom_text !== false) {
                 vo.requiresCustomText = v.requires_custom_text;
             }
@@ -57,43 +53,29 @@ function turfaMapRow(row, lang) {
         });
     }
 
-    // الأعلام الخاصة بالمنتجات المخصّصة
     if (row.is_custom) { p.requiresCustomForm = true; p.isCustomDesign = true; }
     if (row.requires_wedding_form) { p.requiresWeddingForm = true; }
     if (row.requires_custom_text) { p.requiresCustomText = true; }
-
     return p;
 }
 
-// --- الجلب من Supabase وتعبئة المصفوفتين العربية/الإنجليزية ---
 async function loadProductsFromSupabase() {
     try {
         if (typeof supabase === 'undefined') throw new Error('مكتبة Supabase لم تُحمّل');
         if (TURFA_SUPABASE_KEY.includes('ضع_')) throw new Error('لم يتم وضع الـ Publishable key');
-
         const client = supabase.createClient(TURFA_SUPABASE_URL, TURFA_SUPABASE_KEY);
         const { data, error } = await client
-            .from('products')
-            .select('*')
-            .order('sort_order', { ascending: true });
-
+            .from('products').select('*').order('sort_order', { ascending: true });
         if (error) throw error;
         if (!data || !data.length) throw new Error('لا توجد منتجات');
-
         const ar = [], en = [];
-        data.forEach(row => {
-            ar.push(turfaMapRow(row, 'ar'));
-            en.push(turfaMapRow(row, 'en'));
-        });
-
-        // نستبدل بيانات data.js ببيانات قاعدة البيانات
+        data.forEach(row => { ar.push(turfaMapRow(row, 'ar')); en.push(turfaMapRow(row, 'en')); });
         allProductsArabic = ar;
         allProductsEnglish = en;
-
         console.log(`✅ تم تحميل ${ar.length} منتج من Supabase`);
         return true;
     } catch (e) {
         console.warn('⚠️ تعذّر الجلب من Supabase — سيتم استخدام بيانات data.js الاحتياطية.', e);
-        return false; // الموقع يكمل ببيانات data.js
+        return false;
     }
 }
