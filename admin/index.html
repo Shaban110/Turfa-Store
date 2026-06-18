@@ -9,8 +9,11 @@
 <body>
 
 <div id="loginWrap" class="login-wrap">
+  <div class="login-orb orb1"></div>
+  <div class="login-orb orb2"></div>
+  <div class="login-orb orb3"></div>
   <div class="login-card">
-    <div style="text-align:center"><span class="badge"><span class="dot"></span> متجر طُرفة</span></div>
+    <div style="text-align:center"><span class="badge badge-shine"><span class="dot"></span> متجر طُرفة</span></div>
     <h1>لوحة التحكم</h1>
     <p class="sub">سجّل دخولك للمتابعة</p>
     <label for="email">البريد الإلكتروني</label>
@@ -31,6 +34,32 @@
     </div>
   </div>
   <div class="container">
+    <div class="tabs">
+      <button class="tab active" id="tabProducts">🛍️ المنتجات</button>
+      <button class="tab" id="tabCoupons">🎟️ الكوبونات</button>
+    </div>
+
+    <div id="couponsView" style="display:none">
+      <div class="coupon-add-card">
+        <h3>➕ إضافة كوبون جديد</h3>
+        <div class="grid2">
+          <div><label>الكود</label><input type="text" id="c_code" placeholder="WELCOME10"></div>
+          <div><label>نسبة الخصم %</label><input type="number" id="c_percent" min="1" max="100" placeholder="10"></div>
+        </div>
+        <div class="grid2">
+          <div><label>أقل قيمة طلب (د.أ) — اختياري</label><input type="number" id="c_min" min="0" step="0.01" placeholder="0"></div>
+          <div><label>أقصى خصم (د.أ) — اختياري</label><input type="number" id="c_max" min="0" step="0.01" placeholder="بدون حد"></div>
+        </div>
+        <div class="grid2">
+          <div><label>تاريخ الانتهاء — اختياري</label><input type="date" id="c_expires"></div>
+          <div><label>حد الاستخدامات — اختياري</label><input type="number" id="c_limit" min="1" placeholder="بدون حد"></div>
+        </div>
+        <button class="btn" id="addCouponBtn" style="margin-top:14px">إضافة الكوبون</button>
+        <div id="couponMsg" class="msg"></div>
+      </div>
+      <div id="couponsList" class="coupons-list"></div>
+      <div id="couponsLoading" class="loading">جاري تحميل الكوبونات...</div>
+    </div>
     <div id="listView">
       <div class="toolbar">
         <input type="search" id="searchBox" placeholder="ابحث عن منتج...">

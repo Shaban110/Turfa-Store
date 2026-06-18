@@ -103,3 +103,130 @@ body.reordering .card .move-col{display:flex}
 .fab-back:hover{background:var(--green-light)}
 body.editing .fab-back{display:flex}
 @media(max-width:560px){ .grid2{grid-template-columns:1fr} }
+
+/* ===== التبويبات ===== */
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tab{background:#fff;border:1.5px solid var(--line);color:var(--muted);border-radius:11px;padding:9px 18px;font-weight:700;font-family:inherit;cursor:pointer;font-size:.92rem;transition:.2s}
+.tab:hover{border-color:var(--gold)}
+.tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* ===== الكوبونات ===== */
+.coupon-add-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px}
+.coupon-add-card h3{color:var(--green);font-size:1.05rem;margin-bottom:10px}
+.coupons-list{display:grid;gap:10px}
+.coupon-row{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.coupon-row.off{opacity:.6}
+.coupon-main{flex:1;min-width:160px}
+.coupon-code{font-weight:800;color:var(--green);font-size:1.05rem;letter-spacing:.5px}
+.coupon-detail{font-size:.82rem;color:var(--muted);margin-top:2px}
+.coupon-percent{background:rgba(201,168,76,.15);color:#8a6d1f;font-weight:800;padding:4px 12px;border-radius:999px;font-size:.9rem}
+.coupon-status{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px}
+.coupon-status.on{background:rgba(31,122,77,.12);color:var(--ok)}
+.coupon-status.offb{background:rgba(192,57,43,.1);color:var(--err)}
+.coupon-actions{display:flex;gap:8px}
+@media(max-width:520px){ .coupon-actions{width:100%} .coupon-actions .btn{flex:1} }
+
+
+/* ===== أنيميشن شاشة الدخول الفخمة ===== */
+@keyframes turfaGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes turfaCardIn { 0%{opacity:0;transform:translateY(40px) scale(.96)} 100%{opacity:1;transform:translateY(0) scale(1)} }
+@keyframes turfaFadeUp { 0%{opacity:0;transform:translateY(14px)} 100%{opacity:1;transform:translateY(0)} }
+@keyframes turfaBadgePop { 0%{opacity:0;transform:scale(.6) rotate(-8deg)} 60%{transform:scale(1.08) rotate(2deg)} 100%{opacity:1;transform:scale(1) rotate(0)} }
+@keyframes turfaDotPulse { 0%,100%{box-shadow:0 0 0 0 rgba(245,215,110,.6)} 50%{box-shadow:0 0 0 7px rgba(245,215,110,0)} }
+@keyframes turfaShine { 0%{transform:translateX(-120%)} 100%{transform:translateX(220%)} }
+@keyframes turfaShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-9px)} 40%,80%{transform:translateX(9px)} }
+@keyframes turfaFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+/* خلفية متدرّجة فخمة متحركة */
+.login-wrap{
+  background:linear-gradient(135deg, #001a10 0%, #002617 35%, #0a4a32 70%, #14301f 100%) !important;
+  background-size:300% 300% !important;
+  animation:turfaGradient 16s ease infinite;
+  position:relative;overflow:hidden;
+}
+/* دوائر ذهبية طافية بالخلفية */
+.login-wrap::before,.login-wrap::after{
+  content:"";position:absolute;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle, rgba(201,168,76,.22), transparent 70%);
+  animation:turfaFloat 9s ease-in-out infinite;
+}
+.login-wrap::before{width:340px;height:340px;top:-90px;inset-inline-start:-80px}
+.login-wrap::after{width:280px;height:280px;bottom:-70px;inset-inline-end:-60px;animation-delay:2s}
+
+/* الكرت: زجاجي فخم + ظهور حركي */
+.login-card{
+  position:relative;z-index:2;
+  background:rgba(255,253,248,.97) !important;
+  border:1px solid rgba(201,168,76,.35) !important;
+  box-shadow:0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.05) inset !important;
+  backdrop-filter:blur(6px);
+  animation:turfaCardIn .7s cubic-bezier(.18,.89,.32,1.28) both;
+}
+/* شريط ذهبي علوي على الكرت */
+.login-card::before{
+  content:"";position:absolute;top:0;inset-inline:0;height:4px;border-radius:18px 18px 0 0;
+  background:linear-gradient(90deg, var(--gold), #f5d76e, var(--gold));
+}
+
+/* الشعار */
+.login-card .badge{animation:turfaBadgePop .8s cubic-bezier(.18,.89,.32,1.28) .15s both;
+  box-shadow:0 8px 22px rgba(0,38,23,.3)}
+.login-card .badge .dot{animation:turfaDotPulse 2.2s ease-in-out infinite 1s}
+
+/* ظهور تدريجي للعناصر */
+.login-card h1{animation:turfaFadeUp .6s ease .3s both}
+.login-card .sub{animation:turfaFadeUp .6s ease .42s both}
+.login-card label[for=email],.login-card #email{animation:turfaFadeUp .6s ease .52s both}
+.login-card label[for=password],.login-card #password{animation:turfaFadeUp .6s ease .62s both}
+.login-card #loginBtn{animation:turfaFadeUp .6s ease .72s both}
+
+/* الحقول: تفاعل أفخم */
+.login-card input{transition:border-color .25s, box-shadow .25s, transform .15s}
+.login-card input:focus{
+  border-color:var(--gold) !important;
+  box-shadow:0 0 0 4px rgba(201,168,76,.18) !important;
+  transform:translateY(-1px);
+}
+
+/* الزر: لمعة + رفعة عند المرور */
+.login-card #loginBtn{position:relative;overflow:hidden;
+  background:linear-gradient(135deg, var(--green), var(--green-light)) !important;
+  box-shadow:0 10px 24px rgba(0,38,23,.28);transition:transform .18s, box-shadow .18s}
+.login-card #loginBtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,38,23,.36)}
+.login-card #loginBtn:active:not(:disabled){transform:translateY(0)}
+.login-card #loginBtn::after{
+  content:"";position:absolute;top:0;inset-inline-start:0;width:45%;height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+  transform:translateX(-120%);
+}
+.login-card #loginBtn:hover:not(:disabled)::after{animation:turfaShine .8s ease}
+
+/* اهتزاز عند الخطأ (يضاف الكلاس من admin.js) */
+.login-card.shake{animation:turfaShake .45s ease}
+
+
+/* ===== أوربز ذهبية طافية (تكملة جمالية) ===== */
+.login-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0;
+  filter:blur(2px);opacity:.55;
+  background:radial-gradient(circle at 35% 35%, rgba(245,215,110,.55), rgba(201,168,76,.18) 60%, transparent 72%)}
+.login-orb.orb1{width:120px;height:120px;top:14%;inset-inline-end:12%;animation:turfaOrb 11s ease-in-out infinite}
+.login-orb.orb2{width:70px;height:70px;bottom:18%;inset-inline-start:14%;animation:turfaOrb 8s ease-in-out infinite 1.5s}
+.login-orb.orb3{width:46px;height:46px;top:26%;inset-inline-start:24%;animation:turfaOrb 13s ease-in-out infinite .7s}
+@keyframes turfaOrb{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.45}
+  50%{transform:translate(14px,-22px) scale(1.18);opacity:.7}
+}
+
+/* ===== لمعة تمر على الشعار ===== */
+.badge-shine{position:relative;overflow:hidden}
+.badge-shine::after{content:"";position:absolute;top:0;inset-inline-start:0;width:50%;height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
+  transform:translateX(-160%);animation:turfaBadgeShine 3.2s ease-in-out infinite 1.2s}
+@keyframes turfaBadgeShine{0%{transform:translateX(-160%)}55%,100%{transform:translateX(260%)}}
+
+/* لمسة أفخم: توهّج ذهبي خفيف حول الكرت */
+.login-card{animation:turfaCardIn .7s cubic-bezier(.18,.89,.32,1.28) both, turfaCardGlow 4.5s ease-in-out infinite 1s !important}
+@keyframes turfaCardGlow{
+  0%,100%{box-shadow:0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(201,168,76,.15) inset}
+  50%{box-shadow:0 24px 70px rgba(0,0,0,.4), 0 0 26px rgba(201,168,76,.22), 0 0 0 1px rgba(201,168,76,.35) inset}
+}

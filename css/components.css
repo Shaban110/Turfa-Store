@@ -5215,3 +5215,55 @@ html[data-theme='dark'] .variant-custom-text-hint {
         justify-content: flex-start;
     }
 }
+
+/* ===== كوبون الخصم ===== */
+.checkout-coupon{margin:10px 0;padding:10px 0;border-top:1px dashed #e2ddd0}
+.checkout-coupon-input{display:flex;gap:8px}
+.checkout-coupon-input input{flex:1;padding:9px 12px;border:1.5px solid #e2ddd0;border-radius:9px;font-family:inherit}
+.checkout-coupon-input button{background:#002617;color:#fff;border:none;border-radius:9px;padding:0 18px;font-weight:700;cursor:pointer;font-family:inherit}
+.checkout-coupon-input button:hover{background:#0a4a32}
+.checkout-coupon-msg{font-size:.82rem;margin-top:6px;min-height:1em}
+.checkout-coupon-msg.ok{color:#1f7a4d}
+.checkout-coupon-msg.err{color:#c0392b}
+.checkout-summary-discount{color:#1f7a4d;font-weight:700}
+
+
+/* بانر التوصيل المجاني (عند التأهّل) */
+.checkout-shipping-banner.free-ship{background:rgba(31,122,77,.1);border-color:rgba(31,122,77,.35)}
+.checkout-shipping-banner.free-ship .checkout-shipping-icon{background:#1f7a4d}
+.checkout-shipping-banner.free-ship strong{color:#1f7a4d}
+
+
+/* 🚚 رسالة التوصيل المجاني داخل السلة */
+.cart-free-ship{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);color:#8a6d1f;border-radius:10px;padding:9px 13px;font-size:.85rem;font-weight:600;text-align:center;margin-bottom:10px}
+.cart-free-ship.qualified{background:rgba(31,122,77,.1);border-color:rgba(31,122,77,.35);color:#1f7a4d}
+.cart-free-ship strong{font-weight:800}
+
+/* ===== تحسين أزرار الكمية بالسلة (شكل موحّد أنظف) ===== */
+.item-quantity{
+    display:inline-flex;align-items:center;
+    border:1.5px solid var(--border,#e2ddd0);
+    border-radius:10px;overflow:hidden;background:#fff;
+}
+.item-quantity .quantity-btn{
+    width:34px;height:34px;
+    border:none !important;border-radius:0 !important;
+    background:transparent !important;color:var(--primary,#002617) !important;
+    font-size:1.2rem;font-weight:700;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .15s ease !important;transform:none !important;
+}
+.item-quantity .quantity-btn:hover{
+    background:var(--primary,#002617) !important;color:#fff !important;
+    transform:none !important;border-color:transparent !important;
+}
+.item-quantity .quantity-btn:active{transform:none !important;}
+.item-quantity span{
+    min-width:38px;text-align:center;font-weight:700;
+    color:var(--primary,#002617);font-size:.95rem;
+    border-inline:1px solid var(--border,#e2ddd0);align-self:stretch;
+    display:flex;align-items:center;justify-content:center;
+}
+html[data-theme='dark'] .item-quantity{background:rgba(255,255,255,.07);border-color:rgba(245,215,110,.3)}
+html[data-theme='dark'] .item-quantity span{color:#f5d76e;border-inline-color:rgba(245,215,110,.25)}
+html[data-theme='dark'] .item-quantity .quantity-btn{color:#f5d76e !important}

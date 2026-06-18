@@ -16,13 +16,15 @@ let currentId = null;
 let reorderMode = false;
 
 // ---------- الدخول ----------
+function shakeLogin(){ const c=document.querySelector('.login-card'); if(!c) return; c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); setTimeout(()=>c.classList.remove('shake'),500); }
+
 async function doLogin(){
   const email=$('email').value.trim(), password=$('password').value;
   if(!email||!password){ msg('loginMsg','عبّي البريد وكلمة المرور.','err'); return; }
   $('loginBtn').disabled=true; $('loginBtn').textContent='جاري الدخول...';
   const { data, error } = await client.auth.signInWithPassword({ email, password });
   $('loginBtn').disabled=false; $('loginBtn').textContent='تسجيل الدخول';
-  if(error){ msg('loginMsg','البريد أو كلمة المرور غير صحيحة.','err'); return; }
+  if(error){ msg('loginMsg','البريد أو كلمة المرور غير صحيحة.','err'); shakeLogin(); return; }
   enterDashboard(data.user);
 }
 async function doLogout(){
@@ -367,5 +369,122 @@ $('addProductBtn').addEventListener('click', openNew);
 $('addColorBtn').addEventListener('click', ()=>colorBlock());
 $('addVariantBtn').addEventListener('click', ()=>variantBlock());
 $('reorderBtn').addEventListener('click', toggleReorder);
+
+
+
+// =================================================================
+// 🎟️ إدارة الكوبونات
+// =================================================================
+let allCoupons = [];
+
+function showProducts(){
+  document.getElementById('couponsView').style.display='none';
+  document.getElementById('editView').style.display='none';
+  document.getElementById('listView').style.display='block';
+  document.getElementById('tabProducts').classList.add('active');
+  document.getElementById('tabCoupons').classList.remove('active');
+  document.body.classList.remove('editing');
+}
+function showCoupons(){
+  document.getElementById('listView').style.display='none';
+  document.getElementById('editView').style.display='none';
+  document.getElementById('couponsView').style.display='block';
+  document.getElementById('tabCoupons').classList.add('active');
+  document.getElementById('tabProducts').classList.remove('active');
+  document.body.classList.remove('editing');
+  loadCoupons();
+}
+
+async function loadCoupons(){
+  const ld = document.getElementById('couponsLoading');
+  if(ld) ld.style.display='block';
+  const { data, error } = await client.from('coupons').select('*').order('created_at', { ascending:false });
+  if(ld) ld.style.display='none';
+  if(error){ alert('خطأ في تحميل الكوبونات: '+error.message); return; }
+  allCoupons = data || [];
+  renderCoupons();
+}
+
+function renderCoupons(){
+  const wrap = document.getElementById('couponsList');
+  if(!allCoupons.length){ wrap.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">ما في كوبونات بعد. ضيف واحد من فوق.</p>'; return; }
+  wrap.innerHTML = allCoupons.map(c => {
+    const details = [];
+    if(c.min_order && Number(c.min_order)>0) details.push('أقل طلب: '+c.min_order+' د.أ');
+    if(c.max_discount) details.push('أقصى خصم: '+c.max_discount+' د.أ');
+    if(c.expires_at) details.push('ينتهي: '+new Date(c.expires_at).toLocaleDateString('en-CA'));
+    if(c.usage_limit) details.push('الاستخدام: '+(c.used_count||0)+'/'+c.usage_limit);
+    return '<div class="coupon-row '+(c.is_active?'':'off')+'" data-id="'+c.id+'">'
+      + '<span class="coupon-percent">'+c.percent+'%</span>'
+      + '<div class="coupon-main"><div class="coupon-code">'+esc(c.code)+'</div>'
+      + (details.length?'<div class="coupon-detail">'+details.join(' • ')+'</div>':'')+'</div>'
+      + '<span class="coupon-status '+(c.is_active?'on':'offb')+'">'+(c.is_active?'فعّال':'موقوف')+'</span>'
+      + '<div class="coupon-actions">'
+      +   '<button class="btn btn-ghost btn-sm c-toggle" data-id="'+c.id+'">'+(c.is_active?'إيقاف':'تفعيل')+'</button>'
+      +   '<button class="btn btn-out btn-sm c-del" data-id="'+c.id+'">حذف</button>'
+      + '</div></div>';
+  }).join('');
+  document.querySelectorAll('.c-toggle').forEach(b=>b.addEventListener('click',()=>toggleCoupon(parseInt(b.dataset.id))));
+  document.querySelectorAll('.c-del').forEach(b=>b.addEventListener('click',()=>deleteCoupon(parseInt(b.dataset.id))));
+}
+
+async function addCoupon(){
+  const code = document.getElementById('c_code').value.trim().toUpperCase();
+  const percent = parseFloat(document.getElementById('c_percent').value);
+  if(!code){ msg('couponMsg','اكتب كود الكوبون.','err'); return; }
+  if(!percent || percent<=0 || percent>100){ msg('couponMsg','نسبة الخصم لازم تكون بين 1 و 100.','err'); return; }
+
+  const minV = parseFloat(document.getElementById('c_min').value);
+  const maxV = parseFloat(document.getElementById('c_max').value);
+  const expV = document.getElementById('c_expires').value;
+  const limV = parseInt(document.getElementById('c_limit').value);
+
+  const row = {
+    code: code,
+    percent: percent,
+    min_order: isNaN(minV) ? 0 : minV,
+    max_discount: isNaN(maxV) ? null : maxV,
+    expires_at: expV ? new Date(expV).toISOString() : null,
+    usage_limit: isNaN(limV) ? null : limV,
+    is_active: true
+  };
+
+  const btn = document.getElementById('addCouponBtn');
+  btn.disabled=true; btn.textContent='جاري الإضافة...';
+  const { error } = await client.from('coupons').insert(row);
+  btn.disabled=false; btn.textContent='إضافة الكوبون';
+  if(error){
+    msg('couponMsg', error.message.includes('duplicate') ? 'هذا الكود موجود مسبقاً، اختر كود ثاني.' : 'خطأ: '+error.message, 'err');
+    return;
+  }
+  // تفريغ النموذج
+  ['c_code','c_percent','c_min','c_max','c_expires','c_limit'].forEach(id=>document.getElementById(id).value='');
+  msg('couponMsg','✅ تمت إضافة الكوبون!','ok');
+  loadCoupons();
+}
+
+async function toggleCoupon(id){
+  const c = allCoupons.find(x=>x.id===id);
+  if(!c) return;
+  const { error } = await client.from('coupons').update({ is_active: !c.is_active }).eq('id', id);
+  if(error){ alert('خطأ: '+error.message); return; }
+  c.is_active = !c.is_active;
+  renderCoupons();
+}
+
+async function deleteCoupon(id){
+  const c = allCoupons.find(x=>x.id===id);
+  if(!c) return;
+  if(!confirm('متأكد إنك بدك تحذف الكوبون "'+c.code+'"؟')) return;
+  const { error } = await client.from('coupons').delete().eq('id', id);
+  if(error){ alert('خطأ: '+error.message); return; }
+  allCoupons = allCoupons.filter(x=>x.id!==id);
+  renderCoupons();
+}
+
+// ربط التبويبات والنموذج
+document.getElementById('tabProducts').addEventListener('click', showProducts);
+document.getElementById('tabCoupons').addEventListener('click', showCoupons);
+document.getElementById('addCouponBtn').addEventListener('click', addCoupon);
 
 (async()=>{ const {data}=await client.auth.getSession(); if(data.session) enterDashboard(data.session.user); })();

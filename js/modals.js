@@ -1136,6 +1136,27 @@ function addToCart(productId, selectedSizeIndex = null, finalPrice = null, selec
     });
 }
 
+// 🚚 رسالة تحفيزية للتوصيل المجاني داخل السلة
+function updateFreeShipNudge(subtotal) {
+    const el = document.getElementById('cartFreeShipNudge');
+    if (!el) return;
+    const threshold = (typeof texts.freeShippingThreshold === 'number') ? texts.freeShippingThreshold : 19.90;
+    const ar = (currentLang === 'ar');
+    if (subtotal <= 0) { el.style.display = 'none'; return; }
+    el.style.display = '';
+    if (subtotal >= threshold) {
+        el.classList.add('qualified');
+        el.innerHTML = ar ? '🎉 مبروك! طلبك مؤهّل للتوصيل المجاني'
+                          : '🎉 You qualified for free shipping!';
+    } else {
+        el.classList.remove('qualified');
+        const remaining = threshold - subtotal;
+        el.innerHTML = ar
+            ? '🚚 أضف <strong>' + formatPrice(remaining) + '</strong> وخليك مؤهّل للتوصيل المجاني!'
+            : '🚚 Add <strong>' + formatPrice(remaining) + '</strong> more for free shipping!';
+    }
+}
+
 function updateCartUI() {
     const totalCount = cart.reduce((total, item) => total + item.quantity, 0);
     cartCount.textContent = totalCount;
@@ -1146,6 +1167,7 @@ function updateCartUI() {
     if (cart.length === 0) {
         cartItems.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-cart"></i><h3>${texts.emptyCart}</h3><p>${texts.emptyCartSub}</p></div>`;
         totalPrice.textContent = formatPrice(0);
+        updateFreeShipNudge(0);
         return;
     }
     
@@ -1210,6 +1232,7 @@ function updateCartUI() {
     });
     
     totalPrice.textContent = formatPrice(total);
+    updateFreeShipNudge(total);
 if (cart.length > 0) {
     const clearAllBtn = document.createElement('button');
     clearAllBtn.textContent = '🗑️ حذف الكل';
@@ -1298,6 +1321,9 @@ function updateQuantity(cartItemId, change) {
     // تحديث الإجمالي
     const total = cart.reduce((sum, it) => sum + it.price * it.quantity, 0);
     if (totalPrice) totalPrice.textContent = formatPrice(total);
+
+    // 🚚 تحديث رسالة التوصيل المجاني عند تغيير الكمية
+    if (typeof updateFreeShipNudge === 'function') updateFreeShipNudge(total);
 
     // تحديث الـ badge على أيقونة السلة
     const totalCount = cart.reduce((sum, it) => sum + it.quantity, 0);
@@ -1464,17 +1490,64 @@ function renderCheckoutSummary() {
         itemsContainer.appendChild(div);
     });
 
-    // 🟢 رسوم التوصيل (بس لو التوصيل مفعّل)
+    // 🟢 رسوم التوصيل
     const shippingToggle = document.getElementById('checkoutShippingToggle');
-    const shippingEnabled = shippingToggle ? shippingToggle.checked : true;
-    const shippingFee = shippingEnabled ? (texts.shippingFee || 2.00) : 0;
+    // 🚚 شحن مجاني للطلبات فوق الحد (يُحسب على المجموع الفرعي قبل الكوبون)
+    const freeShipThreshold = (typeof texts.freeShippingThreshold === 'number') ? texts.freeShippingThreshold : 19.90;
+    const qualifiesFreeShip = subtotal >= freeShipThreshold;
 
-    const total = subtotal + shippingFee;
+    // عند التأهّل للتوصيل المجاني: نُجبر التوصيل ونخفي خيار الاستلام الشخصي
+    const shipToggleLabel = document.querySelector('.checkout-shipping-toggle');
+    if (qualifiesFreeShip) {
+        if (shippingToggle) shippingToggle.checked = true;
+        if (shipToggleLabel) shipToggleLabel.style.display = 'none';
+        const pickupNotice = document.getElementById('checkoutPickupNotice');
+        if (pickupNotice) pickupNotice.classList.remove('active');
+        document.querySelectorAll('.checkout-shipping-field').forEach(fl => fl.classList.remove('hidden'));
+    } else {
+        if (shipToggleLabel) shipToggleLabel.style.display = '';
+    }
+
+    const shippingEnabled = qualifiesFreeShip ? true : (shippingToggle ? shippingToggle.checked : true);
+    const shippingFee = (shippingEnabled && !qualifiesFreeShip) ? (texts.shippingFee || 2.00) : 0;
+
+    // 🎟️ خصم الكوبون (إن وُجد)
+    const discount = (typeof window.getCouponDiscount === 'function') ? window.getCouponDiscount(subtotal) : 0;
+    const total = Math.max(0, subtotal - discount) + shippingFee;
 
     document.getElementById('checkoutSubtotalValue').textContent = formatPrice(subtotal);
-    document.getElementById('checkoutShippingValue').textContent = shippingEnabled
-        ? formatPrice(shippingFee)
-        : (currentLang === 'ar' ? '— استلام شخصي' : '— Self-pickup');
+
+    const discountRow = document.getElementById('checkoutDiscountRow');
+    if (discountRow) {
+        if (discount > 0) {
+            discountRow.style.display = '';
+            const lbl = document.getElementById('checkoutDiscountLabel');
+            if (lbl && window.appliedCoupon) lbl.textContent = (currentLang === 'ar' ? 'الخصم' : 'Discount') + ' (' + window.appliedCoupon.code + ')';
+            document.getElementById('checkoutDiscountValue').textContent = '- ' + formatPrice(discount);
+        } else {
+            discountRow.style.display = 'none';
+        }
+    }
+
+    document.getElementById('checkoutShippingValue').textContent = !shippingEnabled
+        ? (currentLang === 'ar' ? '— استلام شخصي' : '— Self-pickup')
+        : (qualifiesFreeShip ? (currentLang === 'ar' ? 'مجاني 🎉' : 'Free 🎉') : formatPrice(shippingFee));
+
+    // 🎉 بانر التوصيل: تهنئة عند التأهّل للشحن المجاني، وإلا النص الافتراضي
+    const shipBanner = document.querySelector('.checkout-shipping-banner');
+    const bTitle = document.getElementById('checkoutShippingBannerTitle');
+    const bSub = document.getElementById('checkoutShippingBannerSub');
+    if (bTitle && bSub) {
+        if (qualifiesFreeShip && shippingEnabled) {
+            bTitle.textContent = currentLang === 'ar' ? '🎉 مبروك! حصلت على توصيل مجاني' : '🎉 Congrats! You got free shipping';
+            bSub.textContent = currentLang === 'ar' ? 'طلبك تأهّل للتوصيل المجاني' : 'Your order qualifies for free delivery';
+            if (shipBanner) shipBanner.classList.add('free-ship');
+        } else {
+            bTitle.textContent = texts.checkoutShippingBannerTitle;
+            bSub.textContent = texts.checkoutShippingBannerSub;
+            if (shipBanner) shipBanner.classList.remove('free-ship');
+        }
+    }
     document.getElementById('checkoutTotalValue').textContent = formatPrice(total);
 }
 
@@ -1674,12 +1747,22 @@ function submitCheckoutForm() {
         }
     });
 
+    // 🚚 شحن مجاني للطلبات فوق الحد (على المجموع الفرعي قبل الكوبون)
+    const freeShipThreshold = (typeof texts.freeShippingThreshold === 'number') ? texts.freeShippingThreshold : 19.90;
+    const qualifiesFreeShip = subtotal >= freeShipThreshold;
+    if (qualifiesFreeShip) shippingFee = 0;
+
     // الإجماليات
-    const total = subtotal + shippingFee;
+    const discount = (typeof window.getCouponDiscount === 'function') ? window.getCouponDiscount(subtotal) : 0;
+    const total = Math.max(0, subtotal - discount) + shippingFee;
     message += `━━━━━━━━━━━━━━━\n`;
     message += `${texts.waSubtotalLabel}: ${formatPrice(subtotal)}\n`;
+    if (discount > 0 && window.appliedCoupon) {
+        message += `🎟️ ${currentLang === 'ar' ? 'كوبون' : 'Coupon'} (${window.appliedCoupon.code}): - ${formatPrice(discount)}\n`;
+    }
     if (shippingEnabled) {
-        message += `${texts.waShippingLabel}: ${formatPrice(shippingFee)}\n`;
+        const shipText = qualifiesFreeShip ? (currentLang === 'ar' ? 'مجاني 🎉' : 'Free 🎉') : formatPrice(shippingFee);
+        message += `${texts.waShippingLabel}: ${shipText}\n`;
     }
     message += `*${texts.total} ${formatPrice(total)}*`;
     message += `${texts.whatsappThanks}`;

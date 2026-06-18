@@ -327,6 +327,7 @@
             </div>
             <div class="cart-items" id="cartItems"></div>
             <div class="cart-footer">
+                <div class="cart-free-ship" id="cartFreeShipNudge" style="display:none"></div>
                 <div class="total-price">الإجمالي: <span id="totalPrice">د.أ 0.00</span></div>
                 <div class="cart-footer-buttons">
                     <button class="inquiry-btn" id="inquiryBtn">
@@ -458,9 +459,21 @@
                         <span id="checkoutSummaryTitle">ملخص الطلب</span>
                     </div>
                     <div class="checkout-summary-items" id="checkoutSummaryItems"></div>
+
+                    <div class="checkout-coupon" id="checkoutCouponBox">
+                        <div class="checkout-coupon-input">
+                            <input type="text" id="checkoutCouponCode" placeholder="كود الخصم">
+                            <button type="button" id="checkoutCouponApplyBtn">تطبيق</button>
+                        </div>
+                        <div id="checkoutCouponMsg" class="checkout-coupon-msg"></div>
+                    </div>
                     <div class="checkout-summary-row">
                         <span id="checkoutSubtotalLabel">المجموع الفرعي</span>
                         <span id="checkoutSubtotalValue">د.أ 0.00</span>
+                    </div>
+                    <div class="checkout-summary-row checkout-summary-discount" id="checkoutDiscountRow" style="display:none">
+                        <span id="checkoutDiscountLabel">الخصم</span>
+                        <span id="checkoutDiscountValue">- د.أ 0.00</span>
                     </div>
                     <div class="checkout-summary-row">
                         <span id="checkoutShippingLabel">رسوم التوصيل</span>
@@ -911,6 +924,7 @@
     <script src="js/modals.js?v=2" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="js/turfa-supabase.js?v=1" defer></script>
+    <script src="js/turfa-coupon.js?v=1" defer></script>
     <!-- 4. main.js: نقطة البداية والتشغيل (لازم يكون آخر شي) -->
     <script src="js/main.js?v=2" defer></script>
 </body>
