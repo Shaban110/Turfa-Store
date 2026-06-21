@@ -5267,3 +5267,46 @@ html[data-theme='dark'] .variant-custom-text-hint {
 html[data-theme='dark'] .item-quantity{background:rgba(255,255,255,.07);border-color:rgba(245,215,110,.3)}
 html[data-theme='dark'] .item-quantity span{color:#f5d76e;border-inline-color:rgba(245,215,110,.25)}
 html[data-theme='dark'] .item-quantity .quantity-btn{color:#f5d76e !important}
+
+
+/* ============================================================
+   ✨ خلفية طُرفة — نمط هندسي عربي + توهّجات (تعمل في الوضعين)
+   ============================================================ */
+body::before{
+  content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'40'%20height%3D'40'%3E%3Cpath%20d%3D'M20%200%20L40%2020%20L20%2040%20L0%2020%20Z%20M20%208%20L32%2020%20L20%2032%20L8%2020%20Z'%20fill%3D'none'%20stroke%3D'rgba(201%2C168%2C76%2C0.5)'%20stroke-width%3D'0.8'%2F%3E%3Ccircle%20cx%3D'20'%20cy%3D'20'%20r%3D'2'%20fill%3D'rgba(201%2C168%2C76%2C0.4)'%2F%3E%3C%2Fsvg%3E");
+  background-repeat:repeat;
+  opacity:.30;
+  -webkit-mask-image:radial-gradient(circle at 50% 32%, #000 0%, transparent 78%);
+          mask-image:radial-gradient(circle at 50% 32%, #000 0%, transparent 78%);
+  animation:turfaBgDrift 60s linear infinite;
+}
+@keyframes turfaBgDrift{0%{background-position:0 0}100%{background-position:-40px -40px}}
+
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(circle at center, rgba(201,168,76,.20), transparent 65%),
+    radial-gradient(circle at center, rgba(0,38,23,.10), transparent 65%);
+  background-repeat:no-repeat;
+  background-size:760px 760px, 680px 680px;
+  background-position:8% 4%, 92% 58%;
+  animation:turfaBgGlow 24s ease-in-out infinite;
+}
+@keyframes turfaBgGlow{
+  0%,100%{background-position:8% 4%, 92% 58%}
+  50%{background-position:16% 14%, 84% 46%}
+}
+
+/* تنعيم في الوضع الغامق */
+html[data-theme='dark'] body::before{opacity:.22}
+html[data-theme='dark'] body::after{
+  background:
+    radial-gradient(circle at center, rgba(201,168,76,.16), transparent 65%),
+    radial-gradient(circle at center, rgba(245,215,110,.06), transparent 65%);
+}
+
+/* احترام تقليل الحركة */
+@media (prefers-reduced-motion: reduce){
+  body::before, body::after{animation:none !important}
+}

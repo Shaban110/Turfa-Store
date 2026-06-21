@@ -137,96 +137,91 @@ body.editing .fab-back{display:flex}
 @keyframes turfaShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-9px)} 40%,80%{transform:translateX(9px)} }
 @keyframes turfaFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
 
-/* خلفية متدرّجة فخمة متحركة */
+/* ============================================================
+   ✨ شاشة الدخول — مفهوم "الزخرفة العربية الحيّة"
+   ============================================================ */
 .login-wrap{
-  background:linear-gradient(135deg, #001a10 0%, #002617 35%, #0a4a32 70%, #14301f 100%) !important;
-  background-size:300% 300% !important;
-  animation:turfaGradient 16s ease infinite;
+  background:
+    radial-gradient(circle at 50% 0%, #fbf8f0, #f4f1ea 60%),
+    #f4f1ea !important;
   position:relative;overflow:hidden;
 }
-/* دوائر ذهبية طافية بالخلفية */
-.login-wrap::before,.login-wrap::after{
-  content:"";position:absolute;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle, rgba(201,168,76,.22), transparent 70%);
-  animation:turfaFloat 9s ease-in-out infinite;
-}
-.login-wrap::before{width:340px;height:340px;top:-90px;inset-inline-start:-80px}
-.login-wrap::after{width:280px;height:280px;bottom:-70px;inset-inline-end:-60px;animation-delay:2s}
 
-/* الكرت: زجاجي فخم + ظهور حركي */
+/* طبقة النمط الهندسي المتحرك */
+.lp-pattern{position:absolute;inset:-20% ;z-index:0;opacity:.4;
+  -webkit-mask-image:radial-gradient(circle at 50% 45%, #000 0%, transparent 72%);
+          mask-image:radial-gradient(circle at 50% 45%, #000 0%, transparent 72%);
+  animation:lpDrift 40s linear infinite}
+.lp-pattern svg{width:160%;height:160%}
+@keyframes lpDrift{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(-40px,-40px) rotate(8deg)}}
+
+/* توهّجان لونيان ناعمان يتحركان */
+.lp-glow{position:absolute;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none}
+.lp-glow1{width:360px;height:360px;background:rgba(201,168,76,.30);top:-100px;inset-inline-start:-80px;animation:lpGlowA 13s ease-in-out infinite}
+.lp-glow2{width:300px;height:300px;background:rgba(0,38,23,.16);bottom:-90px;inset-inline-end:-70px;animation:lpGlowB 16s ease-in-out infinite}
+@keyframes lpGlowA{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,60px)}}
+@keyframes lpGlowB{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-50px)}}
+
+/* الكرت: أبيض أنيق بإطار ذهبي رفيع + دخول راقٍ */
 .login-card{
   position:relative;z-index:2;
-  background:rgba(255,253,248,.97) !important;
-  border:1px solid rgba(201,168,76,.35) !important;
-  box-shadow:0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.05) inset !important;
-  backdrop-filter:blur(6px);
-  animation:turfaCardIn .7s cubic-bezier(.18,.89,.32,1.28) both;
+  background:rgba(255,253,248,.86) !important;
+  border:1px solid rgba(201,168,76,.4) !important;
+  box-shadow:0 30px 70px -20px rgba(0,38,23,.28), 0 0 0 1px rgba(255,255,255,.6) inset !important;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-radius:22px !important;
+  animation:lpCardIn 1s cubic-bezier(.2,.8,.2,1) both !important;
 }
-/* شريط ذهبي علوي على الكرت */
-.login-card::before{
-  content:"";position:absolute;top:0;inset-inline:0;height:4px;border-radius:18px 18px 0 0;
-  background:linear-gradient(90deg, var(--gold), #f5d76e, var(--gold));
-}
+@keyframes lpCardIn{0%{opacity:0;transform:translateY(40px) scale(.96);filter:blur(6px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 
-/* الشعار */
-.login-card .badge{animation:turfaBadgePop .8s cubic-bezier(.18,.89,.32,1.28) .15s both;
-  box-shadow:0 8px 22px rgba(0,38,23,.3)}
-.login-card .badge .dot{animation:turfaDotPulse 2.2s ease-in-out infinite 1s}
+/* زاويتان ذهبيتان زخرفيتان على الكرت */
+.login-card::before,.login-card::after{
+  content:"";position:absolute;width:34px;height:34px;border:2px solid var(--gold);opacity:.7;z-index:3}
+.login-card::before{top:12px;inset-inline-start:12px;border-bottom:none;border-inline-end:none;border-radius:10px 0 0 0;
+  animation:lpCorner .6s ease .6s both}
+.login-card::after{bottom:12px;inset-inline-end:12px;border-top:none;border-inline-start:none;border-radius:0 0 10px 0;
+  animation:lpCorner .6s ease .75s both}
+@keyframes lpCorner{0%{opacity:0;transform:scale(.4)}100%{opacity:.7;transform:scale(1)}}
 
-/* ظهور تدريجي للعناصر */
-.login-card h1{animation:turfaFadeUp .6s ease .3s both}
-.login-card .sub{animation:turfaFadeUp .6s ease .42s both}
-.login-card label[for=email],.login-card #email{animation:turfaFadeUp .6s ease .52s both}
-.login-card label[for=password],.login-card #password{animation:turfaFadeUp .6s ease .62s both}
-.login-card #loginBtn{animation:turfaFadeUp .6s ease .72s both}
+/* الشعار + نبض النقطة + لمعة */
+.login-card .badge{animation:lpBadge .8s cubic-bezier(.2,.8,.2,1) .3s both;box-shadow:0 10px 26px rgba(0,38,23,.22)}
+@keyframes lpBadge{0%{opacity:0;transform:translateY(-14px) scale(.85)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.login-card .badge .dot{animation:lpDot 2s ease-in-out infinite 1s}
+@keyframes lpDot{0%,100%{box-shadow:0 0 0 0 rgba(245,215,110,.7);transform:scale(1)}50%{box-shadow:0 0 0 7px rgba(245,215,110,0);transform:scale(1.35)}}
+.badge-shine{position:relative;overflow:hidden}
+.badge-shine::after{content:"";position:absolute;top:0;inset-inline-start:0;width:55%;height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+  transform:translateX(-180%);animation:lpShine 3.4s ease-in-out infinite 1.4s}
+@keyframes lpShine{0%{transform:translateX(-180%)}55%,100%{transform:translateX(260%)}}
 
-/* الحقول: تفاعل أفخم */
-.login-card input{transition:border-color .25s, box-shadow .25s, transform .15s}
-.login-card input:focus{
-  border-color:var(--gold) !important;
-  box-shadow:0 0 0 4px rgba(201,168,76,.18) !important;
-  transform:translateY(-1px);
-}
+/* ظهور تدريجي ناعم للعناصر */
+.login-card h1{animation:lpUp .6s ease .5s both}
+.login-card .sub{animation:lpUp .6s ease .6s both}
+.login-card label[for=email],.login-card #email{animation:lpUp .6s ease .7s both}
+.login-card label[for=password],.login-card #password{animation:lpUp .6s ease .8s both}
+.login-card #loginBtn{animation:lpUp .6s ease .92s both}
+@keyframes lpUp{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
 
-/* الزر: لمعة + رفعة عند المرور */
+/* الحقول: إطار ذهبي + توهّج عند التركيز */
+.login-card input{transition:border-color .25s, box-shadow .25s, transform .15s;background:rgba(255,255,255,.75) !important}
+.login-card input:focus{border-color:var(--gold) !important;box-shadow:0 0 0 4px rgba(201,168,76,.2) !important;transform:translateY(-1px)}
+
+/* الزر: تدرّج + لمعة + رفعة */
 .login-card #loginBtn{position:relative;overflow:hidden;
   background:linear-gradient(135deg, var(--green), var(--green-light)) !important;
-  box-shadow:0 10px 24px rgba(0,38,23,.28);transition:transform .18s, box-shadow .18s}
-.login-card #loginBtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,38,23,.36)}
+  box-shadow:0 12px 26px rgba(0,38,23,.3);transition:transform .18s, box-shadow .18s;letter-spacing:.3px}
+.login-card #loginBtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 36px rgba(0,38,23,.42)}
 .login-card #loginBtn:active:not(:disabled){transform:translateY(0)}
-.login-card #loginBtn::after{
-  content:"";position:absolute;top:0;inset-inline-start:0;width:45%;height:100%;
-  background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
-  transform:translateX(-120%);
-}
-.login-card #loginBtn:hover:not(:disabled)::after{animation:turfaShine .8s ease}
+.login-card #loginBtn::after{content:"";position:absolute;top:0;inset-inline-start:0;width:45%;height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);transform:translateX(-130%)}
+.login-card #loginBtn:hover:not(:disabled)::after{animation:lpBtnShine .75s ease}
+@keyframes lpBtnShine{to{transform:translateX(260%)}}
 
-/* اهتزاز عند الخطأ (يضاف الكلاس من admin.js) */
-.login-card.shake{animation:turfaShake .45s ease}
+/* اهتزاز عند الخطأ */
+.login-card.shake{animation:lpShake .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes lpShake{10%,90%{transform:translateX(-3px)}20%,80%{transform:translateX(5px)}30%,50%,70%{transform:translateX(-10px)}40%,60%{transform:translateX(10px)}}
 
-
-/* ===== أوربز ذهبية طافية (تكملة جمالية) ===== */
-.login-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0;
-  filter:blur(2px);opacity:.55;
-  background:radial-gradient(circle at 35% 35%, rgba(245,215,110,.55), rgba(201,168,76,.18) 60%, transparent 72%)}
-.login-orb.orb1{width:120px;height:120px;top:14%;inset-inline-end:12%;animation:turfaOrb 11s ease-in-out infinite}
-.login-orb.orb2{width:70px;height:70px;bottom:18%;inset-inline-start:14%;animation:turfaOrb 8s ease-in-out infinite 1.5s}
-.login-orb.orb3{width:46px;height:46px;top:26%;inset-inline-start:24%;animation:turfaOrb 13s ease-in-out infinite .7s}
-@keyframes turfaOrb{
-  0%,100%{transform:translate(0,0) scale(1);opacity:.45}
-  50%{transform:translate(14px,-22px) scale(1.18);opacity:.7}
-}
-
-/* ===== لمعة تمر على الشعار ===== */
-.badge-shine{position:relative;overflow:hidden}
-.badge-shine::after{content:"";position:absolute;top:0;inset-inline-start:0;width:50%;height:100%;
-  background:linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
-  transform:translateX(-160%);animation:turfaBadgeShine 3.2s ease-in-out infinite 1.2s}
-@keyframes turfaBadgeShine{0%{transform:translateX(-160%)}55%,100%{transform:translateX(260%)}}
-
-/* لمسة أفخم: توهّج ذهبي خفيف حول الكرت */
-.login-card{animation:turfaCardIn .7s cubic-bezier(.18,.89,.32,1.28) both, turfaCardGlow 4.5s ease-in-out infinite 1s !important}
-@keyframes turfaCardGlow{
-  0%,100%{box-shadow:0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(201,168,76,.15) inset}
-  50%{box-shadow:0 24px 70px rgba(0,0,0,.4), 0 0 26px rgba(201,168,76,.22), 0 0 0 1px rgba(201,168,76,.35) inset}
+/* احترام تفضيل تقليل الحركة */
+@media (prefers-reduced-motion: reduce){
+  .lp-pattern,.lp-glow1,.lp-glow2,.login-card .badge .dot,.badge-shine::after{animation:none !important}
 }
